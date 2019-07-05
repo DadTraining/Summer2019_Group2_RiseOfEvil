@@ -2,7 +2,7 @@
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
 using namespace cocos2d;
-class GameMenuScene : public cocos2d::Scene
+class MainMenuScene : public cocos2d::Scene
 {
 private:
 	//bool checkTouch;
@@ -15,5 +15,5 @@ public:
 	static cocos2d::Scene* createScene();
 	virtual bool init();
 	void GoToTableChooseMode();
-	CREATE_FUNC(GameMenuScene);
+	CREATE_FUNC(MainMenuScene);
 };

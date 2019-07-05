@@ -1,11 +1,11 @@
-#include "GameMenuScene.h"
+#include "MainMenuScene.h"
 
-cocos2d::Scene * GameMenuScene::createScene()
+cocos2d::Scene * MainMenuScene::createScene()
 {
-	return GameMenuScene::create();
+	return MainMenuScene::create();
 }
 
-bool GameMenuScene::init()
+bool MainMenuScene::init()
 {
 	if (!Scene::init())
 	{
@@ -24,7 +24,7 @@ bool GameMenuScene::init()
 	//button new game
 	btnNewGame = ui::Button::create("res/Buttons/MainMenuScene/NewGameBtn.png", "res/Buttons/MainMenuScene/NewGameBtn.png");
 	btnNewGame->setPosition(Vec2((visibleSize.width / 2)+(visibleSize.width/60), (visibleSize.height / 2)-(visibleSize.height/12)));
-	btnNewGame->addTouchEventListener(CC_CALLBACK_0(GameMenuScene::GoToTableChooseMode, this));
+	btnNewGame->addTouchEventListener(CC_CALLBACK_0(MainMenuScene::GoToTableChooseMode, this));
 	this->addChild(btnNewGame);
 
 	//button Load game
@@ -41,7 +41,7 @@ bool GameMenuScene::init()
 }
 
 //function choose mode game
-void GameMenuScene::GoToTableChooseMode()
+void MainMenuScene::GoToTableChooseMode()
 {
 	
 	Size visibleSize = Director::getInstance()->getVisibleSize();
