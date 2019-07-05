@@ -18,21 +18,21 @@ bool LoadingScene::init()
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
 	//create loadingScene background
-	auto loading_bg = Sprite::create("loading_bg.jpg");
+	auto loading_bg = Sprite::create("res/Sprites/loading_bg.jpg");
 	loading_bg->setScaleX(visibleSize.width / loading_bg->getContentSize().width);
 	loading_bg->setScaleY(visibleSize.height / loading_bg->getContentSize().height);
 	loading_bg->setPosition(visibleSize.width / 2, visibleSize.height / 2);
 	addChild(loading_bg, 0);
 
 	//create loadingbar background
-	auto loadingBar_bg = Sprite::create("loadingbar_bg.png");
+	auto loadingBar_bg = Sprite::create("res/LoadingScene/loadingbar_bg.png");
 	loadingBar_bg->setScaleX(3);
 	loadingBar_bg->setScaleY(0.1);
 	loadingBar_bg->setPosition(Vec2(visibleSize.width / 2, 100));
 	addChild(loadingBar_bg);
 
 	//create loadingbar
-	static auto loadingbar = ui::LoadingBar::create("loadingbar.png");
+	static auto loadingbar = ui::LoadingBar::create("res/LoadingScene/loadingbar.png");
 	loadingbar->setScaleX(3.08);
 	loadingbar->setScaleY(0.1);
 	loadingbar->setPercent(0);
