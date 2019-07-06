@@ -1,4 +1,5 @@
 #include "MainMenuScene.h"
+#include "WorldScene1.h"
 
 cocos2d::Scene * MainMenuScene::createScene()
 {
@@ -58,6 +59,18 @@ void MainMenuScene::GoToTableChooseMode()
 	//auto fadeIn = FadeIn::create(2.0f);
 	auto sequenceBtnCompaign = Sequence::create(FadeOut::create(0), delayTime, FadeIn::create(2.0f), nullptr);
 	btnCompaign->runAction(sequenceBtnCompaign->clone());
+	btnCompaign->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type) {
+		switch (type)
+		{
+		case ui::Widget::TouchEventType::BEGAN:
+			break;
+		case ui::Widget::TouchEventType::ENDED:
+
+			Director::getInstance()->replaceScene(TransitionRotoZoom::create(0.5f, WorldScene1::createScene()));
+			break;
+		}
+
+	});
 	this->addChild(btnCompaign,1);
 	//button mode survival
 	btnSurvival = ui::Button::create("res/Buttons/MainMenuScene/SurvivalBtn.png", "res/Buttons/MainMenuScene/SurvivalBtn.png");
