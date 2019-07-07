@@ -30,7 +30,11 @@
     <ClCompile Include="..\Classes\MainMenuScene.cpp">
       <Filter>src</Filter>
     </ClCompile>
+
     <ClCompile Include="..\Classes\UpgradeScene.cpp">
+
+    <ClCompile Include="..\Classes\WorldScene1.cpp">
+
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
@@ -53,7 +57,11 @@
     <ClInclude Include="..\Classes\MainMenuScene.h">
       <Filter>src</Filter>
     </ClInclude>
+
     <ClInclude Include="..\Classes\UpgradeScene.h">
+
+    <ClInclude Include="..\Classes\WorldScene1.h">
+
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
