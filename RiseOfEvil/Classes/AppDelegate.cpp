@@ -23,7 +23,7 @@
  ****************************************************************************/
 
 #include "AppDelegate.h"
-#include "UpgradeScene.h"
+//#include "UpgradeScene.h"
 #include "LogoScene.h"
 
 
@@ -44,7 +44,7 @@ using namespace CocosDenshion;
 
 USING_NS_CC;
 
-static cocos2d::Size designResolutionSize = cocos2d::Size(1920, 1200);
+static cocos2d::Size designResolutionSize = cocos2d::Size(1200, 600);
 
 
 AppDelegate::AppDelegate()
@@ -104,7 +104,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     // create a scene. it's an autorelease object
 
-    auto scene = UpgradeScene::createScene();
+    auto scene = LogoScene::createScene();
 
     // run
     director->runWithScene(scene);
