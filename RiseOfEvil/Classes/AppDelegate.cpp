@@ -23,7 +23,6 @@
  ****************************************************************************/
 
 #include "AppDelegate.h"
-//#include "UpgradeScene.h"
 #include "LogoScene.h"
 
 
