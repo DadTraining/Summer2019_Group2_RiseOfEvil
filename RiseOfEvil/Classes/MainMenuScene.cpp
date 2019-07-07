@@ -38,7 +38,7 @@ bool MainMenuScene::init()
 	btnCredit->setPosition(Vec2((visibleSize.width / 2) + (visibleSize.width / 60), (visibleSize.height / 2) - (visibleSize.height / 2.4)));
 	log("%f", (visibleSize.width / 2) + (visibleSize.width / 85, 715));
 	this->addChild(btnCredit);
-
+	return true;
 }
 
 //function choose mode game
@@ -77,5 +77,6 @@ void MainMenuScene::GoToTableChooseMode()
 	btnSurvival->setPosition(Vec2((visibleSize.width / 2) + (visibleSize.width / 60), (visibleSize.height / 2) - (visibleSize.height / 4.0)));
 	btnSurvival->runAction(sequenceBtnCompaign->clone());
 	this->addChild(btnSurvival);
+	
 }
 

@@ -23,7 +23,7 @@
  ****************************************************************************/
 
 #include "AppDelegate.h"
-
+#include "UpgradeScene.h"
 #include "LogoScene.h"
 
 
@@ -104,7 +104,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     // create a scene. it's an autorelease object
 
-    auto scene = LogoScene::createScene();
+    auto scene = UpgradeScene::createScene();
 
     // run
     director->runWithScene(scene);
