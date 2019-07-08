@@ -23,6 +23,7 @@
  ****************************************************************************/
 
 #include "AppDelegate.h"
+#include "WorldScene1.h"
 #include "LogoScene.h"
 
 
@@ -103,7 +104,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     // create a scene. it's an autorelease object
 
-    auto scene = LogoScene::createScene();
+    auto scene = WorldScene1::createScene();
 
     // run
     director->runWithScene(scene);
