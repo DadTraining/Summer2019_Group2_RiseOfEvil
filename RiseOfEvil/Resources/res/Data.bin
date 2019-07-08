@@ -2,7 +2,7 @@
 ID: 0
 PATH: res/Sprites/LogoScene/logo_bg.png
 ID: 1
-PATH: res/Sprites/LoadingScene/loading_bg.png
+PATH: res/Sprites/LoadingScene/loading_bg.jpg
 ID: 2
 PATH: res/Sprites/LoadingScene/loadingbar_bg.png
 #BUTTONS 0
