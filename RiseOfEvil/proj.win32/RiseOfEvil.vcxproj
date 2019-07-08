@@ -154,6 +154,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\LoadingScene.cpp" />
     <ClCompile Include="..\Classes\LogoScene.cpp" />
     <ClCompile Include="..\Classes\Objects.cpp" />
+    <ClCompile Include="..\Classes\Player.cpp" />
     <ClCompile Include="..\Classes\ResourceManager.cpp" />
     <ClCompile Include="..\Classes\Tower.cpp" />
     <ClCompile Include="..\Classes\UpgradeScene.cpp" />
@@ -167,6 +168,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\LoadingScene.h" />
     <ClInclude Include="..\Classes\LogoScene.h" />
     <ClInclude Include="..\Classes\Objects.h" />
+    <ClInclude Include="..\Classes\Player.h" />
     <ClInclude Include="..\Classes\ResourceManager.h" />
     <ClInclude Include="..\Classes\Tower.h" />
     <ClInclude Include="..\Classes\UpgradeScene.h" />
