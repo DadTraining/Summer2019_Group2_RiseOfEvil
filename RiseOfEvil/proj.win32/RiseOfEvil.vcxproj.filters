@@ -9,7 +9,14 @@
     <ClCompile Include="..\Classes\UpgradeScene.cpp" />
     <ClCompile Include="..\Classes\WorldScene1.cpp" />
     <ClCompile Include="main.cpp" />
+
     <ClCompile Include="..\Classes\WorldMapScene.cpp" />
+
+    <ClCompile Include="..\Classes\ResourceManager.cpp" />
+    <ClCompile Include="..\Classes\Objects.cpp" />
+    <ClCompile Include="..\Classes\Tower.cpp" />
+    <ClCompile Include="..\Classes\Player.cpp" />
+
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h" />
@@ -20,7 +27,14 @@
     <ClInclude Include="..\Classes\UpgradeScene.h" />
     <ClInclude Include="..\Classes\WorldScene1.h" />
     <ClInclude Include="main.h" />
+
     <ClInclude Include="..\Classes\WorldMapScene.h" />
+
+    <ClInclude Include="..\Classes\ResourceManager.h" />
+    <ClInclude Include="..\Classes\Objects.h" />
+    <ClInclude Include="..\Classes\Tower.h" />
+    <ClInclude Include="..\Classes\Player.h" />
+
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc" />
