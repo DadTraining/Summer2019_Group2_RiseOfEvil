@@ -22,11 +22,9 @@ bool WorldScene1::init()
 
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
-	mTileMap = TMXTiledMap::create("res/FirstMap/untitled.tmx");
+	mTileMap = TMXTiledMap::create("res/WorldScene1/Map01.tmx");
 	mTileMap->setAnchorPoint(Vec2(0, 0));
-
 	mTileMap->setPosition(0, 0);
-
 	addChild(mTileMap, 1);
 
 	return true;
