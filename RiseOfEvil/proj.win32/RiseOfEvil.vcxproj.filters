@@ -10,6 +10,8 @@
     <ClCompile Include="..\Classes\WorldScene1.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="..\Classes\ResourceManager.cpp" />
+    <ClCompile Include="..\Classes\Objects.cpp" />
+    <ClCompile Include="..\Classes\Tower.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h" />
@@ -21,6 +23,8 @@
     <ClInclude Include="..\Classes\WorldScene1.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="..\Classes\ResourceManager.h" />
+    <ClInclude Include="..\Classes\Objects.h" />
+    <ClInclude Include="..\Classes\Tower.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc" />
