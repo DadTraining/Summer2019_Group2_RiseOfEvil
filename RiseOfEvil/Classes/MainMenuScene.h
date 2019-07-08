@@ -6,14 +6,19 @@ class MainMenuScene : public cocos2d::Scene
 {
 private:
 	//bool checkTouch;
-	ui::Button *btnNewGame;
-	ui::Button *btnLoadGame;
-	ui::Button *btnCredit;
-	ui::Button *btnCompaign;
-	ui::Button *btnSurvival;
+	ui::Button * btnNewGame;
+	ui::Button * btnLoadGame;
+	ui::Button * btnCredits;
+	ui::Button * btnCompaign;
+	ui::Button * btnSurvival;
+	ui::Button * btnBack;
 public:
 	static cocos2d::Scene* createScene();
 	virtual bool init();
-	void GoToTableChooseMode();
+	void GoToChooseMode();
+	void GoToMenu();
+	void ActionMode();
+	void ActionMenu();
+	void BackMenu();
 	CREATE_FUNC(MainMenuScene);
 };
