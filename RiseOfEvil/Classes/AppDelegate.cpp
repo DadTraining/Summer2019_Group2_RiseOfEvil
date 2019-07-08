@@ -23,7 +23,9 @@
  ****************************************************************************/
 
 #include "AppDelegate.h"
+//#include "WorldScene1.h"
 #include "LogoScene.h"
+#include "ResourceManager.h"
 
 
 // #define USE_AUDIO_ENGINE 1
@@ -101,8 +103,9 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     register_all_packages();
 
+	ResourceManager::GetInstance()->Init();
     // create a scene. it's an autorelease object
-
+	
     auto scene = LogoScene::createScene();
 
     // run
