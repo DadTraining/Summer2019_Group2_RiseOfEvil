@@ -1,4 +1,5 @@
 #include "MainMenuScene.h"
+#include "WorldScene1.h"
 
 cocos2d::Scene * MainMenuScene::createScene()
 {
@@ -76,6 +77,7 @@ void MainMenuScene::GoToChooseMode()
 	btnSurvival->runAction(MoveBy::create(1, Vec2(0, 130)));
 	btnBack->runAction(MoveBy::create(1, Vec2(0, 80)));
 	//btnBack->runAction(MoveTo::create(1, Vec2(visibleSize.width / 2, (visibleSize.height / 2) - 240.0f)));
+
 }
 
 void MainMenuScene::GoToMenu()
@@ -124,5 +126,6 @@ void MainMenuScene::BackMenu()
 	btnNewGame->setPosition(Vec2(visibleSize.width / 2, -100));
 	btnLoadGame->setPosition(Vec2(visibleSize.width / 2, -100));
 	btnCredits->setPosition(Vec2(visibleSize.width / 2, -100));
+
 }
 
