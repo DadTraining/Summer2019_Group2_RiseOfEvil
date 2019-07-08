@@ -3,7 +3,8 @@
 using namespace cocos2d;
 class Objects 
 {
-private:
+protected:
+	int m_type;
 	Sprite * m_sprite;
 	int m_hitPoint;
 	int m_minimumAtk;
@@ -11,14 +12,16 @@ private:
 	int m_armor;
 
 public:
-	virtual void Init() = 0;
+	virtual void Init(int type) = 0;
 	virtual void update(float deltaTime) = 0;
 	virtual void Attack(Objects *target) = 0;
+
 	void SetSprite(Sprite *);
 	void SetHitPoint(int);
 	void SetMinimumAtk(int);
 	void SetMaximumAtk(int);
 	void SetArmor(int);
+
 	Sprite *GetSprite();
 	int GetHitPoint();
 	int GetMinimumAtk();
