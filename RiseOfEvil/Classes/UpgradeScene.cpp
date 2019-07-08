@@ -1,6 +1,6 @@
 #include "UpgradeScene.h"
 #include "SimpleAudioEngine.h"
-#include "MainMenuScene.h"
+#include "WorldMapScene.h"
 using namespace CocosDenshion;
 
 cocos2d::Scene * UpgradeScene::createScene()
@@ -134,7 +134,7 @@ void UpgradeScene::BackToMainMenuScene()
 	auto music_begin = SimpleAudioEngine::getInstance();
 	music_begin->playEffect("res/UpgradeScene/Update_begin_sound.mp3", false);
 	//---------------------------------------------------------
-	Scene *pScene = MainMenuScene::create();
+	Scene *pScene = WorldMapScene::create();
 	TransitionFade *crssfade = TransitionFade::create(1, pScene);
 	Director::getInstance()->replaceScene(crssfade);
 }
