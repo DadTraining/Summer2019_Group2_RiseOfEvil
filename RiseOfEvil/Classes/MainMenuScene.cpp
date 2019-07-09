@@ -44,6 +44,18 @@ bool MainMenuScene::init()
 	//create Campaign button
 	btnCompaign = ui::Button::create("res/Buttons/MainMenuScene/BtnCompaign.png", "res/Buttons/MainMenuScene/BtnCompaign.png");
 	btnCompaign->setPosition(Vec2(visibleSize.width / 2, -100));
+	btnCompaign->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type) {
+		switch (type)
+		{
+		case ui::Widget::TouchEventType::BEGAN:
+			break;
+		case ui::Widget::TouchEventType::ENDED:
+
+			Director::getInstance()->replaceScene(TransitionRotoZoom::create(0.5f, WorldScene1::createScene()));
+			break;
+		}
+
+	});
 	this->addChild(btnCompaign);
 
 	//========================================================================================
