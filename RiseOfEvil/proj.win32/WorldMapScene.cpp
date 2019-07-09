@@ -1,6 +1,6 @@
+#include "WorldMapScene.h"
 #include "UpgradeScene.h"
 #include "ui/CocosGUI.h"
-#include "WorldMapScene.h"
 #include "WorldScene1.h"
 #include "MainMenuScene.h"
 
@@ -31,8 +31,9 @@ bool WorldMapScene::init()
 	backBtn->addTouchEventListener(CC_CALLBACK_0(WorldMapScene::GoToMainMenu, this));
 	addChild(backBtn);
 
-	auto upgradeBtn = ui::Button::create("res/Sprites/WorldMapScene/UpgradePressBtn.png", "res/Sprites/WorldMapScene/UpgradeNormalBtn.png");
+	auto upgradeBtn = ui::Button::create("res/Sprites/WorldMapScene/UpgradeNormalBtn.png", "res/Sprites/WorldMapScene/UpgradePressBtn.png");
 	upgradeBtn->setPosition(Vec2(visibleSize.width - 150, 50));
+	upgradeBtn->addTouchEventListener(CC_CALLBACK_0(WorldMapScene::GoToUpgrade, this));
 	addChild(upgradeBtn);
 
 
@@ -110,6 +111,13 @@ void WorldMapScene::GoToWorldScene1()
 void WorldMapScene::GoToMainMenu()
 {
 	Scene *pScene = MainMenuScene::create();
+	TransitionFade *crssfade = TransitionFade::create(0.5f, pScene);
+	Director::getInstance()->replaceScene(crssfade);
+}
+
+void WorldMapScene::GoToUpgrade()
+{
+	Scene *pScene = UpgradeScene::create();
 	TransitionFade *crssfade = TransitionFade::create(0.5f, pScene);
 	Director::getInstance()->replaceScene(crssfade);
 }

@@ -40,7 +40,6 @@ void ResourceManager::Load(string fileName)
 		f >> index;
 		f >> off;
 		f >> pathSprite;
-		log("%s", pathSprite);
 		//auto pinfo = AutoPolygon::generatePolygon(pathSprite);
 		auto sp = Sprite::create(pathSprite);
 		sp->retain();

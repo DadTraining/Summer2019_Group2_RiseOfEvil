@@ -13,4 +13,5 @@ public:
 	void add_star(Vec2 vec, int score);
 	void GoToWorldScene1();
 	void GoToMainMenu();
+	void GoToUpgrade();
 };
