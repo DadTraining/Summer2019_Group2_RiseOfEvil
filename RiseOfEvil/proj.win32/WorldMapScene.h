@@ -12,4 +12,5 @@ public:
 	CREATE_FUNC(WorldMapScene);
 	void add_star(Vec2 vec, int score);
 	void GoToWorldScene1();
+	void GoToMainMenu();
 };

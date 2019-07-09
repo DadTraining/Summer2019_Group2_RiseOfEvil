@@ -1,6 +1,6 @@
 #include "UpgradeScene.h"
 #include "SimpleAudioEngine.h"
-#include "MainMenuScene.h"
+#include "WorldMapScene.h"
 using namespace CocosDenshion;
 
 cocos2d::Scene * UpgradeScene::createScene()
@@ -29,7 +29,7 @@ bool UpgradeScene::init()
 	//Done button
 	doneBtn = ui::Button::create("res/UpgradeScene/doneButton.png");
 	doneBtn->setPosition(Vec2(visibleSize.width / 1.2, visibleSize.height / 14));
-	doneBtn->addTouchEventListener(CC_CALLBACK_0(UpgradeScene::BackToMainMenuScene, this));
+	doneBtn->addTouchEventListener(CC_CALLBACK_0(UpgradeScene::BackToWorldMapScene, this));
 	this->addChild(doneBtn, 1);
 	auto seq_show = Sequence::create(FadeOut::create(0), DelayTime::create(1), FadeIn::create(0), nullptr);
 	doneBtn->runAction(seq_show);
@@ -122,7 +122,7 @@ bool UpgradeScene::init()
 	return true;
 }
 
-void UpgradeScene::BackToMainMenuScene()
+void UpgradeScene::BackToWorldMapScene()
 {
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 	//---------------------------------------------------------
@@ -134,7 +134,7 @@ void UpgradeScene::BackToMainMenuScene()
 	auto music_begin = SimpleAudioEngine::getInstance();
 	music_begin->playEffect("res/UpgradeScene/Update_begin_sound.mp3", false);
 	//---------------------------------------------------------
-	Scene *pScene = MainMenuScene::create();
+	Scene *pScene = WorldMapScene::create();
 	TransitionFade *crssfade = TransitionFade::create(1, pScene);
 	Director::getInstance()->replaceScene(crssfade);
 }
