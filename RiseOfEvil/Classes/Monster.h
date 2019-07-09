@@ -1,41 +1,42 @@
 #pragma once
 #include "cocos2d.h"
 #include "Objects.h"
-#define NORMAL 1
-#define MAGICAN 2
-#define TANK 3
-#define SPEED 4
-#define SIEGE 5
-#define ELITE 6
-#define DARKLORD 7
+#define NORMAL_MONSTER 1
+#define MAGICAN_MONSTER 2
+#define TANK_MONSTER 3
+#define SPEED_MONSTER 4
+#define SIEGE_MONSTER 5
+#define ELITE_MONSTER 6
+#define DARKLORD  7
+#define SLOW_SPEED 50
+#define MEDIUM_SPEED 100
+#define FAST_SPEED 150
 using namespace cocos2d;
 class Monster :public Objects
 {
 private:
-	int m_type;//type monster
-	float m_movementSpeed;// speed monster
-	float m_attackSpeed; // speed attack of monster
+	int m_type;
+	float m_movementSpeed;
+	float m_attackSpeed;
 	int m_gold;
-	//vector<Skill *>m_listSkill; list skill for monster
-	int m_range; //range attack of monster
-	//Skill * special; //skill special of monster
+	//vector<Skill *>m_listSkill;
+	int m_range;
+	//Skill * speciall
 public:
-
 	Monster(Scene * scene, int type);
 	~Monster();
 	void Init();
 	void Update(float deltaTime);
 	void Move();
-	void Attack(Objects * target);
+	void Acttack(Object *);
 	void DoDead();
-
 	void SetType(int type);
-	void SetMovementSpeed(float movementSpeed);
-	void SetAttackSpeed(float attackSpeed);
-	void SetGold(int gold);
-	void SetRange(int range);
+	void SetMovementSpeed(float);
+	void SetAttackSpeed(float);
+	void SetGold(int);
+	void SetRange(int);
 	int GetType();
-	float  GetMovementSpeed();
+	float GetMovementSpeed();
 	float GetAttackSpeed();
 	int GetGold();
 	int GetRange();
