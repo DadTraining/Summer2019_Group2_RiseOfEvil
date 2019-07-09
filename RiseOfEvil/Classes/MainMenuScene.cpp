@@ -46,6 +46,7 @@ bool MainMenuScene::init()
 	btnCompaign = ui::Button::create("res/Buttons/MainMenuScene/BtnCompaign.png", "res/Buttons/MainMenuScene/BtnCompaign.png");
 	btnCompaign->setPosition(Vec2(visibleSize.width / 2, -100));
 	btnCompaign->addTouchEventListener(CC_CALLBACK_0(MainMenuScene::GoToWorldMap, this));
+
 	this->addChild(btnCompaign);
 
 	//========================================================================================
