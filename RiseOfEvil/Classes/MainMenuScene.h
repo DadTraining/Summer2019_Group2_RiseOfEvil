@@ -16,6 +16,7 @@ public:
 	static cocos2d::Scene* createScene();
 	virtual bool init();
 	void GoToChooseMode();
+	void GoToWorldMap();
 	void GoToMenu();
 	void ActionMode();
 	void ActionMenu();
