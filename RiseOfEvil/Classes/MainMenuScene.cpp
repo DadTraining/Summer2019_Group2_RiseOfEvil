@@ -1,5 +1,6 @@
 #include "MainMenuScene.h"
-#include "WorldScene1.h"
+//#include "WorldScene1.h"
+#include "WorldMapScene.h"
 
 cocos2d::Scene * MainMenuScene::createScene()
 {
@@ -44,18 +45,8 @@ bool MainMenuScene::init()
 	//create Campaign button
 	btnCompaign = ui::Button::create("res/Buttons/MainMenuScene/BtnCompaign.png", "res/Buttons/MainMenuScene/BtnCompaign.png");
 	btnCompaign->setPosition(Vec2(visibleSize.width / 2, -100));
-	btnCompaign->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type) {
-		switch (type)
-		{
-		case ui::Widget::TouchEventType::BEGAN:
-			break;
-		case ui::Widget::TouchEventType::ENDED:
+	btnCompaign->addTouchEventListener(CC_CALLBACK_0(MainMenuScene::GoToWorldMap, this));
 
-			Director::getInstance()->replaceScene(TransitionRotoZoom::create(0.5f, WorldScene1::createScene()));
-			break;
-		}
-
-	});
 	this->addChild(btnCompaign);
 
 	//========================================================================================
@@ -90,6 +81,13 @@ void MainMenuScene::GoToChooseMode()
 	btnBack->runAction(MoveBy::create(1, Vec2(0, 80)));
 	//btnBack->runAction(MoveTo::create(1, Vec2(visibleSize.width / 2, (visibleSize.height / 2) - 240.0f)));
 
+}
+
+void MainMenuScene::GoToWorldMap()
+{
+	Scene *pScene = WorldMapScene::create();
+	TransitionFade *crssfade = TransitionFade::create(1, pScene);
+	Director::getInstance()->replaceScene(crssfade);
 }
 
 void MainMenuScene::GoToMenu()
