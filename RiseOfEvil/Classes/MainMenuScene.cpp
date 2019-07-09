@@ -75,7 +75,7 @@ void MainMenuScene::GoToChooseMode()
 	btnCredits->runAction(move->clone());
 	btnCredits->runAction(fade->clone());
 	//================================================
-	log("%f", visibleSize.width);
+
 	btnCompaign->runAction(MoveBy::create(1, Vec2(0, 180)));
 	btnSurvival->runAction(MoveBy::create(1, Vec2(0, 130)));
 	btnBack->runAction(MoveBy::create(1, Vec2(0, 80)));

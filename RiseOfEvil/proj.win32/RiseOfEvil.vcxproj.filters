@@ -1,49 +1,127 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="..\Classes\AppDelegate.cpp" />
-    <ClCompile Include="..\Classes\MainMenuScene.cpp" />
-    <ClCompile Include="..\Classes\HelloWorldScene.cpp" />
-    <ClCompile Include="..\Classes\LoadingScene.cpp" />
-    <ClCompile Include="..\Classes\LogoScene.cpp" />
-    <ClCompile Include="..\Classes\UpgradeScene.cpp" />
-    <ClCompile Include="..\Classes\WorldScene1.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="..\Classes\ResourceManager.cpp" />
-    <ClCompile Include="..\Classes\Objects.cpp" />
-    <ClCompile Include="..\Classes\Tower.cpp" />
-    <ClCompile Include="..\Classes\Monster.cpp" />
-    <ClCompile Include="..\Classes\Crystal.cpp" />
-    <ClCompile Include="..\Classes\Skill.cpp" />
-    <ClCompile Include="..\Classes\Bullet.cpp" />
-    <ClCompile Include="..\Classes\Player.cpp" />
 
-    <ClCompile Include="WorldMapScene.cpp" />
+    <ClCompile Include="..\Classes\AppDelegate.cpp">
+      <Filter>res</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Bullet.cpp">
+      <Filter>res</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Crystal.cpp">
+      <Filter>res</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\HelloWorldScene.cpp">
+      <Filter>res</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\LoadingScene.cpp">
+      <Filter>res</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\LogoScene.cpp">
+      <Filter>res</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\MainMenuScene.cpp">
+      <Filter>res</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Monster.cpp">
+      <Filter>res</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Objects.cpp">
+      <Filter>res</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Player.cpp">
+      <Filter>res</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ResourceManager.cpp">
+      <Filter>res</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Skill.cpp">
+      <Filter>res</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Tower.cpp">
+      <Filter>res</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\UpgradeScene.cpp">
+      <Filter>res</Filter>
+    </ClCompile>
+    <ClCompile Include="WorldMapScene.cpp">
+      <Filter>res</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\WorldScene1.cpp">
+      <Filter>res</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>win32</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Classes\AppDelegate.h">
+      <Filter>res</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Bullet.h">
+      <Filter>res</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Crystal.h">
+      <Filter>res</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\HelloWorldScene.h">
+      <Filter>res</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\LoadingScene.h">
+      <Filter>res</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\LogoScene.h">
+      <Filter>res</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MainMenuScene.h">
+      <Filter>res</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Monster.h">
+      <Filter>res</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Objects.h">
+      <Filter>res</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Player.h">
+      <Filter>res</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ResourceManager.h">
+      <Filter>res</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Skill.h">
+      <Filter>res</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Tower.h">
+      <Filter>res</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\UpgradeScene.h">
+      <Filter>res</Filter>
+    </ClInclude>
+    <ClInclude Include="WorldMapScene.h">
+      <Filter>res</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\WorldScene1.h">
+      <Filter>res</Filter>
+    </ClInclude>
+    <ClInclude Include="main.h">
+      <Filter>win32</Filter>
+    </ClInclude>
 
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Classes\AppDelegate.h" />
-    <ClInclude Include="..\Classes\MainMenuScene.h" />
-    <ClInclude Include="..\Classes\HelloWorldScene.h" />
-    <ClInclude Include="..\Classes\LoadingScene.h" />
-    <ClInclude Include="..\Classes\LogoScene.h" />
-    <ClInclude Include="..\Classes\UpgradeScene.h" />
-    <ClInclude Include="..\Classes\WorldScene1.h" />
-    <ClInclude Include="main.h" />
-    <ClInclude Include="..\Classes\ResourceManager.h" />
-    <ClInclude Include="..\Classes\Objects.h" />
-    <ClInclude Include="..\Classes\Tower.h" />
-
-    <ClInclude Include="..\Classes\Monster.h" />
-    <ClInclude Include="..\Classes\Crystal.h" />
-    <ClInclude Include="..\Classes\Skill.h" />
-    <ClInclude Include="..\Classes\Bullet.h" />
-    <ClInclude Include="..\Classes\Player.h" />
-
-    <ClInclude Include="WorldMapScene.h" />
-
+    <Filter Include="res">
+      <UniqueIdentifier>{1b671480-0849-4843-9f13-6a6e1565abc6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="win32">
+      <UniqueIdentifier>{413cc4e0-2d6a-47a7-b064-08a54225a762}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="resource">
+      <UniqueIdentifier>{886f11f9-7fcb-4f24-9bea-622d71cdce85}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="game.rc" />
+    <ResourceCompile Include="game.rc">
+      <Filter>resource</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>
