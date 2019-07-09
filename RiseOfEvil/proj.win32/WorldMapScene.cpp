@@ -2,6 +2,7 @@
 #include "ui/CocosGUI.h"
 #include "WorldMapScene.h"
 #include "WorldScene1.h"
+#include "MainMenuScene.h"
 
 Scene * WorldMapScene::createScene()
 {
@@ -27,6 +28,7 @@ bool WorldMapScene::init()
 	auto backBtn = ui::Button::create("res/Sprites/WorldMapScene/backBtn_normal.png", "res/Sprites/WorldMapScene/backBtn_pressed.png");
 	backBtn->setScale(0.2);
 	backBtn->setPosition(Vec2(100, 50));
+	backBtn->addTouchEventListener(CC_CALLBACK_0(WorldMapScene::GoToMainMenu, this));
 	addChild(backBtn);
 
 	auto upgradeBtn = ui::Button::create("res/Sprites/WorldMapScene/UpgradePressBtn.png", "res/Sprites/WorldMapScene/UpgradeNormalBtn.png");
@@ -101,6 +103,13 @@ void WorldMapScene::add_star(Vec2 vec, int score)
 void WorldMapScene::GoToWorldScene1()
 {
 	Scene *pScene = WorldScene1::create();
-	TransitionFade *crssfade = TransitionFade::create(1, pScene);
+	TransitionFade *crssfade = TransitionFade::create(0.5f, pScene);
+	Director::getInstance()->replaceScene(crssfade);
+}
+
+void WorldMapScene::GoToMainMenu()
+{
+	Scene *pScene = MainMenuScene::create();
+	TransitionFade *crssfade = TransitionFade::create(0.5f, pScene);
 	Director::getInstance()->replaceScene(crssfade);
 }
