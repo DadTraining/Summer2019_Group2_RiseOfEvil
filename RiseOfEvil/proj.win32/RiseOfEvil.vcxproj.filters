@@ -43,14 +43,14 @@
     <ClCompile Include="..\Classes\UpgradeScene.cpp">
       <Filter>res</Filter>
     </ClCompile>
-    <ClCompile Include="WorldMapScene.cpp">
-      <Filter>res</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\WorldScene1.cpp">
       <Filter>res</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\WorldMapScene.cpp">
+      <Filter>res</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -96,14 +96,14 @@
     <ClInclude Include="..\Classes\UpgradeScene.h">
       <Filter>res</Filter>
     </ClInclude>
-    <ClInclude Include="WorldMapScene.h">
-      <Filter>res</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\WorldScene1.h">
       <Filter>res</Filter>
     </ClInclude>
     <ClInclude Include="main.h">
       <Filter>win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\WorldMapScene.h">
+      <Filter>res</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
