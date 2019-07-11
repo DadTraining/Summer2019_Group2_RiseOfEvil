@@ -23,7 +23,7 @@
  ****************************************************************************/
 
 #include "AppDelegate.h"
-//#include "WorldMapScene.h"
+
 #include "LogoScene.h"
 #include "ResourceManager.h"
 
