@@ -46,7 +46,6 @@
     <ClCompile Include="main.cpp">
       <Filter>win32</Filter>
     </ClCompile>
-
     <ClCompile Include="..\Classes\Monster.cpp">
       <Filter>res</Filter>
     <ClCompile Include="..\Classes\WorldMapScene.cpp">
@@ -99,11 +98,9 @@
     <ClInclude Include="main.h">
       <Filter>win32</Filter>
     </ClInclude>
-
     <ClInclude Include="..\Classes\Monster.h">
       <Filter>res</Filter>
     <ClInclude Include="..\Classes\WorldMapScene.h">
-
       <Filter>res</Filter>
     </ClInclude>
   </ItemGroup>
