@@ -10,4 +10,6 @@ public:
 	virtual bool init();
 	void update(float deltaTime);
 	CREATE_FUNC(WorldScene1);
+	void FadeinPause();
+	void FadeoutPause();
 };
