@@ -60,8 +60,6 @@ bool WorldMapScene::init()
 	upgradeBtn->addTouchEventListener(CC_CALLBACK_0(WorldMapScene::GoToUpgrade, this));
 	addChild(upgradeBtn);
 
-
-
 	return true;
 }
 
