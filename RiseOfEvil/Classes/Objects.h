@@ -12,8 +12,8 @@ protected:
 	int m_armor;
 
 public:
-	virtual void Init(int type) = 0;
-	virtual void update(float deltaTime) = 0;
+	virtual void Init() = 0;
+	virtual void Update(float deltaTime) = 0;
 	virtual void Attack(Objects *target) = 0;
 
 	void SetSprite(Sprite *);
