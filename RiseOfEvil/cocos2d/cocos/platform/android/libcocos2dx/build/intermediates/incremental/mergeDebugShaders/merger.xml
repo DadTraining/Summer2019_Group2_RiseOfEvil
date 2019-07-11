@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="E:\ROE\RiseOfEvil\cocos2d\cocos\platform\android\libcocos2dx\src\main\shaders"/></dataSet><dataSet config="debug"><source path="E:\ROE\RiseOfEvil\cocos2d\cocos\platform\android\libcocos2dx\src\debug\shaders"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="E:\Summer2019_Group2\RiseOfEvil\cocos2d\cocos\platform\android\libcocos2dx\src\main\shaders"/></dataSet><dataSet config="debug"><source path="E:\Summer2019_Group2\RiseOfEvil\cocos2d\cocos\platform\android\libcocos2dx\src\debug\shaders"/></dataSet></merger>
