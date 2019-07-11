@@ -85,7 +85,7 @@ void WorldMapScene::add_star(Vec2 vec)
 
 void WorldMapScene::GoToWorldScene1()
 {
-	Scene *pScene = WorldScene1::create();
+	Scene *pScene = WorldScene1::createScene();
 	TransitionFade *crssfade = TransitionFade::create(0.5f, pScene);
 	Director::getInstance()->replaceScene(crssfade);
 }
@@ -109,7 +109,7 @@ void WorldMapScene::GoToStage(Ref* sender, int numOfStage)
 	switch (numOfStage)
 	{
 	case 1:
-		Scene *pScene = WorldScene1::create();
+		Scene *pScene = WorldScene1::createScene();
 		TransitionFade *crssfade = TransitionFade::create(0.5f, pScene);
 		Director::getInstance()->replaceScene(crssfade);
 		/*Director::getInstance()->replaceScene(WorldScene1::create());*/
