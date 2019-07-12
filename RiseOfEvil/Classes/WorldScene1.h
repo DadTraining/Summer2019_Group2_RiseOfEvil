@@ -34,5 +34,6 @@ public:
 	void action(int direction, Sprite *);
 	void FadeinPause();
 	void FadeoutPause();
+	void returnToMainMenu();
 	CREATE_FUNC(WorldScene1);
 };

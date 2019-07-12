@@ -1,4 +1,5 @@
 #include "WorldScene1.h"
+#include "MainMenuScene.h"
 #include <iostream>
 #include <string.h>
 #include <math.h>
@@ -58,14 +59,14 @@ bool WorldScene1::init()
 	mainmenuBtn = ui::Button::create("res/Buttons/WorldScene1/mainmenuBtn.png");
 	mainmenuBtn->setScaleX(1.4);
 	mainmenuBtn->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 - 90));
-	//mainmenuBtn->addTouchEventListener(CC_CALLBACK_0(WorldScene1::FadeoutPasue, this));
+	//mainmenuBtn->addTouchEventListener(CC_CALLBACK_0(WorldScene1::returnToMainMenu, this));
 	addChild(mainmenuBtn, -1);
 
 	SpriteBatchNode *spriteNode = SpriteBatchNode::create("Orc_Warrior_Walking.png");
 
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Orc_Warrior_Walking.plist");
 	monster = Sprite::createWithSpriteFrameName("Orc_Walking_1.png");
-	this->addChild(spriteNode, 20);
+	this->addChild(spriteNode, 2);
 
 	auto obj = mTileMap->getObjectGroup("Monster");
 	float x = obj->getObject("monster")["x"].asInt();
@@ -89,10 +90,8 @@ bool WorldScene1::init()
 
 	monster->setPosition(x, y);
 	monster->setAnchorPoint(Vec2(0.5, 0.35));
-	//monster->setPosition(x, y);
 	monster->setScale(0.6);
 	spriteNode->addChild(monster);
-	//nextPoint = 1;
 	scheduleUpdate();
 	return true;
 }
@@ -252,6 +251,7 @@ void WorldScene1::update(float deltaTime)
 
 void WorldScene1::FadeinPause()
 {
+	Director::getInstance()->resume();
 	pause_bg->setZOrder(-1);
 	restartBtn->setZOrder(-1);
 	resumeBtn->setZOrder(-1);
@@ -260,11 +260,19 @@ void WorldScene1::FadeinPause()
 
 void WorldScene1::FadeoutPause()
 {
+	Director::getInstance()->pause();
 	pause_bg->setZOrder(10);
 	restartBtn->setZOrder(12);
 	resumeBtn->setZOrder(11);
 	mainmenuBtn->setZOrder(13);
 }
+
+//void WorldScene1::returnToMainMenu()
+//{
+//	Scene *pScene = MainMenuScene::create();
+//	TransitionFade *crssfade = TransitionFade::create(1, pScene);
+//	Director::getInstance()->replaceScene(crssfade);
+//}
 
 
 
