@@ -11,6 +11,7 @@
 #define BOMBARD_TOWER 4
 #define BARRACKS_TOWER 5
 
+
 using namespace std;
 using namespace cocos2d;
 class Tower : public Objects
