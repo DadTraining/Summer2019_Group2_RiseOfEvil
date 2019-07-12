@@ -159,9 +159,7 @@ void WorldScene1::FadeInPause()
 void WorldScene1::returnToMainMenu()
 {
 	Director::getInstance()->getRunningScene()->pause();
-	Scene *pScene = MainMenuScene::create();
-	TransitionFade *crssfade = TransitionFade::create(1, pScene);
-	Director::getInstance()->replaceScene(crssfade);
+	Director::getInstance()->replaceScene(TransitionZoomFlipAngular::create(1, MainMenuScene::createScene()));
 }
 
 
