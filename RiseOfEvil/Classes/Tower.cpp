@@ -22,7 +22,7 @@ Tower::Tower(Layer * layer)
 	float ty = objTower->getObject("tower")["y"].asInt();
 	m_sprite->setPosition(tx, ty);
 	m_sprite->setScale(0.5f);
-	layer->addChild(m_sprite, 3);
+	layer->addChild(m_sprite, 5);
 }
 
 Sprite * Tower::GetSprite()
