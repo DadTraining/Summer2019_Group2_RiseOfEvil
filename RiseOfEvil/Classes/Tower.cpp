@@ -59,7 +59,7 @@ void Tower::AfterShoot(Bullet * bullet)
 	bullet->GetSprite()->setVisible(false);
 }
 
-int Tower::Update(float deltaTime, float x, float y)
+void Tower::Update(float deltaTime, float x, float y)
 {
 	if (m_sprite->getPosition().getDistance(Vec2(x, y)) < range)
 	{
@@ -71,8 +71,6 @@ int Tower::Update(float deltaTime, float x, float y)
 		}
 
 	}
-	if (hp == 0)
-		return 1;
 }
 
 float Tower::DistanceRange(Sprite * m_sprite, float x, float y)

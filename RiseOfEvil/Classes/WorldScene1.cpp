@@ -1,4 +1,5 @@
 #include "WorldScene1.h"
+#include "MainMenuScene.h"
 #include <iostream>
 #include <string.h>
 #include <math.h>
@@ -55,8 +56,9 @@ bool WorldScene1::init()
 	mainmenuBtn = ui::Button::create("res/Buttons/WorldScene1/mainmenuBtn.png");
 	mainmenuBtn->setScaleX(1.4);
 	mainmenuBtn->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 - 90));
-	//mainmenuBtn->addTouchEventListener(CC_CALLBACK_0(WorldScene1::FadeoutPasue, this));
+	//mainmenuBtn->addTouchEventListener(CC_CALLBACK_0(WorldScene1::returnToMainMenu, this));
 	addChild(mainmenuBtn, -1);
+
 
 	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
 	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
@@ -70,6 +72,7 @@ bool WorldScene1::init()
 	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
 	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
 	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
+
 	auto obj = mTileMap->getObjectGroup("Monster");
 	float x = obj->getObject("monster")["x"].asInt();
 	float y = obj->getObject("monster")["y"].asInt();
@@ -81,9 +84,9 @@ bool WorldScene1::init()
 	}
 	auto road = mTileMap->getObjectGroup("Point");
 	tower = new Tower(this);
-	auto body = PhysicsBody::createCircle(150, PHYSICSBODY_MATERIAL_DEFAULT);
-	body->setDynamic(false);
-	tower->GetSprite()->setPhysicsBody(body);
+	//auto body = PhysicsBody::createCircle(150, PHYSICSBODY_MATERIAL_DEFAULT);
+	//body->setDynamic(false);
+	//tower->GetSprite()->setPhysicsBody(body);
 	//===========================================================================
 	for (int i = 0; i < 15; i++)
 	{
@@ -91,7 +94,10 @@ bool WorldScene1::init()
 		float y = road->getObject("P" + to_string(i + 1))["y"].asInt();
 		listPoint.push_back(Vec2(x, y));
 	}
+
+
 	time = 0;
+
 	scheduleUpdate();
 	return true;
 }
@@ -99,6 +105,8 @@ float x;
 float y;
 void WorldScene1::update(float deltaTime)
 {
+
+
 	for (int i = 0; i < listMonster.size(); i++)
 	{
 		if (!(listMonster[i]->GetSprite()->isVisible()))
@@ -108,6 +116,7 @@ void WorldScene1::update(float deltaTime)
 		}
 	}
 	for (int i = 0; i < listMonster.size(); i++)
+
 	{
 		x = listMonster[i]->GetSprite()->getPositionX();
 		y = listMonster[i]->GetSprite()->getPositionY();
@@ -135,6 +144,7 @@ void WorldScene1::update(float deltaTime)
 
 void WorldScene1::FadeinPause()
 {
+	Director::getInstance()->resume();
 	pause_bg->setZOrder(-1);
 	restartBtn->setZOrder(-1);
 	resumeBtn->setZOrder(-1);
@@ -143,11 +153,19 @@ void WorldScene1::FadeinPause()
 
 void WorldScene1::FadeoutPause()
 {
+	Director::getInstance()->pause();
 	pause_bg->setZOrder(10);
 	restartBtn->setZOrder(12);
 	resumeBtn->setZOrder(11);
 	mainmenuBtn->setZOrder(13);
 }
+
+//void WorldScene1::returnToMainMenu()
+//{
+//	Scene *pScene = MainMenuScene::create();
+//	TransitionFade *crssfade = TransitionFade::create(1, pScene);
+//	Director::getInstance()->replaceScene(crssfade);
+//}
 
 
 
