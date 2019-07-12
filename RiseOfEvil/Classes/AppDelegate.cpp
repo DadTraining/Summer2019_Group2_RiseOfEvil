@@ -23,6 +23,7 @@
  ****************************************************************************/
 
 #include "AppDelegate.h"
+
 #include "LogoScene.h"
 #include "ResourceManager.h"
 

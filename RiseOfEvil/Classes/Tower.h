@@ -3,6 +3,13 @@
 #include "Bullet.h"
 #include "Objects.h"
 #include <iostream>
+
+#define ARROW_TOWER 1
+#define MAGIC_TOWER 2
+#define SLOW_TOWER 3
+#define BOMBARD_TOWER 4
+#define BARRACKS_TOWER 5
+
 using namespace std;
 using namespace cocos2d;
 class Tower : public Objects
@@ -25,11 +32,7 @@ public:
 //#pragma once
 //#include "Objects.h"
 //#include "cocos2d.h"
-//#define ARROW_TOWER 1
-//#define MAGIC_TOWER 2
-//#define SLOW_TOWER 3
-//#define BOMBARD_TOWER 4
-//#define BARRACKS_TOWER 5
+
 //using namespace cocos2d;
 //class Tower :public Objects
 //{
