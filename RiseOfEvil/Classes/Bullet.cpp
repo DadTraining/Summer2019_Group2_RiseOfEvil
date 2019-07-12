@@ -11,6 +11,7 @@ Bullet::Bullet(Layer * layer)
 	Init();
 	bullet->setVisible(false);
 	bullet->setScale(0.1f);
+	bullet->setRotation(-75);
 	//bullet->setPosition();
 	layer->addChild(bullet, 5);
 }

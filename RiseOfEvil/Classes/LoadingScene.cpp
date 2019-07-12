@@ -47,7 +47,7 @@ bool LoadingScene::init()
 	auto updateLoadingBar = CallFunc::create([]() {
 		if (loadingbar->getPercent() < 100)
 		{
-			loadingbar->setPercent(loadingbar->getPercent() + 0.4);
+			loadingbar->setPercent(loadingbar->getPercent() + 1.2);
 		}
 	});
 
@@ -61,7 +61,7 @@ bool LoadingScene::init()
 	auto gotoNext = CallFunc::create([]() {
 		Director::getInstance()->replaceScene(TransitionFade::create(1, MainMenuScene::create(), Color3B(0, 0, 0)));
 	});
-	auto sq_replaceScene = Sequence::create(DelayTime::create(14), gotoNext, nullptr);
+	auto sq_replaceScene = Sequence::create(DelayTime::create(6), gotoNext, nullptr);
 	runAction(sq_replaceScene);
 
 	return true;
