@@ -11,15 +11,11 @@ private:
 	ui::Button * btnCredits;
 	ui::Button * btnCompaign;
 	ui::Button * btnSurvival;
-	ui::Button * btnBack;
 public:
 	static cocos2d::Scene* createScene();
 	virtual bool init();
-	void GoToChooseMode();
 	void GoToWorldMap();
-	void GoToMenu();
-	void ActionMode();
-	void ActionMenu();
-	void BackMenu();
+	void FadeinChoose();
+	void FadeoutChoose();
 	CREATE_FUNC(MainMenuScene);
 };

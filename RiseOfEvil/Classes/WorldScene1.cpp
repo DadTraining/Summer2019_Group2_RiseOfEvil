@@ -1,4 +1,5 @@
 #include "WorldScene1.h"
+#include "MainMenuScene.h"
 #include <iostream>
 #include <string.h>
 #include <math.h>
@@ -37,13 +38,13 @@ bool WorldScene1::init()
 	auto pauseBtn = ui::Button::create("res/Buttons/WorldScene1/pauseBtn.png");
 	pauseBtn->setScale(0.2);
 	pauseBtn->setPosition(Vec2(visibleSize.width - 50, visibleSize.height - 50));
-	pauseBtn->addTouchEventListener(CC_CALLBACK_0(WorldScene1::FadeoutPause, this));
+	pauseBtn->addTouchEventListener(CC_CALLBACK_0(WorldScene1::FadeInPause, this));
 	addChild(pauseBtn, 1);
 
 	resumeBtn = ui::Button::create("res/Buttons/WorldScene1/resumeBtn.png");
 	resumeBtn->setScaleX(1.4);
 	resumeBtn->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 + 50));
-	resumeBtn->addTouchEventListener(CC_CALLBACK_0(WorldScene1::FadeinPause, this));
+	resumeBtn->addTouchEventListener(CC_CALLBACK_0(WorldScene1::FadeOutPause, this));
 	addChild(resumeBtn, -1);
 
 	restartBtn = ui::Button::create("res/Buttons/WorldScene1/restartBtn.png");
@@ -55,8 +56,9 @@ bool WorldScene1::init()
 	mainmenuBtn = ui::Button::create("res/Buttons/WorldScene1/mainmenuBtn.png");
 	mainmenuBtn->setScaleX(1.4);
 	mainmenuBtn->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 - 90));
-	//mainmenuBtn->addTouchEventListener(CC_CALLBACK_0(WorldScene1::FadeoutPasue, this));
+	mainmenuBtn->addTouchEventListener(CC_CALLBACK_0(WorldScene1::returnToMainMenu, this));
 	addChild(mainmenuBtn, -1);
+
 
 	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
 	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
@@ -70,6 +72,7 @@ bool WorldScene1::init()
 	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
 	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
 	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
+
 	listMonster.push_back(new Monster(this, MAGICAN_MONSTER));
 	listMonster.push_back(new Monster(this, MAGICAN_MONSTER));
 	listMonster.push_back(new Monster(this, MAGICAN_MONSTER));
@@ -78,6 +81,7 @@ bool WorldScene1::init()
 	listMonster.push_back(new Monster(this, MAGICAN_MONSTER));
 	listMonster.push_back(new Monster(this, MAGICAN_MONSTER));
 	listMonster.push_back(new Monster(this, MAGICAN_MONSTER));
+
 
 	auto obj = mTileMap->getObjectGroup("Monster");
 	float x = obj->getObject("monster")["x"].asInt();
@@ -90,9 +94,9 @@ bool WorldScene1::init()
 	}
 	auto road = mTileMap->getObjectGroup("Point");
 	tower = new Tower(this);
-	auto body = PhysicsBody::createCircle(150, PHYSICSBODY_MATERIAL_DEFAULT);
-	body->setDynamic(false);
-	tower->GetSprite()->setPhysicsBody(body);
+	//auto body = PhysicsBody::createCircle(150, PHYSICSBODY_MATERIAL_DEFAULT);
+	//body->setDynamic(false);
+	//tower->GetSprite()->setPhysicsBody(body);
 	//===========================================================================
 	for (int i = 0; i < 15; i++)
 	{
@@ -100,7 +104,10 @@ bool WorldScene1::init()
 		float y = road->getObject("P" + to_string(i + 1))["y"].asInt();
 		listPoint.push_back(Vec2(x, y));
 	}
+
+
 	time = 0;
+
 	scheduleUpdate();
 	return true;
 }
@@ -108,6 +115,8 @@ float x;
 float y;
 void WorldScene1::update(float deltaTime)
 {
+
+
 	for (int i = 0; i < listMonster.size(); i++)
 	{
 		if (!(listMonster[i]->GetSprite()->isVisible()))
@@ -117,15 +126,8 @@ void WorldScene1::update(float deltaTime)
 		}
 	}
 	for (int i = 0; i < listMonster.size(); i++)
+
 	{
-		x = listMonster[i]->GetSprite()->getPositionX();
-		y = listMonster[i]->GetSprite()->getPositionY();
-		if (tower->Update(deltaTime, x, y) == 1)
-		{
-			//monster->setVisible(false);
-			//monster->removeFromParent();
-			//monster->release();
-		}
 		if ((listPoint[listMonster[i]->m_flag].getDistance(listMonster[i]->GetSprite()->getPosition()) == 0) && (listMonster[i]->GetSprite()->isVisible()))
 		{
 			
@@ -137,25 +139,43 @@ void WorldScene1::update(float deltaTime)
 
 					listMonster[i]->Move(listPoint[listMonster[i]->m_flag]);
 		}
-		
-
 	}
+	for (int i = 0; i < listMonster.size(); i++)
+	{
+		if (listMonster[i]->GetSprite()->isVisible() && listMonster[i]->GetSprite()->getPosition().getDistance(tower->GetSprite()->getPosition()) < tower->GetRange())
+		{
+			x = listMonster[i]->GetSprite()->getPositionX();
+			y = listMonster[i]->GetSprite()->getPositionY();
+			tower->Update(deltaTime, listMonster[i]);
+			i = 100;
+		}
+	}
+	
 }
 
-void WorldScene1::FadeinPause()
+void WorldScene1::FadeOutPause()
+
 {
+	Director::getInstance()->resume();
 	pause_bg->setZOrder(-1);
 	restartBtn->setZOrder(-1);
 	resumeBtn->setZOrder(-1);
 	mainmenuBtn->setZOrder(-1);
 }
 
-void WorldScene1::FadeoutPause()
+void WorldScene1::FadeInPause()
 {
+	Director::getInstance()->pause();
 	pause_bg->setZOrder(10);
 	restartBtn->setZOrder(12);
 	resumeBtn->setZOrder(11);
 	mainmenuBtn->setZOrder(13);
+}
+
+void WorldScene1::returnToMainMenu()
+{
+	Director::getInstance()->getRunningScene()->pause();
+	Director::getInstance()->replaceScene(TransitionZoomFlipAngular::create(1, MainMenuScene::createScene()));
 }
 
 

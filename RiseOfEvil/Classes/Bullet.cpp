@@ -3,15 +3,15 @@
 
 void Bullet::Init()
 {
-	bullet = Sprite::create("arrow.png");
+	bullet = Sprite::create("bullet.png");
 }
 
 Bullet::Bullet(Layer * layer)
 {
 	Init();
 	bullet->setVisible(false);
-	bullet->setScale(0.1f);
-	bullet->setRotation(-75);
+	bullet->setScale(0.03f);
+	//bullet->setRotation(-75);
 	//bullet->setPosition();
 	layer->addChild(bullet, 5);
 }

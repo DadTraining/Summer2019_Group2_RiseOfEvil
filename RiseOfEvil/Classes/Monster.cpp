@@ -5,7 +5,7 @@ Monster::Monster(Layer * layer, int type)
 {
 	m_type = type;
 	Init();
-	layer->addChild(m_spriteNode, 20);
+	layer->addChild(m_spriteNode, 3);
 }
 
 Monster::~Monster()
@@ -136,7 +136,7 @@ void Monster::Init()
 float timeCount = 0.5;
 void Monster::Update(float deltaTime)
 {
-	if (timeCount >= 0.5)
+	if (timeCount >= 2.0)
 	{
 		m_sprite->setVisible(true);
 		timeCount = 0;

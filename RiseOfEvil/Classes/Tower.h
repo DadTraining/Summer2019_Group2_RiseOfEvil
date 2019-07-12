@@ -2,6 +2,7 @@
 #include "cocos2d.h"
 #include "Bullet.h"
 #include "Objects.h"
+#include "Monster.h"
 #include <iostream>
 
 #define ARROW_TOWER 1
@@ -17,16 +18,17 @@ class Tower : public Objects
 private:
 	//Sprite * tower;
 	vector <Bullet *> listBullet;
-	float range = 500;
+	float range = 250;
 public:
 	void Init();
 	Tower(Layer* layer);
 	Sprite * GetSprite();
-	void Shoot(float x, float y);
+	void Shoot(Monster * monster);
 	void AfterShoot(Bullet * bullet);
-	int Update(float deltaTime, float x, float y);
+	void Update(float deltaTime, Monster* monster);
 	float timeDelay = 0;
 	float DistanceRange(Sprite * m_sprite, float x, float y);
+	float GetRange();
 };
 //==================================
 //#pragma once

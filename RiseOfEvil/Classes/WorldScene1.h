@@ -1,8 +1,11 @@
 #pragma once
 #include "cocos2d.h"
+
 #include "Tower.h"
 #include "Monster.h"
+
 #include "ui/CocosGUI.h"
+#include "Tower.h"
 #define E  1
 #define W  2
 #define S  3
@@ -30,7 +33,8 @@ public:
 	virtual bool init() override;
 	void update(float deltaTime) override;
 	Tower * tower;
-	void FadeinPause();
-	void FadeoutPause();
+	void FadeInPause();
+	void FadeOutPause();
+	void returnToMainMenu();
 	CREATE_FUNC(WorldScene1);
 };
