@@ -38,13 +38,13 @@ bool WorldScene1::init()
 	auto pauseBtn = ui::Button::create("res/Buttons/WorldScene1/pauseBtn.png");
 	pauseBtn->setScale(0.2);
 	pauseBtn->setPosition(Vec2(visibleSize.width - 50, visibleSize.height - 50));
-	pauseBtn->addTouchEventListener(CC_CALLBACK_0(WorldScene1::FadeoutPause, this));
+	pauseBtn->addTouchEventListener(CC_CALLBACK_0(WorldScene1::FadeinPause, this));
 	addChild(pauseBtn, 1);
 
 	resumeBtn = ui::Button::create("res/Buttons/WorldScene1/resumeBtn.png");
 	resumeBtn->setScaleX(1.4);
 	resumeBtn->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 + 50));
-	resumeBtn->addTouchEventListener(CC_CALLBACK_0(WorldScene1::FadeinPause, this));
+	resumeBtn->addTouchEventListener(CC_CALLBACK_0(WorldScene1::FadeoutPause, this));
 	addChild(resumeBtn, -1);
 
 	restartBtn = ui::Button::create("res/Buttons/WorldScene1/restartBtn.png");
@@ -138,6 +138,7 @@ void WorldScene1::update(float deltaTime)
 }
 
 void WorldScene1::FadeinPause()
+
 {
 	Director::getInstance()->resume();
 	pause_bg->setZOrder(-1);
@@ -146,7 +147,7 @@ void WorldScene1::FadeinPause()
 	mainmenuBtn->setZOrder(-1);
 }
 
-void WorldScene1::FadeoutPause()
+void WorldScene1::FadeinPause()
 {
 	Director::getInstance()->pause();
 	pause_bg->setZOrder(10);
