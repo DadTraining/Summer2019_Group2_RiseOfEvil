@@ -22,7 +22,7 @@ Tower::Tower(Layer * layer)
 	float ty = objTower->getObject("tower")["y"].asInt();
 	m_sprite->setPosition(tx, ty);
 	m_sprite->setScale(0.5f);
-	layer->addChild(m_sprite, 3);
+	layer->addChild(m_sprite, 5);
 }
 
 Sprite * Tower::GetSprite()
@@ -43,8 +43,10 @@ void Tower::Shoot(Monster * monster)
 			//================Shoot Bezier=======================
 			bezier.controlPoint_1 = Point(listBullet[i]->GetSprite()->getPositionX(), listBullet[i]->GetSprite()->getPositionY());
 			bezier.controlPoint_2 = Point(Vec2(((listBullet[i]->GetSprite()->getPositionX() + monster->GetSprite()->getPositionX()) / 2), (listBullet[i]->GetSprite()->getPositionY() + monster->GetSprite()->getPositionY()) / 2 + 200));
-			bezier.endPosition = Point(Vec2(monster->GetSprite()->getPositionX() + (0.2*monster->GetMovementSpeed()), monster->GetSprite()->getPositionY()+ (0.2*monster->GetMovementSpeed())));
-			auto movetToOfBullet = BezierTo::create(0.3f, bezier);
+
+			bezier.endPosition = Point(Vec2(monster->GetSprite()->getPositionX() + (0.2 * monster->GetMovementSpeed()), monster->GetSprite()->getPositionY() + (0.2 * monster->GetMovementSpeed() )));
+			auto movetToOfBullet = BezierTo::create(0.4f, bezier);
+
 		//	auto movetToOfBullet = MoveTo::create(1.0f, Vec2(x, y));
 			auto callfunct = CallFunc::create(CC_CALLBACK_0(Tower::AfterShoot, this, bullet));
 			//bullet->GetSprite()->setVisible(false);
