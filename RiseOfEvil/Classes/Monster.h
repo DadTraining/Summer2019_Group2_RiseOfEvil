@@ -1,6 +1,7 @@
 #pragma once
 #include "cocos2d.h"
 #include "Objects.h"
+#include <string>
 #define NORMAL_MONSTER 1
 #define MAGICAN_MONSTER 2
 #define TANK_MONSTER 3
@@ -11,23 +12,39 @@
 #define SLOW_SPEED 50
 #define MEDIUM_SPEED 100
 #define FAST_SPEED 150
+#define E  1
+#define W  2
+#define S  3
+#define N  4
+#define SE 5
+#define NE 6
+#define NW 7
+#define SW 8
 using namespace cocos2d;
+using namespace std;
 class Monster :public Objects
 {
 private:
 	int m_type;
-	float m_movementSpeed;
+	int m_png[16];
+	string m_fomatAnimation;
 	float m_attackSpeed;
 	int m_gold;
+	Animation *animation;
 	//vector<Skill *>m_listSkill;
 	int m_range;
+
 	//Skill * speciall
 public:
-	Monster(Scene * scene, int type);
+	int m_flag = 0;
+	float m_movementSpeed;
+	Monster(Layer*, int);
 	~Monster();
 	void Init();
 	void Update(float deltaTime);
-	void Move();
+	void Move(Vec2);
+	Animation* AnimationMonster(string, int, int, float);
+	void Action(int);
 	void Acttack(Object *);
 	void DoDead();
 	void SetType(int type);

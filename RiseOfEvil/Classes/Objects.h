@@ -1,11 +1,13 @@
 #pragma once
 #include "cocos2d.h"
 using namespace cocos2d;
-class Objects 
+class Objects
 {
 protected:
 	int m_type;
+	SpriteBatchNode *m_spriteNode;
 	Sprite * m_sprite;
+
 	int m_hitPoint;
 	int m_minimumAtk;
 	int m_maximumAtk;
@@ -28,6 +30,6 @@ public:
 	int GetMaximumAtk();
 	int GetArmor();
 
-	Objects ();
-	~Objects ();
+	Objects();
+	~Objects();
 };
