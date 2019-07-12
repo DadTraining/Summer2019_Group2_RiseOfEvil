@@ -1,20 +1,7 @@
-//#pragma once
-//#include "cocos2d.h"
-//
-//class WorldScene1 : public cocos2d::Scene
-//{
-//private:
-//	cocos2d::TMXTiledMap* mTileMap;
-//public:
-//	static cocos2d::Scene* createScene();
-//	virtual bool init();
-//	void update(float deltaTime);
-//	CREATE_FUNC(WorldScene1);
-//};
-//===================================================
 #pragma once
 #include "cocos2d.h"
 #include "Tower.h"
+#include "ui/CocosGUI.h"
 #define E  1
 #define W  2
 #define S  3
@@ -24,30 +11,28 @@
 #define NW 7
 #define SW 8
 using namespace cocos2d;
-
-class WorldScene1 : public cocos2d::Layer
+USING_NS_CC;
+class WorldScene1 : public Layer
 {
 private:
-	cocos2d::TMXTiledMap* mTileMap;
+	TMXTiledMap* mTileMap;
 	PhysicsBody *body;
-
-	//cocos2d::Sprite *mole1;
-
-
+	ui::Button *resumeBtn;
+	ui::Button *restartBtn;
+	ui::Button *mainmenuBtn;
+	Sprite *pause_bg;
 public:
-	static cocos2d::Scene* createScene();
-	virtual bool init();
-	void update(float deltaTime);
-	//float Distance(float xa, float ya, float xb, float yb);
+	static Scene* createScene();
+	virtual bool init() override;
+	void update(float deltaTime) override;
 	Sprite * monster;
 	Animation *createAnimation(std::string prefixName, int pFrameBegin, int pFrameEnd, float delay);
 	Animation *animation;
 	int nextPoint;
 	Tower * tower;
-	//void createRange();
 	void run(Vec2 point);
 	void action(int direction, Sprite *);
-	CREATE_FUNC(WorldScene1);
 	void FadeinPause();
 	void FadeoutPause();
+	CREATE_FUNC(WorldScene1);
 };
