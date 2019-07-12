@@ -70,6 +70,15 @@ bool WorldScene1::init()
 	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
 	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
 	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
+	listMonster.push_back(new Monster(this, MAGICAN_MONSTER));
+	listMonster.push_back(new Monster(this, MAGICAN_MONSTER));
+	listMonster.push_back(new Monster(this, MAGICAN_MONSTER));
+	listMonster.push_back(new Monster(this, MAGICAN_MONSTER));
+	listMonster.push_back(new Monster(this, MAGICAN_MONSTER));
+	listMonster.push_back(new Monster(this, MAGICAN_MONSTER));
+	listMonster.push_back(new Monster(this, MAGICAN_MONSTER));
+	listMonster.push_back(new Monster(this, MAGICAN_MONSTER));
+
 	auto obj = mTileMap->getObjectGroup("Monster");
 	float x = obj->getObject("monster")["x"].asInt();
 	float y = obj->getObject("monster")["y"].asInt();
