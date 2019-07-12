@@ -38,6 +38,7 @@ private:
 public:
 	int m_flag = 0;
 	float m_movementSpeed;
+	float m_velocity;
 	Monster(Layer*, int);
 	~Monster();
 	void Init();
@@ -57,4 +58,5 @@ public:
 	float GetAttackSpeed();
 	int GetGold();
 	int GetRange();
+	float GetVelocity();
 };

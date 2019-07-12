@@ -44,7 +44,7 @@ void Monster::Init()
 		m_minimumAtk = 1;
 		m_maximumAtk = 4;
 		m_attackSpeed = 1.0;
-		m_movementSpeed = MEDIUM_SPEED;
+		m_movementSpeed = m_velocity = MEDIUM_SPEED;
 		m_armor = 0;
 		m_gold = 6;
 		break;
@@ -54,7 +54,7 @@ void Monster::Init()
 		m_minimumAtk = 5;
 		m_maximumAtk = 7;
 		m_attackSpeed = 1.0;
-		m_movementSpeed = MEDIUM_SPEED;
+		m_movementSpeed = m_velocity = MEDIUM_SPEED;
 		m_armor = 0;
 		m_gold = 15;
 		break;
@@ -64,7 +64,7 @@ void Monster::Init()
 		m_minimumAtk = 40;
 		m_maximumAtk = 60;
 		m_attackSpeed = 1.9;
-		m_movementSpeed = SLOW_SPEED;
+		m_movementSpeed = m_velocity = SLOW_SPEED;
 		//m_armor = 0;
 		m_gold = 40;
 		break;
@@ -74,7 +74,7 @@ void Monster::Init()
 		m_minimumAtk = 2;
 		m_maximumAtk = 3;
 		m_attackSpeed = 1.2;
-		m_movementSpeed = FAST_SPEED;
+		m_movementSpeed = m_velocity = FAST_SPEED;
 		m_armor = 0;
 		m_gold = 15;
 		break;
@@ -84,7 +84,7 @@ void Monster::Init()
 		m_minimumAtk = 3;
 		m_maximumAtk = 8;
 		m_attackSpeed = 1.0;
-		m_movementSpeed = MEDIUM_SPEED;
+		m_movementSpeed = m_velocity = MEDIUM_SPEED;
 		m_armor = 0;
 		m_gold = 15;
 		break;
@@ -94,7 +94,7 @@ void Monster::Init()
 		m_minimumAtk = 150;
 		m_maximumAtk = 250;
 		m_attackSpeed = 2.5;
-		m_movementSpeed = SLOW_SPEED;
+		m_movementSpeed = m_velocity = SLOW_SPEED;
 		//sm_armor = 0;
 		m_gold = 100;
 		break;
@@ -104,7 +104,7 @@ void Monster::Init()
 		m_minimumAtk = 200;
 		m_maximumAtk = 400;
 		m_attackSpeed = 2.0;
-		m_movementSpeed = SLOW_SPEED;
+		m_movementSpeed = m_velocity = SLOW_SPEED;
 		//m_armor = 0;
 		m_gold = 500;
 		break;
@@ -133,6 +133,7 @@ void Monster::Move(Vec2 point)
 	}
 	else if ((m_sprite->getPosition().y == point.y) && (m_sprite->getPosition().x >= point.x)) {
 		Action(W);
+		m_velocity = -m_velocity;
 	}
 	else if ((m_sprite->getPosition().x == point.x) && (m_sprite->getPosition().y >= point.y)) {
 		Action(S);
@@ -148,7 +149,7 @@ void Monster::Move(Vec2 point)
 	}
 	else
 		Action(NW);
-	m_sprite->runAction(MoveTo::create(point.getDistance(m_sprite->getPosition()) / m_movementSpeed, Vec2(point.x, point.y)));
+	m_sprite->runAction(MoveTo::create(point.getDistance(m_sprite->getPosition()) / abs(m_movementSpeed), Vec2(point.x, point.y)));
 }
 Animation* Monster::AnimationMonster(string prefixName, int pFrameBegin, int pFrameEnd, float delay)
 {
@@ -302,4 +303,9 @@ int Monster::GetGold()
 int Monster::GetRange()
 {
 	return m_range;
+}
+
+float Monster::GetVelocity()
+{
+	return m_velocity;
 }

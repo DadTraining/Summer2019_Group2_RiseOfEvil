@@ -44,7 +44,7 @@ void Tower::Shoot(Monster * monster)
 			bezier.controlPoint_1 = Point(listBullet[i]->GetSprite()->getPositionX(), listBullet[i]->GetSprite()->getPositionY());
 			bezier.controlPoint_2 = Point(Vec2(((listBullet[i]->GetSprite()->getPositionX() + monster->GetSprite()->getPositionX()) / 2), (listBullet[i]->GetSprite()->getPositionY() + monster->GetSprite()->getPositionY()) / 2 + 200));
 
-			bezier.endPosition = Point(Vec2(monster->GetSprite()->getPositionX() + (0.2 * monster->GetMovementSpeed()), monster->GetSprite()->getPositionY() + (0.2 * monster->GetMovementSpeed() )));
+			bezier.endPosition = Point(Vec2(monster->GetSprite()->getPositionX() + (0.4f * monster->GetVelocity()), monster->GetSprite()->getPositionY()));
 			auto movetToOfBullet = BezierTo::create(0.4f, bezier);
 
 		//	auto movetToOfBullet = MoveTo::create(1.0f, Vec2(x, y));
