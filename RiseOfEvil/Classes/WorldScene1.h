@@ -48,4 +48,6 @@ public:
 	void run(Vec2 point);
 	void action(int direction, Sprite *);
 	CREATE_FUNC(WorldScene1);
+	void FadeinPause();
+	void FadeoutPause();
 };
