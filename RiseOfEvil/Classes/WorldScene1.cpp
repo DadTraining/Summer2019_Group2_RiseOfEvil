@@ -88,7 +88,7 @@ bool WorldScene1::init()
 	//body->setDynamic(false);
 	//tower->GetSprite()->setPhysicsBody(body);
 	//===========================================================================
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < 15; i++)
 	{
 		float x = road->getObject("P" + to_string(i + 1))["x"].asInt();
 		float y = road->getObject("P" + to_string(i + 1))["y"].asInt();
