@@ -120,12 +120,7 @@ void WorldScene1::update(float deltaTime)
 	{
 		x = listMonster[i]->GetSprite()->getPositionX();
 		y = listMonster[i]->GetSprite()->getPositionY();
-		if (tower->Update(deltaTime, x, y) == 1)
-		{
-			//monster->setVisible(false);
-			//monster->removeFromParent();
-			//monster->release();
-		}
+		tower->Update(deltaTime, x, y);
 		if ((listPoint[listMonster[i]->m_flag].getDistance(listMonster[i]->GetSprite()->getPosition()) == 0) && (listMonster[i]->GetSprite()->isVisible()))
 		{
 			
