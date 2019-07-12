@@ -1,5 +1,9 @@
 #pragma once
 #include "cocos2d.h"
+
+#include "Tower.h"
+#include "Monster.h"
+
 #include "ui/CocosGUI.h"
 #include "Tower.h"
 #define E  1
@@ -16,22 +20,19 @@ class WorldScene1 : public Layer
 {
 private:
 	TMXTiledMap* mTileMap;
+	vector<Monster*> listMonster;
+	vector<Vec2> listPoint;
 	PhysicsBody *body;
 	ui::Button *resumeBtn;
 	ui::Button *restartBtn;
 	ui::Button *mainmenuBtn;
 	Sprite *pause_bg;
+	float time;
 public:
 	static Scene* createScene();
 	virtual bool init() override;
 	void update(float deltaTime) override;
-	Sprite * monster;
-	Animation *createAnimation(std::string prefixName, int pFrameBegin, int pFrameEnd, float delay);
-	Animation *animation;
-	int nextPoint;
 	Tower * tower;
-	void run(Vec2 point);
-	void action(int direction, Sprite *);
 	void FadeinPause();
 	void FadeoutPause();
 	void returnToMainMenu();

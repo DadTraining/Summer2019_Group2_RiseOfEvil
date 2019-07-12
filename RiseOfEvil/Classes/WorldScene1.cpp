@@ -5,9 +5,6 @@
 #include <math.h>
 using namespace std;
 
-vector<Vec2> listPoint;
-int i = 0;
-
 Scene* WorldScene1::createScene()
 {
 	auto scene = Scene::createWithPhysics();
@@ -62,19 +59,29 @@ bool WorldScene1::init()
 	//mainmenuBtn->addTouchEventListener(CC_CALLBACK_0(WorldScene1::returnToMainMenu, this));
 	addChild(mainmenuBtn, -1);
 
-	SpriteBatchNode *spriteNode = SpriteBatchNode::create("Orc_Warrior_Walking.png");
 
-	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Orc_Warrior_Walking.plist");
-	monster = Sprite::createWithSpriteFrameName("Orc_Walking_1.png");
-	this->addChild(spriteNode, 2);
+	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
+	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
+	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
+	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
+	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
+	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
+	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
+	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
+	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
+	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
+	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
+	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
 
 	auto obj = mTileMap->getObjectGroup("Monster");
 	float x = obj->getObject("monster")["x"].asInt();
 	float y = obj->getObject("monster")["y"].asInt();
-
-	auto walkingE = Animate::create(WorldScene1::createAnimation("Orc_Walking_", 1, 10, 0.05f));
-	walkingE->retain();
-	monster->runAction(RepeatForever::create(walkingE));
+	for (int i = 0; i < listMonster.size(); i++)
+	{
+		listMonster[i]->GetSprite()->setAnchorPoint(Vec2(0.5, 0.35));
+		listMonster[i]->GetSprite()->setPosition(x, y);
+		listMonster[i]->GetSprite()->setScale(0.6);
+	}
 	auto road = mTileMap->getObjectGroup("Point");
 	tower = new Tower(this);
 	//auto body = PhysicsBody::createCircle(150, PHYSICSBODY_MATERIAL_DEFAULT);
@@ -88,160 +95,52 @@ bool WorldScene1::init()
 		listPoint.push_back(Vec2(x, y));
 	}
 
-	monster->setPosition(x, y);
-	monster->setAnchorPoint(Vec2(0.5, 0.35));
-	monster->setScale(0.6);
-	spriteNode->addChild(monster);
+
+	time = 0;
+
 	scheduleUpdate();
 	return true;
 }
-cocos2d::Animation * WorldScene1::createAnimation(std::string prefixName, int pFrameBegin, int pFrameEnd, float delay)
-{
-	Vector<SpriteFrame*> animFrames;
-	for (int i = pFrameBegin; i <= pFrameEnd; i++)
-	{
-		char buffer[20] = { 0 };
-		sprintf(buffer, "%d.png", i);
-
-		std::string str = prefixName + buffer;
-		auto frame = SpriteFrameCache::getInstance()->getSpriteFrameByName(str);
-		animFrames.pushBack(frame);
-	}
-
-	animation = Animation::createWithSpriteFrames(animFrames, delay);
-	return animation;
-}
-
-void WorldScene1::run(Vec2 point)
-{
-
-	int x = i - 1;
-	if (x < 0)
-	{
-		x = 0;
-	}
-
-	if ((listPoint[x].y == listPoint[i].y) && (listPoint[x].x <= listPoint[i].x)) {
-		action(E, monster);
-	}
-	else if ((listPoint[x].y == listPoint[i].y) && (listPoint[x].x >= listPoint[i].x)) {
-		action(W, monster);
-	}
-	else if ((listPoint[x].x == listPoint[i].x) && (listPoint[x].y >= listPoint[i].y)) {
-		action(S, monster);
-	}
-	else if ((listPoint[x].x <= listPoint[i].x) && (listPoint[x].y >= listPoint[i].y)) {
-		action(SE, monster);
-	}
-	else if ((listPoint[x].x >= listPoint[i].x) && (listPoint[x].y >= listPoint[i].y)) {
-		action(SW, monster);
-	}
-	else if ((listPoint[x].x <= listPoint[i].x) && (listPoint[x].y <= listPoint[i].y)) {
-		action(NE, monster);
-	}
-	else
-		action(NW, monster);
-
-	auto v = listPoint[1].getDistance(listPoint[0]) / 1.0f;
-	monster->runAction(MoveTo::create(listPoint[i].getDistance(monster->getPosition()) / v * 2, Vec2(point.x, point.y)));
-}
-void WorldScene1::action(int direction, Sprite *monster)
-{
-	switch (direction)
-	{
-	case E:
-	{
-		monster->stopAllActions();
-		auto walkingE = Animate::create(WorldScene1::createAnimation("Orc_Walking_", 1, 10, 0.05f));
-		walkingE->retain();
-		monster->runAction(RepeatForever::create(walkingE));
-		break;
-	}
-
-	case W:
-	{
-		monster->stopAllActions();
-		auto walkingW = Animate::create(WorldScene1::createAnimation("Orc_Walking_", 71, 80, 0.05f));
-		walkingW->retain();
-		monster->runAction(RepeatForever::create(walkingW));
-		break;
-	}
-
-	case S:
-	{
-		monster->stopAllActions();
-		auto walkingS = Animate::create(WorldScene1::createAnimation("Orc_Walking_", 41, 50, 0.05f));
-		walkingS->retain();
-		monster->runAction(RepeatForever::create(walkingS));
-		break;
-	}
-
-	case N:
-	{
-		monster->stopAllActions();
-		auto walkingN = Animate::create(WorldScene1::createAnimation("Orc_Walking_", 11, 20, 0.05f));
-		walkingN->retain();
-		monster->runAction(RepeatForever::create(walkingN));
-		break;
-	}
-
-	case SE:
-	{
-		monster->stopAllActions();
-		auto walkingSE = Animate::create(WorldScene1::createAnimation("Orc_Walking_", 51, 60, 0.05f));
-		walkingSE->retain();
-		monster->runAction(RepeatForever::create(walkingSE));
-		break;
-	}
-
-	case SW:
-	{
-		monster->stopAllActions();
-		auto walkingSW = Animate::create(WorldScene1::createAnimation("Orc_Walking_", 61, 70, 0.05f));
-		walkingSW->retain();
-		monster->runAction(RepeatForever::create(walkingSW));
-		break;
-	}
-
-	case NE:
-	{
-		monster->stopAllActions();
-		auto walkingNE = Animate::create(WorldScene1::createAnimation("Orc_Walking_", 21, 30, 0.05f));
-		walkingNE->retain();
-		monster->runAction(RepeatForever::create(walkingNE));
-		break;
-	}
-
-	case NW:
-	{
-		monster->stopAllActions();
-		auto walkingNW = Animate::create(WorldScene1::createAnimation("Orc_Walking_", 31, 40, 0.05f));
-		walkingNW->retain();
-		monster->runAction(RepeatForever::create(walkingNW));
-		break;
-	}
-
-	}
-}
-
-
+float x;
+float y;
 void WorldScene1::update(float deltaTime)
 {
-	float x = monster->getPositionX();
-	float y = monster->getPositionY();
 
-	tower->Update(deltaTime, x, y);
-	//==========================================
-	if (listPoint[i].getDistance(monster->getPosition()) == 0)
+
+	for (int i = 0; i < listMonster.size(); i++)
 	{
-		if (i < listPoint.size() - 1)
+		if (!(listMonster[i]->GetSprite()->isVisible()))
 		{
-			i++;
+			listMonster[i]->Update(deltaTime);
+			i = 100;
 		}
-		run(listPoint[i]);
+	}
+	for (int i = 0; i < listMonster.size(); i++)
+
+	{
+		x = listMonster[i]->GetSprite()->getPositionX();
+		y = listMonster[i]->GetSprite()->getPositionY();
+		if (tower->Update(deltaTime, x, y) == 1)
+		{
+			//monster->setVisible(false);
+			//monster->removeFromParent();
+			//monster->release();
+		}
+		if ((listPoint[listMonster[i]->m_flag].getDistance(listMonster[i]->GetSprite()->getPosition()) == 0) && (listMonster[i]->GetSprite()->isVisible()))
+		{
+			
+					if (listMonster[i]->m_flag < listPoint.size() - 1)
+						{
+							listMonster[i]->m_flag++;
+							
+						}
+
+					listMonster[i]->Move(listPoint[listMonster[i]->m_flag]);
+		}
+		
+
 	}
 }
-
 
 void WorldScene1::FadeinPause()
 {

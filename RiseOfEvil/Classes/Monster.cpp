@@ -1,12 +1,11 @@
 #include "Monster.h"
 #include "ResourceManager.h"
-
-Monster::Monster(Scene * scene, int type)
+using namespace std;
+Monster::Monster(Layer * layer, int type)
 {
 	m_type = type;
 	Init();
-	m_sprite->removeFromParent();
-	scene->addChild(m_sprite);
+	layer->addChild(m_spriteNode, 20);
 }
 
 Monster::~Monster()
@@ -18,7 +17,29 @@ void Monster::Init()
 	switch (m_type)
 	{
 	case NORMAL_MONSTER:
-		m_sprite = ResourceManager::GetInstance()->DuplicateSprite(ResourceManager::GetInstance()->GetSpriteById(NORMAL_MONSTER)); //id = id of NORMAL_MONSTER
+		//	m_sprite = ResourceManager::GetInstance()->DuplicateSprite(ResourceManager::GetInstance()->GetSpriteById(NORMAL_MONSTER)); //id = id of NORMAL_MONSTER
+		m_spriteNode = SpriteBatchNode::create("Orc_Warrior_Walking.png");
+		SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Orc_Warrior_Walking.plist");
+		m_sprite = Sprite::createWithSpriteFrameName("Orc_Walking_1.png");
+		m_spriteNode->addChild(m_sprite);
+		m_sprite->setVisible(false);
+		m_fomatAnimation = "Orc_Walking_";
+		m_png[0] = 1;
+		m_png[1] = 10;
+		m_png[2] = 71;
+		m_png[3] = 80;
+		m_png[4] = 41;
+		m_png[5] = 50;
+		m_png[6] = 11;
+		m_png[7] = 20;
+		m_png[8] = 51;
+		m_png[9] = 60;
+		m_png[10] = 61;
+		m_png[11] = 70;
+		m_png[12] = 21;
+		m_png[13] = 30;
+		m_png[14] = 31;
+		m_png[15] = 40;
 		m_hitPoint = 24;
 		m_minimumAtk = 1;
 		m_maximumAtk = 4;
@@ -91,13 +112,138 @@ void Monster::Init()
 		break;
 	}
 }
-
+float timeCount = 0.5;
 void Monster::Update(float deltaTime)
 {
+	if (timeCount >= 0.5)
+	{
+		m_sprite->setVisible(true);
+		timeCount = 0;
+	}
+	else {
+		timeCount += deltaTime;
+	}
+	
 }
 
-void Monster::Move()
+void Monster::Move(Vec2 point)
 {
+	if ((m_sprite->getPosition().y == point.y) && (m_sprite->getPosition().x <= point.x)) {
+		Action(E);
+	}
+	else if ((m_sprite->getPosition().y == point.y) && (m_sprite->getPosition().x >= point.x)) {
+		Action(W);
+	}
+	else if ((m_sprite->getPosition().x == point.x) && (m_sprite->getPosition().y >= point.y)) {
+		Action(S);
+	}
+	else if ((m_sprite->getPosition().x <= point.x) && (m_sprite->getPosition().y >= point.y)) {
+		Action(SE);
+	}
+	else if ((m_sprite->getPosition().x >= point.x) && (m_sprite->getPosition().y >= point.y)) {
+		Action(SW);
+	}
+	else if ((m_sprite->getPosition().x <= point.x) && (m_sprite->getPosition().y <= point.y)) {
+		Action(NE);
+	}
+	else
+		Action(NW);
+	m_sprite->runAction(MoveTo::create(point.getDistance(m_sprite->getPosition()) / m_movementSpeed, Vec2(point.x, point.y)));
+}
+Animation* Monster::AnimationMonster(string prefixName, int pFrameBegin, int pFrameEnd, float delay)
+{
+	Vector<SpriteFrame*> animFrames;
+	for (int i = pFrameBegin; i <= pFrameEnd; i++)
+	{
+		char buffer[20] = { 0 };
+		sprintf(buffer, "%d.png", i);
+
+		string str = prefixName + buffer;
+		auto frame = SpriteFrameCache::getInstance()->getSpriteFrameByName(str);
+		animFrames.pushBack(frame);
+	}
+
+	animation = Animation::createWithSpriteFrames(animFrames, delay);
+	return animation;
+}
+
+void Monster::Action(int direction)
+{
+	switch (direction)
+	{
+	case E:
+	{
+		m_sprite->stopAllActions();
+		auto walkingE = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[0], m_png[1], 0.05f));
+		walkingE->retain();
+		m_sprite->runAction(RepeatForever::create(walkingE));
+		break;
+	}
+
+	case W:
+	{
+		m_sprite->stopAllActions();
+		auto walkingW = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[2], m_png[3], 0.05f));
+		walkingW->retain();
+		m_sprite->runAction(RepeatForever::create(walkingW));
+		break;
+	}
+
+	case S:
+	{
+		m_sprite->stopAllActions();
+		auto walkingS = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[4], m_png[5], 0.05f));
+		walkingS->retain();
+		m_sprite->runAction(RepeatForever::create(walkingS));
+		break;
+	}
+
+	case N:
+	{
+		m_sprite->stopAllActions();
+		auto walkingN = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[6], m_png[7], 0.05f));
+		walkingN->retain();
+		m_sprite->runAction(RepeatForever::create(walkingN));
+		break;
+	}
+
+	case SE:
+	{
+		m_sprite->stopAllActions();
+		auto walkingSE = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[8], m_png[9], 0.05f));
+		walkingSE->retain();
+		m_sprite->runAction(RepeatForever::create(walkingSE));
+		break;
+	}
+
+	case SW:
+	{
+		m_sprite->stopAllActions();
+		auto walkingSW = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[10], m_png[11], 0.05f));
+		walkingSW->retain();
+		m_sprite->runAction(RepeatForever::create(walkingSW));
+		break;
+	}
+
+	case NE:
+	{
+		m_sprite->stopAllActions();
+		auto walkingNE = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[12], m_png[13], 0.05f));
+		walkingNE->retain();
+		m_sprite->runAction(RepeatForever::create(walkingNE));
+		break;
+	}
+
+	case NW:
+	{
+		m_sprite->stopAllActions();
+		auto walkingNW = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[14], m_png[15], 0.05f));
+		walkingNW->retain();
+		m_sprite->runAction(RepeatForever::create(walkingNW));
+		break;
+	}
+
+	}
 }
 
 void Monster::Acttack(Object * target)
