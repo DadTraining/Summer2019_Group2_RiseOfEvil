@@ -77,9 +77,9 @@ bool WorldScene1::init()
 	monster->runAction(RepeatForever::create(walkingE));
 	auto road = mTileMap->getObjectGroup("Point");
 	tower = new Tower(this);
-	auto body = PhysicsBody::createCircle(150, PHYSICSBODY_MATERIAL_DEFAULT);
-	body->setDynamic(false);
-	tower->GetSprite()->setPhysicsBody(body);
+	//auto body = PhysicsBody::createCircle(150, PHYSICSBODY_MATERIAL_DEFAULT);
+	//body->setDynamic(false);
+	//tower->GetSprite()->setPhysicsBody(body);
 	//===========================================================================
 	for (int i = 0; i < 15; i++)
 	{
@@ -230,13 +230,7 @@ void WorldScene1::update(float deltaTime)
 	float x = monster->getPositionX();
 	float y = monster->getPositionY();
 
-	if (tower->Update(deltaTime, x, y) == 1)
-	{
-		//monster->setVisible(false);
-		//monster->removeFromParent();
-		//monster->release();
-	}
-	float f = 1.0f;
+	tower->Update(deltaTime, x, y);
 	//==========================================
 	if (listPoint[i].getDistance(monster->getPosition()) == 0)
 	{

@@ -24,7 +24,7 @@ public:
 	Sprite * GetSprite();
 	void Shoot(float x, float y);
 	void AfterShoot(Bullet * bullet);
-	int Update(float deltaTime, float x, float y);
+	void Update(float deltaTime, float x, float y);
 	float timeDelay = 0;
 	float DistanceRange(Sprite * m_sprite, float x, float y);
 };
