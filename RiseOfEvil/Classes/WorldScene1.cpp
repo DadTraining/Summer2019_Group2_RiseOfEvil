@@ -88,7 +88,7 @@ bool WorldScene1::init()
 	//body->setDynamic(false);
 	//tower->GetSprite()->setPhysicsBody(body);
 	//===========================================================================
-	for (int i = 0; i < 15; i++)
+	for (int i = 0; i < 4; i++)
 	{
 		float x = road->getObject("P" + to_string(i + 1))["x"].asInt();
 		float y = road->getObject("P" + to_string(i + 1))["y"].asInt();
@@ -118,9 +118,6 @@ void WorldScene1::update(float deltaTime)
 	for (int i = 0; i < listMonster.size(); i++)
 
 	{
-		x = listMonster[i]->GetSprite()->getPositionX();
-		y = listMonster[i]->GetSprite()->getPositionY();
-		tower->Update(deltaTime, x, y);
 		if ((listPoint[listMonster[i]->m_flag].getDistance(listMonster[i]->GetSprite()->getPosition()) == 0) && (listMonster[i]->GetSprite()->isVisible()))
 		{
 			
@@ -132,9 +129,18 @@ void WorldScene1::update(float deltaTime)
 
 					listMonster[i]->Move(listPoint[listMonster[i]->m_flag]);
 		}
-		
-
 	}
+	for (int i = 0; i < listMonster.size(); i++)
+	{
+		if (listMonster[i]->GetSprite()->isVisible() && listMonster[i]->GetSprite()->getPosition().getDistance(tower->GetSprite()->getPosition()) < tower->GetRange())
+		{
+			x = listMonster[i]->GetSprite()->getPositionX();
+			y = listMonster[i]->GetSprite()->getPositionY();
+			tower->Update(deltaTime, listMonster[i]);
+			i = 100;
+		}
+	}
+	
 }
 
 void WorldScene1::FadeinPause()

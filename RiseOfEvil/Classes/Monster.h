@@ -10,7 +10,7 @@
 #define ELITE_MONSTER 6
 #define DARKLORD  7
 #define SLOW_SPEED 50
-#define MEDIUM_SPEED 100
+#define MEDIUM_SPEED 50
 #define FAST_SPEED 150
 #define E  1
 #define W  2
