@@ -17,7 +17,7 @@ class Tower : public Objects
 private:
 	//Sprite * tower;
 	vector <Bullet *> listBullet;
-	float range = 100;
+	float range = 500;
 public:
 	void Init();
 	Tower(Layer* layer);

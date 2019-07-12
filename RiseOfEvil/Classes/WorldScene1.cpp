@@ -60,6 +60,16 @@ bool WorldScene1::init()
 
 	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
 	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
+	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
+	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
+	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
+	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
+	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
+	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
+	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
+	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
+	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
+	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
 	auto obj = mTileMap->getObjectGroup("Monster");
 	float x = obj->getObject("monster")["x"].asInt();
 	float y = obj->getObject("monster")["y"].asInt();
@@ -89,7 +99,14 @@ float x;
 float y;
 void WorldScene1::update(float deltaTime)
 {
-
+	for (int i = 0; i < listMonster.size(); i++)
+	{
+		if (!(listMonster[i]->GetSprite()->isVisible()))
+		{
+			listMonster[i]->Update(deltaTime);
+			i = 100;
+		}
+	}
 	for (int i = 0; i < listMonster.size(); i++)
 	{
 		x = listMonster[i]->GetSprite()->getPositionX();
@@ -100,10 +117,8 @@ void WorldScene1::update(float deltaTime)
 			//monster->removeFromParent();
 			//monster->release();
 		}
-		if (time >= 0.5)
+		if ((listPoint[listMonster[i]->m_flag].getDistance(listMonster[i]->GetSprite()->getPosition()) == 0) && (listMonster[i]->GetSprite()->isVisible()))
 		{
-			if (listPoint[listMonster[i]->m_flag].getDistance(listMonster[i]->GetSprite()->getPosition()) == 0)
-				{
 			
 					if (listMonster[i]->m_flag < listPoint.size() - 1)
 						{
@@ -112,17 +127,11 @@ void WorldScene1::update(float deltaTime)
 						}
 
 					listMonster[i]->Move(listPoint[listMonster[i]->m_flag]);
-				}
-			log("Monster %d x: %f, y: %f", i, listMonster[i]->GetSprite()->getPositionX(), listMonster[i]->GetSprite()->getPositionY());
-			time = 0;
 		}
-		else {
-			time += deltaTime;
-		}
+		
 
 	}
 }
-
 
 void WorldScene1::FadeinPause()
 {

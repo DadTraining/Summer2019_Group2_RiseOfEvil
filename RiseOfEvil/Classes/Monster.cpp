@@ -1,12 +1,11 @@
 #include "Monster.h"
 #include "ResourceManager.h"
-
+using namespace std;
 Monster::Monster(Layer * layer, int type)
 {
 	m_type = type;
 	Init();
 	layer->addChild(m_spriteNode, 20);
-
 }
 
 Monster::~Monster()
@@ -23,6 +22,7 @@ void Monster::Init()
 		SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Orc_Warrior_Walking.plist");
 		m_sprite = Sprite::createWithSpriteFrameName("Orc_Walking_1.png");
 		m_spriteNode->addChild(m_sprite);
+		m_sprite->setVisible(false);
 		m_fomatAnimation = "Orc_Walking_";
 		m_png[0] = 1;
 		m_png[1] = 10;
@@ -112,11 +112,18 @@ void Monster::Init()
 		break;
 	}
 }
-
+float timeCount = 0.5;
 void Monster::Update(float deltaTime)
 {
-	//	m_spriteNode->setVisible(true);
-	m_sprite->setVisible(true);
+	if (timeCount >= 0.5)
+	{
+		m_sprite->setVisible(true);
+		timeCount = 0;
+	}
+	else {
+		timeCount += deltaTime;
+	}
+	
 }
 
 void Monster::Move(Vec2 point)
