@@ -33,8 +33,8 @@ public:
 	virtual bool init() override;
 	void update(float deltaTime) override;
 	Tower * tower;
-	void FadeinPause();
-	void FadeoutPause();
+	void FadeInPause();
+	void FadeOutPause();
 	void returnToMainMenu();
 	CREATE_FUNC(WorldScene1);
 };

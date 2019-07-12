@@ -5,7 +5,7 @@ Monster::Monster(Layer * layer, int type)
 {
 	m_type = type;
 	Init();
-	layer->addChild(m_spriteNode, 20);
+	layer->addChild(m_spriteNode, 3);
 }
 
 Monster::~Monster()

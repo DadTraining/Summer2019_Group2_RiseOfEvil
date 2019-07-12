@@ -38,13 +38,13 @@ bool WorldScene1::init()
 	auto pauseBtn = ui::Button::create("res/Buttons/WorldScene1/pauseBtn.png");
 	pauseBtn->setScale(0.2);
 	pauseBtn->setPosition(Vec2(visibleSize.width - 50, visibleSize.height - 50));
-	pauseBtn->addTouchEventListener(CC_CALLBACK_0(WorldScene1::FadeinPause, this));
+	pauseBtn->addTouchEventListener(CC_CALLBACK_0(WorldScene1::FadeInPause, this));
 	addChild(pauseBtn, 1);
 
 	resumeBtn = ui::Button::create("res/Buttons/WorldScene1/resumeBtn.png");
 	resumeBtn->setScaleX(1.4);
 	resumeBtn->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 + 50));
-	resumeBtn->addTouchEventListener(CC_CALLBACK_0(WorldScene1::FadeoutPause, this));
+	resumeBtn->addTouchEventListener(CC_CALLBACK_0(WorldScene1::FadeOutPause, this));
 	addChild(resumeBtn, -1);
 
 	restartBtn = ui::Button::create("res/Buttons/WorldScene1/restartBtn.png");
@@ -56,7 +56,7 @@ bool WorldScene1::init()
 	mainmenuBtn = ui::Button::create("res/Buttons/WorldScene1/mainmenuBtn.png");
 	mainmenuBtn->setScaleX(1.4);
 	mainmenuBtn->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 - 90));
-	//mainmenuBtn->addTouchEventListener(CC_CALLBACK_0(WorldScene1::returnToMainMenu, this));
+	mainmenuBtn->addTouchEventListener(CC_CALLBACK_0(WorldScene1::returnToMainMenu, this));
 	addChild(mainmenuBtn, -1);
 
 
@@ -137,7 +137,7 @@ void WorldScene1::update(float deltaTime)
 	}
 }
 
-void WorldScene1::FadeinPause()
+void WorldScene1::FadeOutPause()
 
 {
 	Director::getInstance()->resume();
@@ -147,7 +147,7 @@ void WorldScene1::FadeinPause()
 	mainmenuBtn->setZOrder(-1);
 }
 
-void WorldScene1::FadeinPause()
+void WorldScene1::FadeInPause()
 {
 	Director::getInstance()->pause();
 	pause_bg->setZOrder(10);
@@ -156,12 +156,13 @@ void WorldScene1::FadeinPause()
 	mainmenuBtn->setZOrder(13);
 }
 
-//void WorldScene1::returnToMainMenu()
-//{
-//	Scene *pScene = MainMenuScene::create();
-//	TransitionFade *crssfade = TransitionFade::create(1, pScene);
-//	Director::getInstance()->replaceScene(crssfade);
-//}
+void WorldScene1::returnToMainMenu()
+{
+	Director::getInstance()->getRunningScene()->pause();
+	Scene *pScene = MainMenuScene::create();
+	TransitionFade *crssfade = TransitionFade::create(1, pScene);
+	Director::getInstance()->replaceScene(crssfade);
+}
 
 
 
