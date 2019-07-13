@@ -17,18 +17,15 @@ using namespace cocos2d;
 class Tower : public Objects
 {
 private:
-	//Sprite * tower;
 	vector <Bullet *> listBullet;
 	float range = 250;
+	float timeDelay = 0;
 public:
 	void Init();
 	Tower(Layer* layer);
 	Sprite * GetSprite();
 	void Shoot(Monster * monster);
-	void AfterShoot(Bullet * bullet);
 	void Update(float deltaTime, Monster* monster);
-	float timeDelay = 0;
-	float DistanceRange(Sprite * m_sprite, float x, float y);
 	float GetRange();
 };
 //==================================
