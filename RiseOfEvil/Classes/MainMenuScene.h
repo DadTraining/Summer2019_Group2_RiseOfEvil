@@ -9,11 +9,13 @@ private:
 	ui::Button * btnNewGame;
 	ui::Button * btnLoadGame;
 	ui::Button * btnCredits;
-	ui::Button * btnCompaign;
+	ui::Button * btnCampaign;
 	ui::Button * btnSurvival;
+	ui::Button * btnBack;
 public:
 	static cocos2d::Scene* createScene();
 	virtual bool init();
+	void update(float) override;
 	void GoToWorldMap();
 	void FadeinChoose();
 	void FadeoutChoose();
