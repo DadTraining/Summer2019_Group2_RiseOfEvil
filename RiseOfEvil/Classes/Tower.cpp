@@ -3,24 +3,38 @@
 
 void Tower::Init()
 {
-	m_sprite = Sprite::create("tower_demo.png");
+	switch (m_type)
+	{
+	case ARROW_TOWER:
+		m_sprite = Sprite::create("tower_demo.png");
+		break;
+	case MAGIC_TOWER:
+		m_sprite = Sprite::create("tower_demo.png");
+		break;
+	case SLOW_TOWER:
+		m_sprite = Sprite::create("tower_demo.png");
+		break;
+	case BOMBARD_TOWER:
+		m_sprite = Sprite::create("tower_demo.png");
+		break;
+	case BARRACKS_TOWER:
+		m_sprite = Sprite::create("tower_demo.png");
+		break;
+	}
 }
 
-Tower::Tower(Layer * layer)
+Tower::Tower(Layer * layer, int type, Vec2 Pos)
 {
+	m_type = type;
 	Init();
 	for (int i = 0; i < 10; i++)
 	{
 		Bullet * bullet = new Bullet(layer);
 		listBullet.push_back(bullet);
 	}
-	TMXTiledMap *mTileMap = TMXTiledMap::create("res/MapScene/Map01.tmx");
-	auto obj = mTileMap->getObjectGroup("Monster");
-	auto objTower = mTileMap->getObjectGroup("Tower");
-	float tx = objTower->getObject("tower")["x"].asInt();
-	float ty = objTower->getObject("tower")["y"].asInt();
-	m_sprite->setPosition(tx, ty);
 	m_sprite->setScale(0.5f);
+	m_sprite->setPosition(Pos);
+	m_sprite->removeFromParent();
 	layer->addChild(m_sprite, 5);
 }
 
