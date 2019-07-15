@@ -29,12 +29,11 @@ private:
 	ui::Button *mainmenuBtn;
 	Sprite *pause_bg;
 	float time;
-	MenuItemImage *itemmenuTower1;
-	MenuItemImage *itemmenuTower2;
-	MenuItemImage *itemmenuTower3;
-	MenuItemImage *itemmenuTower4;
-	MenuItemImage *itemmenuTower5;
-	MenuItemImage *itemmenuTower6;
+	MenuItemImage *archerIcon;
+	MenuItemImage *magicIcon;
+	MenuItemImage *slowIcon;
+	MenuItemImage *barrackIcon;
+	MenuItemImage *boombardIcon;
 	Menu *menu;
 	Vec2 touchLocation;
 public:

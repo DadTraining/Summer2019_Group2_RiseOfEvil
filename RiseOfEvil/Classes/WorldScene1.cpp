@@ -26,39 +26,33 @@ bool WorldScene1::init()
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
 	//===============================================================
-	itemmenuTower1 = MenuItemImage::create("tower_demo.png", "tower_demo.png", [&](Ref* sender) {
+	archerIcon = MenuItemImage::create("res/WorldScene1/archerTower.png", "res/WorldScene1/archerTower.png", [&](Ref* sender) {
 		//new Tower(this, 1, touchLocation);
 		BuildTower(1, touchLocation);
 	});
-	itemmenuTower1->setPosition(0, 0);
-	itemmenuTower1->setScale(0.4);
+	archerIcon->setPosition(0, 0);
 
-	itemmenuTower2 = MenuItemImage::create("tower_demo.png", "tower_demo.png", [&](Ref* sender) {
+	magicIcon = MenuItemImage::create("res/WorldScene1/magicTower.png", "res/WorldScene1/magicTower.png", [&](Ref* sender) {
 		BuildTower(2, touchLocation);
 	});
-	itemmenuTower2->setPosition(0, 0);
-	itemmenuTower2->setScale(0.4);
+	magicIcon->setPosition(0, 0);
 
-	itemmenuTower3 = MenuItemImage::create("tower_demo.png", "tower_demo.png", [&](Ref* sender) {
+	barrackIcon = MenuItemImage::create("res/WorldScene1/barrackTower.png", "res/WorldScene1/barrackTower.png", [&](Ref* sender) {
 		BuildTower(3, touchLocation);
 	});
-	itemmenuTower3->setPosition(0, 0);
-	itemmenuTower3->setScale(0.4);
+	barrackIcon->setPosition(0, 0);
 
-	itemmenuTower4 = MenuItemImage::create("tower_demo.png", "tower_demo.png", [&](Ref* sender) {
+	slowIcon = MenuItemImage::create("res/WorldScene1/slowTower.png", "res/WorldScene1/slowTower.png", [&](Ref* sender) {
 		BuildTower(4, touchLocation);
 	});
-	itemmenuTower4->setPosition(0, 0);
-	itemmenuTower4->setScale(0.4);
+	slowIcon->setPosition(0, 0);
 
-	itemmenuTower5 = MenuItemImage::create("tower_demo.png", "tower_demo.png", [&](Ref* sender) {
+	boombardIcon = MenuItemImage::create("res/WorldScene1/boombardTower.png", "res/WorldScene1/boombardTower.png", [&](Ref* sender) {
 		BuildTower(5, touchLocation);
 	});
-	itemmenuTower5->setPosition(0, 0);
-	itemmenuTower5->setScale(0.4);
+	boombardIcon->setPosition(0, 0);
 
-
-	menu = Menu::create(itemmenuTower1, itemmenuTower2, itemmenuTower3, itemmenuTower4, itemmenuTower5, itemmenuTower6, nullptr);
+	menu = Menu::create(archerIcon, magicIcon, slowIcon, boombardIcon, barrackIcon, nullptr);
 	menu->setPosition(0, 0);
 	addChild(menu, 100);
 	menu->setVisible(false);
@@ -145,7 +139,7 @@ bool WorldScene1::init()
 	touchListener->onTouchEnded = CC_CALLBACK_2(WorldScene1::onTouchEnded, this);
 	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchListener, this);
 	//=======================================================
-
+	menu->setScale(0.6f);
 	time = 0;
 
 	scheduleUpdate();
@@ -234,6 +228,7 @@ void WorldScene1::BuildTower(int type, Vec2 Pos)
 {
 	Tower * towerBuild = new Tower(this, type, Pos);
 	listTower.push_back(towerBuild);
+	menu->setVisible(false);
 }
 
 bool WorldScene1::onTouchBegan(Touch * touch, Event * event)
@@ -251,6 +246,7 @@ bool WorldScene1::onTouchBegan(Touch * touch, Event * event)
 			auto TowerSet = listPosTower->getTileAt(Vec2(i, j));
 			if (TowerSet != NULL  && TowerSet->getBoundingBox().containsPoint(touchLocation))
 			{
+		
 				createmenu(touchLocation);
 			}
 		}
@@ -260,11 +256,11 @@ bool WorldScene1::onTouchBegan(Touch * touch, Event * event)
 
 void WorldScene1::createmenu(Vec2 point)
 {
-	itemmenuTower1->setPosition(point);
-	itemmenuTower2->setPosition(point.x + itemmenuTower1->getContentSize().width, point.y);
-	itemmenuTower3->setPosition(point.x + 2 * itemmenuTower2->getContentSize().width, point.y);
-	itemmenuTower4->setPosition(point.x, point.y + itemmenuTower4->getContentSize().height);
-	itemmenuTower5->setPosition(point.x + itemmenuTower1->getContentSize().width, point.y + itemmenuTower4->getContentSize().height);
+	archerIcon->setPosition(point);
+	magicIcon->setPosition(point.x + magicIcon->getContentSize().width, point.y);
+	slowIcon->setPosition(point.x + 2 * slowIcon->getContentSize().width, point.y);
+	boombardIcon->setPosition(point.x + 3 * boombardIcon->getContentSize().width, point.y);
+	barrackIcon->setPosition(point.x + 4 * barrackIcon->getContentSize().width, point.y);
 	if (!menu->isVisible())
 	{
 		menu->setVisible(true);
