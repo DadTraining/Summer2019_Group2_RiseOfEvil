@@ -15,7 +15,7 @@ protected:
 
 public:
 	virtual void Init() = 0;
-	//virtual void Update(float deltaTime) = 0;
+	virtual void Update(float deltaTime);
 	//virtual void Attack(Objects *target) = 0;
 
 	void SetSprite(Sprite *);

@@ -309,3 +309,5 @@ float Monster::GetVelocity()
 {
 	return m_velocity;
 }
+
+

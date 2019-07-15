@@ -9,6 +9,10 @@ Objects::~Objects()
 {
 }
 
+void Objects::Update(float deltaTime)
+{
+}
+
 void Objects::SetSprite(Sprite *sprite)
 {
 	m_sprite = sprite;

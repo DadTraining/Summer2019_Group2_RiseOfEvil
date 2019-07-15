@@ -7,15 +7,23 @@ void Tower::Init()
 	{
 	case ARROW_TOWER:
 		m_sprite = Sprite::create("res/WorldScene1/archerTower1.png");
+		m_minimumAtk = 4;
+		m_maximumAtk = 6;
 		break;
 	case MAGIC_TOWER:
 		m_sprite = Sprite::create("res/WorldScene1/magictower1.png");
+		m_minimumAtk = 9;
+		m_maximumAtk = 17;
 		break;
 	case SLOW_TOWER:
 		m_sprite = Sprite::create("res/WorldScene1/slowtower1.png");
+		m_minimumAtk = 1;
+		m_maximumAtk = 3;
 		break;
 	case BOMBARD_TOWER:
 		m_sprite = Sprite::create("res/WorldScene1/boomtower1.png");
+		m_minimumAtk = 10;
+		m_maximumAtk = 18;
 		break;
 	case BARRACKS_TOWER:
 		m_sprite = Sprite::create("res/WorldScene1/brracktower1.png");
@@ -59,12 +67,26 @@ void Tower::Shoot(Monster * monster)
 
 void Tower::Update(float deltaTime, Monster * monster)
 {
+	if (checkTowerShoot)
+	{
+		coutTimeToDamage += deltaTime;
+		if (coutTimeToDamage >= 0.4)
+		{
+			monster->SetHitPoint(monster->GetHitPoint() - GetDamage());
+			coutTimeToDamage = 0;
+			if (monster->GetHitPoint() <= 0)
+			{
+				//monster->GetSprite()->release();
+			}
+		}
+	}
 	if (m_sprite->getPosition().getDistance(Vec2(monster->GetSprite()->getPositionX(), monster->GetSprite()->getPositionY())) < range)
 	{
 		timeDelay += deltaTime;
-		if (timeDelay > 1.0f)
+		if (timeDelay > 0.8)
 		{
 			Shoot(monster);
+			checkTowerShoot = true;
 			timeDelay = 0;
 		}
 	}
@@ -73,4 +95,9 @@ void Tower::Update(float deltaTime, Monster * monster)
 float Tower::GetRange()
 {
 	return range;
+}
+
+int Tower::GetDamage()
+{
+	return random(m_minimumAtk,m_maximumAtk);
 }
