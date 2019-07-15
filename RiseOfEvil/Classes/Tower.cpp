@@ -6,19 +6,19 @@ void Tower::Init()
 	switch (m_type)
 	{
 	case ARROW_TOWER:
-		m_sprite = Sprite::create("tower_demo.png");
+		m_sprite = Sprite::create("res/WorldScene1/archerTower1.png");
 		break;
 	case MAGIC_TOWER:
-		m_sprite = Sprite::create("tower_demo.png");
+		m_sprite = Sprite::create("res/WorldScene1/magictower1.png");
 		break;
 	case SLOW_TOWER:
-		m_sprite = Sprite::create("tower_demo.png");
+		m_sprite = Sprite::create("res/WorldScene1/slowtower1.png");
 		break;
 	case BOMBARD_TOWER:
-		m_sprite = Sprite::create("tower_demo.png");
+		m_sprite = Sprite::create("res/WorldScene1/boomtower1.png");
 		break;
 	case BARRACKS_TOWER:
-		m_sprite = Sprite::create("tower_demo.png");
+		m_sprite = Sprite::create("res/WorldScene1/brracktower1.png");
 		break;
 	}
 }
