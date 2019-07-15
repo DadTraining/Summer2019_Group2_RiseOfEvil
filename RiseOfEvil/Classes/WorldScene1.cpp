@@ -25,6 +25,45 @@ bool WorldScene1::init()
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
+	//===============================================================
+	itemmenuTower1 = MenuItemImage::create("tower_demo.png", "tower_demo.png", [&](Ref* sender) {
+		//new Tower(this, 1, touchLocation);
+		BuildTower(1, touchLocation);
+	});
+	itemmenuTower1->setPosition(0, 0);
+	itemmenuTower1->setScale(0.4);
+
+	itemmenuTower2 = MenuItemImage::create("tower_demo.png", "tower_demo.png", [&](Ref* sender) {
+		BuildTower(2, touchLocation);
+	});
+	itemmenuTower2->setPosition(0, 0);
+	itemmenuTower2->setScale(0.4);
+
+	itemmenuTower3 = MenuItemImage::create("tower_demo.png", "tower_demo.png", [&](Ref* sender) {
+		BuildTower(3, touchLocation);
+	});
+	itemmenuTower3->setPosition(0, 0);
+	itemmenuTower3->setScale(0.4);
+
+	itemmenuTower4 = MenuItemImage::create("tower_demo.png", "tower_demo.png", [&](Ref* sender) {
+		BuildTower(4, touchLocation);
+	});
+	itemmenuTower4->setPosition(0, 0);
+	itemmenuTower4->setScale(0.4);
+
+	itemmenuTower5 = MenuItemImage::create("tower_demo.png", "tower_demo.png", [&](Ref* sender) {
+		BuildTower(5, touchLocation);
+	});
+	itemmenuTower5->setPosition(0, 0);
+	itemmenuTower5->setScale(0.4);
+
+
+	menu = Menu::create(itemmenuTower1, itemmenuTower2, itemmenuTower3, itemmenuTower4, itemmenuTower5, itemmenuTower6, nullptr);
+	menu->setPosition(0, 0);
+	addChild(menu, 100);
+	menu->setVisible(false);
+	//==================================================================
+
 	mTileMap = TMXTiledMap::create("res/MapScene/Map01.tmx");
 	mTileMap->setAnchorPoint(Vec2(0, 0));
 	mTileMap->setPosition(0, 0);
@@ -85,8 +124,9 @@ bool WorldScene1::init()
 		listMonster[i]->GetSprite()->setPosition(x, y);
 		listMonster[i]->GetSprite()->setScale(0.6);
 	}
+
 	auto road = mTileMap->getObjectGroup("Point");
-	tower = new Tower(this);
+	new Tower(this, 1, touchLocation);
 	//auto body = PhysicsBody::createCircle(150, PHYSICSBODY_MATERIAL_DEFAULT);
 	//body->setDynamic(false);
 	//tower->GetSprite()->setPhysicsBody(body);
@@ -97,7 +137,14 @@ bool WorldScene1::init()
 		float y = road->getObject("P" + to_string(i + 1))["y"].asInt();
 		listPoint.push_back(Vec2(x, y));
 	}
-
+	//touch event
+	//=====================================================
+	auto touchListener = EventListenerTouchOneByOne::create();
+	touchListener->onTouchBegan = CC_CALLBACK_2(WorldScene1::onTouchBegan, this);
+	touchListener->onTouchMoved = CC_CALLBACK_2(WorldScene1::onTouchMoved, this);
+	touchListener->onTouchEnded = CC_CALLBACK_2(WorldScene1::onTouchEnded, this);
+	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchListener, this);
+	//=======================================================
 
 	time = 0;
 
@@ -133,14 +180,20 @@ void WorldScene1::update(float deltaTime)
 					listMonster[i]->Move(listPoint[listMonster[i]->m_flag]);
 		}
 	}
-	for (int i = 0; i < listMonster.size(); i++)
+	for (int tower = 0; tower < listTower.size(); tower++)
 	{
-		if (listMonster[i]->GetSprite()->isVisible() && listMonster[i]->GetSprite()->getPosition().getDistance(tower->GetSprite()->getPosition()) < tower->GetRange())
+
+		for (int i = 0; i < listMonster.size(); i++)
 		{
-			x = listMonster[i]->GetSprite()->getPositionX();
-			y = listMonster[i]->GetSprite()->getPositionY();
-			tower->Update(deltaTime, listMonster[i]);
-			i = 100;
+
+			if (listMonster[i]->GetSprite()->isVisible() &&
+				listMonster[i]->GetSprite()->getPosition().getDistance(listTower[tower]->GetSprite()->getPosition()) < listTower[tower]->GetRange())
+			{
+				x = listMonster[i]->GetSprite()->getPositionX();
+				y = listMonster[i]->GetSprite()->getPositionY();
+				listTower[tower]->Update(deltaTime, listMonster[i]);
+				i = 100;
+			}
 		}
 	}
 	
@@ -175,6 +228,51 @@ void WorldScene1::returnToMainMenu()
 {
 	Director::getInstance()->getRunningScene()->pause();
 	Director::getInstance()->replaceScene(TransitionZoomFlipAngular::create(1, MainMenuScene::createScene()));
+}
+
+void WorldScene1::BuildTower(int type, Vec2 Pos)
+{
+	Tower * towerBuild = new Tower(this, type, Pos);
+	listTower.push_back(towerBuild);
+}
+
+bool WorldScene1::onTouchBegan(Touch * touch, Event * event)
+{
+	touchLocation = touch->getLocation();
+	//====================Get Tileset List Tower=====================================
+	auto listPosTower = mTileMap->getLayer("ListTower");
+	Size sizeListTower = listPosTower->getLayerSize();
+	log("width tilemaps: %f", sizeListTower.width);
+	log("height tilemaps: %f", sizeListTower.height);
+	for (int i = 0; i < sizeListTower.width; i++)
+	{
+		for (int j = 0; j < sizeListTower.height; j++)
+		{
+			auto TowerSet = listPosTower->getTileAt(Vec2(i, j));
+			if (TowerSet != NULL  && TowerSet->getBoundingBox().containsPoint(touchLocation))
+			{
+				createmenu(touchLocation);
+			}
+		}
+	}
+	return true;
+}
+
+void WorldScene1::createmenu(Vec2 point)
+{
+	itemmenuTower1->setPosition(point);
+	itemmenuTower2->setPosition(point.x + itemmenuTower1->getContentSize().width, point.y);
+	itemmenuTower3->setPosition(point.x + 2 * itemmenuTower2->getContentSize().width, point.y);
+	itemmenuTower4->setPosition(point.x, point.y + itemmenuTower4->getContentSize().height);
+	itemmenuTower5->setPosition(point.x + itemmenuTower1->getContentSize().width, point.y + itemmenuTower4->getContentSize().height);
+	if (!menu->isVisible())
+	{
+		menu->setVisible(true);
+	}
+	else
+	{
+		menu->setVisible(false);
+	}
 }
 
 

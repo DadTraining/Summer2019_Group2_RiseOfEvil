@@ -22,51 +22,9 @@ private:
 	float timeDelay = 0;
 public:
 	void Init();
-	Tower(Layer* layer);
+	Tower(Layer* layer, int, Vec2);
 	Sprite * GetSprite();
 	void Shoot(Monster * monster);
 	void Update(float deltaTime, Monster* monster);
 	float GetRange();
 };
-//==================================
-//#pragma once
-//#include "Objects.h"
-//#include "cocos2d.h"
-
-//using namespace cocos2d;
-//class Tower :public Objects
-//{
-//private:
-//	int m_type;
-//	float m_attackSpeed;
-//	int m_range;
-//	//vector<Skill *>m_listSkill;
-//	//vector<Bullet *>m_listBullet;
-//	int m_level;
-//	int m_cost;
-//	//Skill * special;
-//public:
-//	Tower(Scene *scene, int type);
-//	~Tower();
-//	void Init();
-//	void Update(float deltaTime);
-//	void Attack(Objects *);
-//	void Destroyed();
-//	void SetTarget(Objects *);
-//	void SetType(int);
-//	void SetAttackSpeed(float);
-//	void SetRange(int);
-//	void SetCost(int);
-//	//void SetListSkill(vector<Skill*>);
-//	//void SetListBullet(vector<Bullet*>);
-//	void SetLevel(int);
-//	int GetType();
-//	float GetAttackSpeed();
-//	int GetRange();
-//	//vector<Skill*> GetListSkill();
-//	//vector<Bullet*> GetListBullet();
-//	int GetLevel();
-//	int GetCost();
-//
-//};
-//========================================================

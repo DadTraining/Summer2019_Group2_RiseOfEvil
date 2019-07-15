@@ -22,12 +22,21 @@ private:
 	TMXTiledMap* mTileMap;
 	vector<Monster*> listMonster;
 	vector<Vec2> listPoint;
+	vector<Tower*>listTower;
 	PhysicsBody *body;
 	ui::Button *resumeBtn;
 	ui::Button *restartBtn;
 	ui::Button *mainmenuBtn;
 	Sprite *pause_bg;
 	float time;
+	MenuItemImage *itemmenuTower1;
+	MenuItemImage *itemmenuTower2;
+	MenuItemImage *itemmenuTower3;
+	MenuItemImage *itemmenuTower4;
+	MenuItemImage *itemmenuTower5;
+	MenuItemImage *itemmenuTower6;
+	Menu *menu;
+	Vec2 touchLocation;
 public:
 	static Scene* createScene();
 	virtual bool init() override;
@@ -36,5 +45,8 @@ public:
 	void FadeInPause();
 	void FadeOutPause();
 	void returnToMainMenu();
+	void BuildTower(int, Vec2 Pos);
+	bool onTouchBegan(Touch *touch, Event *event);
+	void createmenu(Vec2 point);
 	CREATE_FUNC(WorldScene1);
 };
