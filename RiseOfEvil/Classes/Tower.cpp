@@ -74,10 +74,6 @@ void Tower::Update(float deltaTime, Monster * monster)
 		{
 			monster->SetHitPoint(monster->GetHitPoint() - GetDamage());
 			coutTimeToDamage = 0;
-			if (monster->GetHitPoint() <= 0)
-			{
-				//monster->GetSprite()->release();
-			}
 		}
 	}
 	if (m_sprite->getPosition().getDistance(Vec2(monster->GetSprite()->getPositionX(), monster->GetSprite()->getPositionY())) < range)

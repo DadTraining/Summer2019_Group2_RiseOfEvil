@@ -40,7 +40,7 @@ void Monster::Init()
 		m_png[13] = 30;
 		m_png[14] = 31;
 		m_png[15] = 40;
-		m_hitPoint = 24;
+		m_hitPoint = 12000;
 		m_minimumAtk = 1;
 		m_maximumAtk = 4;
 		m_attackSpeed = 1.0;
@@ -149,7 +149,7 @@ void Monster::Move(Vec2 point)
 	}
 	else
 		Action(NW);
-	m_sprite->runAction(MoveTo::create(point.getDistance(m_sprite->getPosition()) / abs(m_movementSpeed), Vec2(point.x, point.y)));
+	m_sprite->runAction(MoveTo::create(point.getDistance(m_sprite->getPosition()) / m_movementSpeed, Vec2(point.x, point.y)));
 }
 Animation* Monster::AnimationMonster(string prefixName, int pFrameBegin, int pFrameEnd, float delay)
 {

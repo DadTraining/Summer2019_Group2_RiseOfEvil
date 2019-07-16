@@ -149,7 +149,9 @@ float x;
 float y;
 void WorldScene1::update(float deltaTime)
 {
-
+	for (int i = 0; i < listMonster.size(); i++) {
+		log("Blood %d: %d",i ,listMonster[i]->GetHitPoint());
+	}
 
 	for (int i = 0; i < listMonster.size(); i++)
 	{
