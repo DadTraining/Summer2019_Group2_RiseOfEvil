@@ -49,7 +49,28 @@ void Monster::Init()
 		m_gold = 6;
 		break;
 	case MAGICAN_MONSTER:
-		m_sprite = ResourceManager::GetInstance()->DuplicateSprite(ResourceManager::GetInstance()->GetSpriteById(MAGICAN_MONSTER)); //id = id of MAGICAN_MONSTER
+		m_spriteNode = SpriteBatchNode::create("Minotaur_Walking.png");
+		SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Minotaur_Walking.plist");
+		m_sprite = Sprite::createWithSpriteFrameName("_Minotaur_1.png");
+		m_spriteNode->addChild(m_sprite);
+		m_sprite->setVisible(false);
+		m_fomatAnimation = "_Minotaur_";
+		m_png[0] = 1;
+		m_png[1] = 10;
+		m_png[2] = 71;
+		m_png[3] = 80;
+		m_png[4] = 41;
+		m_png[5] = 50;
+		m_png[6] = 11;
+		m_png[7] = 20;
+		m_png[8] = 51;
+		m_png[9] = 60;
+		m_png[10] = 61;
+		m_png[11] = 70;
+		m_png[12] = 21;
+		m_png[13] = 30;
+		m_png[14] = 31;
+		m_png[15] = 40;
 		m_hitPoint = 120;
 		m_minimumAtk = 5;
 		m_maximumAtk = 7;

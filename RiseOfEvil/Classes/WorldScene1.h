@@ -20,6 +20,7 @@ class WorldScene1 : public Layer
 {
 private:
 	TMXTiledMap* mTileMap;
+	vector<Vec2> listLocationTower;
 	vector<Monster*> listMonster;
 	vector<Vec2> listPoint;
 	vector<Tower*>listTower;
@@ -35,6 +36,8 @@ private:
 	MenuItemImage *barrackIcon;
 	MenuItemImage *boombardIcon;
 	Menu *menu;
+	Sprite* canBuild;
+	Sprite* cannotBuild;
 	Vec2 touchLocation;
 public:
 	static Scene* createScene();
@@ -46,6 +49,7 @@ public:
 	void returnToMainMenu();
 	void BuildTower(int, Vec2 Pos);
 	bool onTouchBegan(Touch *touch, Event *event);
+	bool checkLocationBuildTower(Vec2);
 	void createmenu(Vec2 point);
 	CREATE_FUNC(WorldScene1);
 };

@@ -56,6 +56,18 @@ bool WorldScene1::init()
 	menu->setPosition(0, 0);
 	addChild(menu, 100);
 	menu->setVisible(false);
+
+	canBuild = Sprite::create("CloseNormal.png");
+	canBuild->removeFromParent();
+	canBuild->setPosition(0, 0);
+	this->addChild(canBuild, 6);
+	canBuild->setVisible(false);
+
+	cannotBuild = Sprite::create("CloseSelected.png");
+	cannotBuild->removeFromParent();
+	cannotBuild->setPosition(0, 0);
+	this->addChild(cannotBuild, 6);
+	cannotBuild->setVisible(false);
 	//==================================================================
 
 	mTileMap = TMXTiledMap::create("res/MapScene/Map01.tmx");
@@ -108,6 +120,19 @@ bool WorldScene1::init()
 	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
 	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
 	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
+
+	listMonster.push_back(new Monster(this, MAGICAN_MONSTER));
+	listMonster.push_back(new Monster(this, MAGICAN_MONSTER));
+	listMonster.push_back(new Monster(this, MAGICAN_MONSTER));
+	listMonster.push_back(new Monster(this, MAGICAN_MONSTER));
+	listMonster.push_back(new Monster(this, MAGICAN_MONSTER));
+	listMonster.push_back(new Monster(this, MAGICAN_MONSTER));
+	listMonster.push_back(new Monster(this, MAGICAN_MONSTER));
+	listMonster.push_back(new Monster(this, MAGICAN_MONSTER));
+
+
+	listLocationTower.push_back(Vec2(0, 0));
+
 
 	auto obj = mTileMap->getObjectGroup("Monster");
 	float x = obj->getObject("monster")["x"].asInt();
@@ -229,13 +254,45 @@ void WorldScene1::BuildTower(int type, Vec2 Pos)
 	Tower * towerBuild = new Tower(this, type, Pos);
 	listTower.push_back(towerBuild);
 	menu->setVisible(false);
+	canBuild->setVisible(false);
 }
 
 bool WorldScene1::onTouchBegan(Touch * touch, Event * event)
 {
 	touchLocation = touch->getLocation();
+
+	if (checkLocationBuildTower(touchLocation))
+	{	
+		canBuild->setPosition(touchLocation);
+		
+		auto listPosTower = mTileMap->getLayer("ListTower");
+		Size sizeListTower = listPosTower->getLayerSize();
+		log("width tilemaps: %f", sizeListTower.width);
+		log("height tilemaps: %f", sizeListTower.height);
+		for (int i = 0; i < sizeListTower.width; i++)
+		{
+			for (int j = 0; j < sizeListTower.height; j++)
+			{
+				auto TowerSet = listPosTower->getTileAt(Vec2(i, j));
+				if (TowerSet != NULL  && TowerSet->getBoundingBox().containsPoint(touchLocation))
+				{
+
+					createmenu(touchLocation);
+				}
+			}
+		}		
+	}
+	else 
+	{
+		cannotBuild->setPosition(touchLocation);
+		if (!cannotBuild->isVisible())
+		{
+			cannotBuild->setVisible(true);
+		}
+	}
+	return true;
 	//====================Get Tileset List Tower=====================================
-	auto listPosTower = mTileMap->getLayer("ListTower");
+	/*auto listPosTower = mTileMap->getLayer("ListTower");
 	Size sizeListTower = listPosTower->getLayerSize();
 	log("width tilemaps: %f", sizeListTower.width);
 	log("height tilemaps: %f", sizeListTower.height);
@@ -251,6 +308,19 @@ bool WorldScene1::onTouchBegan(Touch * touch, Event * event)
 			}
 		}
 	}
+	return true;*/
+}
+bool WorldScene1::checkLocationBuildTower(Vec2 newPoint)
+{
+	for (int i = 0; i < listLocationTower.size(); i++)
+	{
+		if (newPoint.getDistance(listLocationTower[i]) < 32)
+		{
+			return false;
+		}
+	}
+	listLocationTower.push_back(newPoint);
+
 	return true;
 }
 
@@ -261,14 +331,13 @@ void WorldScene1::createmenu(Vec2 point)
 	slowIcon->setPosition(point.x + 2 * slowIcon->getContentSize().width, point.y);
 	boombardIcon->setPosition(point.x + 3 * boombardIcon->getContentSize().width, point.y);
 	barrackIcon->setPosition(point.x + 4 * barrackIcon->getContentSize().width, point.y);
+
 	if (!menu->isVisible())
 	{
 		menu->setVisible(true);
-	}
-	else
-	{
-		menu->setVisible(false);
-	}
+		canBuild->setVisible(true);
+		cannotBuild->setVisible(false);
+	}	
 }
 
 
