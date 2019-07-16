@@ -18,10 +18,10 @@ class Tower : public Objects
 {
 private:
 	vector <Bullet *> listBullet;
-	float range = 250;
+	float m_range = 250;
 	float timeDelay = 0;
-	bool checkTowerShoot = false;
-	float coutTimeToDamage = 0;
+	float m_attackSpeed;
+	int m_gold;
 public:
 	void Init();
 	Tower(Layer* layer, int, Vec2);
@@ -29,5 +29,8 @@ public:
 	void Shoot(Monster * monster);
 	void Update(float deltaTime, Monster* monster);
 	float GetRange();
-	int GetDamage();
+	float GetAttackSpeed();
+	void SetAttackSpeed(float);
+	int GetGold();
+	void SetGold(int);
 };
