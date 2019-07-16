@@ -30,15 +30,18 @@ private:
 	string m_fomatAnimation;
 	float m_attackSpeed;
 	int m_gold;
+	int m_maxHitPoint;
 	Animation *animation;
+	float m_movementSpeed;
+	float m_velocity;
 	//vector<Skill *>m_listSkill;
 	int m_range;
 
 	//Skill * speciall
 public:
 	int m_flag = 0;
-	float m_movementSpeed;
-	float m_velocity;
+	
+	
 	Monster(Layer*, int);
 	~Monster();
 	void Init();
