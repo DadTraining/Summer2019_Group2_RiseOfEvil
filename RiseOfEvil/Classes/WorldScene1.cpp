@@ -38,17 +38,17 @@ bool WorldScene1::init()
 	magicIcon->setPosition(0, 0);
 
 	barrackIcon = MenuItemImage::create("res/WorldScene1/barrackTower.png", "res/WorldScene1/barrackTower.png", [&](Ref* sender) {
-		BuildTower(3, touchLocation);
+		BuildTower(5, touchLocation);
 	});
 	barrackIcon->setPosition(0, 0);
 
 	slowIcon = MenuItemImage::create("res/WorldScene1/slowTower.png", "res/WorldScene1/slowTower.png", [&](Ref* sender) {
-		BuildTower(4, touchLocation);
+		BuildTower(3, touchLocation);
 	});
 	slowIcon->setPosition(0, 0);
 
 	boombardIcon = MenuItemImage::create("res/WorldScene1/boombardTower.png", "res/WorldScene1/boombardTower.png", [&](Ref* sender) {
-		BuildTower(5, touchLocation);
+		BuildTower(4, touchLocation);
 	});
 	boombardIcon->setPosition(0, 0);
 
