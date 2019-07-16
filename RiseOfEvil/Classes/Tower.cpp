@@ -3,25 +3,38 @@
 
 void Tower::Init()
 {
-	m_sprite = Sprite::create("tower_demo.png");
-
+	switch (m_type)
+	{
+	case ARROW_TOWER:
+		m_sprite = Sprite::create("res/WorldScene1/archerTower1.png");
+		break;
+	case MAGIC_TOWER:
+		m_sprite = Sprite::create("res/WorldScene1/magictower1.png");
+		break;
+	case SLOW_TOWER:
+		m_sprite = Sprite::create("res/WorldScene1/slowtower1.png");
+		break;
+	case BOMBARD_TOWER:
+		m_sprite = Sprite::create("res/WorldScene1/boomtower1.png");
+		break;
+	case BARRACKS_TOWER:
+		m_sprite = Sprite::create("res/WorldScene1/brracktower1.png");
+		break;
+	}
 }
 
-Tower::Tower(Layer * layer)
+Tower::Tower(Layer * layer, int type, Vec2 Pos)
 {
+	m_type = type;
 	Init();
 	for (int i = 0; i < 10; i++)
 	{
 		Bullet * bullet = new Bullet(layer);
 		listBullet.push_back(bullet);
 	}
-	TMXTiledMap *mTileMap = TMXTiledMap::create("res/MapScene/Map01.tmx");
-	auto obj = mTileMap->getObjectGroup("Monster");
-	auto objTower = mTileMap->getObjectGroup("Tower");
-	float tx = objTower->getObject("tower")["x"].asInt();
-	float ty = objTower->getObject("tower")["y"].asInt();
-	m_sprite->setPosition(tx, ty);
 	m_sprite->setScale(0.5f);
+	m_sprite->setPosition(Pos);
+	m_sprite->removeFromParent();
 	layer->addChild(m_sprite, 5);
 }
 
@@ -32,33 +45,16 @@ Sprite * Tower::GetSprite()
 int hp = 20;
 void Tower::Shoot(Monster * monster)
 {
-	ccBezierConfig bezier;
 	for (int i = 0; i < listBullet.size(); i++)
 	{
 		if (!listBullet.at(i)->GetSprite()->isVisible())
 		{
-			auto bullet = listBullet.at(i);
-			bullet->GetSprite()->setVisible(true);
-			bullet->GetSprite()->setPosition(m_sprite->getPositionX(), m_sprite->getPositionY());
-			//================Shoot Bezier=======================
-			bezier.controlPoint_1 = Point(listBullet[i]->GetSprite()->getPositionX(), listBullet[i]->GetSprite()->getPositionY());
-			bezier.controlPoint_2 = Point(Vec2(((listBullet[i]->GetSprite()->getPositionX() + monster->GetSprite()->getPositionX()) / 2), (listBullet[i]->GetSprite()->getPositionY() + monster->GetSprite()->getPositionY()) / 2 + 200));
-			bezier.endPosition = Point(Vec2(monster->GetSprite()->getPositionX() + (0.2 * monster->GetMovementSpeed()), monster->GetSprite()->getPositionY() + (0.2 * monster->GetMovementSpeed() )));
-			auto movetToOfBullet = BezierTo::create(0.4f, bezier);
-		//	auto movetToOfBullet = MoveTo::create(1.0f, Vec2(x, y));
-			auto callfunct = CallFunc::create(CC_CALLBACK_0(Tower::AfterShoot, this, bullet));
-			//bullet->GetSprite()->setVisible(false);
-			auto sq = Sequence::create(movetToOfBullet, callfunct, nullptr);
-			bullet->GetSprite()->runAction(sq);
+			listBullet.at(i)->GetSprite()->setVisible(true);
+			listBullet.at(i)->GetSprite()->setPosition(m_sprite->getPositionX(), m_sprite->getPositionY());
+			listBullet.at(i)->Move(monster);
 			break;
 		}
 	}
-	hp -= 4;
-}
-
-void Tower::AfterShoot(Bullet * bullet)
-{
-	bullet->GetSprite()->setVisible(false);
 }
 
 void Tower::Update(float deltaTime, Monster * monster)
@@ -71,18 +67,7 @@ void Tower::Update(float deltaTime, Monster * monster)
 			Shoot(monster);
 			timeDelay = 0;
 		}
-
 	}
-	if (m_sprite->getPosition().getDistance(monster->GetSprite()->getPosition()) == range)
-	{
-		log("Monster PositionX: %f", monster->GetSprite()->getPositionX());
-		log("Monster PositionY: %f", monster->GetSprite()->getPositionY());
-	}
-}
-
-float Tower::DistanceRange(Sprite * m_sprite, float x, float y)
-{
-	return m_sprite->getPosition().getDistance(Vec2(x, y));
 }
 
 float Tower::GetRange()
