@@ -180,6 +180,7 @@ void WorldScene1::update(float deltaTime)
 	{
 		if (!(listMonster[i]->GetSprite()->isVisible()))
 		{
+			listMonster[i]->setProgressBar();
 			listMonster[i]->Update(deltaTime);
 			i = 100;
 		}
@@ -213,6 +214,14 @@ void WorldScene1::update(float deltaTime)
 				listTower[tower]->Update(deltaTime, listMonster[i]);
 				i = 100;
 			}
+		}
+	}
+	for (int i = 0; i < listMonster.size(); i++)
+	{
+		if (listMonster[i]->GetHitPoint() <= 0)
+		{
+			listMonster[i]->GetSprite()->setVisible(false);
+			listMonster.erase(listMonster.begin() + i);
 		}
 	}
 	

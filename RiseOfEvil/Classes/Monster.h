@@ -36,7 +36,7 @@ private:
 	float m_velocity;
 	//vector<Skill *>m_listSkill;
 	int m_range;
-
+	
 	//Skill * speciall
 public:
 	int m_flag = 0;
@@ -61,5 +61,6 @@ public:
 	float GetAttackSpeed();
 	int GetGold();
 	int GetRange();
+	void setProgressBar();
 	float GetVelocity();
 };

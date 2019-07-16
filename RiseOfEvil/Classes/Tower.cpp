@@ -89,6 +89,18 @@ void Tower::Shoot(Monster * monster)
 
 void Tower::Update(float deltaTime, Monster * monster)
 {
+	if (checkTowerShoot)
+	{
+		countTimeToDamage += deltaTime;
+		
+		if (countTimeToDamage >= 0.4)
+		{
+			monster->SetHitPoint(monster->GetHitPoint() - GetDamage());
+			log("%d",monster->GetHitPoint());
+			countTimeToDamage = 0;
+			checkTowerShoot = false;
+		}
+	}
 	if (m_sprite->getPosition().getDistance(Vec2(monster->GetSprite()->getPositionX(), monster->GetSprite()->getPositionY())) < m_range)
 	{
 		timeDelay += deltaTime;
@@ -96,8 +108,10 @@ void Tower::Update(float deltaTime, Monster * monster)
 		{
 			Shoot(monster);
 			timeDelay = 0;
+			checkTowerShoot = true;
 		}
 	}
+
 }
 
 float Tower::GetRange()
@@ -123,4 +137,9 @@ int Tower::GetGold()
 void Tower::SetGold(int gold)
 {
 	m_gold = gold;
+}
+
+int Tower::GetDamage()
+{
+	return random(m_minimumAtk, m_maximumAtk);
 }
