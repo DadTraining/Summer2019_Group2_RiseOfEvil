@@ -34,6 +34,7 @@ private:
 	MenuItemImage *slowIcon;
 	MenuItemImage *barrackIcon;
 	MenuItemImage *boombardIcon;
+	MenuItemImage *cancelMenu;
 	Menu *menu;
 	Sprite* canBuild;
 	Sprite* cannotBuild;
@@ -46,7 +47,7 @@ public:
 	void FadeInPause();
 	void FadeOutPause();
 	void returnToMainMenu();
-	void BuildTower(int, Vec2 Pos);
+	void BuildTower(int);
 	bool onTouchBegan(Touch *touch, Event *event);
 	bool checkLocationBuildTower(Vec2);
 	void createmenu(Vec2 point);

@@ -28,31 +28,35 @@ bool WorldScene1::init()
 	//===============================================================
 	archerIcon = MenuItemImage::create("res/WorldScene1/archerTower.png", "res/WorldScene1/archerTower.png", [&](Ref* sender) {
 		//new Tower(this, 1, touchLocation);
-		BuildTower(1, touchLocation);
+		BuildTower(1);
 	});
 	archerIcon->setPosition(0, 0);
 
 	magicIcon = MenuItemImage::create("res/WorldScene1/magicTower.png", "res/WorldScene1/magicTower.png", [&](Ref* sender) {
-		BuildTower(2, touchLocation);
+		BuildTower(2);
 	});
 	magicIcon->setPosition(0, 0);
 
 	barrackIcon = MenuItemImage::create("res/WorldScene1/barrackTower.png", "res/WorldScene1/barrackTower.png", [&](Ref* sender) {
-		BuildTower(5, touchLocation);
+		BuildTower(5);
 	});
 	barrackIcon->setPosition(0, 0);
 
 	slowIcon = MenuItemImage::create("res/WorldScene1/slowTower.png", "res/WorldScene1/slowTower.png", [&](Ref* sender) {
-		BuildTower(3, touchLocation);
+		BuildTower(3);
 	});
 	slowIcon->setPosition(0, 0);
 
 	boombardIcon = MenuItemImage::create("res/WorldScene1/boombardTower.png", "res/WorldScene1/boombardTower.png", [&](Ref* sender) {
-		BuildTower(4, touchLocation);
+		BuildTower(4);
 	});
 	boombardIcon->setPosition(0, 0);
 
-	menu = Menu::create(archerIcon, magicIcon, slowIcon, boombardIcon, barrackIcon, nullptr);
+	cancelMenu = MenuItemImage::create("res/WorldScene1/boombardTower.png", "res/WorldScene1/boombardTower.png", [&](Ref* sender) {
+		menu->setVisible(false);
+	});
+
+	menu = Menu::create(archerIcon, magicIcon, slowIcon, boombardIcon, barrackIcon, cancelMenu, nullptr);
 	menu->setPosition(0, 0);
 	addChild(menu, 100);
 	menu->setVisible(false);
@@ -264,9 +268,9 @@ void WorldScene1::returnToMainMenu()
 	Director::getInstance()->replaceScene(TransitionZoomFlipAngular::create(1, MainMenuScene::createScene()));
 }
 
-void WorldScene1::BuildTower(int type, Vec2 Pos)
+void WorldScene1::BuildTower(int type)
 {
-	Tower * towerBuild = new Tower(this, type, Pos);
+	Tower * towerBuild = new Tower(this, type, touchLocation);
 	listTower.push_back(towerBuild);
 	menu->setVisible(false);
 	canBuild->setVisible(false);
@@ -274,11 +278,12 @@ void WorldScene1::BuildTower(int type, Vec2 Pos)
 
 bool WorldScene1::onTouchBegan(Touch * touch, Event * event)
 {
-	touchLocation = touch->getLocation();
+	
 
-	if (checkLocationBuildTower(touchLocation))
+	if (checkLocationBuildTower(touch->getLocation()))
 	{	
-		canBuild->setPosition(touchLocation);
+		canBuild->setVisible(false);
+		canBuild->setPosition(touch->getLocation());
 		
 		auto listPosTower = mTileMap->getLayer("ListTower");
 		Size sizeListTower = listPosTower->getLayerSize();
@@ -287,9 +292,9 @@ bool WorldScene1::onTouchBegan(Touch * touch, Event * event)
 			for (int j = 0; j < sizeListTower.height; j++)
 			{
 				auto TowerSet = listPosTower->getTileAt(Vec2(i, j));
-				if (TowerSet != NULL  && TowerSet->getBoundingBox().containsPoint(touchLocation))
+				if (TowerSet != NULL  && TowerSet->getBoundingBox().containsPoint(touch->getLocation()))
 				{
-
+					touchLocation = touch->getLocation();
 					createmenu(touchLocation);
 				}
 			}
@@ -304,24 +309,7 @@ bool WorldScene1::onTouchBegan(Touch * touch, Event * event)
 		}
 	}
 	return true;
-	//====================Get Tileset List Tower=====================================
-	/*auto listPosTower = mTileMap->getLayer("ListTower");
-	Size sizeListTower = listPosTower->getLayerSize();
-	log("width tilemaps: %f", sizeListTower.width);
-	log("height tilemaps: %f", sizeListTower.height);
-	for (int i = 0; i < sizeListTower.width; i++)
-	{
-		for (int j = 0; j < sizeListTower.height; j++)
-		{
-			auto TowerSet = listPosTower->getTileAt(Vec2(i, j));
-			if (TowerSet != NULL  && TowerSet->getBoundingBox().containsPoint(touchLocation))
-			{
-		
-				createmenu(touchLocation);
-			}
-		}
-	}
-	return true;*/
+	
 }
 bool WorldScene1::checkLocationBuildTower(Vec2 newPoint)
 {
@@ -344,6 +332,7 @@ void WorldScene1::createmenu(Vec2 point)
 	slowIcon->setPosition(point.x + 2 * slowIcon->getContentSize().width, point.y);
 	boombardIcon->setPosition(point.x + 3 * boombardIcon->getContentSize().width, point.y);
 	barrackIcon->setPosition(point.x + 4 * barrackIcon->getContentSize().width, point.y);
+	cancelMenu->setPosition(point.x + 5 * cancelMenu->getContentSize().width, point.y);
 
 	if (!menu->isVisible())
 	{
