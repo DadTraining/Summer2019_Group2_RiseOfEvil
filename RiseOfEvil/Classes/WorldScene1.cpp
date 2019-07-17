@@ -27,7 +27,6 @@ bool WorldScene1::init()
 
 	//===============================================================
 	archerIcon = MenuItemImage::create("res/WorldScene1/archerTower.png", "res/WorldScene1/archerTower.png", [&](Ref* sender) {
-		//new Tower(this, 1, touchLocation);
 		BuildTower(1, touchLocation);
 	});
 	archerIcon->setPosition(0, 0);
@@ -56,7 +55,6 @@ bool WorldScene1::init()
 	menu->setPosition(0, 0);
 	addChild(menu, 100);
 	menu->setVisible(false);
-	//==================================================================
 
 	mTileMap = TMXTiledMap::create("res/MapScene/Map01.tmx");
 	mTileMap->setAnchorPoint(Vec2(0, 0));
@@ -109,6 +107,7 @@ bool WorldScene1::init()
 	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
 	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
 
+	listLocationTower.push_back(Vec2(0, 0));
 	auto obj = mTileMap->getObjectGroup("Monster");
 	float x = obj->getObject("monster")["x"].asInt();
 	float y = obj->getObject("monster")["y"].asInt();
@@ -124,7 +123,9 @@ bool WorldScene1::init()
 	//auto body = PhysicsBody::createCircle(150, PHYSICSBODY_MATERIAL_DEFAULT);
 	//body->setDynamic(false);
 	//tower->GetSprite()->setPhysicsBody(body);
-	//===========================================================================
+	//======================Move of Soldier TileSet=====================================================
+	//auto SoldierMove = mTileMap->getLayer("ListSoldierMove");
+	//==============================================================================
 	for (int i = 0; i < 15; i++)
 	{
 		float x = road->getObject("P" + to_string(i + 1))["x"].asInt();
@@ -137,8 +138,10 @@ bool WorldScene1::init()
 	touchListener->onTouchBegan = CC_CALLBACK_2(WorldScene1::onTouchBegan, this);
 	touchListener->onTouchMoved = CC_CALLBACK_2(WorldScene1::onTouchMoved, this);
 	touchListener->onTouchEnded = CC_CALLBACK_2(WorldScene1::onTouchEnded, this);
+	//touchListener->onTouchBegan = CC_CALLBACK_2(WorldScene1::onTouchTowerBegan, this);
+	//touchListener->onTouchEnded = CC_CALLBACK_2(WorldScene1::onTouchTowerEnded, this);
 	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchListener, this);
-	//=======================================================
+
 	menu->setScale(0.6f);
 	time = 0;
 
@@ -150,7 +153,7 @@ float y;
 void WorldScene1::update(float deltaTime)
 {
 	for (int i = 0; i < listMonster.size(); i++) {
-		log("Blood %d: %d",i ,listMonster[i]->GetHitPoint());
+		//log("Blood %d: %d",i ,listMonster[i]->GetHitPoint());
 	}
 
 	for (int i = 0; i < listMonster.size(); i++)
@@ -240,30 +243,25 @@ void WorldScene1::BuildTower(int type, Vec2 Pos)
 	Tower * towerBuild = new Tower(this, type, Pos);
 	listTower.push_back(towerBuild);
 	menu->setVisible(false);
+	TowerBefore = towerChoosing;
+	towerChoosing = listTower[listTower.size() - 1];
 }
 
 bool WorldScene1::onTouchBegan(Touch * touch, Event * event)
 {
-	touchLocation = touch->getLocation();
-	//====================Get Tileset List Tower=====================================
-	auto listPosTower = mTileMap->getLayer("ListTower");
-	Size sizeListTower = listPosTower->getLayerSize();
-	log("width tilemaps: %f", sizeListTower.width);
-	log("height tilemaps: %f", sizeListTower.height);
-	for (int i = 0; i < sizeListTower.width; i++)
-	{
-		for (int j = 0; j < sizeListTower.height; j++)
-		{
-			auto TowerSet = listPosTower->getTileAt(Vec2(i, j));
-			if (TowerSet != NULL  && TowerSet->getBoundingBox().containsPoint(touchLocation))
-			{
-		
-				createmenu(touchLocation);
-			}
-		}
-	}
+
 	return true;
 }
+
+void WorldScene1::onTouchMoved(Touch * touch, Event * event)
+{
+
+}
+
+void WorldScene1::onTouchEnded(Touch * touch, Event * event)
+{
+}
+
 
 void WorldScene1::createmenu(Vec2 point)
 {
@@ -280,7 +278,18 @@ void WorldScene1::createmenu(Vec2 point)
 	{
 		menu->setVisible(false);
 	}
+
 }
+bool WorldScene1::checkLocationBuildTower(Vec2 newPoint)
+{
+	for (int i = 0; i < listLocationTower.size(); i++)
+	{
+		if (newPoint.getDistance(listLocationTower[i]) < 32)
+		{
+			return false;
+		}
+	}
+	listLocationTower.push_back(newPoint);
 
-
-
+	return true;
+}

@@ -36,6 +36,16 @@ private:
 	MenuItemImage *boombardIcon;
 	Menu *menu;
 	Vec2 touchLocation;
+	bool checkClick = false;
+	Tower * TowerBefore;
+	Tower * towerChoosing;
+	Vec2 point;
+	vector<Vec2>listLocationTower;
+	//Sprite * canBuild;
+	//Sprite * cannotBuild;
+	//int count =0;
+	//===============MenuTower================
+	//========================================
 public:
 	static Scene* createScene();
 	virtual bool init() override;
@@ -45,7 +55,12 @@ public:
 	void FadeOutPause();
 	void returnToMainMenu();
 	void BuildTower(int, Vec2 Pos);
-	bool onTouchBegan(Touch *touch, Event *event);
 	void createmenu(Vec2 point);
+	void createMenuTower(Vec2 Point);
+	void moveFlag(Vec2 Pos);
+	bool onTouchBegan(Touch *touch, Event *event);
+	void onTouchMoved(Touch * touch, Event * event);
+	void onTouchEnded(Touch * touch, Event * event);
+	bool checkLocationBuildTower(Vec2 newPoint);
 	CREATE_FUNC(WorldScene1);
 };

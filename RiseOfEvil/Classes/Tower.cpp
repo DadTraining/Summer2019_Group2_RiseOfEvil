@@ -57,22 +57,36 @@ Tower::Tower(Layer * layer, int type, Vec2 Pos)
 {
 	m_type = type;
 	Init();
+	CircleMenu = Sprite::create("CircleMenu.png");
+	CircleMenu->setPosition(Vec2(m_sprite->getContentSize().width/2, m_sprite->getContentSize().height / 2));
+	CircleMenu->setScale(0.1f);
+	CircleMenu->setVisible(false);
+	m_sprite->addChild(CircleMenu);
+	m_sprite->setScale(0.5f);
+	m_sprite->setPosition(Pos);
+	m_sprite->removeFromParent();
+	layer->addChild(m_sprite, 5);
+	if (type == BARRACKS_TOWER)
+	{
+		for (int i = 0; i < 3; i++)
+		{
+			Soldier * m_soldier = new Soldier(layer);
+			listSoldier.push_back(m_soldier);
+			listSoldier[i]->GetSprite()->setPosition(Pos);
+		}
+	}
 	for (int i = 0; i < 10; i++)
 	{
 		Bullet * bullet = new Bullet(layer);
 		listBullet.push_back(bullet);
 	}
-	m_sprite->setScale(0.5f);
-	m_sprite->setPosition(Pos);
-	m_sprite->removeFromParent();
-	layer->addChild(m_sprite, 5);
+
 }
 
 Sprite * Tower::GetSprite()
 {
 	return m_sprite;
 }
-int hp = 20;
 void Tower::Shoot(Monster * monster)
 {
 	for (int i = 0; i < listBullet.size(); i++)
@@ -125,4 +139,7 @@ void Tower::SetGold(int gold)
 	m_gold = gold;
 }
 
-
+Sprite * Tower::GetCircleMenu()
+{
+	return CircleMenu;
+}

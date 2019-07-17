@@ -160,6 +160,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\Player.cpp" />
     <ClCompile Include="..\Classes\ResourceManager.cpp" />
     <ClCompile Include="..\Classes\Skill.cpp" />
+    <ClCompile Include="..\Classes\Soldier.cpp" />
     <ClCompile Include="..\Classes\Tower.cpp" />
     <ClCompile Include="..\Classes\UpgradeScene.cpp" />
     <ClCompile Include="..\Classes\WorldMapScene.cpp" />
@@ -179,6 +180,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Player.h" />
     <ClInclude Include="..\Classes\ResourceManager.h" />
     <ClInclude Include="..\Classes\Skill.h" />
+    <ClInclude Include="..\Classes\Soldier.h" />
     <ClInclude Include="..\Classes\Tower.h" />
     <ClInclude Include="..\Classes\UpgradeScene.h" />
     <ClInclude Include="..\Classes\WorldMapScene.h" />
