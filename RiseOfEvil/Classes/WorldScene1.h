@@ -46,8 +46,8 @@ private:
 	Tower * towerChoosing;
 	Vec2 point;
 	Label* goldLabel;
-	//Sprite * canBuild;
-	//Sprite * cannotBuild;
+	bool touchOut = false;
+	bool touchIn = false;
 public:
 	static Scene* createScene();
 	virtual bool init() override;
@@ -58,11 +58,12 @@ public:
 	void returnToMainMenu();
 	void BuildTower(int);
 	void createmenu(Vec2 point);
-	void createMenuTower(Vec2 Point);
+	void createMenuTower(Vec2 Point, bool check);
 	void moveFlag(Vec2 Pos);
 	bool onTouchBegan(Touch *touch, Event *event);
 	void onTouchMoved(Touch * touch, Event * event);
 	void onTouchEnded(Touch * touch, Event * event);
 	bool checkLocationBuildTower(Vec2 newPoint);
+	void StatusMenu(bool);
 	CREATE_FUNC(WorldScene1);
 };

@@ -134,7 +134,8 @@ bool WorldScene1::init()
 		listMonster[i]->GetSprite()->setPosition(x, y);
 		listMonster[i]->GetSprite()->setScale(0.6);
 	}	
-	new Tower(this, 1, touchLocation);
+	
+	listTower.push_back(new Tower(this, 1, touchLocation));
 	//===========================================================================
 	//List point to move monster
 	auto road = mTileMap->getObjectGroup("Point");
@@ -257,13 +258,17 @@ void WorldScene1::BuildTower(int type)
 	Tower * towerBuild = new Tower(this, type, touchLocation);
 	listTower.push_back(towerBuild);
 	menu->setVisible(false);
-	TowerBefore = towerChoosing;
-	towerChoosing = listTower[listTower.size() - 1];
 	canBuild->setVisible(false);
+}
+
+void WorldScene1::moveFlag(Vec2 Pos)
+{
 }
 
 bool WorldScene1::onTouchBegan(Touch * touch, Event * event)
 {
+	touchOut = false;
+	touchIn = false;
 	if (checkLocationBuildTower(touch->getLocation()))
 	{	
 		canBuild->setVisible(false);
@@ -277,11 +282,13 @@ bool WorldScene1::onTouchBegan(Touch * touch, Event * event)
 				auto TowerSet = listPosTower->getTileAt(Vec2(i, j));
 				if (TowerSet != NULL  && TowerSet->getBoundingBox().containsPoint(touch->getLocation()))
 				{
-					touchLocation = touch->getLocation();
-					createmenu(touchLocation);
+					touchOut = true;
+					touchIn = false;
+					touchLocation = touch->getLocation();	
+					createmenu(touch->getLocation());
 				}
 			}
-		}		
+		}
 	}
 	else 
 	{
@@ -290,6 +297,30 @@ bool WorldScene1::onTouchBegan(Touch * touch, Event * event)
 		{
 			cannotBuild->setVisible(true);
 		}
+	}
+	for (int i = 0; i < listTower.size(); i++)
+	{
+		if (listTower[i]->GetSprite()->getBoundingBox().containsPoint(touch->getLocation()))
+		{
+			towerChoosing = listTower[i];;
+			touchOut = false;
+			touchIn = true;
+		}
+	}
+	if (touchOut == true && touchIn == false)
+	{
+		StatusMenu(true);
+		createMenuTower(touchLocation, false);
+	}
+	if (touchOut == false && touchIn == true)
+	{
+		createMenuTower(touchLocation, true);
+		StatusMenu(false);
+	}
+	if (touchOut == false && touchIn == false)
+	{
+		StatusMenu(false);
+		createMenuTower(touchLocation, false);
 	}
 	return true;
 }
@@ -306,6 +337,7 @@ bool WorldScene1::checkLocationBuildTower(Vec2 newPoint)
 	listLocationTower.push_back(newPoint);
 	return true;
 }
+
 
 void WorldScene1::onTouchMoved(Touch * touch, Event * event)
 {
@@ -325,10 +357,37 @@ void WorldScene1::createmenu(Vec2 point)
 	boombardIcon->setPosition(point.x + 3 * boombardIcon->getContentSize().width, point.y);
 	barrackIcon->setPosition(point.x + 4 * barrackIcon->getContentSize().width, point.y);
 	cancelMenu->setPosition(point.x + 5 * cancelMenu->getContentSize().width, point.y);
-	if (!menu->isVisible())
+}
+void WorldScene1::StatusMenu(bool check)
+{
+	if (check == true)
 	{
 		menu->setVisible(true);
 		canBuild->setVisible(true);
 		cannotBuild->setVisible(false);
 	}
+	else if (check == false)
+	{
+		menu->setVisible(false);
+	}
+}
+
+
+void WorldScene1::createMenuTower(Vec2 Point, bool check)
+{
+	if (check == true)
+	{
+		for (int i = 0; i < listTower.size(); i++)
+		{
+			listTower[i]->GetCircleMenu()->setVisible(false);
+		}
+		towerChoosing->GetCircleMenu()->setVisible(true);
+		towerChoosing->GetCircleMenu()->runAction(ScaleTo::create(0.2f, 1));
+	}
+	else if(check == false)
+		for (int i = 0; i < listTower.size(); i++)
+		{
+			listTower[i]->GetCircleMenu()->setVisible(false);
+			listTower[i]->GetCircleMenu()->runAction(ScaleTo::create(0.2f, 0.1f));
+		}
 }

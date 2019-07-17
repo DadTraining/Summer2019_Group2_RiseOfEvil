@@ -61,6 +61,7 @@ Tower::Tower(Layer * layer, int type, Vec2 Pos)
 	CircleMenu->setPosition(Vec2(m_sprite->getContentSize().width/2, m_sprite->getContentSize().height / 2));
 	CircleMenu->setScale(0.1f);
 	CircleMenu->setVisible(false);
+	//CircleMenu->removeFromParent();
 	m_sprite->addChild(CircleMenu);
 	m_sprite->setScale(0.5f);
 	m_sprite->setPosition(Pos);
@@ -70,9 +71,21 @@ Tower::Tower(Layer * layer, int type, Vec2 Pos)
 	{
 		for (int i = 0; i < 3; i++)
 		{
-			listSoldier.push_back(new Soldier(layer));
-			listSoldier[i]->GetSprite()->setPosition(Pos);
+			Soldier * m_soldier = new Soldier(layer);
+			listSoldier.push_back(m_soldier);
+			if ((i+1) % 2 != 0)
+			{
+				listSoldier[i]->GetSprite()->setPosition(Vec2(Pos.x + (i*i) * i, Pos.y + (i *i) * 2 * i));
+			}
+			else
+			{
+				listSoldier[i]->GetSprite()->setPosition(Vec2(Pos.x - (i*i) * i* 32, Pos.y + (i *i) * i*16));
+			}
+			auto moveBy = MoveBy::create(1, Vec2(50, - 100));
+			listSoldier[i]->GetSprite()->runAction(moveBy->clone());
 		}
+		
+
 	}
 	for (int i = 0; i < 10; i++)
 	{
