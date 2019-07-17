@@ -2,10 +2,6 @@
 Player *Player::s_instance = nullptr;
 Player::Player()
 {
-	m_gold = 0;
-	m_star = 0;
-	m_life = 0;
-	m_stage = 1;
 }
 
 Player::~Player()
@@ -19,6 +15,21 @@ Player * Player::GetInstance()
 		s_instance = new Player();
 	}
 	return s_instance;
+}
+
+void Player::Load()
+{
+	auto content = FileUtils::getInstance()->getStringFromFile("PlayerInfo.bin");
+	istringstream f(content);
+	string off;
+	f >> off;
+	f >> m_gold;
+	f >> off;
+	f >> m_life;
+	f >> off;
+	f >> m_star;
+	f >> off;
+	f >> m_stage;
 }
 
 int Player::GetCurrentGold()
@@ -39,4 +50,9 @@ int Player::GetCurrentLife()
 int Player::GetCurrentStage()
 {
 	return m_stage;
+}
+
+void Player::SetGold(int gold)
+{
+	m_gold += gold;
 }
