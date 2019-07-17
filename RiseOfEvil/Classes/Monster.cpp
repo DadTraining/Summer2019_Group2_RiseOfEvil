@@ -350,10 +350,10 @@ int Monster::GetRange()
 
 void Monster::setProgressBar()
 {
-	m_blood->setScaleX(abs(m_hitPoint) / m_maxHitPoint);
+	/*m_blood->setScaleX(abs(m_hitPoint) / m_maxHitPoint);
 	log("hheheh: %f", m_hitPoint );
 	log("haha: %f", m_maxHitPoint);
-	log("Scale: %f", abs(m_hitPoint) / m_maxHitPoint);
+	log("Scale: %f", abs(m_hitPoint) / m_maxHitPoint);*/
 
 }
 
