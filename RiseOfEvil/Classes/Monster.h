@@ -40,6 +40,10 @@ private:
 	//vector<Skill *>m_listSkill;
 	int m_range;
 	Sprite * hp_bg;
+	Layer *layer;
+	Sprite* dead1;
+	Sprite* dead2;
+	Sprite* dead3;
 	//Skill * speciall
 public:
 	int m_flag = 0;

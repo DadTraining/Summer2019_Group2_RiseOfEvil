@@ -3,6 +3,7 @@
 Soldier::Soldier(Layer * layer)
 {
 	Init();
+	m_Soldier->removeFromParent(); 
 	layer->addChild(m_Soldier,15);
 }
 

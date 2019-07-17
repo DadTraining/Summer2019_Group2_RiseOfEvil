@@ -45,6 +45,7 @@ private:
 	Tower * TowerBefore;
 	Tower * towerChoosing;
 	Vec2 point;
+	Label* goldLabel;
 	//Sprite * canBuild;
 	//Sprite * cannotBuild;
 public:

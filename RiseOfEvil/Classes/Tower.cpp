@@ -70,8 +70,7 @@ Tower::Tower(Layer * layer, int type, Vec2 Pos)
 	{
 		for (int i = 0; i < 3; i++)
 		{
-			Soldier * m_soldier = new Soldier(layer);
-			listSoldier.push_back(m_soldier);
+			listSoldier.push_back(new Soldier(layer));
 			listSoldier[i]->GetSprite()->setPosition(Pos);
 		}
 	}

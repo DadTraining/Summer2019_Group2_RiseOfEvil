@@ -1,4 +1,9 @@
 #pragma once
+#include <iostream>
+#include <fstream>
+#include "cocos2d.h"
+using namespace std;
+using namespace cocos2d;
 class Player
 {
 private:
@@ -11,8 +16,10 @@ public:
 	Player();
 	~Player();
 	static Player * GetInstance();
+	void Load();
 	int GetCurrentGold();
 	int GetCurrentStar();
 	int GetCurrentLife();
 	int GetCurrentStage();
+	void SetGold(int);
 };
