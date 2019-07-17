@@ -6,6 +6,7 @@ class Bullet
 {
 private:
 	Sprite * m_sprite;
+	Layer* m_layer;
 public:
 
 	void Init();

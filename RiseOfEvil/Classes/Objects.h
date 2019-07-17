@@ -24,6 +24,7 @@ public:
 	void SetMaximumAtk(int);
 	void SetArmor(int);
 
+	SpriteBatchNode * GetSpriteBatchNote();
 	Sprite *GetSprite();
 	int GetHitPoint();
 	int GetMinimumAtk();

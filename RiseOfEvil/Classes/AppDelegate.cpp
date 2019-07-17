@@ -26,6 +26,7 @@
 //#include "MainMenuScene.h"
 #include "LogoScene.h"
 #include "ResourceManager.h"
+#include "WorldScene1.h"
 
 
 
@@ -107,7 +108,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	ResourceManager::GetInstance()->Init();
     // create a scene. it's an autorelease object
 
-    auto scene = LogoScene::createScene();
+    auto scene = WorldScene1::createScene();
 
     // run
     director->runWithScene(scene);

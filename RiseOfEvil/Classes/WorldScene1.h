@@ -6,6 +6,7 @@
 
 #include "ui/CocosGUI.h"
 #include "Tower.h"
+#define BLOOD_BAR 9
 #define E  1
 #define W  2
 #define S  3
@@ -51,5 +52,6 @@ public:
 	bool onTouchBegan(Touch *touch, Event *event);
 	bool checkLocationBuildTower(Vec2);
 	void createmenu(Vec2 point);
+	//void getBloodBar(Monster *, float);
 	CREATE_FUNC(WorldScene1);
 };
