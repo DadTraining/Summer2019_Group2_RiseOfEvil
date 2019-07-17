@@ -158,6 +158,8 @@ bool WorldScene1::init()
 	touchListener->onTouchBegan = CC_CALLBACK_2(WorldScene1::onTouchBegan, this);
 	touchListener->onTouchMoved = CC_CALLBACK_2(WorldScene1::onTouchMoved, this);
 	touchListener->onTouchEnded = CC_CALLBACK_2(WorldScene1::onTouchEnded, this);
+	//touchListener->onTouchBegan = CC_CALLBACK_2(WorldScene1::onTouchTowerBegan, this);
+	//touchListener->onTouchEnded = CC_CALLBACK_2(WorldScene1::onTouchTowerEnded, this);
 	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchListener, this);
 	menu->setScale(0.6f);
 	time = 0;
@@ -249,6 +251,8 @@ void WorldScene1::BuildTower(int type)
 	Tower * towerBuild = new Tower(this, type, touchLocation);
 	listTower.push_back(towerBuild);
 	menu->setVisible(false);
+	TowerBefore = towerChoosing;
+	towerChoosing = listTower[listTower.size() - 1];
 	canBuild->setVisible(false);
 }
 
@@ -297,6 +301,15 @@ bool WorldScene1::checkLocationBuildTower(Vec2 newPoint)
 	return true;
 }
 
+void WorldScene1::onTouchMoved(Touch * touch, Event * event)
+{
+
+}
+
+void WorldScene1::onTouchEnded(Touch * touch, Event * event)
+{
+}
+
 //Create list Tower icon 
 void WorldScene1::createmenu(Vec2 point)
 {
@@ -311,10 +324,5 @@ void WorldScene1::createmenu(Vec2 point)
 		menu->setVisible(true);
 		canBuild->setVisible(true);
 		cannotBuild->setVisible(false);
-	}	
+	}
 }
-
-
-
-
-

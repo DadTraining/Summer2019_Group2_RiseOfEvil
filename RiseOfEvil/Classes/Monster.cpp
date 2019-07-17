@@ -207,7 +207,7 @@ void Monster::Move(Vec2 point)
 	}
 	else
 		Action(NW);
-	m_sprite->runAction(MoveTo::create(point.getDistance(m_sprite->getPosition()) / abs(m_movementSpeed), Vec2(point.x, point.y)));
+	m_sprite->runAction(MoveTo::create(point.getDistance(m_sprite->getPosition()) / m_movementSpeed, Vec2(point.x, point.y)));
 }
 Animation* Monster::AnimationMonster(string prefixName, int pFrameBegin, int pFrameEnd, float delay)
 {

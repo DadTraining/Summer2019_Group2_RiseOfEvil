@@ -3,6 +3,7 @@
 #include "Bullet.h"
 #include "Objects.h"
 #include "Monster.h"
+#include "Soldier.h"
 #include <iostream>
 
 #define ARROW_TOWER 1
@@ -18,6 +19,8 @@ class Tower : public Objects
 {
 private:
 	vector <Bullet *> listBullet;
+	vector <Soldier *>listSoldier;
+	Sprite * CircleMenu;
 	float m_range = 250;
 	float timeDelay = 0;
 	float m_attackSpeed;
@@ -35,5 +38,6 @@ public:
 	void SetAttackSpeed(float);
 	int GetGold();
 	void SetGold(int);
+	Sprite * GetCircleMenu();
 	int GetDamage();
 };
