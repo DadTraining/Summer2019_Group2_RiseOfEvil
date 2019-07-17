@@ -138,10 +138,22 @@ bool WorldScene1::init()
 	touchListener->onTouchMoved = CC_CALLBACK_2(WorldScene1::onTouchMoved, this);
 	touchListener->onTouchEnded = CC_CALLBACK_2(WorldScene1::onTouchEnded, this);
 	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchListener, this);
+	//=====================================================
+	//auto sprite = Sprite::create("res/game/bar.png"); 
+	//sprite->setPosition(Point(visibleSize.width / 2, visibleSize.height - 20)); 
+	//this->addChild(sprite);         
+	//auto sprBlood = Sprite::create("res/game/blood.png"); 
+	//ProgressTimer * progress = ProgressTimer::create(sprBlood); 
+	//progress->setType(ProgressTimer::Type::BAR); 
+	//progress->setPosition(Point(visibleSize.width / 2, visibleSize.height - 20));
+	//progress->setMidpoint(Point(0, 0.5));
+	//progress->setBarChangeRate(Point(1, 0));
+	//progress->setTag(BLOOD_BAR);       
+	//this->addChild(progress);
+	//schedule(schedule_selector(WorldScene1::scheduleBlood), 0.1f);  
 	//=======================================================
 	menu->setScale(0.6f);
 	time = 0;
-
 	scheduleUpdate();
 	return true;
 }
@@ -149,12 +161,11 @@ float x;
 float y;
 void WorldScene1::update(float deltaTime)
 {
-
-
 	for (int i = 0; i < listMonster.size(); i++)
 	{
 		if (!(listMonster[i]->GetSprite()->isVisible()))
 		{
+			//getBloodBar(listMonster[i], 20);
 			listMonster[i]->Update(deltaTime);
 			i = 100;
 		}
@@ -270,6 +281,25 @@ void WorldScene1::createmenu(Vec2 point)
 		menu->setVisible(false);
 	}
 }
+
+//void WorldScene1::getBloodBar(Monster *monster, float a)
+//{
+//	Sprite *pBloodbg = Sprite::create("res/Sprites/LoadingScene/loadingbar_bg.png");
+//	pBloodbg->setPosition(Vec2(monster->GetSprite()->getContentSize().width / 2, monster->GetSprite()->getContentSize().height + 10));
+//	monster->GetSprite()->addChild(pBloodbg, 3);
+//	log("%f", monster->GetSprite()->getContentSize().width);
+//	//addChild(pBloodbg, 3);
+//	Sprite *pBloodManSp = Sprite::create("res/Sprites/LoadingScene/loadingbar.png");
+//	ProgressTimer *pBloodProGress = ProgressTimer::create(pBloodManSp);
+//	pBloodProGress->setType(kCCProgressTimerTypeBar);
+//	pBloodProGress->setBarChangeRate(Vec2(1, 0));
+//	pBloodProGress->setMidpoint(Vec2(0, 0));
+//	pBloodProGress->setPosition(Vec2(monster->GetSprite()->getContentSize().width / 2, monster->GetSprite()->getContentSize().height + 10));
+//	pBloodProGress->setPercentage(a);
+//	addChild(pBloodProGress, 3);
+//	//monster->GetSprite()->addChild(pBloodProGress, 1, 1);
+//}
+
 
 
 
