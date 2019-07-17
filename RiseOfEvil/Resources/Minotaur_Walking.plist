@@ -4,1233 +4,1203 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>Orc_Walking_1.png</key>
+            <key>_Minotaur_1.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{520,0},{180,180}}</string>
+                <string>{{0,0},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_10.png</key>
+            <key>_Minotaur_10.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{180,180},{180,180}}</string>
+                <string>{{360,108},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_11.png</key>
+            <key>_Minotaur_11.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{360,180},{180,180}}</string>
+                <string>{{0,216},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_12.png</key>
+            <key>_Minotaur_12.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{540,180},{180,180}}</string>
+                <string>{{90,216},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_13.png</key>
+            <key>_Minotaur_13.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{720,180},{180,180}}</string>
+                <string>{{180,216},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_14.png</key>
+            <key>_Minotaur_14.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{900,180},{180,180}}</string>
+                <string>{{270,216},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_15.png</key>
+            <key>_Minotaur_15.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1080,180},{180,180}}</string>
+                <string>{{360,216},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_16.png</key>
+            <key>_Minotaur_16.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1260,180},{180,180}}</string>
+                <string>{{0,324},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_17.png</key>
+            <key>_Minotaur_17.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1440,180},{180,180}}</string>
+                <string>{{90,324},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_18.png</key>
+            <key>_Minotaur_18.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1620,180},{180,180}}</string>
+                <string>{{180,324},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_19.png</key>
+            <key>_Minotaur_19.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1800,180},{180,180}}</string>
+                <string>{{270,324},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_2.png</key>
+            <key>_Minotaur_2.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{700,0},{180,180}}</string>
+                <string>{{90,0},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_20.png</key>
+            <key>_Minotaur_20.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{0,360},{180,180}}</string>
+                <string>{{360,324},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_21.png</key>
+            <key>_Minotaur_21.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{180,360},{180,180}}</string>
+                <string>{{0,432},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_22.png</key>
+            <key>_Minotaur_22.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{360,360},{180,180}}</string>
+                <string>{{90,432},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_23.png</key>
+            <key>_Minotaur_23.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{540,360},{180,180}}</string>
+                <string>{{180,432},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_24.png</key>
+            <key>_Minotaur_24.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{720,360},{180,180}}</string>
+                <string>{{270,432},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_25.png</key>
+            <key>_Minotaur_25.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{900,360},{180,180}}</string>
+                <string>{{360,432},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_26.png</key>
+            <key>_Minotaur_26.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1080,360},{180,180}}</string>
+                <string>{{0,540},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_27.png</key>
+            <key>_Minotaur_27.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1260,360},{180,180}}</string>
+                <string>{{90,540},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_28.png</key>
+            <key>_Minotaur_28.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1440,360},{180,180}}</string>
+                <string>{{180,540},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_29.png</key>
+            <key>_Minotaur_29.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1620,360},{180,180}}</string>
+                <string>{{270,540},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_3.png</key>
+            <key>_Minotaur_3.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{880,0},{180,180}}</string>
+                <string>{{180,0},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_30.png</key>
+            <key>_Minotaur_30.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1800,360},{180,180}}</string>
+                <string>{{360,540},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_31.png</key>
+            <key>_Minotaur_31.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{0,540},{180,180}}</string>
+                <string>{{0,648},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_32.png</key>
+            <key>_Minotaur_32.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{180,540},{180,180}}</string>
+                <string>{{90,648},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_33.png</key>
+            <key>_Minotaur_33.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{360,540},{180,180}}</string>
+                <string>{{180,648},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_34.png</key>
+            <key>_Minotaur_34.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{540,540},{180,180}}</string>
+                <string>{{270,648},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_35.png</key>
+            <key>_Minotaur_35.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{720,540},{180,180}}</string>
+                <string>{{360,648},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_36.png</key>
+            <key>_Minotaur_36.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{900,540},{180,180}}</string>
+                <string>{{0,756},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_37.png</key>
+            <key>_Minotaur_37.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1080,540},{180,180}}</string>
+                <string>{{90,756},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_38.png</key>
+            <key>_Minotaur_38.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1260,540},{180,180}}</string>
+                <string>{{180,756},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_39.png</key>
+            <key>_Minotaur_39.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1440,540},{180,180}}</string>
+                <string>{{270,756},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_4.png</key>
+            <key>_Minotaur_4.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1060,0},{180,180}}</string>
+                <string>{{270,0},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_40.png</key>
+            <key>_Minotaur_40.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1620,540},{180,180}}</string>
+                <string>{{360,756},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_41.png</key>
+            <key>_Minotaur_41.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1800,540},{180,180}}</string>
+                <string>{{0,864},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_42.png</key>
+            <key>_Minotaur_42.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{0,720},{180,180}}</string>
+                <string>{{90,864},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_43.png</key>
+            <key>_Minotaur_43.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{180,720},{180,180}}</string>
+                <string>{{180,864},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_44.png</key>
+            <key>_Minotaur_44.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{360,720},{180,180}}</string>
+                <string>{{270,864},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_45.png</key>
+            <key>_Minotaur_45.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{540,720},{180,180}}</string>
+                <string>{{360,864},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_46.png</key>
+            <key>_Minotaur_46.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{720,720},{180,180}}</string>
+                <string>{{0,972},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_47.png</key>
+            <key>_Minotaur_47.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{900,720},{180,180}}</string>
+                <string>{{90,972},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_48.png</key>
+            <key>_Minotaur_48.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1080,720},{180,180}}</string>
+                <string>{{180,972},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_49.png</key>
+            <key>_Minotaur_49.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1260,720},{180,180}}</string>
+                <string>{{270,972},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_5.png</key>
+            <key>_Minotaur_5.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1240,0},{180,180}}</string>
+                <string>{{360,0},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_50.png</key>
+            <key>_Minotaur_50.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1440,720},{180,180}}</string>
+                <string>{{360,972},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_51.png</key>
+            <key>_Minotaur_51.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1620,720},{180,180}}</string>
+                <string>{{0,1080},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_52.png</key>
+            <key>_Minotaur_52.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1800,720},{180,180}}</string>
+                <string>{{90,1080},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_53.png</key>
+            <key>_Minotaur_53.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{0,900},{180,180}}</string>
+                <string>{{180,1080},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_54.png</key>
+            <key>_Minotaur_54.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{180,900},{180,180}}</string>
+                <string>{{270,1080},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_55.png</key>
+            <key>_Minotaur_55.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{360,900},{180,180}}</string>
+                <string>{{360,1080},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_56.png</key>
+            <key>_Minotaur_56.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{540,900},{180,180}}</string>
+                <string>{{0,1188},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_57.png</key>
+            <key>_Minotaur_57.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{720,900},{180,180}}</string>
+                <string>{{90,1188},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_58.png</key>
+            <key>_Minotaur_58.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{900,900},{180,180}}</string>
+                <string>{{180,1188},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_59.png</key>
+            <key>_Minotaur_59.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1080,900},{180,180}}</string>
+                <string>{{270,1188},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_6.png</key>
+            <key>_Minotaur_6.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1420,0},{180,180}}</string>
+                <string>{{0,108},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_60.png</key>
+            <key>_Minotaur_60.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1260,900},{180,180}}</string>
+                <string>{{360,1188},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_61.png</key>
+            <key>_Minotaur_61.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1440,900},{180,180}}</string>
+                <string>{{0,1296},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_62.png</key>
+            <key>_Minotaur_62.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1620,900},{180,180}}</string>
+                <string>{{90,1296},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_63.png</key>
+            <key>_Minotaur_63.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1800,900},{180,180}}</string>
+                <string>{{180,1296},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_64.png</key>
+            <key>_Minotaur_64.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{0,1080},{180,180}}</string>
+                <string>{{270,1296},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_65.png</key>
+            <key>_Minotaur_65.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{180,1080},{180,180}}</string>
+                <string>{{360,1296},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_66.png</key>
+            <key>_Minotaur_66.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{360,1080},{180,180}}</string>
+                <string>{{0,1404},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_67.png</key>
+            <key>_Minotaur_67.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{540,1080},{180,180}}</string>
+                <string>{{90,1404},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_68.png</key>
+            <key>_Minotaur_68.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{720,1080},{180,180}}</string>
+                <string>{{180,1404},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_69.png</key>
+            <key>_Minotaur_69.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{900,1080},{180,180}}</string>
+                <string>{{270,1404},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_7.png</key>
+            <key>_Minotaur_7.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1600,0},{180,180}}</string>
+                <string>{{90,108},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_70.png</key>
+            <key>_Minotaur_70.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1080,1080},{180,180}}</string>
+                <string>{{360,1404},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_71.png</key>
+            <key>_Minotaur_71.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1260,1080},{180,180}}</string>
+                <string>{{0,1512},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_72.png</key>
+            <key>_Minotaur_72.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1440,1080},{180,180}}</string>
+                <string>{{90,1512},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_73.png</key>
+            <key>_Minotaur_73.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1620,1080},{180,180}}</string>
+                <string>{{180,1512},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_74.png</key>
+            <key>_Minotaur_74.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1800,1080},{180,180}}</string>
+                <string>{{270,1512},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_75.png</key>
+            <key>_Minotaur_75.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{0,1260},{180,180}}</string>
+                <string>{{360,1512},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_76.png</key>
+            <key>_Minotaur_76.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{180,1260},{180,180}}</string>
+                <string>{{0,1620},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_77.png</key>
+            <key>_Minotaur_77.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{360,1260},{180,180}}</string>
+                <string>{{90,1620},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_78.png</key>
+            <key>_Minotaur_78.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{540,1260},{180,180}}</string>
+                <string>{{180,1620},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_79.png</key>
+            <key>_Minotaur_79.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{720,1260},{180,180}}</string>
+                <string>{{270,1620},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_8.png</key>
+            <key>_Minotaur_8.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1780,0},{180,180}}</string>
+                <string>{{180,108},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_80.png</key>
+            <key>_Minotaur_80.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{900,1260},{180,180}}</string>
+                <string>{{360,1620},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>Orc_Walking_9.png</key>
+            <key>_Minotaur_9.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{0,180},{180,180}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>loadingbar.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{260,30}</string>
-                <key>spriteSourceSize</key>
-                <string>{260,30}</string>
-                <key>textureRect</key>
-                <string>{{0,0},{260,30}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>loadingbar_bg.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{260,30}</string>
-                <key>spriteSourceSize</key>
-                <string>{260,30}</string>
-                <key>textureRect</key>
-                <string>{{260,0},{260,30}}</string>
+                <string>{{270,108},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -1244,13 +1214,13 @@
             <key>premultiplyAlpha</key>
             <false/>
             <key>realTextureFileName</key>
-            <string>Orc_Warrior_Walking.png</string>
+            <string>Minotaur_Walking.png</string>
             <key>size</key>
-            <string>{1980,1440}</string>
+            <string>{450,1728}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:99f116b56fde1113d9c13dac003d2c25:9bed84507d61632f174a11be4b8828fb:47e0ab745e7ed837edb25a2ab6c27046$</string>
+            <string>$TexturePacker:SmartUpdate:70f1fd5272b00c1bfbe8acdbc215dd4e:085ae71669104a050c375c91036dfa9c:5c11aff18024407c55d691011228afab$</string>
             <key>textureFileName</key>
-            <string>Orc_Warrior_Walking.png</string>
+            <string>Minotaur_Walking.png</string>
         </dict>
     </dict>
 </plist>

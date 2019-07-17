@@ -51,10 +51,28 @@ bool WorldScene1::init()
 	});
 	boombardIcon->setPosition(0, 0);
 
-	menu = Menu::create(archerIcon, magicIcon, slowIcon, boombardIcon, barrackIcon, nullptr);
+	cancelMenu = MenuItemImage::create("res/WorldScene1/boombardTower.png", "res/WorldScene1/boombardTower.png", [&](Ref* sender) {
+		menu->setVisible(false);
+	});
+
+	menu = Menu::create(archerIcon, magicIcon, slowIcon, boombardIcon, barrackIcon, cancelMenu, nullptr);
 	menu->setPosition(0, 0);
 	addChild(menu, 100);
 	menu->setVisible(false);
+
+
+	canBuild = Sprite::create("CloseNormal.png");
+	canBuild->removeFromParent();
+	canBuild->setPosition(0, 0);
+	this->addChild(canBuild, 6);
+	canBuild->setVisible(false);
+
+	cannotBuild = Sprite::create("CloseSelected.png");
+	cannotBuild->removeFromParent();
+	cannotBuild->setPosition(0, 0);
+	this->addChild(cannotBuild, 6);
+	cannotBuild->setVisible(false);
+	//==================================================================
 
 	mTileMap = TMXTiledMap::create("res/MapScene/Map01.tmx");
 	mTileMap->setAnchorPoint(Vec2(0, 0));
@@ -107,7 +125,16 @@ bool WorldScene1::init()
 	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
 	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
 
+	listMonster.push_back(new Monster(this, TANK_MONSTER));
+	listMonster.push_back(new Monster(this, TANK_MONSTER));
+	listMonster.push_back(new Monster(this, TANK_MONSTER));
+	listMonster.push_back(new Monster(this, TANK_MONSTER));
+	listMonster.push_back(new Monster(this, TANK_MONSTER));
+
+
 	listLocationTower.push_back(Vec2(0, 0));
+
+
 	auto obj = mTileMap->getObjectGroup("Monster");
 	float x = obj->getObject("monster")["x"].asInt();
 	float y = obj->getObject("monster")["y"].asInt();
@@ -142,9 +169,23 @@ bool WorldScene1::init()
 	//touchListener->onTouchEnded = CC_CALLBACK_2(WorldScene1::onTouchTowerEnded, this);
 	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchListener, this);
 
+	//=====================================================
+	//auto sprite = Sprite::create("res/game/bar.png"); 
+	//sprite->setPosition(Point(visibleSize.width / 2, visibleSize.height - 20)); 
+	//this->addChild(sprite);         
+	//auto sprBlood = Sprite::create("res/game/blood.png"); 
+	//ProgressTimer * progress = ProgressTimer::create(sprBlood); 
+	//progress->setType(ProgressTimer::Type::BAR); 
+	//progress->setPosition(Point(visibleSize.width / 2, visibleSize.height - 20));
+	//progress->setMidpoint(Point(0, 0.5));
+	//progress->setBarChangeRate(Point(1, 0));
+	//progress->setTag(BLOOD_BAR);       
+	//this->addChild(progress);
+	//schedule(schedule_selector(WorldScene1::scheduleBlood), 0.1f);  
+	//=======================================================
+
 	menu->setScale(0.6f);
 	time = 0;
-
 	scheduleUpdate();
 	return true;
 }
@@ -201,7 +242,6 @@ void WorldScene1::update(float deltaTime)
 		{
 			listMonster[i]->GetSprite()->setVisible(false);
 			listMonster.erase(listMonster.begin() + i);
-			
 		}
 	}
 	
@@ -245,15 +285,15 @@ void WorldScene1::BuildTower(int type)
 	menu->setVisible(false);
 	TowerBefore = towerChoosing;
 	towerChoosing = listTower[listTower.size() - 1];
+	canBuild->setVisible(false);
 }
 
 bool WorldScene1::onTouchBegan(Touch * touch, Event * event)
 {
-	//=======================================================
 	if (checkLocationBuildTower(touch->getLocation()))
-	{
-		//canBuild->setPosition(touchLocation);
-
+	{	
+		canBuild->setVisible(false);
+		canBuild->setPosition(touch->getLocation());
 		auto listPosTower = mTileMap->getLayer("ListTower");
 		Size sizeListTower = listPosTower->getLayerSize();
 		for (int i = 0; i < sizeListTower.width; i++)
@@ -267,33 +307,29 @@ bool WorldScene1::onTouchBegan(Touch * touch, Event * event)
 					createmenu(touchLocation);
 				}
 			}
-		}
+		}		
 	}
-	checkClick = false;
-
-	for (int i = 0; i < listTower.size(); i++)
+	else 
 	{
-		if (listTower[i]->GetSprite()->getBoundingBox().containsPoint(touch->getLocation()))
+		cannotBuild->setPosition(touchLocation);
+		if (!cannotBuild->isVisible())
 		{
-			checkClick = true;
-			/*menu->setVisible(false);*/
+			cannotBuild->setVisible(true);
 		}
 	}
-
-	//if (TowerBefore != nullptr)
-	//{
-	//	if (!Rect(TowerBefore->GetCircleMenu()->getPositionX() - TowerBefore->GetCircleMenu()->getBoundingBox().size.width / 2, TowerBefore->GetCircleMenu()->getPositionY() - TowerBefore->GetCircleMenu()->getBoundingBox().size.height / 2, TowerBefore->GetCircleMenu()->getBoundingBox().size.width, TowerBefore->GetCircleMenu()->getBoundingBox().size.height).containsPoint(point))
-	//	{
-	//		log("pk");
-	//		TowerBefore->GetCircleMenu()->setVisible(false);
-	//		TowerBefore->GetCircleMenu()->runAction(ScaleTo::create(1, 0.1f));
-	//	}
-
-		if (checkClick == true)
+	return true;
+	
+}
+bool WorldScene1::checkLocationBuildTower(Vec2 newPoint)
+{
+	for (int i = 0; i < listLocationTower.size(); i++)
+	{
+		if (newPoint.getDistance(listLocationTower[i]) < 32)
 		{
-			towerChoosing->GetCircleMenu()->setVisible(true);
-			towerChoosing->GetCircleMenu()->runAction(ScaleTo::create(0.2f, 1));
+			return false;
 		}
+	}
+	listLocationTower.push_back(newPoint);
 	return true;
 }
 
@@ -314,26 +350,12 @@ void WorldScene1::createmenu(Vec2 point)
 	slowIcon->setPosition(point.x + 2 * slowIcon->getContentSize().width, point.y);
 	boombardIcon->setPosition(point.x + 3 * boombardIcon->getContentSize().width, point.y);
 	barrackIcon->setPosition(point.x + 4 * barrackIcon->getContentSize().width, point.y);
+	cancelMenu->setPosition(point.x + 5 * cancelMenu->getContentSize().width, point.y);
+
 	if (!menu->isVisible())
 	{
 		menu->setVisible(true);
+		canBuild->setVisible(true);
+		cannotBuild->setVisible(false);
 	}
-	else
-	{
-		menu->setVisible(false);
-	}
-
-}
-bool WorldScene1::checkLocationBuildTower(Vec2 newPoint)
-{
-	for (int i = 0; i < listLocationTower.size(); i++)
-	{
-		if (newPoint.getDistance(listLocationTower[i]) < 32)
-		{
-			return false;
-		}
-	}
-	listLocationTower.push_back(newPoint);
-
-	return true;
 }

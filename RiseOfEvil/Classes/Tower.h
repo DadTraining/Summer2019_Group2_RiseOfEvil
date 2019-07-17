@@ -25,6 +25,8 @@ private:
 	float timeDelay = 0;
 	float m_attackSpeed;
 	int m_gold;
+	bool checkTowerShoot = false;
+	float countTimeToDamage = 0;
 public:
 	void Init();
 	Tower(Layer* layer, int, Vec2);
@@ -37,4 +39,5 @@ public:
 	int GetGold();
 	void SetGold(int);
 	Sprite * GetCircleMenu();
+	int GetDamage();
 };

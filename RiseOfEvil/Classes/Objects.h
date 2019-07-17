@@ -6,7 +6,10 @@ class Objects
 protected:
 	int m_type;
 	SpriteBatchNode *m_spriteNode;
+	ProgressTimer *pBloodProGress;
 	Sprite * m_sprite;
+	Sprite * m_bloodBar;
+	Sprite * m_blood;
 
 	int m_hitPoint;
 	int m_minimumAtk;
@@ -24,6 +27,7 @@ public:
 	void SetMaximumAtk(int);
 	void SetArmor(int);
 
+	SpriteBatchNode * GetSpriteBatchNote();
 	Sprite *GetSprite();
 	int GetHitPoint();
 	int GetMinimumAtk();
