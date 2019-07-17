@@ -9,6 +9,7 @@ void Bullet::Init()
 Bullet::Bullet(Layer * layer)
 {
 	Init();
+	m_layer = layer;
 	m_sprite->setVisible(false);
 	m_sprite->setScale(0.03f);
 	//bullet->setRotation(-75);
@@ -37,6 +38,10 @@ void Bullet::Move(Monster * monster)
 
 void Bullet::AfterShoot()
 {
+	auto *expl = ParticleSystemQuad::create("explotion.plist");
+	expl->setVisible(true);
+	expl->setPosition(m_sprite->getPosition());
+	m_layer->addChild(expl);
 	m_sprite->setVisible(false);
 }
 

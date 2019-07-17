@@ -163,10 +163,22 @@ bool WorldScene1::init()
 	touchListener->onTouchMoved = CC_CALLBACK_2(WorldScene1::onTouchMoved, this);
 	touchListener->onTouchEnded = CC_CALLBACK_2(WorldScene1::onTouchEnded, this);
 	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchListener, this);
+	//=====================================================
+	//auto sprite = Sprite::create("res/game/bar.png"); 
+	//sprite->setPosition(Point(visibleSize.width / 2, visibleSize.height - 20)); 
+	//this->addChild(sprite);         
+	//auto sprBlood = Sprite::create("res/game/blood.png"); 
+	//ProgressTimer * progress = ProgressTimer::create(sprBlood); 
+	//progress->setType(ProgressTimer::Type::BAR); 
+	//progress->setPosition(Point(visibleSize.width / 2, visibleSize.height - 20));
+	//progress->setMidpoint(Point(0, 0.5));
+	//progress->setBarChangeRate(Point(1, 0));
+	//progress->setTag(BLOOD_BAR);       
+	//this->addChild(progress);
+	//schedule(schedule_selector(WorldScene1::scheduleBlood), 0.1f);  
 	//=======================================================
 	menu->setScale(0.6f);
 	time = 0;
-
 	scheduleUpdate();
 	return true;
 }
@@ -174,8 +186,6 @@ float x;
 float y;
 void WorldScene1::update(float deltaTime)
 {
-
-
 	for (int i = 0; i < listMonster.size(); i++)
 	{
 		if (!(listMonster[i]->GetSprite()->isVisible()))
@@ -348,6 +358,8 @@ void WorldScene1::createmenu(Vec2 point)
 		cannotBuild->setVisible(false);
 	}	
 }
+
+
 
 
 

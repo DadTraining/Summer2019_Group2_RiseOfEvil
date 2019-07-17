@@ -20,6 +20,7 @@
 #define NE 6
 #define NW 7
 #define SW 8
+USING_NS_CC;
 using namespace cocos2d;
 using namespace std;
 class Monster :public Objects
@@ -36,12 +37,10 @@ private:
 	float m_velocity;
 	//vector<Skill *>m_listSkill;
 	int m_range;
-	
+	Sprite * hp_bg;
 	//Skill * speciall
 public:
 	int m_flag = 0;
-	
-	
 	Monster(Layer*, int);
 	~Monster();
 	void Init();
