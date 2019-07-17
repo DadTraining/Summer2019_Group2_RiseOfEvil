@@ -75,7 +75,7 @@
    <point/>
   </object>
  </objectgroup>
- <objectgroup id="7" name="Tower">
+ <objectgroup id="7" name="Tower" visible="0">
   <object id="10" name="tower" x="737" y="280">
    <point/>
   </object>
