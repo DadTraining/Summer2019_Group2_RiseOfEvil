@@ -190,7 +190,7 @@ void WorldScene1::update(float deltaTime)
 	{
 		if (!(listMonster[i]->GetSprite()->isVisible()))
 		{
-			//getBloodBar(listMonster[i], 20);
+			listMonster[i]->setProgressBar();
 			listMonster[i]->Update(deltaTime);
 			i = 100;
 		}
@@ -224,6 +224,14 @@ void WorldScene1::update(float deltaTime)
 				listTower[tower]->Update(deltaTime, listMonster[i]);
 				i = 100;
 			}
+		}
+	}
+	for (int i = 0; i < listMonster.size(); i++)
+	{
+		if (listMonster[i]->GetHitPoint() <= 0)
+		{
+			listMonster[i]->GetSprite()->setVisible(false);
+			listMonster.erase(listMonster.begin() + i);
 		}
 	}
 	
@@ -351,23 +359,6 @@ void WorldScene1::createmenu(Vec2 point)
 	}	
 }
 
-//void WorldScene1::getBloodBar(Monster *monster, float a)
-//{
-//	Sprite *pBloodbg = Sprite::create("res/Sprites/LoadingScene/loadingbar_bg.png");
-//	pBloodbg->setPosition(Vec2(monster->GetSprite()->getContentSize().width / 2, monster->GetSprite()->getContentSize().height + 10));
-//	monster->GetSprite()->addChild(pBloodbg, 3);
-//	log("%f", monster->GetSprite()->getContentSize().width);
-//	//addChild(pBloodbg, 3);
-//	Sprite *pBloodManSp = Sprite::create("res/Sprites/LoadingScene/loadingbar.png");
-//	ProgressTimer *pBloodProGress = ProgressTimer::create(pBloodManSp);
-//	pBloodProGress->setType(kCCProgressTimerTypeBar);
-//	pBloodProGress->setBarChangeRate(Vec2(1, 0));
-//	pBloodProGress->setMidpoint(Vec2(0, 0));
-//	pBloodProGress->setPosition(Vec2(monster->GetSprite()->getContentSize().width / 2, monster->GetSprite()->getContentSize().height + 10));
-//	pBloodProGress->setPercentage(a);
-//	addChild(pBloodProGress, 3);
-//	//monster->GetSprite()->addChild(pBloodProGress, 1, 1);
-//}
 
 
 

@@ -60,5 +60,6 @@ public:
 	float GetAttackSpeed();
 	int GetGold();
 	int GetRange();
+	void setProgressBar();
 	float GetVelocity();
 };

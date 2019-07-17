@@ -5,13 +5,7 @@ Monster::Monster(Layer * layer, int type)
 {
 	m_type = type;
 	Init();
-
 	m_maxHitPoint = m_hitPoint;
-
-	//hp_bg = Sprite::create("res/Sprites/LoadingScene/loadingbar.png");
-	//hp_bg->setPosition(Point(m_sprite->getContentSize().width / 2, m_sprite->getContentSize().height));
-	//m_sprite->addChild(hp_bg);
-
 	layer->addChild(m_spriteNode, 3);
 }
 
@@ -28,7 +22,6 @@ void Monster::Init()
 		//	m_sprite = ResourceManager::GetInstance()->DuplicateSprite(ResourceManager::GetInstance()->GetSpriteById(NORMAL_MONSTER)); //id = id of NORMAL_MONSTER
 		m_spriteNode = SpriteBatchNode::create("Orc_Warrior_Walking.png");
 		SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Orc_Warrior_Walking.plist");
-		
 		m_sprite = Sprite::createWithSpriteFrameName("Orc_Walking_1.png");
 		m_bloodBar = Sprite::createWithSpriteFrameName("loadingbar_bg.png");
 		m_blood = Sprite::createWithSpriteFrameName("loadingbar.png");
@@ -368,5 +361,3 @@ float Monster::GetVelocity()
 {
 	return m_velocity;
 }
-
-

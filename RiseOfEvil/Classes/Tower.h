@@ -22,7 +22,7 @@ private:
 	float timeDelay = 0;
 	float m_attackSpeed;
 	int m_gold;
-	bool checkTowerShoot= false;
+	bool checkTowerShoot = false;
 	float countTimeToDamage = 0;
 public:
 	void Init();
