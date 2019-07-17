@@ -35,6 +35,7 @@ private:
 	MenuItemImage *slowIcon;
 	MenuItemImage *barrackIcon;
 	MenuItemImage *boombardIcon;
+	MenuItemImage *cancelMenu;
 	Menu *menu;
 	Sprite* canBuild;
 	Sprite* cannotBuild;

@@ -50,9 +50,12 @@ bool WorldScene1::init()
 		BuildTower(4);
 	});
 	boombardIcon->setPosition(0, 0);
-	//==================================================================
+	cancelMenu = MenuItemImage::create("res/WorldScene1/boombardTower.png", "res/WorldScene1/boombardTower.png", [&](Ref* sender) {
+		menu->setVisible(false);
+	});
+  //==================================================================
 	//Create list tower icon to build
-	menu = Menu::create(archerIcon, magicIcon, slowIcon, boombardIcon, barrackIcon, nullptr);
+	menu = Menu::create(archerIcon, magicIcon, slowIcon, boombardIcon, barrackIcon, cancelMenu, nullptr);
 	menu->setPosition(0, 0);
 	addChild(menu, 100);
 	menu->setVisible(false);
@@ -251,10 +254,10 @@ void WorldScene1::BuildTower(int type)
 
 bool WorldScene1::onTouchBegan(Touch * touch, Event * event)
 {
-	touchLocation = touch->getLocation();
-	if (checkLocationBuildTower(touchLocation))
+	if (checkLocationBuildTower(touch->getLocation()))
 	{	
-		canBuild->setPosition(touchLocation);
+		canBuild->setVisible(false);
+		canBuild->setPosition(touch->getLocation());
 		auto listPosTower = mTileMap->getLayer("ListTower");
 		Size sizeListTower = listPosTower->getLayerSize();
 		for (int i = 0; i < sizeListTower.width; i++)
@@ -262,9 +265,9 @@ bool WorldScene1::onTouchBegan(Touch * touch, Event * event)
 			for (int j = 0; j < sizeListTower.height; j++)
 			{
 				auto TowerSet = listPosTower->getTileAt(Vec2(i, j));
-				if (TowerSet != NULL  && TowerSet->getBoundingBox().containsPoint(touchLocation))
+				if (TowerSet != NULL  && TowerSet->getBoundingBox().containsPoint(touch->getLocation()))
 				{
-
+					touchLocation = touch->getLocation();
 					createmenu(touchLocation);
 				}
 			}
@@ -302,6 +305,7 @@ void WorldScene1::createmenu(Vec2 point)
 	slowIcon->setPosition(point.x + 2 * slowIcon->getContentSize().width, point.y);
 	boombardIcon->setPosition(point.x + 3 * boombardIcon->getContentSize().width, point.y);
 	barrackIcon->setPosition(point.x + 4 * barrackIcon->getContentSize().width, point.y);
+	cancelMenu->setPosition(point.x + 5 * cancelMenu->getContentSize().width, point.y);
 	if (!menu->isVisible())
 	{
 		menu->setVisible(true);
