@@ -3,7 +3,6 @@
 #include <iostream>
 #include <string.h>
 #include <math.h>
-using namespace std;
 
 Scene* WorldScene1::createScene()
 {
@@ -26,6 +25,7 @@ bool WorldScene1::init()
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
 	//===============================================================
+	//Create function for icon build tower
 	archerIcon = MenuItemImage::create("res/WorldScene1/archerTower.png", "res/WorldScene1/archerTower.png", [&](Ref* sender) {
 		BuildTower(1);
 	});
@@ -50,17 +50,16 @@ bool WorldScene1::init()
 		BuildTower(4);
 	});
 	boombardIcon->setPosition(0, 0);
-
 	cancelMenu = MenuItemImage::create("res/WorldScene1/boombardTower.png", "res/WorldScene1/boombardTower.png", [&](Ref* sender) {
 		menu->setVisible(false);
 	});
-
+  //==================================================================
+	//Create list tower icon to build
 	menu = Menu::create(archerIcon, magicIcon, slowIcon, boombardIcon, barrackIcon, cancelMenu, nullptr);
 	menu->setPosition(0, 0);
 	addChild(menu, 100);
 	menu->setVisible(false);
-
-
+	//==================================================================
 	canBuild = Sprite::create("CloseNormal.png");
 	canBuild->removeFromParent();
 	canBuild->setPosition(0, 0);
@@ -73,12 +72,12 @@ bool WorldScene1::init()
 	this->addChild(cannotBuild, 6);
 	cannotBuild->setVisible(false);
 	//==================================================================
-
 	mTileMap = TMXTiledMap::create("res/MapScene/Map01.tmx");
 	mTileMap->setAnchorPoint(Vec2(0, 0));
 	mTileMap->setPosition(0, 0);
 	addChild(mTileMap, 0);
-
+	//==========================================================
+	//Create pause menu 
 	pause_bg = Sprite::create("res/WorldScene1/pause_bg.png");
 	pause_bg->setScale(0.7);
 	pause_bg->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
@@ -110,8 +109,8 @@ bool WorldScene1::init()
 	mainmenuBtn->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 - 90));
 	mainmenuBtn->addTouchEventListener(CC_CALLBACK_0(WorldScene1::returnToMainMenu, this));
 	addChild(mainmenuBtn, -1);
-
-
+	//==========================================================
+	//Create list monster
 	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
 	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
 	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
@@ -124,17 +123,16 @@ bool WorldScene1::init()
 	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
 	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
 	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
-
 	listMonster.push_back(new Monster(this, TANK_MONSTER));
 	listMonster.push_back(new Monster(this, TANK_MONSTER));
 	listMonster.push_back(new Monster(this, TANK_MONSTER));
 	listMonster.push_back(new Monster(this, TANK_MONSTER));
 	listMonster.push_back(new Monster(this, TANK_MONSTER));
-
-
+	//===========================================================================
+	//First Location Tower
 	listLocationTower.push_back(Vec2(0, 0));
-
-
+	//===========================================================================
+	//Monster appear
 	auto obj = mTileMap->getObjectGroup("Monster");
 	float x = obj->getObject("monster")["x"].asInt();
 	float y = obj->getObject("monster")["y"].asInt();
@@ -143,24 +141,19 @@ bool WorldScene1::init()
 		listMonster[i]->GetSprite()->setAnchorPoint(Vec2(0.5, 0.35));
 		listMonster[i]->GetSprite()->setPosition(x, y);
 		listMonster[i]->GetSprite()->setScale(0.6);
-	}
-
-	auto road = mTileMap->getObjectGroup("Point");
+	}	
 	new Tower(this, 1, touchLocation);
-	//auto body = PhysicsBody::createCircle(150, PHYSICSBODY_MATERIAL_DEFAULT);
-	//body->setDynamic(false);
-	//tower->GetSprite()->setPhysicsBody(body);
-	//======================Move of Soldier TileSet=====================================================
-	//auto SoldierMove = mTileMap->getLayer("ListSoldierMove");
-	//==============================================================================
+	//===========================================================================
+	//List point to move monster
+	auto road = mTileMap->getObjectGroup("Point");
 	for (int i = 0; i < 15; i++)
 	{
 		float x = road->getObject("P" + to_string(i + 1))["x"].asInt();
 		float y = road->getObject("P" + to_string(i + 1))["y"].asInt();
 		listPoint.push_back(Vec2(x, y));
 	}
-	//touch event
 	//=====================================================
+	//touch event
 	auto touchListener = EventListenerTouchOneByOne::create();
 	touchListener->onTouchBegan = CC_CALLBACK_2(WorldScene1::onTouchBegan, this);
 	touchListener->onTouchMoved = CC_CALLBACK_2(WorldScene1::onTouchMoved, this);
@@ -168,35 +161,14 @@ bool WorldScene1::init()
 	//touchListener->onTouchBegan = CC_CALLBACK_2(WorldScene1::onTouchTowerBegan, this);
 	//touchListener->onTouchEnded = CC_CALLBACK_2(WorldScene1::onTouchTowerEnded, this);
 	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchListener, this);
-
-	//=====================================================
-	//auto sprite = Sprite::create("res/game/bar.png"); 
-	//sprite->setPosition(Point(visibleSize.width / 2, visibleSize.height - 20)); 
-	//this->addChild(sprite);         
-	//auto sprBlood = Sprite::create("res/game/blood.png"); 
-	//ProgressTimer * progress = ProgressTimer::create(sprBlood); 
-	//progress->setType(ProgressTimer::Type::BAR); 
-	//progress->setPosition(Point(visibleSize.width / 2, visibleSize.height - 20));
-	//progress->setMidpoint(Point(0, 0.5));
-	//progress->setBarChangeRate(Point(1, 0));
-	//progress->setTag(BLOOD_BAR);       
-	//this->addChild(progress);
-	//schedule(schedule_selector(WorldScene1::scheduleBlood), 0.1f);  
-	//=======================================================
-
 	menu->setScale(0.6f);
 	time = 0;
 	scheduleUpdate();
 	return true;
 }
-float x;
-float y;
 void WorldScene1::update(float deltaTime)
 {
-	for (int i = 0; i < listMonster.size(); i++) {
-		//log("Blood %d: %d",i ,listMonster[i]->GetHitPoint());
-	}
-
+	//Monster spawn
 	for (int i = 0; i < listMonster.size(); i++)
 	{
 		if (!(listMonster[i]->GetSprite()->isVisible()))
@@ -205,37 +177,32 @@ void WorldScene1::update(float deltaTime)
 			i = 100;
 		}
 	}
+	//Monster move
 	for (int i = 0; i < listMonster.size(); i++)
-
 	{
 		if ((listPoint[listMonster[i]->m_flag].getDistance(listMonster[i]->GetSprite()->getPosition()) == 0) && (listMonster[i]->GetSprite()->isVisible()))
 		{
-			
-					if (listMonster[i]->m_flag < listPoint.size() - 1)
-						{
-							listMonster[i]->m_flag++;
-							
-						}
-
-					listMonster[i]->Move(listPoint[listMonster[i]->m_flag]);
+			if (listMonster[i]->m_flag < listPoint.size() - 1)
+			{
+				listMonster[i]->m_flag++;
+			}
+			listMonster[i]->Move(listPoint[listMonster[i]->m_flag]);
 		}
 	}
+	//Tower shoot
 	for (int tower = 0; tower < listTower.size(); tower++)
 	{
-
 		for (int i = 0; i < listMonster.size(); i++)
 		{
-
 			if (listMonster[i]->GetSprite()->isVisible() &&
 				listMonster[i]->GetSprite()->getPosition().getDistance(listTower[tower]->GetSprite()->getPosition()) < listTower[tower]->GetRange())
 			{
-				x = listMonster[i]->GetSprite()->getPositionX();
-				y = listMonster[i]->GetSprite()->getPositionY();
 				listTower[tower]->Update(deltaTime, listMonster[i]);
 				i = 100;
 			}
 		}
 	}
+	//Monster die
 	for (int i = 0; i < listMonster.size(); i++)
 	{
 		if (listMonster[i]->GetHitPoint() <= 0)
@@ -244,11 +211,10 @@ void WorldScene1::update(float deltaTime)
 			listMonster.erase(listMonster.begin() + i);
 		}
 	}
-	
 }
 
+//Hide Pause menu
 void WorldScene1::FadeOutPause()
-
 {
 	Director::getInstance()->resume();
 	pause_bg->setZOrder(-1);
@@ -260,6 +226,7 @@ void WorldScene1::FadeOutPause()
 	mainmenuBtn->setEnabled(false);
 }
 
+//Show Pause menu
 void WorldScene1::FadeInPause()
 {
 	Director::getInstance()->pause();
@@ -278,6 +245,7 @@ void WorldScene1::returnToMainMenu()
 	Director::getInstance()->replaceScene(TransitionZoomFlipAngular::create(1, MainMenuScene::createScene()));
 }
 
+//Build Tower
 void WorldScene1::BuildTower(int type)
 {
 	Tower * towerBuild = new Tower(this, type, touchLocation);
@@ -318,8 +286,8 @@ bool WorldScene1::onTouchBegan(Touch * touch, Event * event)
 		}
 	}
 	return true;
-	
 }
+//Check Location To Build
 bool WorldScene1::checkLocationBuildTower(Vec2 newPoint)
 {
 	for (int i = 0; i < listLocationTower.size(); i++)
@@ -342,7 +310,7 @@ void WorldScene1::onTouchEnded(Touch * touch, Event * event)
 {
 }
 
-
+//Create list Tower icon 
 void WorldScene1::createmenu(Vec2 point)
 {
 	archerIcon->setPosition(point);
@@ -351,7 +319,6 @@ void WorldScene1::createmenu(Vec2 point)
 	boombardIcon->setPosition(point.x + 3 * boombardIcon->getContentSize().width, point.y);
 	barrackIcon->setPosition(point.x + 4 * barrackIcon->getContentSize().width, point.y);
 	cancelMenu->setPosition(point.x + 5 * cancelMenu->getContentSize().width, point.y);
-
 	if (!menu->isVisible())
 	{
 		menu->setVisible(true);

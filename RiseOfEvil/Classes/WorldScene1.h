@@ -46,9 +46,6 @@ private:
 	Vec2 point;
 	//Sprite * canBuild;
 	//Sprite * cannotBuild;
-	//int count =0;
-	//===============MenuTower================
-	//========================================
 public:
 	static Scene* createScene();
 	virtual bool init() override;
@@ -58,7 +55,6 @@ public:
 	void FadeOutPause();
 	void returnToMainMenu();
 	void BuildTower(int);
-
 	void createmenu(Vec2 point);
 	void createMenuTower(Vec2 Point);
 	void moveFlag(Vec2 Pos);
@@ -66,7 +62,5 @@ public:
 	void onTouchMoved(Touch * touch, Event * event);
 	void onTouchEnded(Touch * touch, Event * event);
 	bool checkLocationBuildTower(Vec2 newPoint);
-
-	//void getBloodBar(Monster *, float);
 	CREATE_FUNC(WorldScene1);
 };
