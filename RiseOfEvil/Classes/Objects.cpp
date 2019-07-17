@@ -34,6 +34,11 @@ void Objects::SetArmor(int armor)
 	m_armor = armor;
 }
 
+SpriteBatchNode * Objects::GetSpriteBatchNote()
+{
+	return m_spriteNode;
+}
+
 Sprite * Objects::GetSprite()
 {
 	return m_sprite;

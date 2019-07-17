@@ -1,11 +1,10 @@
 #pragma once
 #include "cocos2d.h"
-
 #include "Tower.h"
 #include "Monster.h"
-
 #include "ui/CocosGUI.h"
 #include "Tower.h"
+#define BLOOD_BAR 9
 #define E  1
 #define W  2
 #define S  3
@@ -35,6 +34,7 @@ private:
 	MenuItemImage *slowIcon;
 	MenuItemImage *barrackIcon;
 	MenuItemImage *boombardIcon;
+	MenuItemImage *cancelMenu;
 	Menu *menu;
 	Sprite* canBuild;
 	Sprite* cannotBuild;
@@ -47,9 +47,10 @@ public:
 	void FadeInPause();
 	void FadeOutPause();
 	void returnToMainMenu();
-	void BuildTower(int, Vec2 Pos);
+	void BuildTower(int);
 	bool onTouchBegan(Touch *touch, Event *event);
 	bool checkLocationBuildTower(Vec2);
 	void createmenu(Vec2 point);
+	//void getBloodBar(Monster *, float);
 	CREATE_FUNC(WorldScene1);
 };

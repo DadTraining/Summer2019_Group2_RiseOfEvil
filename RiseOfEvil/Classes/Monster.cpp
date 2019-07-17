@@ -22,6 +22,7 @@ void Monster::Init()
 		//	m_sprite = ResourceManager::GetInstance()->DuplicateSprite(ResourceManager::GetInstance()->GetSpriteById(NORMAL_MONSTER)); //id = id of NORMAL_MONSTER
 		m_spriteNode = SpriteBatchNode::create("Orc_Warrior_Walking.png");
 		SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Orc_Warrior_Walking.plist");
+		
 		m_sprite = Sprite::createWithSpriteFrameName("Orc_Walking_1.png");
 		m_bloodBar = Sprite::createWithSpriteFrameName("loadingbar_bg.png");
 		m_blood = Sprite::createWithSpriteFrameName("loadingbar.png");
@@ -62,6 +63,7 @@ void Monster::Init()
 		m_png[14] = 31;
 		m_png[15] = 40;
 		m_hitPoint = 24;
+		m_maxHitPoint = 24;
 		m_minimumAtk = 1;
 		m_maximumAtk = 4;
 		m_attackSpeed = 1.0;
@@ -71,9 +73,31 @@ void Monster::Init()
 		break;
 	}
 	case MAGICAN_MONSTER:
+		m_sprite = ResourceManager::GetInstance()->DuplicateSprite(ResourceManager::GetInstance()->GetSpriteById(MAGICAN_MONSTER));
+		m_hitPoint = 120;
+		m_minimumAtk = 5;
+		m_maximumAtk = 7;
+		m_attackSpeed = 1.0;
+		m_movementSpeed = m_velocity = MEDIUM_SPEED;
+		m_armor = 0;
+		m_gold = 15;
+		break;
+	case TANK_MONSTER:
 		m_spriteNode = SpriteBatchNode::create("Minotaur_Walking.png");
 		SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Minotaur_Walking.plist");
+
 		m_sprite = Sprite::createWithSpriteFrameName("_Minotaur_1.png");
+	
+		m_bloodBar = Sprite::createWithSpriteFrameName("loadingbar_bg.png");
+		m_blood = Sprite::createWithSpriteFrameName("loadingbar.png");
+		m_blood->setAnchorPoint(Point(0, 0.5));
+		m_blood->setPosition(Point(0, m_bloodBar->getContentSize().height / 2));
+
+		m_bloodBar->setPosition(Point(m_sprite->getContentSize().width / 2, m_sprite->getContentSize().height * 0.6));
+		m_bloodBar->setScale(0.2);
+
+		m_bloodBar->addChild(m_blood, 8);
+		m_sprite->addChild(m_bloodBar, 6);
 		m_spriteNode->addChild(m_sprite);
 		m_sprite->setVisible(false);
 		m_fomatAnimation = "_Minotaur_";
@@ -93,17 +117,8 @@ void Monster::Init()
 		m_png[13] = 30;
 		m_png[14] = 31;
 		m_png[15] = 40;
-		m_hitPoint = 120;
-		m_minimumAtk = 5;
-		m_maximumAtk = 7;
-		m_attackSpeed = 1.0;
-		m_movementSpeed = m_velocity = MEDIUM_SPEED;
-		m_armor = 0;
-		m_gold = 15;
-		break;
-	case TANK_MONSTER:
-		m_sprite = ResourceManager::GetInstance()->DuplicateSprite(ResourceManager::GetInstance()->GetSpriteById(TANK_MONSTER)); //id = id of MAGICAN_MONSTER
 		m_hitPoint = 960;
+		m_maxHitPoint = 960;
 		m_minimumAtk = 40;
 		m_maximumAtk = 60;
 		m_attackSpeed = 1.9;
@@ -350,14 +365,12 @@ int Monster::GetRange()
 
 void Monster::setProgressBar()
 {
-	/*m_blood->setScaleX(abs(m_hitPoint) / m_maxHitPoint);
-	log("hheheh: %f", m_hitPoint );
-	log("haha: %f", m_maxHitPoint);
-	log("Scale: %f", abs(m_hitPoint) / m_maxHitPoint);*/
-
+	m_blood->setScaleX(abs(m_hitPoint / (m_maxHitPoint * 1.0)));
 }
 
 float Monster::GetVelocity()
 {
 	return m_velocity;
 }
+
+
