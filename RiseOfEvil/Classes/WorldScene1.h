@@ -14,6 +14,7 @@
 #define NW 7
 #define SW 8
 using namespace cocos2d;
+using namespace std;
 USING_NS_CC;
 class WorldScene1 : public Layer
 {
@@ -46,10 +47,9 @@ public:
 	void FadeInPause();
 	void FadeOutPause();
 	void returnToMainMenu();
-	void BuildTower(int, Vec2 Pos);
+	void BuildTower(int);
 	bool onTouchBegan(Touch *touch, Event *event);
 	bool checkLocationBuildTower(Vec2);
 	void createmenu(Vec2 point);
-	//void getBloodBar(Monster *, float);
 	CREATE_FUNC(WorldScene1);
 };
