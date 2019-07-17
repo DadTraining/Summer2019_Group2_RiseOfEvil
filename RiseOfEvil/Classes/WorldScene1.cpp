@@ -27,27 +27,27 @@ bool WorldScene1::init()
 
 	//===============================================================
 	archerIcon = MenuItemImage::create("res/WorldScene1/archerTower.png", "res/WorldScene1/archerTower.png", [&](Ref* sender) {
-		BuildTower(1, touchLocation);
+		BuildTower(1);
 	});
 	archerIcon->setPosition(0, 0);
 
 	magicIcon = MenuItemImage::create("res/WorldScene1/magicTower.png", "res/WorldScene1/magicTower.png", [&](Ref* sender) {
-		BuildTower(2, touchLocation);
+		BuildTower(2);
 	});
 	magicIcon->setPosition(0, 0);
 
 	barrackIcon = MenuItemImage::create("res/WorldScene1/barrackTower.png", "res/WorldScene1/barrackTower.png", [&](Ref* sender) {
-		BuildTower(5, touchLocation);
+		BuildTower(5);
 	});
 	barrackIcon->setPosition(0, 0);
 
 	slowIcon = MenuItemImage::create("res/WorldScene1/slowTower.png", "res/WorldScene1/slowTower.png", [&](Ref* sender) {
-		BuildTower(3, touchLocation);
+		BuildTower(3);
 	});
 	slowIcon->setPosition(0, 0);
 
 	boombardIcon = MenuItemImage::create("res/WorldScene1/boombardTower.png", "res/WorldScene1/boombardTower.png", [&](Ref* sender) {
-		BuildTower(4, touchLocation);
+		BuildTower(4);
 	});
 	boombardIcon->setPosition(0, 0);
 
@@ -238,9 +238,9 @@ void WorldScene1::returnToMainMenu()
 	Director::getInstance()->replaceScene(TransitionZoomFlipAngular::create(1, MainMenuScene::createScene()));
 }
 
-void WorldScene1::BuildTower(int type, Vec2 Pos)
+void WorldScene1::BuildTower(int type)
 {
-	Tower * towerBuild = new Tower(this, type, Pos);
+	Tower * towerBuild = new Tower(this, type, touchLocation);
 	listTower.push_back(towerBuild);
 	menu->setVisible(false);
 	TowerBefore = towerChoosing;
@@ -249,7 +249,51 @@ void WorldScene1::BuildTower(int type, Vec2 Pos)
 
 bool WorldScene1::onTouchBegan(Touch * touch, Event * event)
 {
+	//=======================================================
+	if (checkLocationBuildTower(touch->getLocation()))
+	{
+		//canBuild->setPosition(touchLocation);
 
+		auto listPosTower = mTileMap->getLayer("ListTower");
+		Size sizeListTower = listPosTower->getLayerSize();
+		for (int i = 0; i < sizeListTower.width; i++)
+		{
+			for (int j = 0; j < sizeListTower.height; j++)
+			{
+				auto TowerSet = listPosTower->getTileAt(Vec2(i, j));
+				if (TowerSet != NULL  && TowerSet->getBoundingBox().containsPoint(touch->getLocation()))
+				{
+					touchLocation = touch->getLocation();
+					createmenu(touchLocation);
+				}
+			}
+		}
+	}
+	checkClick = false;
+
+	for (int i = 0; i < listTower.size(); i++)
+	{
+		if (listTower[i]->GetSprite()->getBoundingBox().containsPoint(touch->getLocation()))
+		{
+			checkClick = true;
+			/*menu->setVisible(false);*/
+		}
+	}
+
+	//if (TowerBefore != nullptr)
+	//{
+	//	if (!Rect(TowerBefore->GetCircleMenu()->getPositionX() - TowerBefore->GetCircleMenu()->getBoundingBox().size.width / 2, TowerBefore->GetCircleMenu()->getPositionY() - TowerBefore->GetCircleMenu()->getBoundingBox().size.height / 2, TowerBefore->GetCircleMenu()->getBoundingBox().size.width, TowerBefore->GetCircleMenu()->getBoundingBox().size.height).containsPoint(point))
+	//	{
+	//		log("pk");
+	//		TowerBefore->GetCircleMenu()->setVisible(false);
+	//		TowerBefore->GetCircleMenu()->runAction(ScaleTo::create(1, 0.1f));
+	//	}
+
+		if (checkClick == true)
+		{
+			towerChoosing->GetCircleMenu()->setVisible(true);
+			towerChoosing->GetCircleMenu()->runAction(ScaleTo::create(0.2f, 1));
+		}
 	return true;
 }
 

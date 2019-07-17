@@ -54,7 +54,7 @@ public:
 	void FadeInPause();
 	void FadeOutPause();
 	void returnToMainMenu();
-	void BuildTower(int, Vec2 Pos);
+	void BuildTower(int);
 	void createmenu(Vec2 point);
 	void createMenuTower(Vec2 Point);
 	void moveFlag(Vec2 Pos);
