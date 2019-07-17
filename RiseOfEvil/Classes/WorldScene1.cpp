@@ -1,5 +1,6 @@
 #include "WorldScene1.h"
 #include "MainMenuScene.h"
+#include "Wave.h"
 #include <iostream>
 #include <string.h>
 #include <math.h>
@@ -111,23 +112,13 @@ bool WorldScene1::init()
 	addChild(mainmenuBtn, -1);
 	//==========================================================
 	//Create list monster
-	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
-	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
-	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
-	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
-	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
-	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
-	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
-	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
-	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
-	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
-	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
-	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
-	listMonster.push_back(new Monster(this, TANK_MONSTER));
-	listMonster.push_back(new Monster(this, TANK_MONSTER));
-	listMonster.push_back(new Monster(this, TANK_MONSTER));
-	listMonster.push_back(new Monster(this, TANK_MONSTER));
-	listMonster.push_back(new Monster(this, TANK_MONSTER));
+	Wave *wave = new Wave();
+	vector<int> temp1 = wave->getWave(1);
+	for (int i = 0; i < temp1.size(); i++)
+	{
+		Wave1.push_back(new Monster(this, temp1[i]));
+	}
+	listMonster = Wave1;
 	//===========================================================================
 	//First Location Tower
 	listLocationTower.push_back(Vec2(0, 0));
