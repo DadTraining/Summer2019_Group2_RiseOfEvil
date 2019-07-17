@@ -22,6 +22,7 @@ private:
 	TMXTiledMap* mTileMap;
 	vector<Vec2> listLocationTower;
 	vector<Monster*> listMonster;
+	vector<Monster*> Wave1;
 	vector<Vec2> listPoint;
 	vector<Tower*>listTower;
 	PhysicsBody *body;
