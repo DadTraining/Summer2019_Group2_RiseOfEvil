@@ -32,6 +32,7 @@ void Bullet::Move(Monster * monster)
 	auto movetToOfBullet = BezierTo::create(0.4f, bezier);
 	auto callfunct = CallFunc::create(CC_CALLBACK_0(Bullet::AfterShoot, this));
 	auto sq = Sequence::create(movetToOfBullet, callfunct, nullptr);
+	monster->setProgressBar();
 	m_sprite->runAction(sq);
 
 }

@@ -35,6 +35,8 @@ private:
 	Animation *animation;
 	float m_movementSpeed;
 	float m_velocity;
+	Sprite * m_bloodBar;
+	Sprite * m_blood;
 	//vector<Skill *>m_listSkill;
 	int m_range;
 	Sprite * hp_bg;

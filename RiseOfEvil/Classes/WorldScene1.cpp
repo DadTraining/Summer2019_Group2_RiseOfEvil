@@ -121,14 +121,11 @@ bool WorldScene1::init()
 	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
 	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
 
-	listMonster.push_back(new Monster(this, MAGICAN_MONSTER));
-	listMonster.push_back(new Monster(this, MAGICAN_MONSTER));
-	listMonster.push_back(new Monster(this, MAGICAN_MONSTER));
-	listMonster.push_back(new Monster(this, MAGICAN_MONSTER));
-	listMonster.push_back(new Monster(this, MAGICAN_MONSTER));
-	listMonster.push_back(new Monster(this, MAGICAN_MONSTER));
-	listMonster.push_back(new Monster(this, MAGICAN_MONSTER));
-	listMonster.push_back(new Monster(this, MAGICAN_MONSTER));
+	listMonster.push_back(new Monster(this, TANK_MONSTER));
+	listMonster.push_back(new Monster(this, TANK_MONSTER));
+	listMonster.push_back(new Monster(this, TANK_MONSTER));
+	listMonster.push_back(new Monster(this, TANK_MONSTER));
+	listMonster.push_back(new Monster(this, TANK_MONSTER));
 
 
 	listLocationTower.push_back(Vec2(0, 0));
@@ -190,7 +187,6 @@ void WorldScene1::update(float deltaTime)
 	{
 		if (!(listMonster[i]->GetSprite()->isVisible()))
 		{
-			listMonster[i]->setProgressBar();
 			listMonster[i]->Update(deltaTime);
 			i = 100;
 		}
@@ -286,8 +282,6 @@ bool WorldScene1::onTouchBegan(Touch * touch, Event * event)
 		
 		auto listPosTower = mTileMap->getLayer("ListTower");
 		Size sizeListTower = listPosTower->getLayerSize();
-		log("width tilemaps: %f", sizeListTower.width);
-		log("height tilemaps: %f", sizeListTower.height);
 		for (int i = 0; i < sizeListTower.width; i++)
 		{
 			for (int j = 0; j < sizeListTower.height; j++)
