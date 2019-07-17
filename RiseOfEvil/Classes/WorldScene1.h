@@ -1,9 +1,7 @@
 #pragma once
 #include "cocos2d.h"
-
 #include "Tower.h"
 #include "Monster.h"
-
 #include "ui/CocosGUI.h"
 #include "Tower.h"
 #define BLOOD_BAR 9
