@@ -29,6 +29,7 @@
 #include "LogoScene.h"
 #include "ResourceManager.h"
 #include "WorldScene1.h"
+#include "Player.h"
 
 
 
@@ -108,6 +109,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     register_all_packages();
 
 	ResourceManager::GetInstance()->Init();
+	Player::GetInstance()->Load();
     // create a scene. it's an autorelease object
 
     auto scene = WorldScene1::createScene();

@@ -4,6 +4,7 @@ using namespace std;
 Monster::Monster(Layer * layer, int type)
 {
 	m_type = type;
+	this->layer = layer;
 	Init();
 	m_maxHitPoint = m_hitPoint;
 	layer->addChild(m_spriteNode, 3);
@@ -311,6 +312,31 @@ void Monster::Acttack(Object * target)
 
 void Monster::DoDead()
 {
+	int num = random(1, 4);
+	auto seq = Sequence::create(DelayTime::create(0.3f), FadeOut::create(0), nullptr);
+	switch (num)
+	{
+	case 1:
+		dead1 = Sprite::create("dead1.png");
+		dead1->setPosition(m_sprite->getPosition());
+		layer->addChild(dead1, 3);
+		dead1->runAction(seq);
+		break;
+	case 2:
+		dead2 = Sprite::create("dead2.png");
+		dead2->setPosition(m_sprite->getPosition());
+		layer->addChild(dead2, 3);
+		dead2->runAction(seq->clone());
+		break;
+	case 3:
+		dead3 = Sprite::create("dead3.png");
+		dead3->setPosition(m_sprite->getPosition());
+		layer->addChild(dead3, 3);
+		dead3->runAction(seq->clone());
+		break;
+	default:
+		break;
+	}
 }
 
 void Monster::SetType(int type)

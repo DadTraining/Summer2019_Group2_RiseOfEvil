@@ -19,6 +19,7 @@
     <ClCompile Include="..\Classes\WorldScene1.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="..\Classes\Soldier.cpp" />
+    <ClCompile Include="..\Classes\Wave.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h" />
@@ -39,6 +40,7 @@
     <ClInclude Include="..\Classes\WorldScene1.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="..\Classes\Soldier.h" />
+    <ClInclude Include="..\Classes\Wave.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc" />

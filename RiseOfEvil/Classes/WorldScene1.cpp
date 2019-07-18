@@ -1,9 +1,11 @@
 #include "WorldScene1.h"
 #include "MainMenuScene.h"
+#include "Wave.h"
 #include <iostream>
 #include <string.h>
 #include <math.h>
-
+#include "ResourceManager.h"
+#include "Player.h"
 Scene* WorldScene1::createScene()
 {
 	auto scene = Scene::createWithPhysics();
@@ -111,23 +113,13 @@ bool WorldScene1::init()
 	addChild(mainmenuBtn, -1);
 	//==========================================================
 	//Create list monster
-	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
-	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
-	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
-	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
-	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
-	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
-	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
-	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
-	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
-	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
-	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
-	listMonster.push_back(new Monster(this, NORMAL_MONSTER));
-	listMonster.push_back(new Monster(this, TANK_MONSTER));
-	listMonster.push_back(new Monster(this, TANK_MONSTER));
-	listMonster.push_back(new Monster(this, TANK_MONSTER));
-	listMonster.push_back(new Monster(this, TANK_MONSTER));
-	listMonster.push_back(new Monster(this, TANK_MONSTER));
+	Wave *wave = new Wave();
+	vector<int> temp1 = wave->getWave(1);
+	for (int i = 0; i < temp1.size(); i++)
+	{
+		Wave1.push_back(new Monster(this, temp1[i]));
+	}
+	listMonster = Wave1;
 	//===========================================================================
 	//First Location Tower
 	listLocationTower.push_back(Vec2(0, 0));
@@ -154,13 +146,24 @@ bool WorldScene1::init()
 		listPoint.push_back(Vec2(x, y));
 	}
 	//=====================================================
-	//touch event
+	//Create gold frame
+	auto goldFrame = Sprite::create("goldFrame.png");
+	goldFrame->setAnchorPoint(Vec2(0, 1));
+	goldFrame->setPosition(10, visibleSize.height - 10);
+	addChild(goldFrame, 0);
+	//=====================================================
+	//Create gold label
+	goldLabel = ResourceManager::GetInstance()->GetLabelById(2);
+	goldLabel->setPosition(goldFrame->getContentSize().width / 2 + 25, goldFrame->getContentSize().height / 2);
+	goldLabel->setAnchorPoint(Vec2(0.5, 0.5));
+	goldLabel->removeFromParent();
+	goldFrame->addChild(goldLabel);
+	//=====================================================
+	//Touch event
 	auto touchListener = EventListenerTouchOneByOne::create();
 	touchListener->onTouchBegan = CC_CALLBACK_2(WorldScene1::onTouchBegan, this);
 	touchListener->onTouchMoved = CC_CALLBACK_2(WorldScene1::onTouchMoved, this);
 	touchListener->onTouchEnded = CC_CALLBACK_2(WorldScene1::onTouchEnded, this);
-	//touchListener->onTouchBegan = CC_CALLBACK_2(WorldScene1::onTouchTowerBegan, this);
-	//touchListener->onTouchEnded = CC_CALLBACK_2(WorldScene1::onTouchTowerEnded, this);
 	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchListener, this);
 	menu->setScale(0.6f);
 	time = 0;
@@ -169,6 +172,7 @@ bool WorldScene1::init()
 }
 void WorldScene1::update(float deltaTime)
 {
+	goldLabel->setString(to_string(Player::GetInstance()->GetCurrentGold()));
 	//Monster spawn
 	for (int i = 0; i < listMonster.size(); i++)
 	{
@@ -208,7 +212,9 @@ void WorldScene1::update(float deltaTime)
 	{
 		if (listMonster[i]->GetHitPoint() <= 0)
 		{
+			listMonster[i]->DoDead();
 			listMonster[i]->GetSprite()->setVisible(false);
+			Player::GetInstance()->SetGold(listMonster[i]->GetGold());
 			listMonster.erase(listMonster.begin() + i);
 		}
 	}
