@@ -124,17 +124,31 @@ bool WorldScene1::init()
 	listLocationTower.push_back(Vec2(0, 0));
 	//===========================================================================
 	//Monster appear
+	listTemp = listMonster;
 	auto obj = mTileMap->getObjectGroup("Monster");
 	float x = obj->getObject("monster")["x"].asInt();
 	float y = obj->getObject("monster")["y"].asInt();
-	for (int i = 0; i < listMonster.size(); i++)
+	float x2 = obj->getObject("monster2")["x"].asInt();
+	float y2 = obj->getObject("monster2")["y"].asInt();
+	for (int i = 0; i < listTemp.size(); i++)
 	{
-		listMonster[i]->GetSprite()->setAnchorPoint(Vec2(0.5, 0.35));
-		listMonster[i]->GetSprite()->setPosition(x, y);
-		listMonster[i]->GetSprite()->setScale(0.6);
-	}	
+		if (i % 2 == 0)
+		{
+			listTemp[i]->GetSprite()->setAnchorPoint(Vec2(0.5, 0.35));
+			listTemp[i]->GetSprite()->setPosition(x, y);
+			listTemp[i]->GetSprite()->setScale(0.6);
+		}
+		else
+		{
+		//	//===================Gate2====================================
+			listTemp[i]->GetSprite()->setAnchorPoint(Vec2(0.5, 0.35));
+			listTemp[i]->GetSprite()->setPosition(x2, y2);
+			listTemp[i]->GetSprite()->setScale(0.6);
+		}
+	}
+
 	
-	listTower.push_back(new Tower(this, 1, touchLocation));
+	listTower.push_back(new Tower(this, 1, Vec2(-500,-500)));
 	//===========================================================================
 	//List point to move monster
 	auto road = mTileMap->getObjectGroup("Point");
@@ -143,6 +157,14 @@ bool WorldScene1::init()
 		float x = road->getObject("P" + to_string(i + 1))["x"].asInt();
 		float y = road->getObject("P" + to_string(i + 1))["y"].asInt();
 		listPoint.push_back(Vec2(x, y));
+	}
+	//List point 2 to move monster
+	auto road2 = mTileMap->getObjectGroup("Point2");
+	for (int i = 0; i < 8; i++)
+	{
+		float x = road2->getObject("P" + to_string(i + 1))["x"].asInt();
+		float y = road2->getObject("P" + to_string(i + 1))["y"].asInt();
+		listPoint2.push_back(Vec2(x, y));
 	}
 	//=====================================================
 	//Create gold frame
@@ -182,17 +204,32 @@ void WorldScene1::update(float deltaTime)
 		}
 	}
 	//Monster move
-	for (int i = 0; i < listMonster.size(); i++)
+	for (int i = 0; i < listTemp.size(); i++)
 	{
-		if ((listPoint[listMonster[i]->m_flag].getDistance(listMonster[i]->GetSprite()->getPosition()) == 0) && (listMonster[i]->GetSprite()->isVisible()))
+		if (i % 2 == 0)
 		{
-			if (listMonster[i]->m_flag < listPoint.size() - 1)
+			if ((listPoint[listTemp[i]->m_flag].getDistance(listTemp[i]->GetSprite()->getPosition()) == 0) && (listTemp[i]->GetSprite()->isVisible()))
 			{
-				listMonster[i]->m_flag++;
+				if (listTemp[i]->m_flag < listPoint.size() - 1)
+				{
+					listTemp[i]->m_flag++;
+				}
+				listTemp[i]->Move(listPoint[listTemp[i]->m_flag]);
 			}
-			listMonster[i]->Move(listPoint[listMonster[i]->m_flag]);
+		}
+		else
+		{
+			if ((listPoint2[listTemp[i]->m_flag].getDistance(listTemp[i]->GetSprite()->getPosition()) == 0) && (listTemp[i]->GetSprite()->isVisible()))
+			{
+				if (listTemp[i]->m_flag < listPoint2.size() - 1)
+				{
+					listTemp[i]->m_flag++;
+				}
+				listTemp[i]->Move(listPoint2[listTemp[i]->m_flag]);
+			}
 		}
 	}
+
 	//Tower shoot
 	for (int tower = 0; tower < listTower.size(); tower++)
 	{

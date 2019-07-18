@@ -22,8 +22,10 @@ private:
 	TMXTiledMap* mTileMap;
 	vector<Vec2> listLocationTower;
 	vector<Monster*> listMonster;
+	vector<Monster*>listTemp;
 	vector<Monster*> Wave1;
 	vector<Vec2> listPoint;
+	vector<Vec2> listPoint2;
 	vector<Tower*>listTower;
 	PhysicsBody *body;
 	ui::Button *resumeBtn;
