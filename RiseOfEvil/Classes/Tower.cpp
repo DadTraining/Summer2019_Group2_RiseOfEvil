@@ -62,7 +62,7 @@ Tower::Tower(Layer * layer, int type, Vec2 Pos)
 	CircleMenu->setScale(0.1f);
 	CircleMenu->setVisible(false);
 	FlagIcon = Sprite::create("FlagCallSoldier.png");
-	FlagIcon->setPosition(Vec2(CircleMenu->getContentSize().width/2, CircleMenu->getContentSize().height));
+	FlagIcon->setPosition(Vec2(CircleMenu->getContentSize().width-20, CircleMenu->getContentSize().height/2));
 	CircleMenu->addChild(FlagIcon);
 	//CircleMenu->removeFromParent();
 	m_sprite->addChild(CircleMenu);

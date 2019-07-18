@@ -65,6 +65,6 @@ public:
 	void onTouchEnded(Touch * touch, Event * event);
 	bool checkLocationBuildTower(Vec2 newPoint);
 	void StatusMenu(bool);
-	bool checkTouchFlagIcon();
+	//bool checkTouchFlagIcon();
 	CREATE_FUNC(WorldScene1);
 };
