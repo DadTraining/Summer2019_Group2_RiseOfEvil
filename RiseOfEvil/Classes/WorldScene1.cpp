@@ -308,10 +308,18 @@ bool WorldScene1::onTouchBegan(Touch * touch, Event * event)
 	}
 	else 
 	{
-		cannotBuild->setPosition(touchLocation);
+		cannotBuild->setPosition(touch->getLocation());
 		cannotBuild->setVisible(true);
 		canBuild->setVisible(false);
-		
+	}
+	for (int i = 0; i < listTower.size(); i++)
+	{
+		if (listTower[i]->GetSprite()->getBoundingBox().containsPoint(touch->getLocation()))
+		{
+			towerChoosing = listTower[i];;
+			touchOut = false;
+			touchIn = true;
+		}
 	}
 
 	if (touchOut == true && touchIn == false)
@@ -364,6 +372,11 @@ void WorldScene1::createmenu(Vec2 point)
 	boombardIcon->setPosition(point.x + 3 * boombardIcon->getContentSize().width, point.y);
 	barrackIcon->setPosition(point.x + 4 * barrackIcon->getContentSize().width, point.y);
 	cancelMenu->setPosition(point.x + 5 * cancelMenu->getContentSize().width, point.y);
+	if (!menu->isVisible())
+	{
+		menu->setVisible(true);
+		canBuild->setVisible(true);
+	}
 }
 void WorldScene1::StatusMenu(bool check)
 {
