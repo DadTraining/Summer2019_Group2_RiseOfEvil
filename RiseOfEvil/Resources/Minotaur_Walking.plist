@@ -1204,22 +1204,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>loadingbar.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{260,30}</string>
-                <key>spriteSourceSize</key>
-                <string>{260,30}</string>
-                <key>textureRect</key>
-                <string>{{0,1728},{260,30}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>loadingbar_bg.png</key>
+            <key>loadingbarMinotaur.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -1231,6 +1216,21 @@
                 <string>{260,30}</string>
                 <key>textureRect</key>
                 <string>{{0,1758},{260,30}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>loadingbar_bgMinotaur.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{260,30}</string>
+                <key>spriteSourceSize</key>
+                <string>{260,30}</string>
+                <key>textureRect</key>
+                <string>{{0,1728},{260,30}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -1248,7 +1248,7 @@
             <key>size</key>
             <string>{450,1788}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:55e1be3017b41b00064a1c4d18bb24bf:7754bd382a22f1b2183c808398317bdd:5c11aff18024407c55d691011228afab$</string>
+            <string>$TexturePacker:SmartUpdate:2427ff358b4bbd847445f21da07e7349:7754bd382a22f1b2183c808398317bdd:5c11aff18024407c55d691011228afab$</string>
             <key>textureFileName</key>
             <string>Minotaur_Walking.png</string>
         </dict>
