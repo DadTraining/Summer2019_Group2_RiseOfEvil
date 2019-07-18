@@ -256,6 +256,7 @@ void WorldScene1::returnToMainMenu()
 void WorldScene1::BuildTower(int type)
 {
 	Tower * towerBuild = new Tower(this, type, touchLocation);
+	listLocationTower.push_back(touchLocation);
 	listTower.push_back(towerBuild);
 	menu->setVisible(false);
 	canBuild->setVisible(false);
@@ -292,11 +293,9 @@ bool WorldScene1::onTouchBegan(Touch * touch, Event * event)
 	}
 	else 
 	{
-		cannotBuild->setPosition(touchLocation);
-		if (!cannotBuild->isVisible())
-		{
-			cannotBuild->setVisible(true);
-		}
+		cannotBuild->setPosition(touch->getLocation());
+		cannotBuild->setVisible(true);
+		canBuild->setVisible(false);
 	}
 	for (int i = 0; i < listTower.size(); i++)
 	{
@@ -334,7 +333,6 @@ bool WorldScene1::checkLocationBuildTower(Vec2 newPoint)
 			return false;
 		}
 	}
-	listLocationTower.push_back(newPoint);
 	return true;
 }
 
@@ -357,6 +355,11 @@ void WorldScene1::createmenu(Vec2 point)
 	boombardIcon->setPosition(point.x + 3 * boombardIcon->getContentSize().width, point.y);
 	barrackIcon->setPosition(point.x + 4 * barrackIcon->getContentSize().width, point.y);
 	cancelMenu->setPosition(point.x + 5 * cancelMenu->getContentSize().width, point.y);
+	if (!menu->isVisible())
+	{
+		menu->setVisible(true);
+		canBuild->setVisible(true);
+	}
 }
 void WorldScene1::StatusMenu(bool check)
 {
