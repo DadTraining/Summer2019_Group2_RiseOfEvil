@@ -51,7 +51,7 @@ bool WorldScene1::init()
 		GetTowerDetails(5);
 	});
 	boombardIcon->setPosition(0, 0);
-	cancelMenu = MenuItemImage::create("CircleMenu.png","CircleMenu.png", [&](Ref* sender) {
+	cancelMenu = MenuItemImage::create("res/WorldScene1/boombardTower.png", "res/WorldScene1/boombardTower.png", [&](Ref* sender) {
 		menu->setVisible(false);
 	});
 	//==================================================================
