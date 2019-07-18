@@ -332,8 +332,9 @@ void WorldScene1::FadeInPause()
 
 void WorldScene1::returnToMainMenu()
 {
+	Director::getInstance()->resume();
 	Director::getInstance()->getRunningScene()->pause();
-	Director::getInstance()->replaceScene(TransitionZoomFlipAngular::create(1, MainMenuScene::createScene()));
+	Director::getInstance()->replaceScene(TransitionFade::create(1, MainMenuScene::createScene()));
 }
 
 //Build Tower
