@@ -20,8 +20,11 @@ class Tower : public Objects
 private:
 	vector <Bullet *> listBullet;
 	vector <Soldier *>listSoldier;
-	Sprite * CircleMenu;
-	Sprite * FlagIcon;
+	//Sprite * CircleMenu;
+	//Sprite * FlagIcon;
+	Menu * circleMenu;
+	MenuItemImage * flagIcon;
+	MenuItemImage * circleIcon;
 	float m_range = 250;
 	float timeDelay = 0;
 	float m_attackSpeed;
@@ -39,7 +42,9 @@ public:
 	void SetAttackSpeed(float);
 	int GetGold();
 	void SetGold(int);
-	Sprite * GetCircleMenu();
-	Sprite * GetFlagIcon();
 	int GetDamage();
+	//Sprite * GetCircleMenu();
+	//Sprite * GetFlagIcon();
+	void FadeInPause();
+	void FadeOutPause();
 };
