@@ -316,9 +316,11 @@ bool WorldScene1::onTouchBegan(Touch * touch, Event * event)
 	{
 		if (listTower[i]->GetSprite()->getBoundingBox().containsPoint(touch->getLocation()))
 		{
-			towerChoosing = listTower[i];
-			touchOut = false;
-			touchIn = true;
+			listTower[i]->FadeInPause();
+		}
+		else
+		{
+			listTower[i]->FadeOutPause();
 		}
 	}
 
@@ -398,21 +400,21 @@ void WorldScene1::StatusMenu(bool check)
 
 void WorldScene1::createMenuTower(Vec2 Point, bool check)
 {
-	if (check == true)
-	{
-		for (int i = 0; i < listTower.size(); i++)
-		{
-			listTower[i]->GetCircleMenu()->setVisible(false);
-		}
-		towerChoosing->GetCircleMenu()->setVisible(true);
-		towerChoosing->GetCircleMenu()->runAction(ScaleTo::create(0.2f, 1));
-	}
-	else if(check == false)
-		for (int i = 0; i < listTower.size(); i++)
-		{
-			listTower[i]->GetCircleMenu()->setVisible(false);
-			listTower[i]->GetCircleMenu()->runAction(ScaleTo::create(0.2f, 0.1f));
-		}
+	//if (check == true)
+	//{
+	//	for (int i = 0; i < listTower.size(); i++)
+	//	{
+	//		listTower[i]->GetCircleMenu()->setVisible(false);
+	//	}
+	//	towerChoosing->GetCircleMenu()->setVisible(true);
+	//	towerChoosing->GetCircleMenu()->runAction(ScaleTo::create(0.2f, 1));
+	//}
+	//else if(check == false)
+	//	for (int i = 0; i < listTower.size(); i++)
+	//	{
+	//		listTower[i]->GetCircleMenu()->setVisible(false);
+	//		listTower[i]->GetCircleMenu()->runAction(ScaleTo::create(0.2f, 0.1f));
+	//	}
 }
 //
 //bool WorldScene1::checkTouchFlagIcon()

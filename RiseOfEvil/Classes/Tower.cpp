@@ -57,15 +57,21 @@ Tower::Tower(Layer * layer, int type, Vec2 Pos)
 {
 	m_type = type;
 	Init();
-	CircleMenu = Sprite::create();
-	CircleMenu->setPosition(Vec2(m_sprite->getContentSize().width/2, m_sprite->getContentSize().height / 2));
-	CircleMenu->setScale(0.1f);
-	CircleMenu->setVisible(false);
-	FlagIcon = Sprite::create("FlagCallSoldier.png");
-	FlagIcon->setPosition(Vec2(CircleMenu->getContentSize().width-20, CircleMenu->getContentSize().height/2));
-	CircleMenu->addChild(FlagIcon);
-	//CircleMenu->removeFromParent();
-	m_sprite->addChild(CircleMenu);
+
+	circleIcon = MenuItemImage::create("CircleMenu.png", "CircleMenu.png", [&](Ref* sender) {
+	});
+	circleIcon->setPosition(m_sprite->getPosition() + m_sprite->getContentSize() / 2);
+
+	flagIcon = MenuItemImage::create("FlagCallSoldier.png", "FlagCallSoldier.png", [&](Ref* sender) {
+	});
+	flagIcon->setPosition(circleIcon->getPosition().x + circleIcon->getContentSize().width / 2 -10, circleIcon->getPosition().y);
+
+	circleMenu = Menu::create(flagIcon, circleIcon, nullptr);
+	circleMenu->setPosition(0,0);
+//	circleMenu->setScale(0.1f);
+	circleMenu->setVisible(false);
+	circleMenu->setEnabled(true);
+	m_sprite->addChild(circleMenu,100);
 	m_sprite->setScale(0.5f);
 	m_sprite->setPosition(Pos);
 	m_sprite->removeFromParent();
@@ -167,14 +173,26 @@ void Tower::SetGold(int gold)
 }
 
 
-Sprite * Tower::GetCircleMenu()
+//Sprite * Tower::GetCircleMenu()
+//{
+//	return CircleMenu;
+//}
+//
+//Sprite * Tower::GetFlagIcon()
+//{
+//	return FlagIcon;
+//}
+
+void Tower::FadeInPause()
 {
-	return CircleMenu;
+	circleMenu->setVisible(true);
+	circleMenu->setEnabled(true);
 }
 
-Sprite * Tower::GetFlagIcon()
+void Tower::FadeOutPause()
 {
-	return FlagIcon;
+	circleMenu->setVisible(false);
+	circleMenu->setEnabled(false);
 }
 
 int Tower::GetDamage()
