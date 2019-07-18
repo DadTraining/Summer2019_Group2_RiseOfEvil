@@ -59,13 +59,14 @@ private:
 	bool touchOut = false;
 	bool touchIn = false;
 	bool start = false;
+	bool pause = false;
 public:
 	static Scene* createScene();
 	virtual bool init() override;
 	void update(float deltaTime) override;
 	Tower * tower;
-	void FadeInPause();
-	void FadeOutPause();
+	void ClickPauseButton();
+	void ExitPauseMenu();
 	void restart();
 	void returnToMainMenu();
 	void BuildTower(Ref*,int);
@@ -77,6 +78,7 @@ public:
 	bool checkLocationBuildTower(Vec2 newPoint);
 	void StatusMenu(bool);
 	void GetTowerDetails(int);
+	void Warning();
 	void startGame();
 	CREATE_FUNC(WorldScene1);
 };

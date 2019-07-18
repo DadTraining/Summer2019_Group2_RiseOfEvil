@@ -20,6 +20,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="..\Classes\Soldier.cpp" />
     <ClCompile Include="..\Classes\Wave.cpp" />
+    <ClCompile Include="..\Classes\Popup.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h" />
@@ -41,6 +42,7 @@
     <ClInclude Include="main.h" />
     <ClInclude Include="..\Classes\Soldier.h" />
     <ClInclude Include="..\Classes\Wave.h" />
+    <ClInclude Include="..\Classes\Popup.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc" />
