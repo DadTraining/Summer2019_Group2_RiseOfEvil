@@ -46,6 +46,12 @@ private:
 	Tower * towerChoosing;
 	Vec2 point;
 	Label* goldLabel;
+	Sprite * towerArcherDetails;
+	Sprite * towerMagicDetails;
+	Sprite * towerSlowDetails;
+	Sprite * towerBoombardDetails;
+	Sprite * towerBarrackDetails;
+	ui::Button *buyTower;
 	bool touchOut = false;
 	bool touchIn = false;
 public:
@@ -56,7 +62,7 @@ public:
 	void FadeInPause();
 	void FadeOutPause();
 	void returnToMainMenu();
-	void BuildTower(int);
+	void BuildTower(Ref*,int);
 	void createmenu(Vec2 point);
 	void createMenuTower(Vec2 Point, bool check);
 	void moveFlag(Vec2 Pos);
@@ -65,6 +71,6 @@ public:
 	void onTouchEnded(Touch * touch, Event * event);
 	bool checkLocationBuildTower(Vec2 newPoint);
 	void StatusMenu(bool);
-	//bool checkTouchFlagIcon();
+	void GetTowerDetails(int);
 	CREATE_FUNC(WorldScene1);
 };
