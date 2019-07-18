@@ -52,7 +52,7 @@ bool WorldScene1::init()
 		BuildTower(4);
 	});
 	boombardIcon->setPosition(0, 0);
-	cancelMenu = MenuItemImage::create("res/WorldScene1/boombardTower.png", "res/WorldScene1/boombardTower.png", [&](Ref* sender) {
+	cancelMenu = MenuItemImage::create("CircleMenu.png","CircleMenu.png", [&](Ref* sender) {
 		menu->setVisible(false);
 	});
   //==================================================================
@@ -302,7 +302,7 @@ bool WorldScene1::onTouchBegan(Touch * touch, Event * event)
 	{
 		if (listTower[i]->GetSprite()->getBoundingBox().containsPoint(touch->getLocation()))
 		{
-			towerChoosing = listTower[i];;
+			towerChoosing = listTower[i];
 			touchOut = false;
 			touchIn = true;
 		}
@@ -356,7 +356,7 @@ void WorldScene1::createmenu(Vec2 point)
 	slowIcon->setPosition(point.x + 2 * slowIcon->getContentSize().width, point.y);
 	boombardIcon->setPosition(point.x + 3 * boombardIcon->getContentSize().width, point.y);
 	barrackIcon->setPosition(point.x + 4 * barrackIcon->getContentSize().width, point.y);
-	cancelMenu->setPosition(point.x + 5 * cancelMenu->getContentSize().width, point.y);
+	cancelMenu->setPosition(point.x + 5 * barrackIcon->getContentSize().width, point.y);
 }
 void WorldScene1::StatusMenu(bool check)
 {

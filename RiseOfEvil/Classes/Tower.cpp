@@ -57,7 +57,7 @@ Tower::Tower(Layer * layer, int type, Vec2 Pos)
 {
 	m_type = type;
 	Init();
-	CircleMenu = Sprite::create("CircleMenu.png");
+	CircleMenu = Sprite::create();
 	CircleMenu->setPosition(Vec2(m_sprite->getContentSize().width/2, m_sprite->getContentSize().height / 2));
 	CircleMenu->setScale(0.1f);
 	CircleMenu->setVisible(false);
