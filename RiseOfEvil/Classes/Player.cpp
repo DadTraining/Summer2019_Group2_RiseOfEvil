@@ -54,5 +54,5 @@ int Player::GetCurrentStage()
 
 void Player::SetGold(int gold)
 {
-	m_gold += gold;
+	m_gold = gold;
 }

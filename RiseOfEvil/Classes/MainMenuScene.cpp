@@ -23,7 +23,7 @@ bool MainMenuScene::init()
 
 	//=====================================================================
 	//create New Game Button
-	btnNewGame = ui::Button::create("res/Sprites/MainMenuScene/newgameBTN.png", "res/Sprites/MainMenuScene/newgameBTN.png");
+	btnNewGame = ui::Button::create("res/Sprites/MainMenuScene/newgameBTN.png");
 	btnNewGame->setScale(0.4);
 	btnNewGame->setAnchorPoint(Vec2(0.5, 0.5));
 	btnNewGame->setPosition(Vec2(visibleSize.width /2 , visibleSize.height / 1.9));
@@ -32,7 +32,7 @@ bool MainMenuScene::init()
 
 	//=====================================================================
 	//create Load Game Buttons
-	btnLoadGame = ui::Button::create("res/Sprites/MainMenuScene/loadgameBTN.png", "res/Sprites/MainMenuScene/loadgameBTN.png");
+	btnLoadGame = ui::Button::create("res/Sprites/MainMenuScene/loadgameBTN.png");
 	btnLoadGame->setScale(0.5);
 	btnLoadGame->setAnchorPoint(Vec2(0.5, 0.5));
 	btnLoadGame->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 - 110));
@@ -40,7 +40,7 @@ bool MainMenuScene::init()
 	this->addChild(btnLoadGame, 2);
 	//=====================================================================
 	//create Credits Buttons
-	btnCredits = ui::Button::create("res/Sprites/MainMenuScene/creditsBTN.png", "res/Sprites/MainMenuScene/creditsBTN.png");
+	btnCredits = ui::Button::create("res/Sprites/MainMenuScene/creditsBTN.png");
 	btnCredits->setScale(0.5);
 	btnCredits->setAnchorPoint(Vec2(0.5, 0.5));
 	btnCredits->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 - 190));
@@ -48,7 +48,7 @@ bool MainMenuScene::init()
 
 	//========================================================================================
 	//create Campaign button
-	btnCampaign = ui::Button::create("res/Sprites/MainMenuScene/campaignBTN.png", "res/Sprites/MainMenuScene/campaignBTN.png");
+	btnCampaign = ui::Button::create("res/Sprites/MainMenuScene/campaignBTN.png");
 	btnCampaign->setScale(0.5);
 	btnCampaign->setAnchorPoint(Vec2(0.5, 0.5));
 	btnCampaign->setPosition(Vec2(btnLoadGame->getPositionX(), btnLoadGame->getPositionY() + 40));
@@ -59,7 +59,7 @@ bool MainMenuScene::init()
 
 	//========================================================================================
 	//create btnSurvival button
-	btnSurvival = ui::Button::create("res/Sprites/MainMenuScene/survivalBTN.png", "res/Sprites/MainMenuScene/survivalBTN.png");
+	btnSurvival = ui::Button::create("res/Sprites/MainMenuScene/survivalBTN.png");
 	btnSurvival->setScale(0.5);
 	btnSurvival->setEnabled(false);
 	btnSurvival->setAnchorPoint(Vec2(0.5, 0.5));
@@ -67,7 +67,7 @@ bool MainMenuScene::init()
 	btnSurvival->runAction(FadeOut::create(0));
 	this->addChild(btnSurvival, 2);
 	//========================================================================================
-	btnBack = ui::Button::create("res/Sprites/MainMenuScene/backBTN.png", "res/Sprites/MainMenuScene/backBTN.png");
+	btnBack = ui::Button::create("res/Sprites/MainMenuScene/backBTN.png");
 	btnBack->setScale(0.5);
 	btnBack->setEnabled(false);
 	btnBack->setPosition(Vec2(btnCredits->getPositionX(), btnCredits->getPositionY() - 40));
