@@ -89,6 +89,7 @@ bool WorldScene1::init()
 	canBuild = Sprite::create("canbuild.png");
 	canBuild->removeFromParent();
 	canBuild->setPosition(0, 0);
+	canBuild->setScale(0.5);
 	this->addChild(canBuild, 2);
 	canBuild->setVisible(false);
 
@@ -135,6 +136,14 @@ bool WorldScene1::init()
 	mainmenuBtn->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 - 90));
 	mainmenuBtn->addTouchEventListener(CC_CALLBACK_0(WorldScene1::returnToMainMenu, this));
 	addChild(mainmenuBtn, -1);
+	//==========================================================
+	//Create start button 
+	startBTN = ui::Button::create("res/Buttons/WorldScene1/startbtn.png", "res/Buttons/WorldScene1/startbtn-unactive.png");
+	startBTN->setAnchorPoint(Vec2(1, 0));
+	startBTN->setPosition(Vec2(visibleSize.width - 5, 5));
+	startBTN->addClickEventListener(CC_CALLBACK_0(WorldScene1::startGame, this));
+	startBTN->setScale(0.5);
+	addChild(startBTN, 3);
 	//==========================================================
 	//Create list monster
 	Wave *wave = new Wave();
@@ -205,6 +214,12 @@ bool WorldScene1::init()
 	goldLabel->removeFromParent();
 	goldFrame->addChild(goldLabel);
 	//=====================================================
+	//Create label start game
+	startLabel = ResourceManager::GetInstance()->GetLabelById(3);
+	startLabel->setPosition(-6, startBTN->getContentSize().height / 2);
+	startLabel->setAnchorPoint(Vec2(1, 0));
+	startLabel->setString("Click here to start");
+	startBTN->addChild(startLabel);
 	//=====================================================
 	//Touch event
 	auto touchListener = EventListenerTouchOneByOne::create();
@@ -224,64 +239,67 @@ void WorldScene1::update(float deltaTime)
 {
 	//Set Gold to Label
 	goldLabel->setString(to_string(Player::GetInstance()->GetCurrentGold()));
-	//Monster spawn
-	for (int i = 0; i < listMonster.size(); i++)
+	if (start)
 	{
-		if (!(listMonster[i]->GetSprite()->isVisible()))
-		{
-			listMonster[i]->Update(deltaTime);
-			i = 100;
-		}
-	}
-	//Monster move
-	for (int i = 0; i < listTemp.size(); i++)
-	{
-		if (i % 2 == 0)
-		{
-			if ((listPoint[listTemp[i]->m_flag].getDistance(listTemp[i]->GetSprite()->getPosition()) == 0) && (listTemp[i]->GetSprite()->isVisible()))
-			{
-				if (listTemp[i]->m_flag < listPoint.size() - 1)
-				{
-					listTemp[i]->m_flag++;
-				}
-				listTemp[i]->Move(listPoint[listTemp[i]->m_flag]);
-			}
-		}
-		else
-		{
-			if ((listPoint2[listTemp[i]->m_flag].getDistance(listTemp[i]->GetSprite()->getPosition()) == 0) && (listTemp[i]->GetSprite()->isVisible()))
-			{
-				if (listTemp[i]->m_flag < listPoint2.size() - 1)
-				{
-					listTemp[i]->m_flag++;
-				}
-				listTemp[i]->Move(listPoint2[listTemp[i]->m_flag]);
-			}
-		}
-	}
-
-	//Tower shoot
-	for (int tower = 0; tower < listTower.size(); tower++)
-	{
+		//Monster spawn
 		for (int i = 0; i < listMonster.size(); i++)
 		{
-			if (listMonster[i]->GetSprite()->isVisible() &&
-				listMonster[i]->GetSprite()->getPosition().getDistance(listTower[tower]->GetSprite()->getPosition()) < listTower[tower]->GetRange())
+			if (!(listMonster[i]->GetSprite()->isVisible()))
 			{
-				listTower[tower]->Update(deltaTime, listMonster[i]);
+				listMonster[i]->Update(deltaTime);
 				i = 100;
 			}
 		}
-	}
-	//Monster die
-	for (int i = 0; i < listMonster.size(); i++)
-	{
-		if (listMonster[i]->GetHitPoint() <= 0)
+		//Monster move
+		for (int i = 0; i < listTemp.size(); i++)
 		{
-			listMonster[i]->DoDead();
-			listMonster[i]->GetSprite()->setVisible(false);
-			Player::GetInstance()->SetGold(Player::GetInstance()->GetCurrentGold() + listMonster[i]->GetGold());
-			listMonster.erase(listMonster.begin() + i);
+			if (i % 2 == 0)
+			{
+				if ((listPoint[listTemp[i]->m_flag].getDistance(listTemp[i]->GetSprite()->getPosition()) == 0) && (listTemp[i]->GetSprite()->isVisible()))
+				{
+					if (listTemp[i]->m_flag < listPoint.size() - 1)
+					{
+						listTemp[i]->m_flag++;
+					}
+					listTemp[i]->Move(listPoint[listTemp[i]->m_flag]);
+				}
+			}
+			else
+			{
+				if ((listPoint2[listTemp[i]->m_flag].getDistance(listTemp[i]->GetSprite()->getPosition()) == 0) && (listTemp[i]->GetSprite()->isVisible()))
+				{
+					if (listTemp[i]->m_flag < listPoint2.size() - 1)
+					{
+						listTemp[i]->m_flag++;
+					}
+					listTemp[i]->Move(listPoint2[listTemp[i]->m_flag]);
+				}
+			}
+		}
+
+		//Tower shoot
+		for (int tower = 0; tower < listTower.size(); tower++)
+		{
+			for (int i = 0; i < listMonster.size(); i++)
+			{
+				if (listMonster[i]->GetSprite()->isVisible() &&
+					listMonster[i]->GetSprite()->getPosition().getDistance(listTower[tower]->GetSprite()->getPosition()) < listTower[tower]->GetRange())
+				{
+					listTower[tower]->Update(deltaTime, listMonster[i]);
+					i = 100;
+				}
+			}
+		}
+		//Monster die
+		for (int i = 0; i < listMonster.size(); i++)
+		{
+			if (listMonster[i]->GetHitPoint() <= 0)
+			{
+				listMonster[i]->DoDead();
+				listMonster[i]->GetSprite()->setVisible(false);
+				Player::GetInstance()->SetGold(Player::GetInstance()->GetCurrentGold() + listMonster[i]->GetGold());
+				listMonster.erase(listMonster.begin() + i);
+			}
 		}
 	}
 }
@@ -354,10 +372,6 @@ bool WorldScene1::onTouchBegan(Touch * touch, Event * event)
 			checkClick = true;
 		}
 	}
-	/*if (towerChoosing->GetFlagIcon()->getBoundingBox().containsPoint(touch->getLocation()))
-	{
-		log("oke");
-	}*/
 	if (checkClick == false && checkLocationBuildTower(touch->getLocation()))
 	{	
 		canBuild->setVisible(false);
@@ -405,19 +419,15 @@ bool WorldScene1::onTouchBegan(Touch * touch, Event * event)
 	if (touchOut == true && touchIn == false)
 	{
 		StatusMenu(true);
-		createMenuTower(touchLocation, false);
 	}
 	if (touchOut == false && touchIn == true)
 	{
 		StatusMenu(false);
-		createMenuTower(touchLocation, true);	
 	}
 	if (touchOut == false && touchIn == false)
 	{
 		StatusMenu(false);
-		createMenuTower(touchLocation, false);
 	}
-//	checkTouchFlagIcon();
 	return true;
 }
 //Check Location To Build
@@ -425,7 +435,7 @@ bool WorldScene1::checkLocationBuildTower(Vec2 newPoint)
 {
 	for (int i = 0; i < listLocationTower.size(); i++)
 	{
-		if (newPoint.getDistance(listLocationTower[i]) < 10)
+		if (newPoint.getDistance(listLocationTower[i]) < 32)
 		{
 			return false;
 		}
@@ -436,7 +446,6 @@ bool WorldScene1::checkLocationBuildTower(Vec2 newPoint)
 
 void WorldScene1::onTouchMoved(Touch * touch, Event * event)
 {
-
 }
 
 void WorldScene1::onTouchEnded(Touch * touch, Event * event)
@@ -584,21 +593,10 @@ void WorldScene1::GetTowerDetails(int type)
 	}
 }
 
-void WorldScene1::createMenuTower(Vec2 Point, bool check)
+void WorldScene1::startGame()
 {
-	//if (check == true)
-	//{
-	//	for (int i = 0; i < listTower.size(); i++)
-	//	{
-	//		listTower[i]->GetCircleMenu()->setVisible(false);
-	//	}
-	//	towerChoosing->GetCircleMenu()->setVisible(true);
-	//	towerChoosing->GetCircleMenu()->runAction(ScaleTo::create(0.2f, 1));
-	//}
-	//else if(check == false)
-	//	for (int i = 0; i < listTower.size(); i++)
-	//	{
-	//		listTower[i]->GetCircleMenu()->setVisible(false);
-	//		listTower[i]->GetCircleMenu()->runAction(ScaleTo::create(0.2f, 0.1f));
-	//	}
+	start = true;
+	startLabel->setVisible(false);
+	startBTN->setEnabled(false);
 }
+
