@@ -919,81 +919,6 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>_Minotaur_65.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{90,108}</string>
-                <key>spriteSourceSize</key>
-                <string>{90,108}</string>
-                <key>textureRect</key>
-                <string>{{360,1296},{90,108}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>_Minotaur_66.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{90,108}</string>
-                <key>spriteSourceSize</key>
-                <string>{90,108}</string>
-                <key>textureRect</key>
-                <string>{{0,1404},{90,108}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>_Minotaur_67.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{90,108}</string>
-                <key>spriteSourceSize</key>
-                <string>{90,108}</string>
-                <key>textureRect</key>
-                <string>{{90,1404},{90,108}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>_Minotaur_68.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{90,108}</string>
-                <key>spriteSourceSize</key>
-                <string>{90,108}</string>
-                <key>textureRect</key>
-                <string>{{180,1404},{90,108}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>_Minotaur_69.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{90,108}</string>
-                <key>spriteSourceSize</key>
-                <string>{90,108}</string>
-                <key>textureRect</key>
-                <string>{{270,1404},{90,108}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
             <key>_Minotaur_7.png</key>
             <dict>
                 <key>aliases</key>
@@ -1009,156 +934,6 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>_Minotaur_70.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{90,108}</string>
-                <key>spriteSourceSize</key>
-                <string>{90,108}</string>
-                <key>textureRect</key>
-                <string>{{360,1404},{90,108}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>_Minotaur_71.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{90,108}</string>
-                <key>spriteSourceSize</key>
-                <string>{90,108}</string>
-                <key>textureRect</key>
-                <string>{{0,1512},{90,108}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>_Minotaur_72.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{90,108}</string>
-                <key>spriteSourceSize</key>
-                <string>{90,108}</string>
-                <key>textureRect</key>
-                <string>{{90,1512},{90,108}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>_Minotaur_73.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{90,108}</string>
-                <key>spriteSourceSize</key>
-                <string>{90,108}</string>
-                <key>textureRect</key>
-                <string>{{180,1512},{90,108}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>_Minotaur_74.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{90,108}</string>
-                <key>spriteSourceSize</key>
-                <string>{90,108}</string>
-                <key>textureRect</key>
-                <string>{{270,1512},{90,108}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>_Minotaur_75.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{90,108}</string>
-                <key>spriteSourceSize</key>
-                <string>{90,108}</string>
-                <key>textureRect</key>
-                <string>{{360,1512},{90,108}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>_Minotaur_76.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{90,108}</string>
-                <key>spriteSourceSize</key>
-                <string>{90,108}</string>
-                <key>textureRect</key>
-                <string>{{0,1620},{90,108}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>_Minotaur_77.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{90,108}</string>
-                <key>spriteSourceSize</key>
-                <string>{90,108}</string>
-                <key>textureRect</key>
-                <string>{{90,1620},{90,108}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>_Minotaur_78.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{90,108}</string>
-                <key>spriteSourceSize</key>
-                <string>{90,108}</string>
-                <key>textureRect</key>
-                <string>{{180,1620},{90,108}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>_Minotaur_79.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{90,108}</string>
-                <key>spriteSourceSize</key>
-                <string>{90,108}</string>
-                <key>textureRect</key>
-                <string>{{270,1620},{90,108}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
             <key>_Minotaur_8.png</key>
             <dict>
                 <key>aliases</key>
@@ -1171,21 +946,6 @@
                 <string>{90,108}</string>
                 <key>textureRect</key>
                 <string>{{180,108},{90,108}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>_Minotaur_80.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{90,108}</string>
-                <key>spriteSourceSize</key>
-                <string>{90,108}</string>
-                <key>textureRect</key>
-                <string>{{360,1620},{90,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -1215,7 +975,7 @@
                 <key>spriteSourceSize</key>
                 <string>{260,30}</string>
                 <key>textureRect</key>
-                <string>{{0,1758},{260,30}}</string>
+                <string>{{0,1434},{260,30}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -1230,7 +990,7 @@
                 <key>spriteSourceSize</key>
                 <string>{260,30}</string>
                 <key>textureRect</key>
-                <string>{{0,1728},{260,30}}</string>
+                <string>{{0,1404},{260,30}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -1246,9 +1006,9 @@
             <key>realTextureFileName</key>
             <string>Minotaur_Walking.png</string>
             <key>size</key>
-            <string>{450,1788}</string>
+            <string>{450,1464}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:2427ff358b4bbd847445f21da07e7349:7754bd382a22f1b2183c808398317bdd:5c11aff18024407c55d691011228afab$</string>
+            <string>$TexturePacker:SmartUpdate:92bc264791147074f80d9b51278fac41:8c7e5686cfff24d75999c0696fc60145:5c11aff18024407c55d691011228afab$</string>
             <key>textureFileName</key>
             <string>Minotaur_Walking.png</string>
         </dict>
