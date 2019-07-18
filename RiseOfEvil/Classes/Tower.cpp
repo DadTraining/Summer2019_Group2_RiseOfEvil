@@ -61,6 +61,9 @@ Tower::Tower(Layer * layer, int type, Vec2 Pos)
 	CircleMenu->setPosition(Vec2(m_sprite->getContentSize().width/2, m_sprite->getContentSize().height / 2));
 	CircleMenu->setScale(0.1f);
 	CircleMenu->setVisible(false);
+	FlagIcon = Sprite::create("FlagCallSoldier.png");
+	FlagIcon->setPosition(Vec2(CircleMenu->getContentSize().width-20, CircleMenu->getContentSize().height/2));
+	CircleMenu->addChild(FlagIcon);
 	//CircleMenu->removeFromParent();
 	m_sprite->addChild(CircleMenu);
 	m_sprite->setScale(0.5f);
@@ -167,6 +170,11 @@ void Tower::SetGold(int gold)
 Sprite * Tower::GetCircleMenu()
 {
 	return CircleMenu;
+}
+
+Sprite * Tower::GetFlagIcon()
+{
+	return FlagIcon;
 }
 
 int Tower::GetDamage()
