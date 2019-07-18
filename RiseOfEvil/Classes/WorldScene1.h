@@ -66,6 +66,7 @@ public:
 	Tower * tower;
 	void FadeInPause();
 	void FadeOutPause();
+	void restart();
 	void returnToMainMenu();
 	void BuildTower(Ref*,int);
 	void createmenu(Vec2 point);

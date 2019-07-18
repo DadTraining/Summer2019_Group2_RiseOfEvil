@@ -127,7 +127,7 @@ bool WorldScene1::init()
 	restartBtn->setScaleX(1.4);
 	restartBtn->setEnabled(false);
 	restartBtn->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 - 20));
-	//restartBtn->addTouchEventListener(CC_CALLBACK_0(WorldScene1::FadeoutPasue, this));
+	restartBtn->addTouchEventListener(CC_CALLBACK_0(WorldScene1::restart, this));
 	addChild(restartBtn, -1);
 
 	mainmenuBtn = ui::Button::create("res/Buttons/WorldScene1/mainmenuBtn.png");
@@ -317,6 +317,12 @@ void WorldScene1::FadeOutPause()
 	mainmenuBtn->setEnabled(false);
 }
 
+void WorldScene1::restart()
+{
+	Director::getInstance()->resume();
+	Director::getInstance()->replaceScene(TransitionFade::create(0.2, WorldScene1::createScene()));
+}
+
 //Show Pause menu
 void WorldScene1::FadeInPause()
 {
@@ -334,7 +340,7 @@ void WorldScene1::returnToMainMenu()
 {
 	Director::getInstance()->resume();
 	Director::getInstance()->getRunningScene()->pause();
-	Director::getInstance()->replaceScene(TransitionFade::create(1, MainMenuScene::createScene()));
+	Director::getInstance()->replaceScene(TransitionFade::create(0.3, MainMenuScene::createScene()));
 }
 
 //Build Tower
