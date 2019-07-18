@@ -105,35 +105,34 @@ bool WorldScene1::init()
 	addChild(mTileMap, 0);
 	//==========================================================
 	//Create pause menu 
-	pause_bg = Sprite::create("res/WorldScene1/pause_bg.png");
-	pause_bg->setScale(0.7);
+	pause_bg = Sprite::create("res/WorldScene1/pause_bag.png");
 	pause_bg->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
 	addChild(pause_bg, -1);
 
 	auto pauseBtn = ui::Button::create("res/Buttons/WorldScene1/pauseBtn-press.png", "res/Buttons/WorldScene1/pauseBtn.png");
 	//pauseBtn->setScale(0.2);
 	pauseBtn->setPosition(Vec2(visibleSize.width - 50, visibleSize.height - 50));
-	pauseBtn->addTouchEventListener(CC_CALLBACK_0(WorldScene1::FadeInPause, this));
+	pauseBtn->addTouchEventListener(CC_CALLBACK_0(WorldScene1::ClickPauseButton, this));
 	addChild(pauseBtn, 1);
 
 	resumeBtn = ui::Button::create("res/Buttons/WorldScene1/resumeBtn.png");
-	resumeBtn->setScaleX(1.4);
-	resumeBtn->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 + 50));
-	resumeBtn->addTouchEventListener(CC_CALLBACK_0(WorldScene1::FadeOutPause, this));
+	resumeBtn->setScaleX(1.5);
+	resumeBtn->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 + 40));
+	resumeBtn->addTouchEventListener(CC_CALLBACK_0(WorldScene1::ExitPauseMenu, this));
 	resumeBtn->setEnabled(false);
 	addChild(resumeBtn, -1);
 
 	restartBtn = ui::Button::create("res/Buttons/WorldScene1/restartBtn.png");
-	restartBtn->setScaleX(1.4);
+	restartBtn->setScaleX(1.5);
 	restartBtn->setEnabled(false);
-	restartBtn->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 - 20));
+	restartBtn->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 - 50));
 	restartBtn->addTouchEventListener(CC_CALLBACK_0(WorldScene1::restart, this));
 	addChild(restartBtn, -1);
 
 	mainmenuBtn = ui::Button::create("res/Buttons/WorldScene1/mainmenuBtn.png");
-	mainmenuBtn->setScaleX(1.4);
+	mainmenuBtn->setScaleX(1.5);
 	mainmenuBtn->setEnabled(false);
-	mainmenuBtn->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 - 90));
+	mainmenuBtn->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 - 135));
 	mainmenuBtn->addTouchEventListener(CC_CALLBACK_0(WorldScene1::returnToMainMenu, this));
 	addChild(mainmenuBtn, -1);
 	//==========================================================
@@ -239,6 +238,7 @@ void WorldScene1::update(float deltaTime)
 {
 	//Set Gold to Label
 	goldLabel->setString(to_string(Player::GetInstance()->GetCurrentGold()));
+	//Check start click
 	if (start)
 	{
 		//Monster spawn
@@ -305,8 +305,9 @@ void WorldScene1::update(float deltaTime)
 }
 
 //Hide Pause menu
-void WorldScene1::FadeOutPause()
+void WorldScene1::ExitPauseMenu()
 {
+	pause = false;
 	Director::getInstance()->resume();
 	pause_bg->setZOrder(-1);
 	restartBtn->setZOrder(-1);
@@ -324,8 +325,15 @@ void WorldScene1::restart()
 }
 
 //Show Pause menu
-void WorldScene1::FadeInPause()
+void WorldScene1::ClickPauseButton()
 {
+	pause = true;
+	menu->setVisible(false);
+	towerArcherDetails->setVisible(false);
+	towerMagicDetails->setVisible(false);
+	towerSlowDetails->setVisible(false);
+	towerBoombardDetails->setVisible(false);
+	towerBarrackDetails->setVisible(false);
 	Director::getInstance()->pause();
 	resumeBtn->setEnabled(true);
 	restartBtn->setEnabled(true);
@@ -365,6 +373,10 @@ void WorldScene1::moveFlag(Vec2 Pos)
 
 bool WorldScene1::onTouchBegan(Touch * touch, Event * event)
 {
+	if (pause)
+	{
+		return false;
+	}
 	touchOut = false;
 	touchIn = false;
 	checkClick = false;
