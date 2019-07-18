@@ -319,8 +319,8 @@ void WorldScene1::FadeOutPause()
 
 void WorldScene1::restart()
 {
-	Director::getInstance()->resume();
-	Director::getInstance()->replaceScene(TransitionFade::create(0.2, WorldScene1::createScene()));
+	auto newScene = WorldScene1::createScene();
+	Director::sharedDirector()->replaceScene(newScene);
 }
 
 //Show Pause menu
@@ -514,8 +514,9 @@ void WorldScene1::GetTowerDetails(int type)
 		}
 		else
 		{
-			buyTower = ui::Button::create("res/WorldScene1/buttonBuy70_deactive.png");
 			buyTower->setEnabled(false);
+			buyTower = ui::Button::create("res/WorldScene1/buttonBuy70_deactive.png");
+			buyTower->addClickEventListener(CC_CALLBACK_0(WorldScene1::Warning, this));
 		}
 		towerArcherDetails->addChild(buyTower);
 		buyTower->setScale(0.5);
@@ -532,8 +533,9 @@ void WorldScene1::GetTowerDetails(int type)
 		}
 		else
 		{
-			buyTower = ui::Button::create("res/WorldScene1/buttonBuy100_deactive.png");
 			buyTower->setEnabled(false);
+			buyTower = ui::Button::create("res/WorldScene1/buttonBuy100_deactive.png");
+			buyTower->addClickEventListener(CC_CALLBACK_0(WorldScene1::Warning, this));
 		}
 		towerMagicDetails->addChild(buyTower);
 		buyTower->setScale(0.5);
@@ -550,8 +552,9 @@ void WorldScene1::GetTowerDetails(int type)
 		}
 		else
 		{
-			buyTower = ui::Button::create("res/WorldScene1/buttonBuy70_deactive.png");
 			buyTower->setEnabled(false);
+			buyTower = ui::Button::create("res/WorldScene1/buttonBuy70_deactive.png");
+			buyTower->addClickEventListener(CC_CALLBACK_0(WorldScene1::Warning, this));
 		}
 		towerBarrackDetails->addChild(buyTower);
 		buyTower->setScale(0.5);
@@ -568,8 +571,9 @@ void WorldScene1::GetTowerDetails(int type)
 		}
 		else
 		{
-			buyTower = ui::Button::create("res/WorldScene1/buttonBuy80_deactive.png");
 			buyTower->setEnabled(false);
+			buyTower = ui::Button::create("res/WorldScene1/buttonBuy80_deactive.png");
+			buyTower->addClickEventListener(CC_CALLBACK_0(WorldScene1::Warning, this));
 		}
 		towerSlowDetails->addChild(buyTower);
 		buyTower->setScale(0.5);
@@ -586,8 +590,9 @@ void WorldScene1::GetTowerDetails(int type)
 		}
 		else
 		{
-			buyTower = ui::Button::create("res/WorldScene1/buttonBuy125_deactive.png");
 			buyTower->setEnabled(false);
+			buyTower = ui::Button::create("res/WorldScene1/buttonBuy125_deactive.png");
+			buyTower->addClickEventListener(CC_CALLBACK_0(WorldScene1::Warning, this));
 		}
 		towerBoombardDetails->addChild(buyTower);
 		buyTower->setScale(0.5);
@@ -598,6 +603,11 @@ void WorldScene1::GetTowerDetails(int type)
 	default:
 		break;
 	}
+}
+
+void WorldScene1::Warning()
+{
+
 }
 
 void WorldScene1::startGame()

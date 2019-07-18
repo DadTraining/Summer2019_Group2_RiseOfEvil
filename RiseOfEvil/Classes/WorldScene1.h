@@ -77,6 +77,7 @@ public:
 	bool checkLocationBuildTower(Vec2 newPoint);
 	void StatusMenu(bool);
 	void GetTowerDetails(int);
+	void Warning();
 	void startGame();
 	CREATE_FUNC(WorldScene1);
 };
