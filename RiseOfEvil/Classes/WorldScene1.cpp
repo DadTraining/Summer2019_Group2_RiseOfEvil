@@ -85,8 +85,8 @@ bool WorldScene1::init()
 	pause_bg->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
 	addChild(pause_bg, -1);
 
-	auto pauseBtn = ui::Button::create("res/Buttons/WorldScene1/pauseBtn.png");
-	pauseBtn->setScale(0.2);
+	auto pauseBtn = ui::Button::create("res/Buttons/WorldScene1/pauseBtn-press.png", "res/Buttons/WorldScene1/pauseBtn.png");
+	//pauseBtn->setScale(0.2);
 	pauseBtn->setPosition(Vec2(visibleSize.width - 50, visibleSize.height - 50));
 	pauseBtn->addTouchEventListener(CC_CALLBACK_0(WorldScene1::FadeInPause, this));
 	addChild(pauseBtn, 1);
@@ -172,6 +172,7 @@ bool WorldScene1::init()
 }
 void WorldScene1::update(float deltaTime)
 {
+	//Set Gold to Label
 	goldLabel->setString(to_string(Player::GetInstance()->GetCurrentGold()));
 	//Monster spawn
 	for (int i = 0; i < listMonster.size(); i++)
