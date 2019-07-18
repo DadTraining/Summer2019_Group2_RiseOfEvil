@@ -1,6 +1,7 @@
 #include "WorldScene1.h"
 #include "MainMenuScene.h"
 #include "Wave.h"
+#include "Popup.h"
 #include <iostream>
 #include <string.h>
 #include <math.h>
@@ -110,8 +111,8 @@ bool WorldScene1::init()
 	addChild(pause_bg, -1);
 
 	auto pauseBtn = ui::Button::create("res/Buttons/WorldScene1/pauseBtn-press.png", "res/Buttons/WorldScene1/pauseBtn.png");
-	//pauseBtn->setScale(0.2);
-	pauseBtn->setPosition(Vec2(visibleSize.width - 50, visibleSize.height - 50));
+	pauseBtn->setScale(0.7);
+	pauseBtn->setPosition(Vec2(visibleSize.width - 20, visibleSize.height - 20));
 	pauseBtn->addTouchEventListener(CC_CALLBACK_0(WorldScene1::ClickPauseButton, this));
 	addChild(pauseBtn, 1);
 
@@ -215,7 +216,7 @@ bool WorldScene1::init()
 	//=====================================================
 	//Create label start game
 	startLabel = ResourceManager::GetInstance()->GetLabelById(3);
-	startLabel->setPosition(-6, startBTN->getContentSize().height / 2);
+	startLabel->setPosition(-6, 10);
 	startLabel->setAnchorPoint(Vec2(1, 0));
 	startLabel->setString("Click here to start");
 	startBTN->addChild(startLabel);
@@ -346,9 +347,16 @@ void WorldScene1::ClickPauseButton()
 
 void WorldScene1::returnToMainMenu()
 {
-	Director::getInstance()->resume();
-	Director::getInstance()->getRunningScene()->pause();
-	Director::getInstance()->replaceScene(TransitionFade::create(0.3, MainMenuScene::createScene()));
+	
+	Label *lbl = Label::createWithTTF("You will lost your process, continue ?", "fonts/Comic_Book.ttf", 40);
+	lbl->setWidth(300);
+	UICustom::Popup *popup = UICustom::Popup::create("Warning", "", lbl, [=]() {
+		Director::getInstance()->resume();
+		Director::getInstance()->getRunningScene()->pause();
+		Director::getInstance()->replaceScene(TransitionFade::create(0.3, MainMenuScene::createScene()));
+	});
+	this->addChild(popup, 15);
+	
 }
 
 //Build Tower
