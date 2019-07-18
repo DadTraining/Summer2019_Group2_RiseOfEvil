@@ -18,8 +18,7 @@ void Monster::Init()
 	switch (m_type)
 	{
 	case NORMAL_MONSTER:
-	{
-		//	m_sprite = ResourceManager::GetInstance()->DuplicateSprite(ResourceManager::GetInstance()->GetSpriteById(NORMAL_MONSTER)); //id = id of NORMAL_MONSTER
+	{	
 		m_spriteNode = SpriteBatchNode::create("Orc_Warrior_Walking.png");
 		SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Orc_Warrior_Walking.plist");
 		
@@ -34,34 +33,10 @@ void Monster::Init()
 
 		m_bloodBar->addChild(m_blood,8);
 		m_sprite->addChild(m_bloodBar, 6);
-		/*pBloodProGress = ProgressTimer::create(Sprite::createWithSpriteFrameName("loadingbar.png"));
-		pBloodProGress->setType(kCCProgressTimerTypeBar);
-		pBloodProGress->setBarChangeRate(Vec2(1, 0));
-		pBloodProGress->setMidpoint(Vec2(0, 0));
-		pBloodProGress->setPercentage(100);
-		pBloodProGress->setPosition(Point(m_blood->getContentSize().width / 2, m_blood->getContentSize().height / 3 * 2));*/
-
-		//m_blood->addChild(pBloodProGress);
 
 		m_spriteNode->addChild(m_sprite);
 		m_sprite->setVisible(false);
-		m_fomatAnimation = "Orc_Walking_";
-		m_png[0] = 1;
-		m_png[1] = 10;
-		m_png[2] = 71;
-		m_png[3] = 80;
-		m_png[4] = 41;
-		m_png[5] = 50;
-		m_png[6] = 11;
-		m_png[7] = 20;
-		m_png[8] = 51;
-		m_png[9] = 60;
-		m_png[10] = 61;
-		m_png[11] = 70;
-		m_png[12] = 21;
-		m_png[13] = 30;
-		m_png[14] = 31;
-		m_png[15] = 40;
+		m_fomatAnimation = "Orc_Walking_";		
 		m_hitPoint = 24;
 		m_maxHitPoint = 24;
 		m_minimumAtk = 1;
@@ -101,22 +76,7 @@ void Monster::Init()
 		m_spriteNode->addChild(m_sprite);
 		m_sprite->setVisible(false);
 		m_fomatAnimation = "_Minotaur_";
-		m_png[0] = 1;
-		m_png[1] = 10;
-		m_png[2] = 71;
-		m_png[3] = 80;
-		m_png[4] = 41;
-		m_png[5] = 50;
-		m_png[6] = 11;
-		m_png[7] = 20;
-		m_png[8] = 51;
-		m_png[9] = 60;
-		m_png[10] = 61;
-		m_png[11] = 70;
-		m_png[12] = 21;
-		m_png[13] = 30;
-		m_png[14] = 31;
-		m_png[15] = 40;
+		
 		m_hitPoint = 960;
 		m_maxHitPoint = 960;
 		m_minimumAtk = 40;
@@ -233,7 +193,7 @@ void Monster::Action(int direction)
 	case E:
 	{
 		m_sprite->stopAllActions();
-		auto walkingE = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[0], m_png[1], 0.05f));
+		auto walkingE = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[8], m_png[9], 0.05f));
 		walkingE->retain();
 		m_sprite->runAction(RepeatForever::create(walkingE));
 		break;
@@ -242,7 +202,7 @@ void Monster::Action(int direction)
 	case W:
 	{
 		m_sprite->stopAllActions();
-		auto walkingW = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[2], m_png[3], 0.05f));
+		auto walkingW = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[0], m_png[1], 0.05f));
 		walkingW->retain();
 		m_sprite->runAction(RepeatForever::create(walkingW));
 		break;
@@ -251,7 +211,7 @@ void Monster::Action(int direction)
 	case S:
 	{
 		m_sprite->stopAllActions();
-		auto walkingS = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[4], m_png[5], 0.05f));
+		auto walkingS = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[12], m_png[13], 0.05f));
 		walkingS->retain();
 		m_sprite->runAction(RepeatForever::create(walkingS));
 		break;
@@ -260,7 +220,7 @@ void Monster::Action(int direction)
 	case N:
 	{
 		m_sprite->stopAllActions();
-		auto walkingN = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[6], m_png[7], 0.05f));
+		auto walkingN = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[4], m_png[5], 0.05f));
 		walkingN->retain();
 		m_sprite->runAction(RepeatForever::create(walkingN));
 		break;
@@ -269,7 +229,7 @@ void Monster::Action(int direction)
 	case SE:
 	{
 		m_sprite->stopAllActions();
-		auto walkingSE = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[8], m_png[9], 0.05f));
+		auto walkingSE = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[10], m_png[11], 0.05f));
 		walkingSE->retain();
 		m_sprite->runAction(RepeatForever::create(walkingSE));
 		break;
@@ -278,7 +238,7 @@ void Monster::Action(int direction)
 	case SW:
 	{
 		m_sprite->stopAllActions();
-		auto walkingSW = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[10], m_png[11], 0.05f));
+		auto walkingSW = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[14], m_png[15], 0.05f));
 		walkingSW->retain();
 		m_sprite->runAction(RepeatForever::create(walkingSW));
 		break;
@@ -287,7 +247,7 @@ void Monster::Action(int direction)
 	case NE:
 	{
 		m_sprite->stopAllActions();
-		auto walkingNE = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[12], m_png[13], 0.05f));
+		auto walkingNE = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[6], m_png[7], 0.05f));
 		walkingNE->retain();
 		m_sprite->runAction(RepeatForever::create(walkingNE));
 		break;
@@ -296,7 +256,7 @@ void Monster::Action(int direction)
 	case NW:
 	{
 		m_sprite->stopAllActions();
-		auto walkingNW = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[14], m_png[15], 0.05f));
+		auto walkingNW = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[2], m_png[3], 0.05f));
 		walkingNW->retain();
 		m_sprite->runAction(RepeatForever::create(walkingNW));
 		break;
