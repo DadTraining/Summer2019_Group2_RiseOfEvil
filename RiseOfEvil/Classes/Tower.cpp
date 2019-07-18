@@ -164,6 +164,8 @@ void Tower::SetGold(int gold)
 }
 
 
+
+
 Sprite * Tower::GetCircleMenu()
 {
 	return CircleMenu;
