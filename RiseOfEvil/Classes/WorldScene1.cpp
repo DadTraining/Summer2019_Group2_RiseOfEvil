@@ -288,6 +288,11 @@ void WorldScene1::BuildTower(Ref* ref, int type)
 	listTower.push_back(towerBuild);
 	menu->setVisible(false);
 	canBuild->setVisible(false);
+	towerArcherDetails->setVisible(false);
+	towerMagicDetails->setVisible(false);
+	towerSlowDetails->setVisible(false);
+	towerBoombardDetails->setVisible(false);
+	towerBarrackDetails->setVisible(false);
 }
 
 void WorldScene1::moveFlag(Vec2 Pos)
@@ -417,6 +422,11 @@ void WorldScene1::StatusMenu(bool check)
 	}
 	else if (check == false)
 	{
+		towerArcherDetails->setVisible(false);
+		towerMagicDetails->setVisible(false);
+		towerSlowDetails->setVisible(false);
+		towerBoombardDetails->setVisible(false);
+		towerBarrackDetails->setVisible(false);
 		menu->setVisible(false);
 		canBuild->setVisible(false);
 		cannotBuild->setVisible(false);
@@ -436,7 +446,7 @@ void WorldScene1::GetTowerDetails(int type)
 		if (Player::GetInstance()->GetCurrentGold() >= 70)
 		{
 			buyTower = ui::Button::create("res/WorldScene1/buttonBuy70_active.png");
-			buyTower->addTouchEventListener(CC_CALLBACK_1(WorldScene1::BuildTower, this, 1));
+			buyTower->addClickEventListener(CC_CALLBACK_1(WorldScene1::BuildTower, this, 1));
 			buyTower->setEnabled(true);
 		}
 		else
@@ -454,7 +464,7 @@ void WorldScene1::GetTowerDetails(int type)
 		if (Player::GetInstance()->GetCurrentGold() >= 100)
 		{
 			buyTower = ui::Button::create("res/WorldScene1/buttonBuy100_active.png");
-			buyTower->addTouchEventListener(CC_CALLBACK_1(WorldScene1::BuildTower, this, 2));
+			buyTower->addClickEventListener(CC_CALLBACK_1(WorldScene1::BuildTower, this, 2));
 			buyTower->setEnabled(true);
 		}
 		else
@@ -472,7 +482,7 @@ void WorldScene1::GetTowerDetails(int type)
 		if (Player::GetInstance()->GetCurrentGold() >= 70)
 		{
 			buyTower = ui::Button::create("res/WorldScene1/buttonBuy70_active.png");
-			buyTower->addTouchEventListener(CC_CALLBACK_1(WorldScene1::BuildTower, this, 3));
+			buyTower->addClickEventListener(CC_CALLBACK_1(WorldScene1::BuildTower, this, 3));
 			buyTower->setEnabled(true);
 		}
 		else
@@ -490,7 +500,7 @@ void WorldScene1::GetTowerDetails(int type)
 		if (Player::GetInstance()->GetCurrentGold() >= 80)
 		{
 			buyTower = ui::Button::create("res/WorldScene1/buttonBuy80_active.png");
-			buyTower->addTouchEventListener(CC_CALLBACK_1(WorldScene1::BuildTower, this, 4));
+			buyTower->addClickEventListener(CC_CALLBACK_1(WorldScene1::BuildTower, this, 4));
 			buyTower->setEnabled(true);
 		}
 		else
@@ -508,7 +518,7 @@ void WorldScene1::GetTowerDetails(int type)
 		if (Player::GetInstance()->GetCurrentGold() >= 125)
 		{
 			buyTower = ui::Button::create("res/WorldScene1/buttonBuy125_active.png");
-			buyTower->addTouchEventListener(CC_CALLBACK_1(WorldScene1::BuildTower, this, 5));
+			buyTower->addClickEventListener(CC_CALLBACK_1(WorldScene1::BuildTower, this, 5));
 			buyTower->setEnabled(true);
 		}
 		else
