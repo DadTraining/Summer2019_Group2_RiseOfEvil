@@ -38,17 +38,17 @@ bool WorldScene1::init()
 	magicIcon->setPosition(0, 0);
 
 	barrackIcon = MenuItemImage::create("res/WorldScene1/barrackTower.png", "res/WorldScene1/barrackTower.png", [&](Ref* sender) {
-		GetTowerDetails(3);
+		GetTowerDetails(5);
 	});
 	barrackIcon->setPosition(0, 0);
 
 	slowIcon = MenuItemImage::create("res/WorldScene1/slowTower.png", "res/WorldScene1/slowTower.png", [&](Ref* sender) {
-		GetTowerDetails(4);
+		GetTowerDetails(3);
 	});
 	slowIcon->setPosition(0, 0);
 
 	boombardIcon = MenuItemImage::create("res/WorldScene1/boombardTower.png", "res/WorldScene1/boombardTower.png", [&](Ref* sender) {
-		GetTowerDetails(5);
+		GetTowerDetails(4);
 	});
 	boombardIcon->setPosition(0, 0);
 	cancelMenu = MenuItemImage::create("res/WorldScene1/boombardTower.png", "res/WorldScene1/boombardTower.png", [&](Ref* sender) {
@@ -83,7 +83,6 @@ bool WorldScene1::init()
   //==================================================================
 	//Create list tower icon to build
 	menu = Menu::create(archerIcon, magicIcon, slowIcon, boombardIcon, barrackIcon, cancelMenu, nullptr);
-	menu->setPosition(0, 0);
 	addChild(menu, 100);
 	menu->setVisible(false);
 	//==================================================================
@@ -192,6 +191,9 @@ bool WorldScene1::init()
 	touchListener->onTouchEnded = CC_CALLBACK_2(WorldScene1::onTouchEnded, this);
 	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchListener, this);
 	menu->setScale(0.6f);
+	menu->setAnchorPoint(Vec2(0,0));
+	menu->setContentSize(Size(-77 * 2.5, 84));
+	log("%f - %f ", menu->getContentSize().width, menu->getContentSize().height);
 	time = 0;
 	scheduleUpdate();
 	return true;
@@ -241,7 +243,7 @@ void WorldScene1::update(float deltaTime)
 		{
 			listMonster[i]->DoDead();
 			listMonster[i]->GetSprite()->setVisible(false);
-			Player::GetInstance()->SetGold(listMonster[i]->GetGold());
+			Player::GetInstance()->SetGold(Player::GetInstance()->GetCurrentGold() + listMonster[i]->GetGold());
 			listMonster.erase(listMonster.begin() + i);
 		}
 	}
@@ -336,6 +338,11 @@ bool WorldScene1::onTouchBegan(Touch * touch, Event * event)
 					touchIn = false;
 					touchLocation = touch->getLocation();	
 					createmenu(touch->getLocation());
+					towerArcherDetails->setVisible(false);
+					towerMagicDetails->setVisible(false);
+					towerSlowDetails->setVisible(false);
+					towerBoombardDetails->setVisible(false);
+					towerBarrackDetails->setVisible(false);
 				}
 			}
 		}
@@ -402,12 +409,13 @@ void WorldScene1::onTouchEnded(Touch * touch, Event * event)
 //Create list Tower icon 
 void WorldScene1::createmenu(Vec2 point)
 {
-	archerIcon->setPosition(point);
-	magicIcon->setPosition(point.x + magicIcon->getContentSize().width, point.y);
-	slowIcon->setPosition(point.x + 2 * slowIcon->getContentSize().width, point.y);
-	boombardIcon->setPosition(point.x + 3 * boombardIcon->getContentSize().width, point.y);
-	barrackIcon->setPosition(point.x + 4 * barrackIcon->getContentSize().width, point.y);
-	cancelMenu->setPosition(point.x + 5 * cancelMenu->getContentSize().width, point.y);
+	menu->setPosition(point);
+	archerIcon->setPosition(menu->getContentSize().width, menu->getContentSize().height);
+	magicIcon->setPosition(menu->getContentSize().width + magicIcon->getContentSize().width, menu->getContentSize().height);
+	slowIcon->setPosition(menu->getContentSize().width + 2 * slowIcon->getContentSize().width, menu->getContentSize().height);
+	boombardIcon->setPosition(menu->getContentSize().width + 3 * boombardIcon->getContentSize().width, menu->getContentSize().height);
+	barrackIcon->setPosition(menu->getContentSize().width + 4 * barrackIcon->getContentSize().width, menu->getContentSize().height);
+	cancelMenu->setPosition(menu->getContentSize().width + 5 * cancelMenu->getContentSize().width, menu->getContentSize().height);
 	if (!menu->isVisible())
 	{
 		menu->setVisible(true);
@@ -459,7 +467,7 @@ void WorldScene1::GetTowerDetails(int type)
 		towerArcherDetails->addChild(buyTower);
 		buyTower->setScale(0.5);
 		buyTower->setPosition(Vec2(towerArcherDetails->getContentSize().width / 2 + 20, 30));
-		towerArcherDetails->setPosition(Vec2(archerIcon->getPositionX(), archerIcon->getPositionY() + 40));
+		towerArcherDetails->setPosition(Vec2(menu->getPosition().x, menu->getPosition().y + 84));
 		towerArcherDetails->setVisible(true);
 		break;
 	case 2:
@@ -477,14 +485,14 @@ void WorldScene1::GetTowerDetails(int type)
 		towerMagicDetails->addChild(buyTower);
 		buyTower->setScale(0.5);
 		buyTower->setPosition(Vec2(towerMagicDetails->getContentSize().width / 2 + 20, 30));
-		towerMagicDetails->setPosition(Vec2(archerIcon->getPosition().x, archerIcon->getPositionY() + 40));
+		towerMagicDetails->setPosition(Vec2(menu->getPosition().x, menu->getPosition().y + 84));
 		towerMagicDetails->setVisible(true);
 		break;
-	case 3:
+	case 5:
 		if (Player::GetInstance()->GetCurrentGold() >= 70)
 		{
 			buyTower = ui::Button::create("res/WorldScene1/buttonBuy70_active.png");
-			buyTower->addClickEventListener(CC_CALLBACK_1(WorldScene1::BuildTower, this, 3));
+			buyTower->addClickEventListener(CC_CALLBACK_1(WorldScene1::BuildTower, this, 5));
 			buyTower->setEnabled(true);
 		}
 		else
@@ -495,14 +503,14 @@ void WorldScene1::GetTowerDetails(int type)
 		towerBarrackDetails->addChild(buyTower);
 		buyTower->setScale(0.5);
 		buyTower->setPosition(Vec2(towerBarrackDetails->getContentSize().width / 2 + 20, 30));
-		towerBarrackDetails->setPosition(Vec2(archerIcon->getPosition().x, archerIcon->getPositionY() + 40));
+		towerBarrackDetails->setPosition(Vec2(menu->getPosition().x, menu->getPosition().y + 84));
 		towerBarrackDetails->setVisible(true);
 		break;
-	case 4:
+	case 3:
 		if (Player::GetInstance()->GetCurrentGold() >= 80)
 		{
 			buyTower = ui::Button::create("res/WorldScene1/buttonBuy80_active.png");
-			buyTower->addClickEventListener(CC_CALLBACK_1(WorldScene1::BuildTower, this, 4));
+			buyTower->addClickEventListener(CC_CALLBACK_1(WorldScene1::BuildTower, this, 3));
 			buyTower->setEnabled(true);
 		}
 		else
@@ -513,14 +521,14 @@ void WorldScene1::GetTowerDetails(int type)
 		towerSlowDetails->addChild(buyTower);
 		buyTower->setScale(0.5);
 		buyTower->setPosition(Vec2(towerSlowDetails->getContentSize().width / 2 + 20, 30));
-		towerSlowDetails->setPosition(Vec2(archerIcon->getPosition().x, archerIcon->getPositionY() + 40));
+		towerSlowDetails->setPosition(Vec2(menu->getPosition().x, menu->getPosition().y + 84));
 		towerSlowDetails->setVisible(true);
 		break;
-	case 5: 
+	case 4: 
 		if (Player::GetInstance()->GetCurrentGold() >= 125)
 		{
 			buyTower = ui::Button::create("res/WorldScene1/buttonBuy125_active.png");
-			buyTower->addClickEventListener(CC_CALLBACK_1(WorldScene1::BuildTower, this, 5));
+			buyTower->addClickEventListener(CC_CALLBACK_1(WorldScene1::BuildTower, this, 4));
 			buyTower->setEnabled(true);
 		}
 		else
@@ -531,7 +539,7 @@ void WorldScene1::GetTowerDetails(int type)
 		towerBoombardDetails->addChild(buyTower);
 		buyTower->setScale(0.5);
 		buyTower->setPosition(Vec2(towerBoombardDetails->getContentSize().width / 2 + 20, 30));
-		towerBoombardDetails->setPosition(Vec2(archerIcon->getPosition().x, archerIcon->getPositionY() + 40));
+		towerBoombardDetails->setPosition(Vec2(menu->getPosition().x, menu->getPosition().y + 84));
 		towerBoombardDetails->setVisible(true);
 		break;
 	default:
