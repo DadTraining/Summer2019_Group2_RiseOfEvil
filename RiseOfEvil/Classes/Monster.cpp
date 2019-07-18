@@ -24,8 +24,9 @@ void Monster::Init()
 		SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Orc_Warrior_Walking.plist");
 		
 		m_sprite = Sprite::createWithSpriteFrameName("Orc_Walking_1.png");
-		m_bloodBar = Sprite::createWithSpriteFrameName("loadingbar_bg.png");
-		m_blood = Sprite::createWithSpriteFrameName("loadingbar.png");
+		m_bloodBar = Sprite::createWithSpriteFrameName("loadingbar_bgWarrior.png");
+		m_blood = Sprite::createWithSpriteFrameName("loadingbarWarrior.png");
+		
 		m_blood->setAnchorPoint(Point(0, 0.5));
 		m_blood->setPosition(Point(0, m_bloodBar->getContentSize().height/2));
 		
@@ -49,8 +50,26 @@ void Monster::Init()
 		break;
 	}
 	case MAGICAN_MONSTER:
-		m_sprite = ResourceManager::GetInstance()->DuplicateSprite(ResourceManager::GetInstance()->GetSpriteById(MAGICAN_MONSTER));
+		m_spriteNode = SpriteBatchNode::create("Troll_Walking.png");
+		SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Troll_Walking.plist");
+
+		m_sprite = Sprite::createWithSpriteFrameName("_troll_1.png");
+
+		m_bloodBar = Sprite::createWithSpriteFrameName("loadingbar_bgTroll.png");
+		m_blood = Sprite::createWithSpriteFrameName("loadingbarTroll.png");
+		m_blood->setAnchorPoint(Point(0, 0.5));
+		m_blood->setPosition(Point(0, m_bloodBar->getContentSize().height / 2));
+
+		m_bloodBar->setPosition(Point(m_sprite->getContentSize().width / 2, m_sprite->getContentSize().height * 0.6));
+		m_bloodBar->setScale(0.2);
+
+		m_bloodBar->addChild(m_blood, 8);
+		m_sprite->addChild(m_bloodBar, 6);
+		m_spriteNode->addChild(m_sprite);
+		m_sprite->setVisible(false);
+		m_fomatAnimation = "_troll_";
 		m_hitPoint = 120;
+		m_maxHitPoint = 120;
 		m_minimumAtk = 5;
 		m_maximumAtk = 7;
 		m_attackSpeed = 1.0;
@@ -88,8 +107,26 @@ void Monster::Init()
 		m_gold = 40;
 		break;
 	case SPEED_MONSTER:
-		m_sprite = ResourceManager::GetInstance()->DuplicateSprite(ResourceManager::GetInstance()->GetSpriteById(MAGICAN_MONSTER)); //id = id of MAGICAN_MONSTER
+		m_spriteNode = SpriteBatchNode::create("Zombie_Walking.png");
+		SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Zombie_Walking.plist");
+
+		m_sprite = Sprite::createWithSpriteFrameName("Zombie_Walking_1.png");
+
+		m_bloodBar = Sprite::createWithSpriteFrameName("loadingbar_bgZombie.png");
+		m_blood = Sprite::createWithSpriteFrameName("loadingbarZombie.png");
+		m_blood->setAnchorPoint(Point(0, 0.5));
+		m_blood->setPosition(Point(0, m_bloodBar->getContentSize().height / 2));
+
+		m_bloodBar->setPosition(Point(m_sprite->getContentSize().width / 2, m_sprite->getContentSize().height * 0.6));
+		m_bloodBar->setScale(0.2);
+
+		m_bloodBar->addChild(m_blood, 8);
+		m_sprite->addChild(m_bloodBar, 6);
+		m_spriteNode->addChild(m_sprite);
+		m_sprite->setVisible(false);
+		m_fomatAnimation = "Zombie_Walking_";
 		m_hitPoint = 42;
+		m_maxHitPoint = 42;
 		m_minimumAtk = 2;
 		m_maximumAtk = 3;
 		m_attackSpeed = 1.2;
