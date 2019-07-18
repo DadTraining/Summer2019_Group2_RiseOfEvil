@@ -64,8 +64,8 @@ void Monster::Init()
 
 		m_sprite = Sprite::createWithSpriteFrameName("_Minotaur_1.png");
 	
-		m_bloodBar = Sprite::createWithSpriteFrameName("loadingbar_bg.png");
-		m_blood = Sprite::createWithSpriteFrameName("loadingbar.png");
+		m_bloodBar = Sprite::createWithSpriteFrameName("loadingbar_bgMinotaur.png");
+		m_blood = Sprite::createWithSpriteFrameName("loadingbarMinotaur.png");
 		m_blood->setAnchorPoint(Point(0, 0.5));
 		m_blood->setPosition(Point(0, m_bloodBar->getContentSize().height / 2));
 

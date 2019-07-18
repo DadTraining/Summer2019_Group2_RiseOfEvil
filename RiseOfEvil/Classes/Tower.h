@@ -21,6 +21,7 @@ private:
 	vector <Bullet *> listBullet;
 	vector <Soldier *>listSoldier;
 	Sprite * CircleMenu;
+	Sprite * FlagIcon;
 	float m_range = 250;
 	float timeDelay = 0;
 	float m_attackSpeed;
@@ -39,5 +40,6 @@ public:
 	int GetGold();
 	void SetGold(int);
 	Sprite * GetCircleMenu();
+	Sprite * GetFlagIcon();
 	int GetDamage();
 };
