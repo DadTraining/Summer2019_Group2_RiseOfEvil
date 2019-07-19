@@ -221,6 +221,9 @@ bool WorldScene1::init()
 	startLabel->setString("Click here to start");
 	startBTN->addChild(startLabel);
 	//=====================================================
+	//Assign gold from Player to gold
+	currentGold = Player::GetInstance()->GetCurrentGold();
+	//=====================================================
 	//Touch event
 	auto touchListener = EventListenerTouchOneByOne::create();
 	touchListener->onTouchBegan = CC_CALLBACK_2(WorldScene1::onTouchBegan, this);
@@ -230,7 +233,6 @@ bool WorldScene1::init()
 	menu->setScale(0.6f);
 	menu->setAnchorPoint(Vec2(0,0));
 	menu->setContentSize(Size(-77 * 2.5, 84));
-	log("%f - %f ", menu->getContentSize().width, menu->getContentSize().height);
 	time = 0;
 	scheduleUpdate();
 	return true;
@@ -238,7 +240,7 @@ bool WorldScene1::init()
 void WorldScene1::update(float deltaTime)
 {
 	//Set Gold to Label
-	goldLabel->setString(to_string(Player::GetInstance()->GetCurrentGold()));
+	goldLabel->setString(to_string(currentGold));
 	//Check start click
 	if (start)
 	{
@@ -298,7 +300,7 @@ void WorldScene1::update(float deltaTime)
 			{
 				listMonster[i]->DoDead();
 				listMonster[i]->GetSprite()->setVisible(false);
-				Player::GetInstance()->SetGold(Player::GetInstance()->GetCurrentGold() + listMonster[i]->GetGold());
+				currentGold += listMonster[i]->GetGold();
 				listMonster.erase(listMonster.begin() + i);
 			}
 		}
@@ -321,6 +323,7 @@ void WorldScene1::ExitPauseMenu()
 
 void WorldScene1::restart()
 {
+	Director::getInstance()->resume();
 	auto newScene = WorldScene1::createScene();
 	Director::sharedDirector()->replaceScene(newScene);
 }
@@ -363,7 +366,7 @@ void WorldScene1::returnToMainMenu()
 void WorldScene1::BuildTower(Ref* ref, int type)
 {
 	Tower * towerBuild = new Tower(this, type, touchLocation);
-	Player::GetInstance()->SetGold(Player::GetInstance()->GetCurrentGold() - towerBuild->GetGold());
+	currentGold -= towerBuild->GetGold();
 	listLocationTower.push_back(touchLocation);
 	listTower.push_back(towerBuild);
 	menu->setVisible(false);
@@ -526,7 +529,7 @@ void WorldScene1::GetTowerDetails(int type)
 	switch (type)
 	{
 	case 1:
-		if (Player::GetInstance()->GetCurrentGold() >= 70)
+		if (currentGold >= 70)
 		{
 			buyTower = ui::Button::create("res/WorldScene1/buttonBuy70_active.png");
 			buyTower->addClickEventListener(CC_CALLBACK_1(WorldScene1::BuildTower, this, 1));
@@ -545,7 +548,7 @@ void WorldScene1::GetTowerDetails(int type)
 		towerArcherDetails->setVisible(true);
 		break;
 	case 2:
-		if (Player::GetInstance()->GetCurrentGold() >= 100)
+		if (currentGold >= 100)
 		{
 			buyTower = ui::Button::create("res/WorldScene1/buttonBuy100_active.png");
 			buyTower->addClickEventListener(CC_CALLBACK_1(WorldScene1::BuildTower, this, 2));
@@ -564,7 +567,7 @@ void WorldScene1::GetTowerDetails(int type)
 		towerMagicDetails->setVisible(true);
 		break;
 	case 5:
-		if (Player::GetInstance()->GetCurrentGold() >= 70)
+		if (currentGold >= 70)
 		{
 			buyTower = ui::Button::create("res/WorldScene1/buttonBuy70_active.png");
 			buyTower->addClickEventListener(CC_CALLBACK_1(WorldScene1::BuildTower, this, 5));
@@ -583,7 +586,7 @@ void WorldScene1::GetTowerDetails(int type)
 		towerBarrackDetails->setVisible(true);
 		break;
 	case 3:
-		if (Player::GetInstance()->GetCurrentGold() >= 80)
+		if (currentGold >= 80)
 		{
 			buyTower = ui::Button::create("res/WorldScene1/buttonBuy80_active.png");
 			buyTower->addClickEventListener(CC_CALLBACK_1(WorldScene1::BuildTower, this, 3));
@@ -602,7 +605,7 @@ void WorldScene1::GetTowerDetails(int type)
 		towerSlowDetails->setVisible(true);
 		break;
 	case 4: 
-		if (Player::GetInstance()->GetCurrentGold() >= 125)
+		if (currentGold >= 125)
 		{
 			buyTower = ui::Button::create("res/WorldScene1/buttonBuy125_active.png");
 			buyTower->addClickEventListener(CC_CALLBACK_1(WorldScene1::BuildTower, this, 4));
