@@ -1,6 +1,5 @@
 #include "WorldScene1.h"
 #include "MainMenuScene.h"
-#include "Wave.h"
 #include "Popup.h"
 #include <iostream>
 #include <string.h>
@@ -150,43 +149,22 @@ bool WorldScene1::init()
 	startBTN->setScale(0.5);
 	addChild(startBTN, 3);
 	//==========================================================
-	//Create list monster
-	Wave *wave = new Wave();
-	vector<int> temp1 = wave->getWave(1);
-	for (int i = 0; i < temp1.size(); i++)
-	{
-		Wave1.push_back(new Monster(this, temp1[i]));
-	}
-	listMonster = Wave1;
+	//Create start wave button 
+	auto startWave = ui::Button::create("res/Buttons/WorldScene1/nextWaveBTN.png");
+	startWave->setPosition(Vec2(startBTN->getPositionX(), startBTN->getPositionY() + 100));
+	startWave->setScale(0.5);
+	startWave->addClickEventListener(CC_CALLBACK_0(WorldScene1::startWave, this));
+	addChild(startWave, 3);
+	//==========================================================
+	//Create first list monster from Wave list
+	numOfWave = 0;
+	wave = new Wave();
+	
 	//===========================================================================
 	//First Location Tower
 	listLocationTower.push_back(Vec2(0, 0));
 	//===========================================================================
-	//Monster appear
-	listTemp = listMonster;
-	auto obj = mTileMap->getObjectGroup("Monster");
-	float x = obj->getObject("monster")["x"].asInt();
-	float y = obj->getObject("monster")["y"].asInt();
-	float x2 = obj->getObject("monster2")["x"].asInt();
-	float y2 = obj->getObject("monster2")["y"].asInt();
-	for (int i = 0; i < listTemp.size(); i++)
-	{
-		if (i % 2 == 0)
-		{
-			listTemp[i]->GetSprite()->setAnchorPoint(Vec2(0.5, 0.35));
-			listTemp[i]->GetSprite()->setPosition(x, y);
-			listTemp[i]->GetSprite()->setScale(0.6);
-		}
-		else
-		{
-		//	//===================Gate2====================================
-			listTemp[i]->GetSprite()->setAnchorPoint(Vec2(0.5, 0.35));
-			listTemp[i]->GetSprite()->setPosition(x2, y2);
-			listTemp[i]->GetSprite()->setScale(0.6);
-		}
-	}
 
-	
 	listTower.push_back(new Tower(this, 1, Vec2(-500,-500)));
 	//===========================================================================
 	//List point to move monster
@@ -224,6 +202,7 @@ bool WorldScene1::init()
 	startLabel->setPosition(-6, 10);
 	startLabel->setAnchorPoint(Vec2(1, 0));
 	startLabel->setString("Click here to start");
+	startLabel->removeFromParent();
 	startBTN->addChild(startLabel);
 	//=====================================================
 	//Assign gold from Player to gold
@@ -249,7 +228,6 @@ void WorldScene1::update(float deltaTime)
 	//Check start click
 	if (start)
 	{
-		//Monster spawn
 		for (int i = 0; i < listMonster.size(); i++)
 		{
 			if (!(listMonster[i]->GetSprite()->isVisible()))
@@ -259,30 +237,27 @@ void WorldScene1::update(float deltaTime)
 			}
 		}
 		//Monster move
-		for (int i = 0; i < listTemp.size(); i++)
+		for (int i = 0; i < listMonster.size(); i++)
 		{
-			if (i % 2 == 0)
+			if ((listMonster[i]->m_flag < 15) && (listPoint[listMonster[i]->m_flag].getDistance(listMonster[i]->GetSprite()->getPosition()) == 0) && (listMonster[i]->GetSprite()->isVisible()))
 			{
-				if ((listPoint[listTemp[i]->m_flag].getDistance(listTemp[i]->GetSprite()->getPosition()) == 0) && (listTemp[i]->GetSprite()->isVisible()))
+				if (listMonster[i]->m_flag < listPoint.size() - 1)
 				{
-					if (listTemp[i]->m_flag < listPoint.size() - 1)
-					{
-						listTemp[i]->m_flag++;
-					}
-					listTemp[i]->Move(listPoint[listTemp[i]->m_flag]);
+					listMonster[i]->m_flag++;
 				}
+				listMonster[i]->Move(listPoint[listMonster[i]->m_flag]);
 			}
-			else
+
+
+			else if ((listMonster[i]->m_flag < 8) && (listPoint2[listMonster[i]->m_flag].getDistance(listMonster[i]->GetSprite()->getPosition()) == 0) && (listMonster[i]->GetSprite()->isVisible()))
 			{
-				if ((listPoint2[listTemp[i]->m_flag].getDistance(listTemp[i]->GetSprite()->getPosition()) == 0) && (listTemp[i]->GetSprite()->isVisible()))
+				if (listMonster[i]->m_flag < listPoint2.size() - 1)
 				{
-					if (listTemp[i]->m_flag < listPoint2.size() - 1)
-					{
-						listTemp[i]->m_flag++;
-					}
-					listTemp[i]->Move(listPoint2[listTemp[i]->m_flag]);
+					listMonster[i]->m_flag++;
 				}
+				listMonster[i]->Move(listPoint2[listMonster[i]->m_flag]);
 			}
+
 		}
 
 		//Tower shoot
@@ -655,8 +630,44 @@ void WorldScene1::Warning()
 
 void WorldScene1::startGame()
 {
+	
+}
+
+void WorldScene1::startWave()
+{
 	start = true;
 	startLabel->setVisible(false);
 	startBTN->setEnabled(false);
+	//Plus num of wave
+	numOfWave++;
+	vector<int> temp = wave->getWave(numOfWave); //Get info wave from Wave class
+	listTemp.clear();
+	for (int i = 0; i < temp.size(); i++) //Create monsster and push to list Monster
+	{
+		Monster *a = new Monster(this, temp[i]);
+		listMonster.push_back(a);
+		listTemp.push_back(a);
+	}
+	auto obj = mTileMap->getObjectGroup("Monster");
+	float x = obj->getObject("monster")["x"].asInt();
+	float y = obj->getObject("monster")["y"].asInt();
+	float x2 = obj->getObject("monster2")["x"].asInt();
+	float y2 = obj->getObject("monster2")["y"].asInt();
+	for (int i = 0; i < listTemp.size(); i++)
+	{
+		if (i % 2 == 0)
+		{
+			listTemp[i]->GetSprite()->setAnchorPoint(Vec2(0.5, 0.35));
+			listTemp[i]->GetSprite()->setPosition(x, y);
+			listTemp[i]->GetSprite()->setScale(0.6);
+		}
+		else
+		{
+			//	//===================Gate2====================================
+			listTemp[i]->GetSprite()->setAnchorPoint(Vec2(0.5, 0.35));
+			listTemp[i]->GetSprite()->setPosition(x2, y2);
+			listTemp[i]->GetSprite()->setScale(0.6);
+		}
+	}
 }
 
