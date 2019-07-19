@@ -17,9 +17,10 @@
 #define S  3
 #define N  4
 #define SE 5
-#define NE 6
-#define NW 7
-#define SW 8
+#define SW 6
+#define NE 7
+#define NW 8
+
 USING_NS_CC;
 using namespace cocos2d;
 using namespace std;
