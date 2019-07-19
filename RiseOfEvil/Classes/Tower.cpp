@@ -74,6 +74,7 @@ Tower::Tower(Layer * layer, int type, Vec2 Pos)
 	m_sprite->addChild(circleMenu,100);
 	m_sprite->setScale(0.5f);
 	m_sprite->setPosition(Pos);
+	m_sprite->setAnchorPoint(Vec2(0.3, 0));
 	m_sprite->removeFromParent();
 	layer->addChild(m_sprite, 5);
 	if (type == BARRACKS_TOWER)

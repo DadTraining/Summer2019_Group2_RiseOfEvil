@@ -27,7 +27,7 @@ class Monster :public Objects
 {
 private:
 	int m_type;
-	int m_png[16] = { 1, 10, 11, 20, 21, 30, 31, 40, 41, 50, 51, 60, 61, 70, 71, 80 };
+	int m_png[16] = { 1, 8, 9, 16, 17, 24, 25, 32, 33, 40, 41, 48, 49, 56, 57, 64 };
 	string m_fomatAnimation;
 	float m_attackSpeed;
 	int m_gold;
@@ -45,6 +45,7 @@ private:
 	Sprite* dead2;
 	Sprite* dead3;
 	//Skill * speciall
+	int checkMove = 0;
 public:
 	int m_flag = 0;
 	Monster(Layer*, int);
@@ -68,4 +69,5 @@ public:
 	int GetRange();
 	void setProgressBar();
 	float GetVelocity();
+	int GetCheckMove();
 };
