@@ -8,6 +8,7 @@ class Wave
 {
 private:
 	vector<int> Wave1;
+	vector<int> Wave2;
 public:
 	Wave();
 	~Wave();
