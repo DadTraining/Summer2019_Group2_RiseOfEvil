@@ -42,17 +42,21 @@ void Bullet::Move(Monster * monster)
 	}
 	else if (monster->GetCheckMove() == 4)
 	{
-		bezier.endPosition = Point(Vec2(monster->GetSprite()->getPositionX() + (0.4 * monster->GetVelocity()), monster->GetSprite()->getPositionY() - (0.4 * monster->GetVelocity())));
+		bezier.endPosition = Point(Vec2(monster->GetSprite()->getPositionX(), monster->GetSprite()->getPositionY() + (0.4 * monster->GetVelocity())));
 	}
 	else if (monster->GetCheckMove() == 5)
 	{
-		bezier.endPosition = Point(Vec2(monster->GetSprite()->getPositionX() - (0.4 * monster->GetVelocity()), monster->GetSprite()->getPositionY() - (0.4 * monster->GetVelocity())));
+		bezier.endPosition = Point(Vec2(monster->GetSprite()->getPositionX() + (0.4 * monster->GetVelocity()), monster->GetSprite()->getPositionY() - (0.4 * monster->GetVelocity())));
 	}
 	else if (monster->GetCheckMove() == 6)
 	{
-		bezier.endPosition = Point(Vec2(monster->GetSprite()->getPositionX() + (0.4 * monster->GetVelocity()), monster->GetSprite()->getPositionY() + (0.4 * monster->GetVelocity())));
+		bezier.endPosition = Point(Vec2(monster->GetSprite()->getPositionX() - (0.4 * monster->GetVelocity()), monster->GetSprite()->getPositionY() - (0.4 * monster->GetVelocity())));
 	}
 	else if (monster->GetCheckMove() == 7)
+	{
+		bezier.endPosition = Point(Vec2(monster->GetSprite()->getPositionX() + (0.4 * monster->GetVelocity()), monster->GetSprite()->getPositionY() + (0.4 * monster->GetVelocity())));
+	}
+	else if (monster->GetCheckMove() == 8)
 	{
 		bezier.endPosition = Point(Vec2(monster->GetSprite()->getPositionX() - (0.4 * monster->GetVelocity()), monster->GetSprite()->getPositionY() + (0.4 * monster->GetVelocity())));
 	}
