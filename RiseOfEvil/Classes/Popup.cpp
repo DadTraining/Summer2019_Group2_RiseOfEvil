@@ -146,6 +146,7 @@ namespace UICustom {
                 MenuItemImage *noButton = MenuItemImage::create(IMAGEPATH::CANCEL_BUTTON, IMAGEPATH::CANCEL_BUTTON_PRESSED, [node](Ref *sender){
 					Director::getInstance()->resume();
                     node->dismiss(true);
+					//Director::getInstance()->pause();
                 });
                 
                 
@@ -157,12 +158,13 @@ namespace UICustom {
                 lbl->setPosition(winSize/2);
                 CONFIRM_DIALOGUE_SIZE_OFFSET = Size(CONFIRM_DIALOGUE_SIZE_OFFSET.width,300);
             }
+			//Director::getInstance()->pause();
 			node->addChild(lbl, 3);
             node->initBg(lbl->getContentSize() + CONFIRM_DIALOGUE_SIZE_OFFSET, title);
             node->autorelease();
             return node;
         }
-        
+		//Director::getInstance()->pause();
         CC_SAFE_DELETE(node);
 		//Director::getInstance()->pause();
         return nullptr;
