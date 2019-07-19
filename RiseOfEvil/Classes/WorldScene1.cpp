@@ -141,14 +141,7 @@ bool WorldScene1::init()
 	mainmenuBtn->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 - 135));
 	mainmenuBtn->addTouchEventListener(CC_CALLBACK_0(WorldScene1::returnToMainMenu, this));
 	addChild(mainmenuBtn, -1);
-	//==========================================================
-	//Create start button 
-	startBTN = ui::Button::create("res/Buttons/WorldScene1/startbtn.png", "res/Buttons/WorldScene1/startbtn-unactive.png");
-	startBTN->setAnchorPoint(Vec2(1, 0));
-	startBTN->setPosition(Vec2(visibleSize.width - 5, 5));
-	startBTN->addClickEventListener(CC_CALLBACK_0(WorldScene1::startGame, this));
-	startBTN->setScale(0.5);
-	addChild(startBTN, 3);
+
 	//==========================================================
 	//Create list monster
 	Wave *wave = new Wave();
@@ -218,13 +211,21 @@ bool WorldScene1::init()
 	goldLabel->setAnchorPoint(Vec2(0.5, 0.5));
 	goldLabel->removeFromParent();
 	goldFrame->addChild(goldLabel);
+	//==========================================================
+	//Create start button 
+	startBTN = ui::Button::create("res/Buttons/WorldScene1/startbtn.png", "res/Buttons/WorldScene1/startbtn-unactive.png");
+	startBTN->setAnchorPoint(Vec2(1, 0));
+	startBTN->setPosition(Vec2(visibleSize.width - 5, 5));
+	startBTN->addClickEventListener(CC_CALLBACK_0(WorldScene1::startGame, this));
+	startBTN->setScale(0.5);
+	addChild(startBTN, 3);
 	//=====================================================
 	//Create label start game
-	startLabel = ResourceManager::GetInstance()->GetLabelById(3);
-	startLabel->setPosition(-6, 10);
-	startLabel->setAnchorPoint(Vec2(1, 0));
-	startLabel->setString("Click here to start");
-	startBTN->addChild(startLabel);
+	//startLabel = ResourceManager::GetInstance()->GetLabelById(4);
+	//startLabel->setPosition(-6, 10);
+	//startLabel->setAnchorPoint(Vec2(1, 0));
+	//startLabel->setString("Click here to start");
+	//addChild(startLabel);
 	//=====================================================
 	//Assign gold from Player to gold
 	currentGold = Player::GetInstance()->GetCurrentGold();
@@ -514,16 +515,8 @@ void WorldScene1::onTouchMoved(Touch * touch, Event * event)
 
 void WorldScene1::onTouchEnded(Touch * touch, Event * event)
 {
-	//if (towerChoosing != nullptr)
-	//{
-	//	if (towerChoosing->GetCheckTouchFlag())
-	//	{
 			Flag->setPosition(touch->getLocation());
 			Flag->setVisible(false);
-	//		towerChoosing->SetCheckTouchFlag(false);
-	//		StatusMenu(false);
-	//	}
-	//}
 }
 
 //Create list Tower icon 
@@ -680,7 +673,7 @@ void WorldScene1::Warning()
 void WorldScene1::startGame()
 {
 	start = true;
-	startLabel->setVisible(false);
+//	startLabel->setVisible(false);
 	startBTN->setEnabled(false);
 }
 
