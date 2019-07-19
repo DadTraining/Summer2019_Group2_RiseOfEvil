@@ -4,6 +4,7 @@
 #include "Monster.h"
 #include "ui/CocosGUI.h"
 #include "Tower.h"
+#include "Wave.h"
 #define BLOOD_BAR 9
 #define E  1
 #define W  2
@@ -19,35 +20,34 @@ USING_NS_CC;
 class WorldScene1 : public Layer
 {
 private:
+	Wave* wave;
 	TMXTiledMap* mTileMap;
-	vector<Vec2> listLocationTower;
 	vector<Monster*> listMonster;
 	vector<Monster*>listTemp;
 	vector<Monster*> Wave1;
+	vector<Monster*> Wave2;
 	vector<Vec2> listPoint;
 	vector<Vec2> listPoint2;
+	vector<Vec2> listLocationTower;
 	vector<Tower*>listTower;
 	PhysicsBody *body;
-	ui::Button *resumeBtn;
-	ui::Button *restartBtn;
-	ui::Button *mainmenuBtn;
-	Sprite *pause_bg;
 	float time;
 	int currentGold;
+	int numOfWave;
+	Menu *menu;
 	MenuItemImage *archerIcon;
 	MenuItemImage *magicIcon;
 	MenuItemImage *slowIcon;
 	MenuItemImage *barrackIcon;
 	MenuItemImage *boombardIcon;
 	MenuItemImage *cancelMenu;
-	Menu *menu;
+	Sprite *pause_bg;
 	Sprite* canBuild;
 	Sprite* cannotBuild;
-	Vec2 touchLocation;
-	bool checkClick = false;
+	Vec2 touchLocation;	
+	Vec2 point;
 	Tower * TowerBefore;
 	Tower * towerChoosing;
-	Vec2 point;
 	Label* goldLabel;
 	Label* startLabel;
 	Sprite * towerArcherDetails;
@@ -56,12 +56,17 @@ private:
 	Sprite * towerBoombardDetails;
 	Sprite * towerBarrackDetails;
 	Sprite * Flag;
+	ui::Button *resumeBtn;
+	ui::Button *restartBtn;
+	ui::Button *mainmenuBtn;
 	ui::Button *buyTower;
 	ui::Button *startBTN;
+	bool releaseMonster = false;
 	bool touchOut = false;
 	bool touchIn = false;
 	bool start = false;
 	bool pause = false;
+	bool checkClick = false;
 public:
 	static Scene* createScene();
 	virtual bool init() override;
@@ -82,5 +87,6 @@ public:
 	void GetTowerDetails(int);
 	void Warning();
 	void startGame();
+	void startWave();
 	CREATE_FUNC(WorldScene1);
 };
