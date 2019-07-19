@@ -55,6 +55,7 @@ private:
 	Sprite * towerSlowDetails;
 	Sprite * towerBoombardDetails;
 	Sprite * towerBarrackDetails;
+	Sprite * Flag;
 	ui::Button *buyTower;
 	ui::Button *startBTN;
 	bool touchOut = false;
