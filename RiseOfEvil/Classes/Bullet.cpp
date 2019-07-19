@@ -3,7 +3,7 @@
 
 void Bullet::Init()
 {
-	m_sprite = Sprite::create("bullet.png");
+	m_sprite = Sprite::create("darts.png");
 }
 
 Bullet::Bullet(Layer * layer)
@@ -11,7 +11,7 @@ Bullet::Bullet(Layer * layer)
 	Init();
 	m_layer = layer;
 	m_sprite->setVisible(false);
-	m_sprite->setScale(0.03f);
+	m_sprite->setScale(0.3f);
 	//bullet->setRotation(-75);
 	//bullet->setPosition();
 	layer->addChild(m_sprite, 5);
@@ -26,7 +26,7 @@ void Bullet::Move(Monster * monster)
 {
 	ccBezierConfig bezier;
 	//================Shoot Bezier=======================
-	bezier.controlPoint_1 = Point(m_sprite->getPositionX(), m_sprite->getPositionY());
+	bezier.controlPoint_1 = Point(m_sprite->getPositionX(), m_sprite->getPositionY()+ 100);
 	bezier.controlPoint_2 = Point(Vec2(((m_sprite->getPositionX() + monster->GetSprite()->getPositionX()) / 2), (m_sprite->getPositionY() + monster->GetSprite()->getPositionY()) / 2 + 200));
 	if (monster->GetCheckMove() == 1)
 	{
@@ -64,6 +64,7 @@ void Bullet::Move(Monster * monster)
 	auto callfunct = CallFunc::create(CC_CALLBACK_0(Bullet::AfterShoot, this));
 	auto sq = Sequence::create(movetToOfBullet, callfunct, nullptr);
 	monster->setProgressBar();
+	m_sprite->runAction(RepeatForever::create(RotateBy::create(0.05, 90)));
 	m_sprite->runAction(sq);
 
 }
