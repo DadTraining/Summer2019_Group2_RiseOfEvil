@@ -29,6 +29,7 @@ LOCAL_SRC_FILES := $(LOCAL_PATH)/hellocpp/main.cpp \
 	           $(LOCAL_PATH)/../../../Classes/ResourceManager.cpp \
 	           $(LOCAL_PATH)/../../../Classes/Wave.cpp \
 	           $(LOCAL_PATH)/../../../Classes/Soldier.cpp \
+	           $(LOCAL_PATH)/../../../Classes/Popup.cpp \
 	           $(LOCAL_PATH)/../../../Classes/LogoScene.cpp
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../../Classes

@@ -33,6 +33,7 @@ private:
 	ui::Button *mainmenuBtn;
 	Sprite *pause_bg;
 	float time;
+	int currentGold;
 	MenuItemImage *archerIcon;
 	MenuItemImage *magicIcon;
 	MenuItemImage *slowIcon;
