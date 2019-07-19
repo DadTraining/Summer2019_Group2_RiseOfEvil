@@ -63,14 +63,18 @@ Tower::Tower(Layer * layer, int type, Vec2 Pos)
 	circleIcon->setPosition(m_sprite->getPosition() + m_sprite->getContentSize() / 2);
 
 	flagIcon = MenuItemImage::create("FlagCallSoldier.png", "FlagCallSoldier.png", [&](Ref* sender) {
+		checkTouchFlag = true;
+		log("oke");
 	});
 	flagIcon->setPosition(circleIcon->getPosition().x + circleIcon->getContentSize().width / 2 -10, circleIcon->getPosition().y);
 
-	circleMenu = Menu::create(flagIcon, circleIcon, nullptr);
+	circleMenu = Menu::create(flagIcon, nullptr);
 	circleMenu->setPosition(0,0);
 //	circleMenu->setScale(0.1f);
 	circleMenu->setVisible(false);
 	circleMenu->setEnabled(true);
+	m_sprite->addChild(circleIcon);
+	circleIcon->setVisible(false);
 	m_sprite->addChild(circleMenu,100);
 	m_sprite->setScale(0.5f);
 	m_sprite->setPosition(Pos);
@@ -188,12 +192,25 @@ void Tower::FadeInPause()
 {
 	circleMenu->setVisible(true);
 	circleMenu->setEnabled(true);
+	circleIcon->setVisible(true);
 }
 
 void Tower::FadeOutPause()
 {
+
 	circleMenu->setVisible(false);
 	circleMenu->setEnabled(false);
+	circleIcon->setVisible(false);
+}
+
+bool Tower::GetCheckTouchFlag()
+{
+	return checkTouchFlag;
+}
+
+void Tower::SetCheckTouchFlag(bool checkTouchFlag)
+{
+	this->checkTouchFlag = checkTouchFlag;
 }
 
 int Tower::GetDamage()

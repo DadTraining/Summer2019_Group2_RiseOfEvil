@@ -99,6 +99,11 @@ bool WorldScene1::init()
 	cannotBuild->setPosition(0, 0);
 	this->addChild(cannotBuild, 2);
 	cannotBuild->setVisible(false);
+	//================Flag==================================================
+	Flag = Sprite::create("flag.png");
+	Flag->setVisible(true);
+	Flag->setPosition(visibleSize.width / 2, visibleSize.height / 2);
+	this->addChild(Flag,14);
 	//==================================================================
 	mTileMap = TMXTiledMap::create("res/MapScene/Map01.tmx");
 	mTileMap->setAnchorPoint(Vec2(0, 0));
@@ -442,6 +447,18 @@ bool WorldScene1::onTouchBegan(Touch * touch, Event * event)
 			listTower[i]->FadeOutPause();
 		}
 	}
+	//======================flag======================
+	for (int i = 0; i < listTower.size(); i++)
+	{
+		if (listTower[i]->GetCheckTouchFlag())
+		{
+			Flag->setVisible(true);
+			Flag->setPosition(touch->getLocation());
+			listTower[i]->SetCheckTouchFlag(false);
+			i += 100;
+		}
+	}
+	//==========================================
 
 	if (touchOut == true && touchIn == false)
 	{
@@ -473,10 +490,13 @@ bool WorldScene1::checkLocationBuildTower(Vec2 newPoint)
 
 void WorldScene1::onTouchMoved(Touch * touch, Event * event)
 {
+	Flag->setPosition(touch->getLocation());
 }
 
 void WorldScene1::onTouchEnded(Touch * touch, Event * event)
 {
+	Flag->setPosition(touch->getLocation());
+	Flag->setVisible(false);
 }
 
 //Create list Tower icon 
