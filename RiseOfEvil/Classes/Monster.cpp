@@ -186,25 +186,34 @@ void Monster::Move(Vec2 point)
 {
 	if ((m_sprite->getPosition().y == point.y) && (m_sprite->getPosition().x <= point.x)) {
 		Action(E);
+		checkMove = 1;
 	}
 	else if ((m_sprite->getPosition().y == point.y) && (m_sprite->getPosition().x >= point.x)) {
 		Action(W);
-		m_velocity = -m_velocity;
+		checkMove = 2;
 	}
 	else if ((m_sprite->getPosition().x == point.x) && (m_sprite->getPosition().y >= point.y)) {
 		Action(S);
+		checkMove = 3;
 	}
 	else if ((m_sprite->getPosition().x <= point.x) && (m_sprite->getPosition().y >= point.y)) {
 		Action(SE);
+		checkMove = 4;
 	}
 	else if ((m_sprite->getPosition().x >= point.x) && (m_sprite->getPosition().y >= point.y)) {
 		Action(SW);
+		checkMove = 5;
 	}
 	else if ((m_sprite->getPosition().x <= point.x) && (m_sprite->getPosition().y <= point.y)) {
 		Action(NE);
+		checkMove = 6;
 	}
 	else
+	{
 		Action(NW);
+		checkMove = 7;
+	}
+
 	m_sprite->runAction(MoveTo::create(point.getDistance(m_sprite->getPosition()) / m_movementSpeed, Vec2(point.x, point.y)));
 }
 Animation* Monster::AnimationMonster(string prefixName, int pFrameBegin, int pFrameEnd, float delay)
@@ -394,6 +403,11 @@ void Monster::setProgressBar()
 float Monster::GetVelocity()
 {
 	return m_velocity;
+}
+
+int Monster::GetCheckMove()
+{
+	return checkMove;
 }
 
 
