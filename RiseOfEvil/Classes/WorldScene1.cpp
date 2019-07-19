@@ -314,7 +314,7 @@ void WorldScene1::FadeInPause()
 
 void WorldScene1::returnToMainMenu()
 {
-	Director::getInstance()->getRunningScene()->pause();
+	//Director::getInstance()->getRunningScene()->pause();
 	Director::getInstance()->replaceScene(TransitionZoomFlipAngular::create(1, MainMenuScene::createScene()));
 }
 
