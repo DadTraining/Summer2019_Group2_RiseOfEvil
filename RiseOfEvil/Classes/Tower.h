@@ -32,6 +32,8 @@ private:
 	bool checkTowerShoot = false;
 	float countTimeToDamage = 0;
 	bool checkTouchFlag = false;
+	bool checkTypeTowerBarrack = false;
+	Sprite * rangeBarrackTower;
 public:
 	void Init();
 	Tower(Layer* layer, int, Vec2);
@@ -50,4 +52,7 @@ public:
 	void FadeOutPause();
 	bool GetCheckTouchFlag();
 	void SetCheckTouchFlag(bool);
+	Sprite * GetRangeBarrackTower();
+	bool GetCheckTypeTowerBarrack();
+	vector<Soldier *> GetListSoldier();
 };
