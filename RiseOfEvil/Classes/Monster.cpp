@@ -196,22 +196,26 @@ void Monster::Move(Vec2 point)
 		Action(S);
 		checkMove = 3;
 	}
+	else if ((m_sprite->getPosition().x == point.x) && (m_sprite->getPosition().y <= point.y)) {
+		Action(N);
+		checkMove = 4;
+	}
 	else if ((m_sprite->getPosition().x <= point.x) && (m_sprite->getPosition().y >= point.y)) {
 		Action(SE);
-		checkMove = 4;
+		checkMove = 5;
 	}
 	else if ((m_sprite->getPosition().x >= point.x) && (m_sprite->getPosition().y >= point.y)) {
 		Action(SW);
-		checkMove = 5;
+		checkMove = 6;
 	}
 	else if ((m_sprite->getPosition().x <= point.x) && (m_sprite->getPosition().y <= point.y)) {
 		Action(NE);
-		checkMove = 6;
+		checkMove = 7;
 	}
-	else
+	else if((m_sprite->getPosition().x >= point.x) && (m_sprite->getPosition().y <= point.y))
 	{
 		Action(NW);
-		checkMove = 7;
+		checkMove = 8;
 	}
 
 	m_sprite->runAction(MoveTo::create(point.getDistance(m_sprite->getPosition()) / m_movementSpeed, Vec2(point.x, point.y)));
