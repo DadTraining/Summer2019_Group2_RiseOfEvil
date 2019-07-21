@@ -32,6 +32,7 @@ private:
 	vector<Tower*>listTower;
 	PhysicsBody *body;
 	float time;
+	float countTimeToPause;
 	int currentGold;
 	int numOfWave;
 	Menu *menu;
@@ -50,6 +51,7 @@ private:
 	Tower * towerChoosing;
 	Label* goldLabel;
 	Label* startLabel;
+	Label* messageWaveLabel;
 	Sprite * towerArcherDetails;
 	Sprite * towerMagicDetails;
 	Sprite * towerSlowDetails;
@@ -58,15 +60,19 @@ private:
 	Sprite * Flag;
 	ui::Button *resumeBtn;
 	ui::Button *restartBtn;
-	ui::Button *mainmenuBtn;
+	ui::Button *worldMapBtn;
 	ui::Button *buyTower;
 	ui::Button *startBTN;
+	ui::Button *startWaveBTN;
+	ui::Button *startWaveBTN2;
+	ui::Button *muteBTN;
 	bool releaseMonster = false;
 	bool touchOut = false;
 	bool touchIn = false;
 	bool start = false;
 	bool pause = false;
 	bool checkClick = false;
+	bool clickPause = false;
 public:
 	static Scene* createScene();
 	virtual bool init() override;
@@ -88,5 +94,7 @@ public:
 	void Warning();
 	void startGame();
 	void startWave();
+	void muteSound();
+	void exit();
 	CREATE_FUNC(WorldScene1);
 };
