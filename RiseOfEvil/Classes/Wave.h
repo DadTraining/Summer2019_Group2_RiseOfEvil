@@ -11,6 +11,7 @@ private:
 	vector<int> Wave2;
 	vector<int> Wave3;
 	vector<int> Wave4;
+	vector<int> Wave5;
 public:
 	Wave();
 	~Wave();
