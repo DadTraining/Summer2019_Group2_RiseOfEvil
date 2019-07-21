@@ -171,7 +171,7 @@ void Monster::Init()
 float timeCount = 0.5;
 void Monster::Update(float deltaTime)
 {
-	if (timeCount >= 1.0)
+	if (timeCount >= (1.0 + (random(0, 10) / 10 * 1.0)))
 	{
 		m_sprite->setVisible(true);
 		timeCount = 0;
