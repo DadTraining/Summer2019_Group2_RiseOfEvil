@@ -35,6 +35,11 @@ void Wave::Load()
 		f >> type;
 		Wave4.push_back(type);
 	}
+	f >> size;
+	for (int i = 0; i < size; i++) {
+		f >> type;
+		Wave5.push_back(type);
+	}
 }
 
 vector<int> Wave::getWave(int numOfWave)

@@ -105,9 +105,9 @@ bool WorldScene1::init()
 	cannotBuild->setVisible(false);
 	//================Flag==================================================
 	Flag = Sprite::create("flag.png");
-	Flag->setVisible(true);
+	Flag->setVisible(false);
 	Flag->setPosition(visibleSize.width / 2, visibleSize.height / 2);
-	this->addChild(Flag,14);
+	this->addChild(Flag,5);
 	//==================================================================
 	mTileMap = TMXTiledMap::create("res/MapScene/Map01.tmx");
 	mTileMap->setAnchorPoint(Vec2(0, 0));
@@ -120,7 +120,7 @@ bool WorldScene1::init()
 	pause_bg->setPosition(Vec2(visibleSize.width / 2, visibleSize.height));
 	addChild(pause_bg, 4);
 
-	auto pauseBtn = ui::Button::create("res/Buttons/WorldScene1/pauseBtn.png", "res/Buttons/WorldScene1/pauseBtn-press.png");
+	pauseBtn = ui::Button::create("res/Buttons/WorldScene1/pauseBtn.png", "res/Buttons/WorldScene1/pauseBtn-press.png");
 	pauseBtn->setScale(0.7);
 	pauseBtn->setPosition(Vec2(visibleSize.width - 20, visibleSize.height - 20));
 	pauseBtn->addClickEventListener(CC_CALLBACK_0(WorldScene1::ClickPauseButton, this));
@@ -232,6 +232,7 @@ bool WorldScene1::init()
 	startLabel->setPosition(-6, 10);
 	startLabel->setAnchorPoint(Vec2(1, 0));
 	startLabel->setString("Click here to start");
+	startLabel->setVisible(true);
 	startLabel->removeFromParent();
 	startBTN->addChild(startLabel);
 	//=====================================================
@@ -275,14 +276,17 @@ void WorldScene1::update(float deltaTime)
 	//Check start click
 	if (start)
 	{
-		if (time >= 30) {
-			startWaveBTN->setVisible(true);
-			startWaveBTN2->setVisible(true);
-			time = 0;
-		}
-		else {
-			time += deltaTime;
-		}
+		//if (numOfWave <= 5)
+		//{
+			if (time >= 30) {
+				startWaveBTN->setVisible(true);
+				startWaveBTN2->setVisible(true);
+				time = 0;
+			}
+			else {
+				time += deltaTime;
+			}
+		//}
 		for (int i = 0; i < listMonster.size(); i++)
 		{
 			if (!(listMonster[i]->GetSprite()->isVisible()))
@@ -352,6 +356,7 @@ void WorldScene1::restart()
 //Hide Pause menu
 void WorldScene1::ExitPauseMenu()
 {
+	pauseBtn->setEnabled(true);
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 	pause = false;
 	clickPause = false;
@@ -362,6 +367,7 @@ void WorldScene1::ExitPauseMenu()
 //Show Pause menu
 void WorldScene1::ClickPauseButton()
 {
+	pauseBtn->setEnabled(false);
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 	pause = true;
 	//Set other windows disappear

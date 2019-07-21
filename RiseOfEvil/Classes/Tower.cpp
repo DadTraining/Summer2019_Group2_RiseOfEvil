@@ -177,17 +177,6 @@ void Tower::SetGold(int gold)
 	m_gold = gold;
 }
 
-
-//Sprite * Tower::GetCircleMenu()
-//{
-//	return CircleMenu;
-//}
-//
-//Sprite * Tower::GetFlagIcon()
-//{
-//	return FlagIcon;
-//}
-
 void Tower::FadeInPause()
 {
 	circleMenu->setVisible(true);
