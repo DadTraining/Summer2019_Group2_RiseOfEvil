@@ -1,5 +1,5 @@
 #include "WorldScene1.h"
-#include "MainMenuScene.h"
+#include "WorldMapScene.h"
 #include "Popup.h"
 #include <iostream>
 #include <string.h>
@@ -223,6 +223,7 @@ bool WorldScene1::init()
 	goldLabel = ResourceManager::GetInstance()->GetLabelById(2);
 	goldLabel->setPosition(goldFrame->getContentSize().width / 2 + 25, goldFrame->getContentSize().height / 2);
 	goldLabel->setAnchorPoint(Vec2(0.5, 0.5));
+	goldLabel->setString("");
 	goldLabel->removeFromParent();
 	goldFrame->addChild(goldLabel);
 	//=====================================================
@@ -258,7 +259,6 @@ bool WorldScene1::init()
 }
 void WorldScene1::update(float deltaTime)
 {
-	log("%d", clickPause);
 	if (clickPause)
 	{
 		if (countTimeToPause >= 0.6)
@@ -343,6 +343,7 @@ void WorldScene1::update(float deltaTime)
 
 void WorldScene1::restart()
 {
+	clickPause = false;
 	Director::getInstance()->resume();
 	auto newScene = WorldScene1::createScene();
 	Director::sharedDirector()->replaceScene(newScene);
@@ -377,12 +378,13 @@ void WorldScene1::ClickPauseButton()
 
 void WorldScene1::returnToMainMenu()
 {
+	clickPause = false;
 	Label *lbl = Label::createWithTTF("You will lost your process, continue ?", "fonts/Comic_Book.ttf", 40);
 	lbl->setWidth(300);
 	UICustom::Popup *popup = UICustom::Popup::create("Warning", "", lbl, [=]() {
 		Director::getInstance()->resume();
 		//Director::getInstance()->getRunningScene()->pause();
-		Director::getInstance()->replaceScene(TransitionFade::create(0.3, MainMenuScene::createScene()));
+		Director::getInstance()->replaceScene(TransitionFade::create(0.3, WorldMapScene::createScene()));
 	});
 	this->addChild(popup, 15);
 }
