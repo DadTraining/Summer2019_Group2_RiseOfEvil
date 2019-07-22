@@ -136,17 +136,6 @@ bool WorldScene1::init()
 	restartBtn = ui::Button::create("res/Buttons/WorldScene1/restartButton.png");
 	restartBtn->setPosition(Vec2(pause_bg->getContentSize().width / 1.32, pause_bg->getContentSize().height / 2));
 	restartBtn->addTouchEventListener(CC_CALLBACK_0(WorldScene1::restart, this));
-////<<<<<<< HEAD
-//	addChild(restartBtn, -1);
-//
-//	mainmenuBtn = ui::Button::create("res/Buttons/WorldScene1/mainmenuBtn.png");
-//	mainmenuBtn->setScaleX(1.5);
-//	mainmenuBtn->setEnabled(false);
-//	mainmenuBtn->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 - 135));
-//	mainmenuBtn->addTouchEventListener(CC_CALLBACK_0(WorldScene1::returnToMainMenu, this));
-//	addChild(mainmenuBtn, -1);
-//
-////=======
 	restartBtn->setScale(0.7);
 	pause_bg->addChild(restartBtn);
 
@@ -175,7 +164,6 @@ bool WorldScene1::init()
 	startBTN->addClickEventListener(CC_CALLBACK_0(WorldScene1::startGame, this));
 	startBTN->setScale(0.5);
 	addChild(startBTN, 3);
-//>>>>>>> e41378bc4478e45494f3a42b666e698031f1b85a
 	//==========================================================
 	//Create start wave button 
 	auto obj = mTileMap->getObjectGroup("StartWaveBTNPosition");
@@ -352,10 +340,16 @@ void WorldScene1::update(float deltaTime)
 				if (nearestMonster->GetSprite()->getPosition().getDistance(listTower[tower]->GetSprite()->getPosition()) < listTower[tower]->GetRange())
 				{
 					listTower[tower]->Update(deltaTime, nearestMonster);
+					log("nearestMonster Speed:%f", nearestMonster->GetMovementSpeed());
+					if (listTower[tower]->GetTypeTower() == SLOW_TOWER)
+					{
+						nearestMonster->SetIsSlow(true);
+						nearestMonster->SetSlowRunSpeed();
+						log("nearestMonster Speed:%f", nearestMonster->GetMovementSpeed());
+					}
 					i = 100;
 				}
 			}
-			
 		}
 		//Monster die
 		for (int i = 0; i < listMonster.size(); i++)
@@ -366,6 +360,18 @@ void WorldScene1::update(float deltaTime)
 				listMonster[i]->GetSprite()->setVisible(false);
 				currentGold += listMonster[i]->GetGold();
 				listMonster.erase(listMonster.begin() + i);
+			}
+		}
+		//increase speed
+		for (int i = 0; i<listMonster.size(); i++)
+		{
+			if (listMonster[i]->GetMovementSpeed() < listMonster[i]->GetMaxSpeed())
+			{
+				listMonster[i]->SetMovementSpeed(listMonster[i]->GetMovementSpeed() + 1);
+			}
+			else
+			{
+				listMonster[i]->SetMovementSpeed(listMonster[i]->GetMaxSpeed());
 			}
 		}
 	}

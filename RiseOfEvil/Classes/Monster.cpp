@@ -6,6 +6,8 @@ Monster::Monster(Layer * layer, int type)
 	m_type = type;
 	this->layer = layer;
 	Init();
+	maxSpeed = m_movementSpeed;
+	speed = m_movementSpeed * 80 / 100;
 	m_maxHitPoint = m_hitPoint;
 	layer->addChild(m_spriteNode, 3);
 }
@@ -179,7 +181,6 @@ void Monster::Update(float deltaTime)
 	else {
 		timeCount += deltaTime;
 	}
-	
 }
 
 void Monster::Move(Vec2 point)
@@ -414,4 +415,29 @@ int Monster::GetCheckMove()
 	return checkMove;
 }
 
+bool Monster::GetIsSlow()
+{
+	return isSlow;
+}
 
+void Monster::SetSlowRunSpeed()
+{
+	if (isSlow == true)
+	{
+		if (m_movementSpeed > speed)
+		{
+			m_movementSpeed -= m_movementSpeed * 20 / 100;
+			isSlow = false;
+		}
+	}
+}
+
+void Monster::SetIsSlow(bool isSlow)
+{
+	this->isSlow = isSlow;
+}
+
+float Monster::GetMaxSpeed()
+{
+	return maxSpeed;
+}
