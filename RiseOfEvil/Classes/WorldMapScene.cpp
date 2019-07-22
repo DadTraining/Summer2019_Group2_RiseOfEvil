@@ -110,7 +110,6 @@ void WorldMapScene::GoToStage(Ref* sender, int numOfStage)
 		Scene *pScene = WorldScene1::createScene();
 		TransitionFade *crssfade = TransitionFade::create(0.5f, pScene);
 		Director::getInstance()->replaceScene(crssfade);
-		/*Director::getInstance()->replaceScene(WorldScene1::create());*/
 		break;
 
 	}

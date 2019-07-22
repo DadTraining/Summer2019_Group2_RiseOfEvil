@@ -66,6 +66,7 @@ private:
 	ui::Button *startWaveBTN;
 	ui::Button *startWaveBTN2;
 	ui::Button *muteBTN;
+	ui::Button *pauseBtn;
 	bool releaseMonster = false;
 	bool touchOut = false;
 	bool touchIn = false;
