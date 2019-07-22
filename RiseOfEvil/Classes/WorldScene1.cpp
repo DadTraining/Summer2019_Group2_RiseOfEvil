@@ -136,6 +136,17 @@ bool WorldScene1::init()
 	restartBtn = ui::Button::create("res/Buttons/WorldScene1/restartButton.png");
 	restartBtn->setPosition(Vec2(pause_bg->getContentSize().width / 1.32, pause_bg->getContentSize().height / 2));
 	restartBtn->addTouchEventListener(CC_CALLBACK_0(WorldScene1::restart, this));
+////<<<<<<< HEAD
+//	addChild(restartBtn, -1);
+//
+//	mainmenuBtn = ui::Button::create("res/Buttons/WorldScene1/mainmenuBtn.png");
+//	mainmenuBtn->setScaleX(1.5);
+//	mainmenuBtn->setEnabled(false);
+//	mainmenuBtn->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 - 135));
+//	mainmenuBtn->addTouchEventListener(CC_CALLBACK_0(WorldScene1::returnToMainMenu, this));
+//	addChild(mainmenuBtn, -1);
+//
+////=======
 	restartBtn->setScale(0.7);
 	pause_bg->addChild(restartBtn);
 
@@ -164,6 +175,7 @@ bool WorldScene1::init()
 	startBTN->addClickEventListener(CC_CALLBACK_0(WorldScene1::startGame, this));
 	startBTN->setScale(0.5);
 	addChild(startBTN, 3);
+//>>>>>>> e41378bc4478e45494f3a42b666e698031f1b85a
 	//==========================================================
 	//Create start wave button 
 	auto obj = mTileMap->getObjectGroup("StartWaveBTNPosition");
@@ -226,8 +238,17 @@ bool WorldScene1::init()
 	goldLabel->setString("");
 	goldLabel->removeFromParent();
 	goldFrame->addChild(goldLabel);
+	//==========================================================
+	//Create start button 
+	startBTN = ui::Button::create("res/Buttons/WorldScene1/startbtn.png", "res/Buttons/WorldScene1/startbtn-unactive.png");
+	startBTN->setAnchorPoint(Vec2(1, 0));
+	startBTN->setPosition(Vec2(visibleSize.width - 5, 5));
+	startBTN->addClickEventListener(CC_CALLBACK_0(WorldScene1::startGame, this));
+	startBTN->setScale(0.5);
+	addChild(startBTN, 3);
 	//=====================================================
 	//Create label start game
+
 	startLabel = ResourceManager::GetInstance()->GetLabelById(3);
 	startLabel->setPosition(-6, 10);
 	startLabel->setAnchorPoint(Vec2(1, 0));
@@ -327,13 +348,18 @@ void WorldScene1::update(float deltaTime)
 		{
 			for (int i = 0; i < listMonster.size(); i++)
 			{
-				if (listMonster[i]->GetSprite()->isVisible() &&
-					listMonster[i]->GetSprite()->getPosition().getDistance(listTower[tower]->GetSprite()->getPosition()) < listTower[tower]->GetRange())
+				nearestMonster = listMonster[0];
+				if (listMonster[i]->GetSprite()->getPosition().getDistance(listTower[tower]->GetSprite()->getPosition()) < nearestMonster->GetSprite()->getPosition().getDistance(listTower[tower]->GetSprite()->getPosition()))
 				{
-					listTower[tower]->Update(deltaTime, listMonster[i]);
+					nearestMonster = listMonster[i];
+				}
+				if (nearestMonster->GetSprite()->getPosition().getDistance(listTower[tower]->GetSprite()->getPosition()) < listTower[tower]->GetRange())
+				{
+					listTower[tower]->Update(deltaTime, nearestMonster);
 					i = 100;
 				}
 			}
+			
 		}
 		//Monster die
 		for (int i = 0; i < listMonster.size(); i++)
@@ -502,11 +528,11 @@ bool WorldScene1::onTouchBegan(Touch * touch, Event * event)
 				towerChoosing->FadeOutPause();
 				Flag->setVisible(true);
 				Flag->setPosition(touch->getLocation());
-					if(towerChoosing->GetSprite()->getPosition().distance(Flag->getPosition())< towerChoosing->GetRange())
+				if (towerChoosing->GetSprite()->getPosition().distance(Flag->getPosition()) < towerChoosing->GetRange() / 2)
 					{
-
 					for (int i = 0; i < towerChoosing->GetListSoldier().size(); i++)
 					{
+						towerChoosing->GetListSoldier()[i]->GetSprite()->setVisible(true);
 						towerChoosing->GetListSoldier()[i]->Move(Vec2(Flag->getPositionX() + ((i+1)*5), Flag->getPositionY() + ((i + 1) * 10)));
 
 					}
@@ -551,16 +577,8 @@ void WorldScene1::onTouchMoved(Touch * touch, Event * event)
 
 void WorldScene1::onTouchEnded(Touch * touch, Event * event)
 {
-	//if (towerChoosing != nullptr)
-	//{
-	//	if (towerChoosing->GetCheckTouchFlag())
-	//	{
 			Flag->setPosition(touch->getLocation());
 			Flag->setVisible(false);
-	//		towerChoosing->SetCheckTouchFlag(false);
-	//		StatusMenu(false);
-	//	}
-	//}
 }
 
 //Create list Tower icon 
