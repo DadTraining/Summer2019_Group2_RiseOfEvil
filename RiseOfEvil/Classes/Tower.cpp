@@ -118,10 +118,9 @@ Tower::Tower(Layer * layer, int type, Vec2 Pos)
 	}
 	for (int i = 0; i < 10; i++)
 	{
-		Bullet * bullet = new Bullet(layer);
+		Bullet * bullet = new Bullet(layer, m_type);
 		listBullet.push_back(bullet);
 	}
-
 }
 
 Sprite * Tower::GetSprite()
@@ -229,6 +228,11 @@ bool Tower::GetCheckTypeTowerBarrack()
 vector<Soldier*> Tower::GetListSoldier()
 {
 	return listSoldier;
+}
+
+int Tower::GetTypeTower()
+{
+	return m_type;
 }
 
 

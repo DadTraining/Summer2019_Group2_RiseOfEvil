@@ -344,10 +344,16 @@ void WorldScene1::update(float deltaTime)
 				if (nearestMonster->GetSprite()->getPosition().getDistance(listTower[tower]->GetSprite()->getPosition()) < listTower[tower]->GetRange())
 				{
 					listTower[tower]->Update(deltaTime, nearestMonster);
+					log("nearestMonster Speed:%f", nearestMonster->GetMovementSpeed());
+					if (listTower[tower]->GetTypeTower() == SLOW_TOWER)
+					{
+						nearestMonster->SetIsSlow(true);
+						nearestMonster->SetSlowRunSpeed();
+						log("nearestMonster Speed:%f", nearestMonster->GetMovementSpeed());
+					}
 					i = 100;
 				}
 			}
-			
 		}
 		//Monster die
 		for (int i = 0; i < listMonster.size(); i++)
@@ -358,6 +364,18 @@ void WorldScene1::update(float deltaTime)
 				listMonster[i]->GetSprite()->setVisible(false);
 				currentGold += listMonster[i]->GetGold();
 				listMonster.erase(listMonster.begin() + i);
+			}
+		}
+		//increase speed
+		for (int i = 0; i<listMonster.size(); i++)
+		{
+			if (listMonster[i]->GetMovementSpeed() < listMonster[i]->GetMaxSpeed())
+			{
+				listMonster[i]->SetMovementSpeed(listMonster[i]->GetMovementSpeed() + 1);
+			}
+			else
+			{
+				listMonster[i]->SetMovementSpeed(listMonster[i]->GetMaxSpeed());
 			}
 		}
 	}

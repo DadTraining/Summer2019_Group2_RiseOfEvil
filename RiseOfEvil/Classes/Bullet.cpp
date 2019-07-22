@@ -3,11 +3,29 @@
 
 void Bullet::Init()
 {
-	m_sprite = Sprite::create("darts.png");
+	switch (bullet_type)
+		{
+			case ARROW_BULLET:
+				m_sprite = Sprite::create("darts.png");
+				break;
+			case MAGIC_BULLET:
+				m_sprite = Sprite::create("bullet_magic.png");
+				break;
+			case SLOW_BULLET:
+				m_sprite = Sprite::create("bullet_slow.png");
+				break;
+			case BOMBARD_BULLET:
+				m_sprite = Sprite::create("bullet_boom.png");
+				break;
+			case BARRACKS_BULLET:
+				m_sprite = Sprite::create("bullet_boom.png");
+				break;
+		}
 }
 
-Bullet::Bullet(Layer * layer)
+Bullet::Bullet(Layer * layer, int type)
 {
+	bullet_type = type;
 	Init();
 	m_layer = layer;
 	m_sprite->setVisible(false);

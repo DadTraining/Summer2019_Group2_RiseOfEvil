@@ -36,6 +36,8 @@ private:
 	Animation *animation;
 	float m_movementSpeed;
 	float m_velocity;
+	float speed; // 80% maxSpeed
+	float maxSpeed;
 	Sprite * m_bloodBar;
 	Sprite * m_blood;
 	//vector<Skill *>m_listSkill;
@@ -47,6 +49,7 @@ private:
 	Sprite* dead3;
 	//Skill * speciall
 	int checkMove = 0;
+	bool isSlow = false;
 public:
 	int m_flag = 0;
 	Monster(Layer*, int);
@@ -71,4 +74,8 @@ public:
 	void setProgressBar();
 	float GetVelocity();
 	int GetCheckMove();
+	bool GetIsSlow();
+	void SetSlowRunSpeed();
+	void SetIsSlow(bool);
+	float GetMaxSpeed();
 };
