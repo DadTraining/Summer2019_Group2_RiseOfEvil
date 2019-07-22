@@ -35,7 +35,6 @@ void Monster::Init()
 
 		m_bloodBar->addChild(m_blood,8);
 		m_sprite->addChild(m_bloodBar, 6);
-
 		m_spriteNode->addChild(m_sprite);
 		m_sprite->setVisible(false);
 		m_fomatAnimation = "Orc_Walking_";		

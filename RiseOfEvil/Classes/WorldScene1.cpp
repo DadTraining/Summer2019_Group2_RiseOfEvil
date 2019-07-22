@@ -259,30 +259,29 @@ void WorldScene1::update(float deltaTime)
 			}
 		}
 		//Monster move
-		for (int i = 0; i < listTemp.size(); i++)
+		for (int i = 0; i < listMonster.size(); i++)
 		{
-			if (i % 2 == 0)
+			
+
+			if ((listMonster[i]->m_flag < 8) && (listPoint2[listMonster[i]->m_flag].getDistance(listMonster[i]->GetSprite()->getPosition()) == 0) && (listMonster[i]->GetSprite()->isVisible()))
 			{
-				if ((listPoint[listTemp[i]->m_flag].getDistance(listTemp[i]->GetSprite()->getPosition()) == 0) && (listTemp[i]->GetSprite()->isVisible()))
+				if (listMonster[i]->m_flag < listPoint2.size() - 1)
 				{
-					if (listTemp[i]->m_flag < listPoint.size() - 1)
-					{
-						listTemp[i]->m_flag++;
-					}
-					listTemp[i]->Move(listPoint[listTemp[i]->m_flag]);
+					listMonster[i]->m_flag++;
 				}
+				listMonster[i]->Move(listPoint2[listMonster[i]->m_flag]);
 			}
-			else
+
+			else if ((listMonster[i]->m_flag < 15) && (listPoint[listMonster[i]->m_flag].getDistance(listMonster[i]->GetSprite()->getPosition()) == 0) && (listMonster[i]->GetSprite()->isVisible()))
 			{
-				if ((listPoint2[listTemp[i]->m_flag].getDistance(listTemp[i]->GetSprite()->getPosition()) == 0) && (listTemp[i]->GetSprite()->isVisible()))
+				if (listMonster[i]->m_flag < listPoint.size() - 1)
 				{
-					if (listTemp[i]->m_flag < listPoint2.size() - 1)
-					{
-						listTemp[i]->m_flag++;
-					}
-					listTemp[i]->Move(listPoint2[listTemp[i]->m_flag]);
+					listMonster[i]->m_flag++;
 				}
+				listMonster[i]->Move(listPoint[listMonster[i]->m_flag]);
 			}
+		
+			
 		}
 
 		//Tower shoot
