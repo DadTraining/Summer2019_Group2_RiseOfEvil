@@ -17,7 +17,7 @@
   </object>
  </objectgroup>
  <objectgroup id="13" name="Crystal">
-  <object id="33" name="bossCrystal" x="1174" y="550">
+  <object id="33" name="bossCrystal" x="1127" y="548">
    <point/>
   </object>
  </objectgroup>
@@ -87,7 +87,7 @@
   <object id="20" name="P14" x="853" y="550">
    <point/>
   </object>
-  <object id="21" name="P15" x="1135" y="550">
+  <object id="21" name="P15" x="1079" y="550">
    <point/>
   </object>
  </objectgroup>
@@ -113,7 +113,7 @@
   <object id="29" name="P7" x="814" y="550">
    <point/>
   </object>
-  <object id="30" name="P8" x="1135" y="550">
+  <object id="30" name="P8" x="1079" y="550">
    <point/>
   </object>
  </objectgroup>

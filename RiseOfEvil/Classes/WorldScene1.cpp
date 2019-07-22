@@ -136,17 +136,6 @@ bool WorldScene1::init()
 	restartBtn = ui::Button::create("res/Buttons/WorldScene1/restartButton.png");
 	restartBtn->setPosition(Vec2(pause_bg->getContentSize().width / 1.32, pause_bg->getContentSize().height / 2));
 	restartBtn->addTouchEventListener(CC_CALLBACK_0(WorldScene1::restart, this));
-////<<<<<<< HEAD
-//	addChild(restartBtn, -1);
-//
-//	mainmenuBtn = ui::Button::create("res/Buttons/WorldScene1/mainmenuBtn.png");
-//	mainmenuBtn->setScaleX(1.5);
-//	mainmenuBtn->setEnabled(false);
-//	mainmenuBtn->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 - 135));
-//	mainmenuBtn->addTouchEventListener(CC_CALLBACK_0(WorldScene1::returnToMainMenu, this));
-//	addChild(mainmenuBtn, -1);
-//
-////=======
 	restartBtn->setScale(0.7);
 	pause_bg->addChild(restartBtn);
 
@@ -169,13 +158,12 @@ bool WorldScene1::init()
 	pause_bg->addChild(exitBtn);
 	//==========================================================
 	//Create start button 
-	startBTN = ui::Button::create("res/Buttons/WorldScene1/startbtn.png", "res/Buttons/WorldScene1/startbtn-unactive.png");
+	startBTN = ui::Button::create("res/Buttons/WorldScene1/startbtn.png", "res/Buttons/WorldScene1/startbtn-unactive.png", "res/Buttons/WorldScene1/startbtn-unactive.png");
 	startBTN->setAnchorPoint(Vec2(1, 0));
 	startBTN->setPosition(Vec2(visibleSize.width - 5, 5));
-	startBTN->addClickEventListener(CC_CALLBACK_0(WorldScene1::startGame, this));
+	startBTN->addClickEventListener(CC_CALLBACK_0(WorldScene1::startWave, this));
 	startBTN->setScale(0.5);
 	addChild(startBTN, 3);
-//>>>>>>> e41378bc4478e45494f3a42b666e698031f1b85a
 	//==========================================================
 	//Create start wave button 
 	auto obj = mTileMap->getObjectGroup("StartWaveBTNPosition");
@@ -199,7 +187,14 @@ bool WorldScene1::init()
 	//Create first list monster from Wave list
 	numOfWave = 0;
 	wave = new Wave();
-	
+	//==========================================================
+	crystal = new Crystal(this);
+	auto crystal_position = mTileMap->getObjectGroup("Crystal");
+	float xPoint = crystal_position->getObject("bossCrystal")["x"].asInt();
+	float yPoint = crystal_position->getObject("bossCrystal")["y"].asInt();
+	crystal->getSprite()->setAnchorPoint(Vec2(0.5, 0.3));
+	//crystal->getSprite()->setScale(1.5);
+	crystal->getSprite()->setPosition(Vec2(xPoint,yPoint));
 	//===========================================================================
 	//First Location Tower
 	listLocationTower.push_back(Vec2(0, 0));
@@ -238,14 +233,6 @@ bool WorldScene1::init()
 	goldLabel->setString("");
 	goldLabel->removeFromParent();
 	goldFrame->addChild(goldLabel);
-	//==========================================================
-	//Create start button 
-	startBTN = ui::Button::create("res/Buttons/WorldScene1/startbtn.png", "res/Buttons/WorldScene1/startbtn-unactive.png");
-	startBTN->setAnchorPoint(Vec2(1, 0));
-	startBTN->setPosition(Vec2(visibleSize.width - 5, 5));
-	startBTN->addClickEventListener(CC_CALLBACK_0(WorldScene1::startGame, this));
-	startBTN->setScale(0.5);
-	addChild(startBTN, 3);
 	//=====================================================
 	//Create label start game
 
@@ -281,6 +268,7 @@ bool WorldScene1::init()
 }
 void WorldScene1::update(float deltaTime)
 {
+	log("%d", startBTN->isVisible());
 	if (clickPause)
 	{
 		if (countTimeToPause >= 0.6)
@@ -577,8 +565,8 @@ void WorldScene1::onTouchMoved(Touch * touch, Event * event)
 
 void WorldScene1::onTouchEnded(Touch * touch, Event * event)
 {
-			Flag->setPosition(touch->getLocation());
-			Flag->setVisible(false);
+	Flag->setPosition(touch->getLocation());
+	Flag->setVisible(false);
 }
 
 //Create list Tower icon 
@@ -730,52 +718,17 @@ void WorldScene1::GetTowerDetails(int type)
 
 void WorldScene1::Warning()
 {
-
-}
-
-void WorldScene1::startGame()
-{
-	start = true;
-	startLabel->setVisible(false);
-	startBTN->setEnabled(false);
-	startBTN->setVisible(false);
-	//Plus num of wave
-	numOfWave++;
-	messageWaveLabel->setString("Wave " + to_string(numOfWave) + " is coming !"); //Change string of Wave label
-	messageWaveLabel->runAction(Sequence::create(ScaleTo::create(0.5, 1), DelayTime::create(2), ScaleTo::create(0.3, 0.001), nullptr));
-	vector<int> temp = wave->getWave(numOfWave); //Get info wave from Wave class
-	listTemp.clear();
-	for (int i = 0; i < temp.size(); i++) //Create monsster and push to list Monster
-	{
-		Monster *a = new Monster(this, temp[i]);
-		listMonster.push_back(a);
-		listTemp.push_back(a);
-	}
-	auto obj = mTileMap->getObjectGroup("Monster");
-	float x = obj->getObject("monster")["x"].asInt();
-	float y = obj->getObject("monster")["y"].asInt();
-	float x2 = obj->getObject("monster2")["x"].asInt();
-	float y2 = obj->getObject("monster2")["y"].asInt();
-	for (int i = 0; i < listTemp.size(); i++)
-	{
-		if (i % 2 == 0)
-		{
-			//===================Gate2====================================
-			listTemp[i]->GetSprite()->setAnchorPoint(Vec2(0.5, 0.35));
-			listTemp[i]->GetSprite()->setPosition(x2, y2);
-			listTemp[i]->GetSprite()->setScale(0.6);
-		}
-		else
-		{
-			listTemp[i]->GetSprite()->setAnchorPoint(Vec2(0.5, 0.35));
-			listTemp[i]->GetSprite()->setPosition(x, y);
-			listTemp[i]->GetSprite()->setScale(0.6);
-		}
-	}
 }
 
 void WorldScene1::startWave()
 {
+	if (!start)
+	{
+		startBTN->setVisible(false);
+		startBTN->setEnabled(false);
+		startBTN->setZOrder(-99999);
+		start = true;
+	}
 	startWaveBTN->setVisible(false);
 	startWaveBTN2->setVisible(false);
 	time = 0;
