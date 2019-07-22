@@ -276,22 +276,21 @@ void WorldScene1::update(float deltaTime)
 	//Check start click
 	if (start)
 	{
-		log("%d", listMonster.size());
-			if (time >= 30) {
-				if ((numOfWave + 1) <= 5)
-				{
-					startWaveBTN->setVisible(true);
-					startWaveBTN2->setVisible(true);
-				}
-				else
-				{
-					startWaveBTN->setEnabled(false);
-					startWaveBTN2->setEnabled(false);
-				}
+		if (time >= 30) {
+			if ((numOfWave + 1) <= 5)
+			{
+				startWaveBTN->setVisible(true);
+				startWaveBTN2->setVisible(true);
 			}
-			else {
-				time += deltaTime;
+			else
+			{
+				startWaveBTN->setEnabled(false);
+				startWaveBTN2->setEnabled(false);
 			}
+		}
+		else {
+			time += deltaTime;
+		}
 		for (int i = 0; i < listMonster.size(); i++)
 		{
 			if (!(listMonster[i]->GetSprite()->isVisible()))
