@@ -34,7 +34,6 @@ private:
 	bool checkTouchFlag = false;
 	bool checkTypeTowerBarrack = false;
 	Sprite * rangeBarrackTower;
-	Monster * nearestMonster;
 public:
 	void Init();
 	Tower(Layer* layer, int, Vec2);
@@ -56,5 +55,4 @@ public:
 	Sprite * GetRangeBarrackTower();
 	bool GetCheckTypeTowerBarrack();
 	vector<Soldier *> GetListSoldier();
-	Monster * GetNearestMoster();
 };

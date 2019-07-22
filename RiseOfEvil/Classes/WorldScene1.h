@@ -5,6 +5,7 @@
 #include "ui/CocosGUI.h"
 #include "Tower.h"
 #include "Wave.h"
+#include <algorithm>
 #define BLOOD_BAR 9
 #define E  1
 #define W  2
@@ -31,6 +32,7 @@ private:
 	vector<Vec2> listLocationTower;
 	vector<Tower*>listTower;
 	PhysicsBody *body;
+	Monster * nearestMonster;
 	float time;
 	float countTimeToPause;
 	int currentGold;

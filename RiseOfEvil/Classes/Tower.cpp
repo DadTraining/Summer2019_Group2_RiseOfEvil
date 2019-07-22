@@ -11,7 +11,7 @@ void Tower::Init()
 		m_minimumAtk = 4;
 		m_maximumAtk = 6;
 		m_attackSpeed = 0.8;
-		m_range = 280;
+		m_range = 200;
 		m_gold = 70;
 		break;
 	case MAGIC_TOWER:
@@ -88,6 +88,7 @@ Tower::Tower(Layer * layer, int type, Vec2 Pos)
 	{
 		checkTypeTowerBarrack = true;
 		rangeBarrackTower = Sprite::create("range_of_barrack_tower.png");
+		//rangeBarrackTower->setScale(2.0f);
 		rangeBarrackTower->setVisible(false);
 		rangeBarrackTower->setPosition(m_sprite->getContentSize().width/2, m_sprite->getContentSize().height/2);
 		m_sprite->addChild(rangeBarrackTower);
@@ -105,6 +106,7 @@ Tower::Tower(Layer * layer, int type, Vec2 Pos)
 			}
 			//auto moveBy = MoveBy::create(1, Vec2(50, - 100));
 			//listSoldier[i]->GetSprite()->runAction(moveBy->clone());
+			listSoldier[i]->GetSprite()->setVisible(false);
 		}
 		
 
@@ -228,6 +230,7 @@ vector<Soldier*> Tower::GetListSoldier()
 {
 	return listSoldier;
 }
+
 
 int Tower::GetDamage()
 {

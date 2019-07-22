@@ -344,13 +344,18 @@ void WorldScene1::update(float deltaTime)
 		{
 			for (int i = 0; i < listMonster.size(); i++)
 			{
-				if (listMonster[i]->GetSprite()->isVisible() &&
-					listMonster[i]->GetSprite()->getPosition().getDistance(listTower[tower]->GetSprite()->getPosition()) < listTower[tower]->GetRange())
+				nearestMonster = listMonster[0];
+				if (listMonster[i]->GetSprite()->getPosition().getDistance(listTower[tower]->GetSprite()->getPosition()) < nearestMonster->GetSprite()->getPosition().getDistance(listTower[tower]->GetSprite()->getPosition()))
 				{
-					listTower[tower]->Update(deltaTime, listMonster[i]);
+					nearestMonster = listMonster[i];
+				}
+				if (nearestMonster->GetSprite()->getPosition().getDistance(listTower[tower]->GetSprite()->getPosition()) < listTower[tower]->GetRange())
+				{
+					listTower[tower]->Update(deltaTime, nearestMonster);
 					i = 100;
 				}
 			}
+			
 		}
 		//Monster die
 		for (int i = 0; i < listMonster.size(); i++)
@@ -514,12 +519,11 @@ bool WorldScene1::onTouchBegan(Touch * touch, Event * event)
 				towerChoosing->FadeOutPause();
 				Flag->setVisible(true);
 				Flag->setPosition(touch->getLocation());
-				log("%f", towerChoosing->GetRange());
-				if (towerChoosing->GetSprite()->getPosition().distance(Flag->getPosition()) < towerChoosing->GetRange())
+				if (towerChoosing->GetSprite()->getPosition().distance(Flag->getPosition()) < towerChoosing->GetRange() / 2)
 					{
-
 					for (int i = 0; i < towerChoosing->GetListSoldier().size(); i++)
 					{
+						towerChoosing->GetListSoldier()[i]->GetSprite()->setVisible(true);
 						towerChoosing->GetListSoldier()[i]->Move(Vec2(Flag->getPositionX() + ((i+1)*5), Flag->getPositionY() + ((i + 1) * 10)));
 
 					}
