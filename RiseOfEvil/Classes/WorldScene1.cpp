@@ -118,7 +118,7 @@ bool WorldScene1::init()
 	pause_bg = Sprite::create("res/WorldScene1/pause_bag.png");
 	pause_bg->setAnchorPoint(Vec2(0.5, 0));
 	pause_bg->setPosition(Vec2(visibleSize.width / 2, visibleSize.height));
-	addChild(pause_bg, 4);
+	addChild(pause_bg, 6);
 
 	pauseBtn = ui::Button::create("res/Buttons/WorldScene1/pauseBtn.png", "res/Buttons/WorldScene1/pauseBtn-press.png");
 	pauseBtn->setScale(0.7);
@@ -276,17 +276,21 @@ void WorldScene1::update(float deltaTime)
 	//Check start click
 	if (start)
 	{
-		//if (numOfWave <= 5)
-		//{
-			if (time >= 30) {
+		if (time >= 30) {
+			if ((numOfWave + 1) <= 5)
+			{
 				startWaveBTN->setVisible(true);
 				startWaveBTN2->setVisible(true);
-				time = 0;
 			}
-			else {
-				time += deltaTime;
+			else
+			{
+				startWaveBTN->setEnabled(false);
+				startWaveBTN2->setEnabled(false);
 			}
-		//}
+		}
+		else {
+			time += deltaTime;
+		}
 		for (int i = 0; i < listMonster.size(); i++)
 		{
 			if (!(listMonster[i]->GetSprite()->isVisible()))
@@ -347,10 +351,15 @@ void WorldScene1::update(float deltaTime)
 
 void WorldScene1::restart()
 {
-	clickPause = false;
-	Director::getInstance()->resume();
-	auto newScene = WorldScene1::createScene();
-	Director::sharedDirector()->replaceScene(newScene);
+	Label *lbl = Label::createWithTTF("Restart this stage ?", "fonts/Comic_Book.ttf", 40);
+	lbl->setWidth(300);
+	UICustom::Popup *popup = UICustom::Popup::create("Warning", "", lbl, [=]() {
+		clickPause = false;
+		Director::getInstance()->resume();
+		auto newScene = WorldScene1::createScene();
+		Director::getInstance()->replaceScene(newScene);
+	});
+	this->addChild(popup, 15);
 }
 
 //Hide Pause menu
@@ -615,8 +624,9 @@ void WorldScene1::GetTowerDetails(int type)
 		}
 		towerArcherDetails->addChild(buyTower);
 		buyTower->setScale(0.5);
-		buyTower->setPosition(Vec2(towerArcherDetails->getContentSize().width / 2 + 20, 30));
-		towerArcherDetails->setPosition(Vec2(menu->getPosition().x, menu->getPosition().y + 84));
+		buyTower->setPosition(Vec2(towerArcherDetails->getContentSize().width / 2 + 20, 25));
+		towerArcherDetails->setAnchorPoint(Vec2(0.5, 0));
+		towerArcherDetails->setPosition(Vec2(menu->getPosition().x, menu->getPosition().y + 100));
 		towerArcherDetails->setVisible(true);
 		break;
 	case 2:
@@ -634,8 +644,8 @@ void WorldScene1::GetTowerDetails(int type)
 		}
 		towerMagicDetails->addChild(buyTower);
 		buyTower->setScale(0.5);
-		buyTower->setPosition(Vec2(towerMagicDetails->getContentSize().width / 2 + 20, 30));
-		towerMagicDetails->setPosition(Vec2(menu->getPosition().x, menu->getPosition().y + 84));
+		buyTower->setPosition(Vec2(towerMagicDetails->getContentSize().width / 2 + 20, 25));
+		towerMagicDetails->setPosition(Vec2(menu->getPosition().x, menu->getPosition().y + 100));
 		towerMagicDetails->setVisible(true);
 		break;
 	case 5:
@@ -653,8 +663,8 @@ void WorldScene1::GetTowerDetails(int type)
 		}
 		towerBarrackDetails->addChild(buyTower);
 		buyTower->setScale(0.5);
-		buyTower->setPosition(Vec2(towerBarrackDetails->getContentSize().width / 2 + 20, 30));
-		towerBarrackDetails->setPosition(Vec2(menu->getPosition().x, menu->getPosition().y + 84));
+		buyTower->setPosition(Vec2(towerBarrackDetails->getContentSize().width / 2 + 20, 25));
+		towerBarrackDetails->setPosition(Vec2(menu->getPosition().x, menu->getPosition().y + 100));
 		towerBarrackDetails->setVisible(true);
 		break;
 	case 3:
@@ -672,8 +682,8 @@ void WorldScene1::GetTowerDetails(int type)
 		}
 		towerSlowDetails->addChild(buyTower);
 		buyTower->setScale(0.5);
-		buyTower->setPosition(Vec2(towerSlowDetails->getContentSize().width / 2 + 20, 30));
-		towerSlowDetails->setPosition(Vec2(menu->getPosition().x, menu->getPosition().y + 84));
+		buyTower->setPosition(Vec2(towerSlowDetails->getContentSize().width / 2 + 20, 25));
+		towerSlowDetails->setPosition(Vec2(menu->getPosition().x, menu->getPosition().y + 100));
 		towerSlowDetails->setVisible(true);
 		break;
 	case 4: 
@@ -691,8 +701,8 @@ void WorldScene1::GetTowerDetails(int type)
 		}
 		towerBoombardDetails->addChild(buyTower);
 		buyTower->setScale(0.5);
-		buyTower->setPosition(Vec2(towerBoombardDetails->getContentSize().width / 2 + 20, 30));
-		towerBoombardDetails->setPosition(Vec2(menu->getPosition().x, menu->getPosition().y + 84));
+		buyTower->setPosition(Vec2(towerBoombardDetails->getContentSize().width / 2 + 20, 25));
+		towerBoombardDetails->setPosition(Vec2(menu->getPosition().x, menu->getPosition().y + 100));
 		towerBoombardDetails->setVisible(true);
 		break;
 	default:

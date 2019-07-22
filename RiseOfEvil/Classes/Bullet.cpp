@@ -73,7 +73,9 @@ void Bullet::AfterShoot()
 {
 	auto *expl = ParticleSystemQuad::create("explotion.plist");
 	expl->setVisible(true);
+	expl->setDuration(0.05);
 	expl->setPosition(m_sprite->getPosition());
+	expl->setAutoRemoveOnFinish(true);
 	m_layer->addChild(expl);
 	m_sprite->setVisible(false);
 }
