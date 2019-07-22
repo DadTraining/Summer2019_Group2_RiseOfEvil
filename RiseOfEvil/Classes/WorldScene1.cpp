@@ -242,7 +242,7 @@ bool WorldScene1::init()
 	messageWaveLabel->setScale(0.0001);
 	messageWaveLabel->setColor(Color3B::RED);
 	messageWaveLabel->removeFromParent();
-	addChild(messageWaveLabel, 4);
+	addChild(messageWaveLabel, 5);
 	//=====================================================
 	//Assign gold from Player to gold
 	currentGold = Player::GetInstance()->GetCurrentGold();
