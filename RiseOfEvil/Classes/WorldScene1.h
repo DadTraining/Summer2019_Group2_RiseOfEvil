@@ -5,6 +5,7 @@
 #include "ui/CocosGUI.h"
 #include "Tower.h"
 #include "Wave.h"
+#include "Crystal.h"
 #include <algorithm>
 #define BLOOD_BAR 9
 #define E  1
@@ -22,6 +23,7 @@ class WorldScene1 : public Layer
 {
 private:
 	Wave* wave;
+	Crystal* crystal;
 	TMXTiledMap* mTileMap;
 	vector<Monster*> listMonster;
 	vector<Monster*>listTemp;
@@ -95,7 +97,6 @@ public:
 	void StatusMenu(bool);
 	void GetTowerDetails(int);
 	void Warning();
-	void startGame();
 	void startWave();
 	void muteSound();
 	void exit();
