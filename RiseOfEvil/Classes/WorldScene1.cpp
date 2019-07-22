@@ -479,6 +479,7 @@ bool WorldScene1::onTouchBegan(Touch * touch, Event * event)
 	{
 		if (listTower[i]->GetSprite()->getBoundingBox().containsPoint(touch->getLocation()))
 		{
+			towerChoosing = listTower[i];
 			listTower[i]->FadeInPause();
 		}
 		else
@@ -487,16 +488,31 @@ bool WorldScene1::onTouchBegan(Touch * touch, Event * event)
 		}
 	}
 	//======================flag======================
-	for (int i = 0; i < listTower.size(); i++)
+	if (towerChoosing != nullptr && towerChoosing->GetCheckTypeTowerBarrack() == true)
 	{
-		if (listTower[i]->GetCheckTouchFlag())
+		if (towerChoosing->GetCheckTouchFlag() == false)
 		{
-			Flag->setVisible(true);
-			Flag->setPosition(touch->getLocation());
-			listTower[i]->SetCheckTouchFlag(false);
-			i += 100;
+			//log("oke");
+			towerChoosing->GetRangeBarrackTower()->setVisible(false);
 		}
+		else if (towerChoosing->GetCheckTouchFlag())
+			{
+				towerChoosing->SetCheckTouchFlag(false);
+				towerChoosing->FadeOutPause();
+				Flag->setVisible(true);
+				Flag->setPosition(touch->getLocation());
+					if(towerChoosing->GetSprite()->getPosition().distance(Flag->getPosition())< towerChoosing->GetRange())
+					{
+
+					for (int i = 0; i < towerChoosing->GetListSoldier().size(); i++)
+					{
+						towerChoosing->GetListSoldier()[i]->Move(Vec2(Flag->getPositionX() + ((i+1)*5), Flag->getPositionY() + ((i + 1) * 10)));
+
+					}
+				}
+			}
 	}
+
 	//==========================================
 
 	if (touchOut == true && touchIn == false)
@@ -534,8 +550,16 @@ void WorldScene1::onTouchMoved(Touch * touch, Event * event)
 
 void WorldScene1::onTouchEnded(Touch * touch, Event * event)
 {
-	Flag->setPosition(touch->getLocation());
-	Flag->setVisible(false);
+	//if (towerChoosing != nullptr)
+	//{
+	//	if (towerChoosing->GetCheckTouchFlag())
+	//	{
+			Flag->setPosition(touch->getLocation());
+			Flag->setVisible(false);
+	//		towerChoosing->SetCheckTouchFlag(false);
+	//		StatusMenu(false);
+	//	}
+	//}
 }
 
 //Create list Tower icon 

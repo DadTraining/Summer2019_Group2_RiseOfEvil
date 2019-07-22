@@ -63,9 +63,12 @@ Tower::Tower(Layer * layer, int type, Vec2 Pos)
 	circleIcon->setPosition(m_sprite->getPosition() + m_sprite->getContentSize() / 2);
 
 	flagIcon = MenuItemImage::create("FlagCallSoldier.png", "FlagCallSoldier.png", [&](Ref* sender) {
+		FadeOutPause();
+		rangeBarrackTower->setVisible(true);
 		checkTouchFlag = true;
 		log("oke");
 	});
+	log("%d", checkTouchFlag);
 	flagIcon->setPosition(circleIcon->getPosition().x + circleIcon->getContentSize().width / 2 -10, circleIcon->getPosition().y);
 
 	circleMenu = Menu::create(flagIcon, nullptr);
@@ -83,6 +86,11 @@ Tower::Tower(Layer * layer, int type, Vec2 Pos)
 	layer->addChild(m_sprite, 5);
 	if (type == BARRACKS_TOWER)
 	{
+		checkTypeTowerBarrack = true;
+		rangeBarrackTower = Sprite::create("range_of_barrack_tower.png");
+		rangeBarrackTower->setVisible(false);
+		rangeBarrackTower->setPosition(m_sprite->getContentSize().width/2, m_sprite->getContentSize().height/2);
+		m_sprite->addChild(rangeBarrackTower);
 		for (int i = 0; i < 3; i++)
 		{
 			Soldier * m_soldier = new Soldier(layer);
@@ -100,6 +108,11 @@ Tower::Tower(Layer * layer, int type, Vec2 Pos)
 		}
 		
 
+	}
+	else
+	{
+		flagIcon->setEnabled(false);
+		//rangeBarrackTower->setVisible(false);
 	}
 	for (int i = 0; i < 10; i++)
 	{
@@ -120,7 +133,7 @@ void Tower::Shoot(Monster * monster)
 		if (!listBullet.at(i)->GetSprite()->isVisible())
 		{
 			listBullet.at(i)->GetSprite()->setVisible(true);
-			listBullet.at(i)->GetSprite()->setPosition(m_sprite->getPositionX(), m_sprite->getPositionY());
+			listBullet.at(i)->GetSprite()->setPosition(m_sprite->getPositionX(), m_sprite->getPositionY() + m_sprite->getContentSize().height/2);
 			listBullet.at(i)->Move(monster);
 			break;
 		}
@@ -186,7 +199,6 @@ void Tower::FadeInPause()
 
 void Tower::FadeOutPause()
 {
-
 	circleMenu->setVisible(false);
 	circleMenu->setEnabled(false);
 	circleIcon->setVisible(false);
@@ -200,6 +212,21 @@ bool Tower::GetCheckTouchFlag()
 void Tower::SetCheckTouchFlag(bool checkTouchFlag)
 {
 	this->checkTouchFlag = checkTouchFlag;
+}
+
+Sprite * Tower::GetRangeBarrackTower()
+{
+	return rangeBarrackTower;
+}
+
+bool Tower::GetCheckTypeTowerBarrack()
+{
+	return checkTypeTowerBarrack;
+}
+
+vector<Soldier*> Tower::GetListSoldier()
+{
+	return listSoldier;
 }
 
 int Tower::GetDamage()
