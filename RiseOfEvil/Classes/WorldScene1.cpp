@@ -514,7 +514,8 @@ bool WorldScene1::onTouchBegan(Touch * touch, Event * event)
 				towerChoosing->FadeOutPause();
 				Flag->setVisible(true);
 				Flag->setPosition(touch->getLocation());
-					if(towerChoosing->GetSprite()->getPosition().distance(Flag->getPosition())< towerChoosing->GetRange())
+				log("%f", towerChoosing->GetRange());
+				if (towerChoosing->GetSprite()->getPosition().distance(Flag->getPosition()) < towerChoosing->GetRange())
 					{
 
 					for (int i = 0; i < towerChoosing->GetListSoldier().size(); i++)
