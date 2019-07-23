@@ -37,8 +37,10 @@ private:
 	Monster * nearestMonster;
 	float time;
 	float countTimeToPause;
+	float countTimeToAttack = 0;
 	int currentGold;
 	int numOfWave;
+	int monsterIndex = 0;
 	Menu *menu;
 	MenuItemImage *archerIcon;
 	MenuItemImage *magicIcon;

@@ -294,6 +294,13 @@ void WorldScene1::update(float deltaTime)
 		{
 			listMonster[i]->setProgressBar();
 		}
+		for (int i = 0; i < listMonster.size(); i++)
+		{
+			if (listMonster[i]->GetSprite()->getPosition().getDistance(crystal->getSprite()->getPosition()) < 50)
+			{
+				listMonster[i]->AttackCrystal(crystal, deltaTime);
+			}
+		}
 		if (time >= 30) {
 			if ((numOfWave + 1) <= 5)
 			{
@@ -353,12 +360,10 @@ void WorldScene1::update(float deltaTime)
 				if (nearestMonster->GetSprite()->getPosition().getDistance(listTower[tower]->GetSprite()->getPosition()) < listTower[tower]->GetRange())
 				{
 					listTower[tower]->Update(deltaTime, nearestMonster);
-					log("nearestMonster Speed:%f", nearestMonster->GetMovementSpeed());
 					if (listTower[tower]->GetTypeTower() == SLOW_TOWER)
 					{
 						nearestMonster->SetIsSlow(true);
 						nearestMonster->SetSlowRunSpeed();
-						log("nearestMonster Speed:%f", nearestMonster->GetMovementSpeed());
 					}
 					i = 100;
 				}

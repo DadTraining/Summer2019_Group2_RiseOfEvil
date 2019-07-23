@@ -30,7 +30,7 @@ void Crystal::Init()
 
 void Crystal::setPercentOfHealthBar()
 {
-	hpBar->setPercentage((m_hitpoint / m_maxHitpoint) * 100.0);
+	hpBar->setPercentage((m_hitpoint / (m_maxHitpoint * 1.0) * 100));
 }
 
 int Crystal::getHitPoint()
