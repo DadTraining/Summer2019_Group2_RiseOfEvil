@@ -1,6 +1,7 @@
 #pragma once
 #include "cocos2d.h"
 #include "Objects.h"
+#include "Crystal.h"
 #include <string>
 #define NORMAL_MONSTER 1
 #define MAGICAN_MONSTER 2
@@ -38,6 +39,7 @@ private:
 	float m_velocity;
 	float speed; // 80% maxSpeed
 	float maxSpeed;
+	float countToAttack = 0;
 	Sprite * m_bloodBar;
 	Sprite * m_blood;
 	//vector<Skill *>m_listSkill;
@@ -59,7 +61,7 @@ public:
 	void Move(Vec2);
 	Animation* AnimationMonster(string, int, int, float);
 	void Action(int);
-	void Acttack(Object *);
+	void AttackCrystal(Crystal *,float);
 	void DoDead();
 	void SetType(int type);
 	void SetMovementSpeed(float);
@@ -78,4 +80,5 @@ public:
 	void SetSlowRunSpeed();
 	void SetIsSlow(bool);
 	float GetMaxSpeed();
+	int GetDamage();
 };
