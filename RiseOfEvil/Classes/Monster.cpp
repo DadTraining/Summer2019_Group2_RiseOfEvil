@@ -184,7 +184,6 @@ void Monster::Update(float deltaTime)
 	else {
 		timeCount += deltaTime;
 	}
-
 }
 float timeMove = 0;
 void Monster::Move(Vec2 point, bool check, float timedelay, float delay)
@@ -427,8 +426,23 @@ void Monster::AttackCrystal(Crystal *crystal, float deltaTime)
 {
 	if (countToAttack >= m_attackSpeed)
 	{
-		crystal->setHitPoint(crystal->getHitPoint() - GetDamage());
-		log("%d",crystal->getHitPoint());
+		auto damage = GetDamage();
+		crystal->setHitPoint(crystal->getHitPoint() - damage);
+		auto damageLabel = Label::createWithTTF("" + to_string(random(1, 10)), "fonts/Comic_Book.ttf", 20);
+		if (damage > 50)
+		{
+			damageLabel->setString(to_string(damage) + "!");
+			damageLabel->setColor(Color3B::RED);
+		}
+		else
+		{
+			damageLabel->setString("-" + to_string(damage));
+			damageLabel->setColor(Color3B::YELLOW);
+		}
+		damageLabel->setPosition(Vec2(crystal->getSprite()->getContentSize().width / 2, crystal->getSprite()->getContentSize().height / 2));
+		damageLabel->runAction(FadeOut::create(0.4));
+		damageLabel->runAction(Sequence::create(MoveBy::create(0.4, Vec2(0, 10)), RemoveSelf::create(), nullptr));	
+		crystal->getSprite()->addChild(damageLabel);
 		countToAttack = 0;
 
 	}
@@ -441,7 +455,7 @@ void Monster::AttackCrystal(Crystal *crystal, float deltaTime)
 void Monster::DoDead()
 {
 	int num = random(1, 4);
-	auto seq = Sequence::create(DelayTime::create(0.3f), FadeOut::create(0), nullptr);
+	auto seq = Sequence::create(DelayTime::create(0.3f), FadeOut::create(0), RemoveSelf::create(), nullptr);
 	switch (num)
 	{
 	case 1:

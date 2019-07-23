@@ -400,6 +400,7 @@ void WorldScene1::update(float deltaTime)
 				listMonster[i]->DoDead();
 				listMonster[i]->GetSprite()->setVisible(false);
 				currentGold += listMonster[i]->GetGold();
+				delete listMonster[i];
 				listMonster.erase(listMonster.begin() + i);
 			}
 		}
