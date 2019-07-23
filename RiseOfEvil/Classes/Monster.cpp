@@ -181,6 +181,7 @@ void Monster::Update(float deltaTime)
 	else {
 		timeCount += deltaTime;
 	}
+
 }
 
 void Monster::Move(Vec2 point)
@@ -242,83 +243,92 @@ void Monster::Action(int direction)
 {
 	switch (direction)
 	{
-	case E:
-	{
-		m_sprite->stopAllActions();
-		auto walkingE = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[8], m_png[9], 0.05f));
-		walkingE->retain();
-		m_sprite->runAction(RepeatForever::create(walkingE));
-		break;
-	}
+		case E:
+		{
+			m_sprite->stopAllActions();
+			auto walkingE = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[8], m_png[9], 0.05f));
+			walkingE->retain();
+			m_sprite->runAction(RepeatForever::create(walkingE));
+			break;
+		}
 
-	case W:
-	{
-		m_sprite->stopAllActions();
-		auto walkingW = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[0], m_png[1], 0.05f));
-		walkingW->retain();
-		m_sprite->runAction(RepeatForever::create(walkingW));
-		break;
-	}
+		case W:
+		{
+			m_sprite->stopAllActions();
+			auto walkingW = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[0], m_png[1], 0.05f));
+			walkingW->retain();
+			m_sprite->runAction(RepeatForever::create(walkingW));
+			break;
+		}
 
-	case S:
-	{
-		m_sprite->stopAllActions();
-		auto walkingS = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[12], m_png[13], 0.05f));
-		walkingS->retain();
-		m_sprite->runAction(RepeatForever::create(walkingS));
-		break;
-	}
+		case S:
+		{
+			m_sprite->stopAllActions();
+			auto walkingS = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[12], m_png[13], 0.05f));
+			walkingS->retain();
+			m_sprite->runAction(RepeatForever::create(walkingS));
+			break;
+		}
 
-	case N:
-	{
-		m_sprite->stopAllActions();
-		auto walkingN = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[4], m_png[5], 0.05f));
-		walkingN->retain();
-		m_sprite->runAction(RepeatForever::create(walkingN));
-		break;
-	}
+		case N:
+		{
+			m_sprite->stopAllActions();
+			auto walkingN = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[4], m_png[5], 0.05f));
+			walkingN->retain();
+			m_sprite->runAction(RepeatForever::create(walkingN));
+			break;
+		}
 
-	case SE:
-	{
-		m_sprite->stopAllActions();
-		auto walkingSE = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[10], m_png[11], 0.05f));
-		walkingSE->retain();
-		m_sprite->runAction(RepeatForever::create(walkingSE));
-		break;
-	}
+		case SE:
+		{
+			m_sprite->stopAllActions();
+			auto walkingSE = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[10], m_png[11], 0.05f));
+			walkingSE->retain();
+			m_sprite->runAction(RepeatForever::create(walkingSE));
+			break;
+		}
 
-	case SW:
-	{
-		m_sprite->stopAllActions();
-		auto walkingSW = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[14], m_png[15], 0.05f));
-		walkingSW->retain();
-		m_sprite->runAction(RepeatForever::create(walkingSW));
-		break;
-	}
+		case SW:
+		{
+			m_sprite->stopAllActions();
+			auto walkingSW = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[14], m_png[15], 0.05f));
+			walkingSW->retain();
+			m_sprite->runAction(RepeatForever::create(walkingSW));
+			break;
+		}
 
-	case NE:
-	{
-		m_sprite->stopAllActions();
-		auto walkingNE = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[6], m_png[7], 0.05f));
-		walkingNE->retain();
-		m_sprite->runAction(RepeatForever::create(walkingNE));
-		break;
-	}
+		case NE:
+		{
+			m_sprite->stopAllActions();
+			auto walkingNE = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[6], m_png[7], 0.05f));
+			walkingNE->retain();
+			m_sprite->runAction(RepeatForever::create(walkingNE));
+			break;
+		}
 
-	case NW:
-	{
-		m_sprite->stopAllActions();
-		auto walkingNW = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[2], m_png[3], 0.05f));
-		walkingNW->retain();
-		m_sprite->runAction(RepeatForever::create(walkingNW));
-		break;
-	}
-
+		case NW:
+		{
+			m_sprite->stopAllActions();
+			auto walkingNW = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[2], m_png[3], 0.05f));
+			walkingNW->retain();
+			m_sprite->runAction(RepeatForever::create(walkingNW));
+			break;
+		}
 	}
 }
 
-void Monster::Acttack(Object * target)
+void Monster::AttackCrystal(Crystal *crystal, float deltaTime)
 {
+	if (countToAttack >= m_attackSpeed)
+	{
+		crystal->setHitPoint(crystal->getHitPoint() - GetDamage());
+		log("%d",crystal->getHitPoint());
+		countToAttack = 0;
+	}
+	else
+	{
+		countToAttack += deltaTime;
+	}
 }
 
 void Monster::DoDead()
@@ -441,3 +451,9 @@ float Monster::GetMaxSpeed()
 {
 	return maxSpeed;
 }
+
+int Monster::GetDamage()
+{
+	return random(m_minimumAtk, m_maximumAtk);
+}
+

@@ -53,6 +53,11 @@ bool WorldScene1::init()
 	boombardIcon->setPosition(0, 0);
 	cancelMenu = MenuItemImage::create("res/WorldScene1/closeMenu.png", "res/WorldScene1/closeMenu_press.png", [&](Ref* sender) {
 		menu->setVisible(false);
+		towerArcherDetails->setVisible(false);
+		towerMagicDetails->setVisible(false);
+		towerSlowDetails->setVisible(false);
+		towerBoombardDetails->setVisible(false);
+		towerBarrackDetails->setVisible(false);
 	});
 	cancelMenu->setAnchorPoint(Vec2(1, 0));
 	cancelMenu->setScale(0.5);
@@ -268,7 +273,6 @@ bool WorldScene1::init()
 }
 void WorldScene1::update(float deltaTime)
 {
-	log("%d", startBTN->isVisible());
 	if (clickPause)
 	{
 		if (countTimeToPause >= 0.6)
@@ -285,6 +289,18 @@ void WorldScene1::update(float deltaTime)
 	//Check start click
 	if (start)
 	{
+		crystal->setPercentOfHealthBar();
+		for (int i = 0; i < listMonster.size(); i++)
+		{
+			listMonster[i]->setProgressBar();
+		}
+		for (int i = 0; i < listMonster.size(); i++)
+		{
+			if (listMonster[i]->GetSprite()->getPosition().getDistance(crystal->getSprite()->getPosition()) < 50)
+			{
+				listMonster[i]->AttackCrystal(crystal, deltaTime);
+			}
+		}
 		if (time >= 30) {
 			if ((numOfWave + 1) <= 5)
 			{
@@ -344,12 +360,10 @@ void WorldScene1::update(float deltaTime)
 				if (nearestMonster->GetSprite()->getPosition().getDistance(listTower[tower]->GetSprite()->getPosition()) < listTower[tower]->GetRange())
 				{
 					listTower[tower]->Update(deltaTime, nearestMonster);
-					log("nearestMonster Speed:%f", nearestMonster->GetMovementSpeed());
 					if (listTower[tower]->GetTypeTower() == SLOW_TOWER)
 					{
 						nearestMonster->SetIsSlow(true);
 						nearestMonster->SetSlowRunSpeed();
-						log("nearestMonster Speed:%f", nearestMonster->GetMovementSpeed());
 					}
 					if (listTower[tower]->GetTypeTower() == BOMBARD_TOWER)
 					{
@@ -748,7 +762,6 @@ void WorldScene1::startWave()
 	{
 		startBTN->setVisible(false);
 		startBTN->setEnabled(false);
-		startBTN->setZOrder(-99999);
 		start = true;
 	}
 	startWaveBTN->setVisible(false);
