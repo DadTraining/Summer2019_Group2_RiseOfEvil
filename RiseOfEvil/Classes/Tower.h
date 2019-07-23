@@ -25,6 +25,7 @@ private:
 	Menu * circleMenu;
 	MenuItemImage * flagIcon;
 	MenuItemImage * circleIcon;
+	MenuItemImage * upgradeIcon;
 	float m_range = 250;
 	float timeDelay = 0;
 	float m_attackSpeed;
@@ -34,12 +35,14 @@ private:
 	bool checkTouchFlag = false;
 	bool checkTypeTowerBarrack = false;
 	Sprite * rangeBarrackTower;
+	Point posBullet;
 public:
 	void Init();
 	Tower(Layer* layer, int, Vec2);
 	Sprite * GetSprite();
 	void Shoot(Monster * monster);
 	void Update(float deltaTime, Monster* monster);
+	void UpdateBarackTower(float deltaTime, vector<Monster *>);
 	float GetRange();
 	float GetAttackSpeed();
 	void SetAttackSpeed(float);

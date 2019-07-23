@@ -70,8 +70,14 @@ Tower::Tower(Layer * layer, int type, Vec2 Pos)
 	});
 	log("%d", checkTouchFlag);
 	flagIcon->setPosition(circleIcon->getPosition().x + circleIcon->getContentSize().width / 2 -10, circleIcon->getPosition().y);
+	// upgrade
+	upgradeIcon = MenuItemImage::create("upgrade_button_normal.png", "upgrade_button_press.png", "upgrade_button_normal.png",[&](Ref* sender)
+	{
 
-	circleMenu = Menu::create(flagIcon, nullptr);
+	});
+	upgradeIcon->setPosition(circleIcon->getPosition().x, circleIcon->getPosition().y + circleIcon->getContentSize().height/2 -10);
+	//=============================================
+	circleMenu = Menu::create(flagIcon, upgradeIcon, nullptr);
 	circleMenu->setPosition(0,0);
 //	circleMenu->setScale(0.1f);
 	circleMenu->setVisible(false);
@@ -135,7 +141,8 @@ void Tower::Shoot(Monster * monster)
 		{
 			listBullet.at(i)->GetSprite()->setVisible(true);
 			listBullet.at(i)->GetSprite()->setPosition(m_sprite->getPositionX(), m_sprite->getPositionY() + m_sprite->getContentSize().height/2);
-			listBullet.at(i)->Move(monster);
+			posBullet = listBullet.at(i)->Move(monster);
+			log("Pos bullet x:%f Pos bullet y: %f bullet:%d", posBullet.x, posBullet.y, i);
 			break;
 		}
 	}
@@ -162,6 +169,41 @@ void Tower::Update(float deltaTime, Monster * monster)
 			Shoot(monster);
 			timeDelay = 0;
 			checkTowerShoot = true;
+		}
+	}
+}
+
+void Tower::UpdateBarackTower(float deltaTime, vector<Monster*> listMonster)
+{
+	for (int i = 0; i < listMonster.size(); i++)
+	{
+		float disBullet = listMonster[i]->GetSprite()->getPosition().distance(posBullet);
+		float disMonster = m_sprite->getPosition().distance(listMonster[i]->GetSprite()->getPosition());
+			if (checkTowerShoot)
+			{
+				countTimeToDamage += deltaTime;
+				if (countTimeToDamage >= 0.4)
+				{
+					if (disMonster < m_range)
+					{
+						timeDelay += deltaTime;
+						if (timeDelay > m_attackSpeed)
+						{
+							Shoot(listMonster[i]);
+							timeDelay = 0;
+							checkTowerShoot = true;
+						}
+					}
+				}
+			if (disBullet < 100)
+			{
+				for (int j = 0; j < listMonster.size(); j++)
+				{
+					listMonster[j]->SetHitPoint(listMonster[j]->GetHitPoint() - GetDamage());
+					countTimeToDamage = 0;
+					checkTowerShoot = false;
+				}
+			}
 		}
 	}
 }

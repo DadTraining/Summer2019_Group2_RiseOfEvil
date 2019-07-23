@@ -13,13 +13,15 @@ private:
 	Sprite * m_sprite;
 	Layer* m_layer;
 	int bullet_type;
+	Point PosBullet;
 public:
 
 	void Init();
 	Bullet(Layer* layer, int type);
 	void Update(float deltaTime);
-	void Move(Monster*);
+	Point Move(Monster*);
 	void AfterShoot();
 	Sprite* GetSprite();
 	void Disappear();
+	Point GetPosBullet();
 };

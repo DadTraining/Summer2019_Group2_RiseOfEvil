@@ -351,6 +351,10 @@ void WorldScene1::update(float deltaTime)
 						nearestMonster->SetSlowRunSpeed();
 						log("nearestMonster Speed:%f", nearestMonster->GetMovementSpeed());
 					}
+					if (listTower[tower]->GetTypeTower() == BOMBARD_TOWER)
+					{
+						listTower[tower]->UpdateBarackTower(deltaTime, listMonster);
+					}
 					i = 100;
 				}
 			}
