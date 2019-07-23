@@ -6,6 +6,8 @@
 #include "Tower.h"
 #include "Wave.h"
 #include "Soldier.h"
+#include "Crystal.h"
+#include <algorithm>
 #define BLOOD_BAR 9
 #define E  1
 #define W  2
@@ -22,6 +24,7 @@ class WorldScene1 : public Layer
 {
 private:
 	Wave* wave;
+	Crystal* crystal;
 	TMXTiledMap* mTileMap;
 	vector<Monster*> listMonster;
 	vector<Monster*>listTemp;
@@ -33,10 +36,13 @@ private:
 	vector<Tower*>listTower;
 	PhysicsBody *body;
 	float delay;
+	Monster * nearestMonster;
 	float time;
 	float countTimeToPause;
+	float countTimeToAttack = 0;
 	int currentGold;
 	int numOfWave;
+	int monsterIndex = 0;
 	Menu *menu;
 	MenuItemImage *archerIcon;
 	MenuItemImage *magicIcon;

@@ -11,7 +11,7 @@ void Tower::Init()
 		m_minimumAtk = 4;
 		m_maximumAtk = 6;
 		m_attackSpeed = 0.8;
-		m_range = 280;
+		m_range = 200;
 		m_gold = 70;
 		break;
 	case MAGIC_TOWER:
@@ -73,7 +73,6 @@ Tower::Tower(Layer * layer, int type, Vec2 Pos)
 
 	circleMenu = Menu::create(flagIcon, nullptr);
 	circleMenu->setPosition(0,0);
-//	circleMenu->setScale(0.1f);
 	circleMenu->setVisible(false);
 	circleMenu->setEnabled(true);
 	m_sprite->addChild(circleIcon);
@@ -88,6 +87,7 @@ Tower::Tower(Layer * layer, int type, Vec2 Pos)
 	{
 		checkTypeTowerBarrack = true;
 		rangeBarrackTower = Sprite::create("range_of_barrack_tower.png");
+		//rangeBarrackTower->setScale(2.0f);
 		rangeBarrackTower->setVisible(false);
 		rangeBarrackTower->setPosition(m_sprite->getContentSize().width/2, m_sprite->getContentSize().height/2);
 		m_sprite->addChild(rangeBarrackTower);
@@ -103,8 +103,9 @@ Tower::Tower(Layer * layer, int type, Vec2 Pos)
 			{
 				listSoldier[i]->GetSprite()->setPosition(Vec2(Pos.x - (i*i) * i* 32, Pos.y + (i *i) * i*16));
 			}
-			auto moveBy = MoveBy::create(1, Vec2(50, - 100));
-			listSoldier[i]->GetSprite()->runAction(moveBy->clone());
+			//auto moveBy = MoveBy::create(1, Vec2(50, - 100));
+			//listSoldier[i]->GetSprite()->runAction(moveBy->clone());
+			listSoldier[i]->GetSprite()->setVisible(false);
 		}
 		
 
@@ -116,10 +117,9 @@ Tower::Tower(Layer * layer, int type, Vec2 Pos)
 	}
 	for (int i = 0; i < 10; i++)
 	{
-		Bullet * bullet = new Bullet(layer);
+		Bullet * bullet = new Bullet(layer, m_type);
 		listBullet.push_back(bullet);
 	}
-
 }
 
 Sprite * Tower::GetSprite()
@@ -233,6 +233,12 @@ vector<Soldier*> Tower::GetListSoldier()
 {
 	return listSoldier;
 }
+
+int Tower::GetTypeTower()
+{
+	return m_type;
+}
+
 
 int Tower::GetDamage()
 {

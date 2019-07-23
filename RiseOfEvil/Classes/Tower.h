@@ -56,4 +56,5 @@ public:
 	Sprite * GetRangeBarrackTower();
 	bool GetCheckTypeTowerBarrack();
 	vector<Soldier *> GetListSoldier();
+	int GetTypeTower();
 };

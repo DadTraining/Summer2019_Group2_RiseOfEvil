@@ -53,6 +53,11 @@ bool WorldScene1::init()
 	boombardIcon->setPosition(0, 0);
 	cancelMenu = MenuItemImage::create("res/WorldScene1/closeMenu.png", "res/WorldScene1/closeMenu_press.png", [&](Ref* sender) {
 		menu->setVisible(false);
+		towerArcherDetails->setVisible(false);
+		towerMagicDetails->setVisible(false);
+		towerSlowDetails->setVisible(false);
+		towerBoombardDetails->setVisible(false);
+		towerBarrackDetails->setVisible(false);
 	});
 	cancelMenu->setAnchorPoint(Vec2(1, 0));
 	cancelMenu->setScale(0.5);
@@ -118,7 +123,7 @@ bool WorldScene1::init()
 	pause_bg = Sprite::create("res/WorldScene1/pause_bag.png");
 	pause_bg->setAnchorPoint(Vec2(0.5, 0));
 	pause_bg->setPosition(Vec2(visibleSize.width / 2, visibleSize.height));
-	addChild(pause_bg, 4);
+	addChild(pause_bg, 6);
 
 	pauseBtn = ui::Button::create("res/Buttons/WorldScene1/pauseBtn.png", "res/Buttons/WorldScene1/pauseBtn-press.png");
 	pauseBtn->setScale(0.7);
@@ -158,7 +163,7 @@ bool WorldScene1::init()
 	pause_bg->addChild(exitBtn);
 	//==========================================================
 	//Create start button 
-	startBTN = ui::Button::create("res/Buttons/WorldScene1/startbtn.png", "res/Buttons/WorldScene1/startbtn-unactive.png");
+	startBTN = ui::Button::create("res/Buttons/WorldScene1/startbtn.png", "res/Buttons/WorldScene1/startbtn-unactive.png", "res/Buttons/WorldScene1/startbtn-unactive.png");
 	startBTN->setAnchorPoint(Vec2(1, 0));
 	startBTN->setPosition(Vec2(visibleSize.width - 5, 5));
 	startBTN->addClickEventListener(CC_CALLBACK_0(WorldScene1::startWave, this));
@@ -189,7 +194,14 @@ bool WorldScene1::init()
 	//Create first list monster from Wave list
 	numOfWave = 0;
 	wave = new Wave();
-	
+	//==========================================================
+	crystal = new Crystal(this);
+	auto crystal_position = mTileMap->getObjectGroup("Crystal");
+	float xPoint = crystal_position->getObject("bossCrystal")["x"].asInt();
+	float yPoint = crystal_position->getObject("bossCrystal")["y"].asInt();
+	crystal->getSprite()->setAnchorPoint(Vec2(0.5, 0.3));
+	//crystal->getSprite()->setScale(1.5);
+	crystal->getSprite()->setPosition(Vec2(xPoint,yPoint));
 	//===========================================================================
 	//First Location Tower
 	listLocationTower.push_back(Vec2(0, 0));
@@ -231,6 +243,7 @@ bool WorldScene1::init()
 	goldFrame->addChild(goldLabel);
 	//=====================================================
 	//Create label start game
+
 	startLabel = ResourceManager::GetInstance()->GetLabelById(3);
 	startLabel->setPosition(-6, 10);
 	startLabel->setAnchorPoint(Vec2(1, 0));
@@ -245,7 +258,7 @@ bool WorldScene1::init()
 	messageWaveLabel->setScale(0.0001);
 	messageWaveLabel->setColor(Color3B::RED);
 	messageWaveLabel->removeFromParent();
-	addChild(messageWaveLabel, 4);
+	addChild(messageWaveLabel, 5);
 	//=====================================================
 	//Assign gold from Player to gold
 	currentGold = Player::GetInstance()->GetCurrentGold();
@@ -279,17 +292,33 @@ void WorldScene1::update(float deltaTime)
 	//Check start click
 	if (start)
 	{
-		//if (numOfWave <= 5)
-		//{
-			if (time >= 30) {
+		crystal->setPercentOfHealthBar();
+		for (int i = 0; i < listMonster.size(); i++)
+		{
+			listMonster[i]->setProgressBar();
+		}
+		for (int i = 0; i < listMonster.size(); i++)
+		{
+			if (listMonster[i]->GetSprite()->getPosition().getDistance(crystal->getSprite()->getPosition()) < 50)
+			{
+				listMonster[i]->AttackCrystal(crystal, deltaTime);
+			}
+		}
+		if (time >= 30) {
+			if ((numOfWave + 1) <= 5)
+			{
 				startWaveBTN->setVisible(true);
 				startWaveBTN2->setVisible(true);
-				time = 0;
 			}
-			else {
-				time += deltaTime;
+			else
+			{
+				startWaveBTN->setEnabled(false);
+				startWaveBTN2->setEnabled(false);
 			}
-		//}
+		}
+		else {
+			time += deltaTime;
+		}
 		for (int i = 0; i < listMonster.size(); i++)
 		{
 			if (!(listMonster[i]->GetSprite()->isVisible()))
@@ -346,10 +375,19 @@ void WorldScene1::update(float deltaTime)
 		{
 			for (int i = 0; i < listMonster.size(); i++)
 			{
-				if (listMonster[i]->GetSprite()->isVisible() &&
-					listMonster[i]->GetSprite()->getPosition().getDistance(listTower[tower]->GetSprite()->getPosition()) < listTower[tower]->GetRange())
+				nearestMonster = listMonster[0];
+				if (listMonster[i]->GetSprite()->getPosition().getDistance(listTower[tower]->GetSprite()->getPosition()) < nearestMonster->GetSprite()->getPosition().getDistance(listTower[tower]->GetSprite()->getPosition()))
 				{
-					listTower[tower]->Update(deltaTime, listMonster[i]);
+					nearestMonster = listMonster[i];
+				}
+				if (nearestMonster->GetSprite()->getPosition().getDistance(listTower[tower]->GetSprite()->getPosition()) < listTower[tower]->GetRange())
+				{
+					listTower[tower]->Update(deltaTime, nearestMonster);
+					if (listTower[tower]->GetTypeTower() == SLOW_TOWER)
+					{
+						nearestMonster->SetIsSlow(true);
+						nearestMonster->SetSlowRunSpeed();
+					}
 					i = 100;
 				}
 			}
@@ -365,15 +403,32 @@ void WorldScene1::update(float deltaTime)
 				listMonster.erase(listMonster.begin() + i);
 			}
 		}
+		//increase speed
+		for (int i = 0; i<listMonster.size(); i++)
+		{
+			if (listMonster[i]->GetMovementSpeed() < listMonster[i]->GetMaxSpeed())
+			{
+				listMonster[i]->SetMovementSpeed(listMonster[i]->GetMovementSpeed() + 1);
+			}
+			else
+			{
+				listMonster[i]->SetMovementSpeed(listMonster[i]->GetMaxSpeed());
+			}
+		}
 	}
 }
 
 void WorldScene1::restart()
 {
-	clickPause = false;
-	Director::getInstance()->resume();
-	auto newScene = WorldScene1::createScene();
-	Director::sharedDirector()->replaceScene(newScene);
+	Label *lbl = Label::createWithTTF("Restart this stage ?", "fonts/Comic_Book.ttf", 40);
+	lbl->setWidth(300);
+	UICustom::Popup *popup = UICustom::Popup::create("Warning", "", lbl, [=]() {
+		clickPause = false;
+		Director::getInstance()->resume();
+		auto newScene = WorldScene1::createScene();
+		Director::getInstance()->replaceScene(newScene);
+	});
+	this->addChild(popup, 15);
 }
 
 //Hide Pause menu
@@ -538,11 +593,11 @@ bool WorldScene1::onTouchBegan(Touch * touch, Event * event)
 				towerChoosing->FadeOutPause();
 				Flag->setVisible(true);
 				Flag->setPosition(touch->getLocation());
-					if(towerChoosing->GetSprite()->getPosition().distance(Flag->getPosition())< towerChoosing->GetRange())
+				if (towerChoosing->GetSprite()->getPosition().distance(Flag->getPosition()) < towerChoosing->GetRange() / 2)
 					{
-
 					for (int i = 0; i < towerChoosing->GetListSoldier().size(); i++)
 					{
+						towerChoosing->GetListSoldier()[i]->GetSprite()->setVisible(true);
 						towerChoosing->GetListSoldier()[i]->Move(Vec2(Flag->getPositionX() + ((i+1)*5), Flag->getPositionY() + ((i + 1) * 10)));
 
 					}
@@ -587,16 +642,8 @@ void WorldScene1::onTouchMoved(Touch * touch, Event * event)
 
 void WorldScene1::onTouchEnded(Touch * touch, Event * event)
 {
-	//if (towerChoosing != nullptr)
-	//{
-	//	if (towerChoosing->GetCheckTouchFlag())
-	//	{
-			Flag->setPosition(touch->getLocation());
-			Flag->setVisible(false);
-	//		towerChoosing->SetCheckTouchFlag(false);
-	//		StatusMenu(false);
-	//	}
-	//}
+	Flag->setPosition(touch->getLocation());
+	Flag->setVisible(false);
 }
 
 //Create list Tower icon 
@@ -661,8 +708,9 @@ void WorldScene1::GetTowerDetails(int type)
 		}
 		towerArcherDetails->addChild(buyTower);
 		buyTower->setScale(0.5);
-		buyTower->setPosition(Vec2(towerArcherDetails->getContentSize().width / 2 + 20, 30));
-		towerArcherDetails->setPosition(Vec2(menu->getPosition().x, menu->getPosition().y + 84));
+		buyTower->setPosition(Vec2(towerArcherDetails->getContentSize().width / 2 + 20, 25));
+		towerArcherDetails->setAnchorPoint(Vec2(0.5, 0));
+		towerArcherDetails->setPosition(Vec2(menu->getPosition().x, menu->getPosition().y + 100));
 		towerArcherDetails->setVisible(true);
 		break;
 	case 2:
@@ -680,8 +728,8 @@ void WorldScene1::GetTowerDetails(int type)
 		}
 		towerMagicDetails->addChild(buyTower);
 		buyTower->setScale(0.5);
-		buyTower->setPosition(Vec2(towerMagicDetails->getContentSize().width / 2 + 20, 30));
-		towerMagicDetails->setPosition(Vec2(menu->getPosition().x, menu->getPosition().y + 84));
+		buyTower->setPosition(Vec2(towerMagicDetails->getContentSize().width / 2 + 20, 25));
+		towerMagicDetails->setPosition(Vec2(menu->getPosition().x, menu->getPosition().y + 100));
 		towerMagicDetails->setVisible(true);
 		break;
 	case 5:
@@ -699,8 +747,8 @@ void WorldScene1::GetTowerDetails(int type)
 		}
 		towerBarrackDetails->addChild(buyTower);
 		buyTower->setScale(0.5);
-		buyTower->setPosition(Vec2(towerBarrackDetails->getContentSize().width / 2 + 20, 30));
-		towerBarrackDetails->setPosition(Vec2(menu->getPosition().x, menu->getPosition().y + 84));
+		buyTower->setPosition(Vec2(towerBarrackDetails->getContentSize().width / 2 + 20, 25));
+		towerBarrackDetails->setPosition(Vec2(menu->getPosition().x, menu->getPosition().y + 100));
 		towerBarrackDetails->setVisible(true);
 		break;
 	case 3:
@@ -718,8 +766,8 @@ void WorldScene1::GetTowerDetails(int type)
 		}
 		towerSlowDetails->addChild(buyTower);
 		buyTower->setScale(0.5);
-		buyTower->setPosition(Vec2(towerSlowDetails->getContentSize().width / 2 + 20, 30));
-		towerSlowDetails->setPosition(Vec2(menu->getPosition().x, menu->getPosition().y + 84));
+		buyTower->setPosition(Vec2(towerSlowDetails->getContentSize().width / 2 + 20, 25));
+		towerSlowDetails->setPosition(Vec2(menu->getPosition().x, menu->getPosition().y + 100));
 		towerSlowDetails->setVisible(true);
 		break;
 	case 4: 
@@ -737,8 +785,8 @@ void WorldScene1::GetTowerDetails(int type)
 		}
 		towerBoombardDetails->addChild(buyTower);
 		buyTower->setScale(0.5);
-		buyTower->setPosition(Vec2(towerBoombardDetails->getContentSize().width / 2 + 20, 30));
-		towerBoombardDetails->setPosition(Vec2(menu->getPosition().x, menu->getPosition().y + 84));
+		buyTower->setPosition(Vec2(towerBoombardDetails->getContentSize().width / 2 + 20, 25));
+		towerBoombardDetails->setPosition(Vec2(menu->getPosition().x, menu->getPosition().y + 100));
 		towerBoombardDetails->setVisible(true);
 		break;
 	default:
@@ -748,12 +796,16 @@ void WorldScene1::GetTowerDetails(int type)
 
 void WorldScene1::Warning()
 {
-
 }
 
 void WorldScene1::startWave()
 {
-	start = true;
+	if (!start)
+	{
+		startBTN->setVisible(false);
+		startBTN->setEnabled(false);
+		start = true;
+	}
 	startWaveBTN->setVisible(false);
 	startWaveBTN2->setVisible(false);
 	time = 0;
@@ -766,14 +818,6 @@ void WorldScene1::startWave()
 	for (int i = 0; i < temp.size(); i++) //Create monsster and push to list Monster
 	{
 		Monster *a = new Monster(this, temp[i]);
-		if (i % 3 == 0)
-		{
-			a->GetSprite()->setTag(0);
-		}
-		else
-		{
-			a->GetSprite()->setTag(1);
-		}				
 		listMonster.push_back(a);
 		listTemp.push_back(a);
 	}

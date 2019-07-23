@@ -6,6 +6,8 @@ Monster::Monster(Layer * layer, int type)
 	m_type = type;
 	this->layer = layer;
 	Init();
+	maxSpeed = m_movementSpeed;
+	speed = m_movementSpeed * 80 / 100;
 	m_maxHitPoint = m_hitPoint;
 	layer->addChild(m_spriteNode, 3);
 }
@@ -182,7 +184,7 @@ void Monster::Update(float deltaTime)
 	else {
 		timeCount += deltaTime;
 	}
-	
+
 }
 float timeMove = 0;
 void Monster::Move(Vec2 point, bool check, float timedelay, float delay)
@@ -379,10 +381,9 @@ void Monster::Action(int direction, bool check)
 		}
 		break;
 	}
-
-	case NE:
-	{
-		auto walkingNE = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[6], m_png[7], 0.05f));
+    case NE: 
+      {
+        auto walkingNE = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[6], m_png[7], 0.05f));
 		walkingNE->retain();
 		auto AttackNE = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[22], m_png[23], 0.05f));
 		AttackNE->retain();
@@ -399,11 +400,10 @@ void Monster::Action(int direction, bool check)
 			m_sprite->runAction(RepeatForever::create(AttackNE)->clone());
 		}
 		break;
-	}
-
-	case NW:
-	{
-		auto walkingNW = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[2], m_png[3], 0.05f));
+      }
+    case NW:
+      {
+        auto walkingNW = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[2], m_png[3], 0.05f));
 		walkingNW->retain();
 		auto AttackNW = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[18], m_png[19], 0.05f));
 		AttackNW->retain();
@@ -420,13 +420,22 @@ void Monster::Action(int direction, bool check)
 			m_sprite->runAction(RepeatForever::create(AttackNW)->clone());
 		}
 		break;
-	}
-
-	}
+      }
 }
-
-void Monster::Acttack(Object * target)
+}
+void Monster::AttackCrystal(Crystal *crystal, float deltaTime)
 {
+	if (countToAttack >= m_attackSpeed)
+	{
+		crystal->setHitPoint(crystal->getHitPoint() - GetDamage());
+		log("%d",crystal->getHitPoint());
+		countToAttack = 0;
+
+	}
+	else
+	{
+    countToAttack += deltaTime;
+	}
 }
 
 void Monster::DoDead()
@@ -523,4 +532,35 @@ int Monster::GetCheckMove()
 	return checkMove;
 }
 
+bool Monster::GetIsSlow()
+{
+	return isSlow;
+}
+
+void Monster::SetSlowRunSpeed()
+{
+	if (isSlow == true)
+	{
+		if (m_movementSpeed > speed)
+		{
+			m_movementSpeed -= m_movementSpeed * 20 / 100;
+			isSlow = false;
+		}
+	}
+}
+
+void Monster::SetIsSlow(bool isSlow)
+{
+	this->isSlow = isSlow;
+}
+
+float Monster::GetMaxSpeed()
+{
+	return maxSpeed;
+}
+
+int Monster::GetDamage()
+{
+	return random(m_minimumAtk, m_maximumAtk);
+}
 

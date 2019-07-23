@@ -58,6 +58,9 @@ vector<int> Wave::getWave(int numOfWave)
 	case 4:
 		return Wave4;
 		break;
+	case 5:
+		return Wave5;
+		break;
 	default:
 		break;
 	}
