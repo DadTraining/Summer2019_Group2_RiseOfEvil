@@ -211,7 +211,7 @@ bool WorldScene1::init()
 	//===========================================================================
 	//List point to move monster
 	auto road = mTileMap->getObjectGroup("Point");
-	for (int i = 0; i < 15; i++)
+	for (int i = 0; i < 16; i++)
 	{
 		float x = road->getObject("P" + to_string(i + 1))["x"].asInt();
 		float y = road->getObject("P" + to_string(i + 1))["y"].asInt();
@@ -219,7 +219,7 @@ bool WorldScene1::init()
 	}
 	//List point 2 to move monster
 	auto road2 = mTileMap->getObjectGroup("Point2");
-	for (int i = 0; i < 8; i++)
+	for (int i = 0; i < 9; i++)
 	{
 		float x = road2->getObject("P" + to_string(i + 1))["x"].asInt();
 		float y = road2->getObject("P" + to_string(i + 1))["y"].asInt();
@@ -299,6 +299,7 @@ void WorldScene1::update(float deltaTime)
 		}
 		for (int i = 0; i < listMonster.size(); i++)
 		{
+			MonsterAttack(listMonster[i], crystal->getSprite()->getPosition());
 			if (listMonster[i]->GetSprite()->getPosition().getDistance(crystal->getSprite()->getPosition()) < 50)
 			{
 				listMonster[i]->AttackCrystal(crystal, deltaTime);
@@ -358,12 +359,10 @@ void WorldScene1::update(float deltaTime)
 			for (int j = 0; j < listTower.size(); j++)
 			{
 				if (listTower[j]->GetType() == 5)
-					log("Tower :%d", j);
 				{
 					for (int k = 0; k < listTower[j]->GetListSoldier().size(); k++)
 					{
-						MonsterAttack(listMonster[i], listTower[j]->GetListSoldier()[k]);
-						log("Soldier: %d", k);
+						MonsterAttack(listMonster[i], listTower[j]->GetListSoldier()[k]->GetSprite()->getPosition());
 					}
 				}
 			}
@@ -493,11 +492,11 @@ void WorldScene1::BuildTower(Ref* ref, int type)
 void WorldScene1::moveFlag(Vec2 Pos)
 {
 }
-void WorldScene1::MonsterAttack(Monster* monster, Soldier* soldier)
+void WorldScene1::MonsterAttack(Monster* monster, Vec2 point)
 {
-	if (monster->GetSprite()->getPosition().distance(soldier->GetSprite()->getPosition()) <= 80)
+	if (monster->GetSprite()->getPosition().distance(point) <= 80 || 
+		monster->GetSprite()->getPosition().getDistance(point) <= 60)
 	{
-		log("x : %f ,y:  %f : ", soldier->GetSprite()->getPosition().x, soldier->GetSprite()->getPosition().y);
 		checkAttack = true;
 	}
 	else
@@ -819,6 +818,7 @@ void WorldScene1::startWave()
 	for (int i = 0; i < temp.size(); i++) //Create monsster and push to list Monster
 	{
 		Monster *a = new Monster(this, temp[i]);
+		a->GetSprite()->setTag(i % 2 == 0 ? 0 : 1);
 		listMonster.push_back(a);
 		listTemp.push_back(a);
 	}
