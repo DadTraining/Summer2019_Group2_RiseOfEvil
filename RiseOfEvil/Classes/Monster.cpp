@@ -321,8 +321,15 @@ void Monster::AttackCrystal(Crystal *crystal, float deltaTime)
 {
 	if (countToAttack >= m_attackSpeed)
 	{
-		crystal->setHitPoint(crystal->getHitPoint() - GetDamage());
-		log("%d",crystal->getHitPoint());
+		auto damage = GetDamage();
+		crystal->setHitPoint(crystal->getHitPoint() - damage);
+		auto label = Label::create("", "fonts/Comic_Book.ttf", 20);
+		label->setString("-" + to_string(damage));
+		label->setPosition(Vec2(crystal->getSprite()->getContentSize().width / 2, crystal->getSprite()->getContentSize().height / 2));
+		label->removeFromParent();
+		label->setColor(Color3B::YELLOW);
+		label->runAction(Spawn::create(MoveBy::create(0.4, Vec2(0, 10)), FadeOut::create(0.4), nullptr));
+		crystal->getSprite()->addChild(label);
 		countToAttack = 0;
 	}
 	else
