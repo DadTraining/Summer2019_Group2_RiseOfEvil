@@ -73,7 +73,6 @@ Tower::Tower(Layer * layer, int type, Vec2 Pos)
 
 	circleMenu = Menu::create(flagIcon, nullptr);
 	circleMenu->setPosition(0,0);
-//	circleMenu->setScale(0.1f);
 	circleMenu->setVisible(false);
 	circleMenu->setEnabled(true);
 	m_sprite->addChild(circleIcon);
