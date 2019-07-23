@@ -28,18 +28,19 @@ class Monster :public Objects
 {
 private:
 	int m_type;
-	int m_png[16] = { 1, 8, 9, 16, 17, 24, 25, 32, 33, 40, 41, 48, 49, 56, 57, 64 };
+	int m_png[32] = { 1, 8, 9, 16, 17, 24, 25, 32, 33, 40, 41, 48, 49, 56, 57, 64, 65, 71, 72, 78, 79, 85, 86, 92, 93, 99, 100, 106, 107, 113, 114, 120 };
 	string m_fomatAnimation;
 	float m_attackSpeed;
 	int m_gold;
 	int m_maxHitPoint;
 	Animation *animation;
 	float m_movementSpeed;
+	float m_speed;
 	float m_velocity;
 	Sprite * m_bloodBar;
 	Sprite * m_blood;
 	//vector<Skill *>m_listSkill;
-	int m_range;
+	int m_range = 0;
 	Sprite * hp_bg;
 	Layer *layer;
 	Sprite* dead1;
@@ -53,9 +54,9 @@ public:
 	~Monster();
 	void Init();
 	void Update(float deltaTime);
-	void Move(Vec2);
+	void Move(Vec2, bool, float, float);
 	Animation* AnimationMonster(string, int, int, float);
-	void Action(int);
+	void Action(int, bool);
 	void Acttack(Object *);
 	void DoDead();
 	void SetType(int type);

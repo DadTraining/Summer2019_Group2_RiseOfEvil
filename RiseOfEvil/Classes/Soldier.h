@@ -1,17 +1,19 @@
 #pragma once
 #include "cocos2d.h"
+#include "Monster.h"
 using namespace cocos2d;
-class Soldier
+class Soldier : public Objects
 {
 private:
-	int m_hitPoint;
-	Sprite* m_Soldier;
 	float timeDelay = 0;
+	float m_movementSpeed = 20;
 public:
 	Soldier(Layer *);
 	~Soldier();
 	void Init();
 	void Update(float deltaTime);
 	void Move(Vec2);
-	Sprite * GetSprite();
+	void AttackMonster(Monster*);
+	float GetMovementSpeed();
+	void SetMovementSpeed(float);
 };

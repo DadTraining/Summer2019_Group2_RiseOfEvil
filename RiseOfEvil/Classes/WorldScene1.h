@@ -4,6 +4,8 @@
 #include "Monster.h"
 #include "ui/CocosGUI.h"
 #include "Tower.h"
+#include "Wave.h"
+#include "Soldier.h"
 #define BLOOD_BAR 9
 #define E  1
 #define W  2
@@ -19,49 +21,62 @@ USING_NS_CC;
 class WorldScene1 : public Layer
 {
 private:
+	Wave* wave;
 	TMXTiledMap* mTileMap;
-	vector<Vec2> listLocationTower;
 	vector<Monster*> listMonster;
 	vector<Monster*>listTemp;
 	vector<Monster*> Wave1;
+	vector<Monster*> Wave2;
 	vector<Vec2> listPoint;
 	vector<Vec2> listPoint2;
+	vector<Vec2> listLocationTower;
 	vector<Tower*>listTower;
 	PhysicsBody *body;
-	ui::Button *resumeBtn;
-	ui::Button *restartBtn;
-	ui::Button *mainmenuBtn;
-	Sprite *pause_bg;
+	float delay;
 	float time;
+	float countTimeToPause;
 	int currentGold;
+	int numOfWave;
+	Menu *menu;
 	MenuItemImage *archerIcon;
 	MenuItemImage *magicIcon;
 	MenuItemImage *slowIcon;
 	MenuItemImage *barrackIcon;
 	MenuItemImage *boombardIcon;
 	MenuItemImage *cancelMenu;
-	Menu *menu;
+	Sprite *pause_bg;
 	Sprite* canBuild;
 	Sprite* cannotBuild;
-	Vec2 touchLocation;
-	bool checkClick = false;
+	Vec2 touchLocation;	
+	Vec2 point;
 	Tower * TowerBefore;
 	Tower * towerChoosing;
-	Vec2 point;
 	Label* goldLabel;
 	Label* startLabel;
+	Label* messageWaveLabel;
 	Sprite * towerArcherDetails;
 	Sprite * towerMagicDetails;
 	Sprite * towerSlowDetails;
 	Sprite * towerBoombardDetails;
 	Sprite * towerBarrackDetails;
 	Sprite * Flag;
+	ui::Button *resumeBtn;
+	ui::Button *restartBtn;
+	ui::Button *worldMapBtn;
 	ui::Button *buyTower;
 	ui::Button *startBTN;
+	ui::Button *startWaveBTN;
+	ui::Button *startWaveBTN2;
+	ui::Button *muteBTN;
+	ui::Button *pauseBtn;
+	bool releaseMonster = false;
 	bool touchOut = false;
 	bool touchIn = false;
 	bool start = false;
 	bool pause = false;
+	bool checkClick = false;
+	bool clickPause = false;
+	bool checkAttack = false;
 public:
 	static Scene* createScene();
 	virtual bool init() override;
@@ -73,6 +88,8 @@ public:
 	void returnToMainMenu();
 	void BuildTower(Ref*,int);
 	void createmenu(Vec2 point);
+	void MonsterAttack(Monster*, Soldier*);
+	void MonsterMove(Monster*, int, bool, float, float);
 	void moveFlag(Vec2 Pos);
 	bool onTouchBegan(Touch *touch, Event *event);
 	void onTouchMoved(Touch * touch, Event * event);
@@ -81,6 +98,8 @@ public:
 	void StatusMenu(bool);
 	void GetTowerDetails(int);
 	void Warning();
-	void startGame();
+	void startWave();
+	void muteSound();
+	void exit();
 	CREATE_FUNC(WorldScene1);
 };
