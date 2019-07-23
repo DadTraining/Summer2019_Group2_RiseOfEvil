@@ -51,6 +51,7 @@ public:
 	void FadeInPause();
 	void FadeOutPause();
 	bool GetCheckTouchFlag();
+	int GetType();
 	void SetCheckTouchFlag(bool);
 	Sprite * GetRangeBarrackTower();
 	bool GetCheckTypeTowerBarrack();

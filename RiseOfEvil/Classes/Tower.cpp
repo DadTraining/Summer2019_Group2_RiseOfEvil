@@ -206,6 +206,11 @@ bool Tower::GetCheckTouchFlag()
 	return checkTouchFlag;
 }
 
+int Tower::GetType()
+{
+	return m_type;
+}
+
 void Tower::SetCheckTouchFlag(bool checkTouchFlag)
 {
 	this->checkTouchFlag = checkTouchFlag;

@@ -188,6 +188,8 @@ bool WorldScene1::init()
 	startWaveBTN2->addClickEventListener(CC_CALLBACK_0(WorldScene1::startWave, this));
 	startWaveBTN2->setVisible(false);
 	addChild(startWaveBTN2, 3);
+
+	
 	//==========================================================
 	//Create first list monster from Wave list
 	numOfWave = 0;
@@ -223,6 +225,7 @@ bool WorldScene1::init()
 		float y = road2->getObject("P" + to_string(i + 1))["y"].asInt();
 		listPoint2.push_back(Vec2(x, y));
 	}
+	
 	//=====================================================
 	//Create gold frame
 	auto goldFrame = Sprite::create("goldFrame.png");
@@ -327,26 +330,46 @@ void WorldScene1::update(float deltaTime)
 		//Monster move
 		for (int i = 0; i < listMonster.size(); i++)
 		{
-			if ((listMonster[i]->m_flag < 15) && (listPoint[listMonster[i]->m_flag].getDistance(listMonster[i]->GetSprite()->getPosition()) == 0) && (listMonster[i]->GetSprite()->isVisible()))
-			{
-				if (listMonster[i]->m_flag < listPoint.size() - 1)
+			if ((listMonster[i]->m_flag < listPoint.size() - 1) && (listMonster[i]->GetSprite()->getTag() == 1) && (listMonster[i]->GetSprite()->isVisible()))
+			{	
+				if (listPoint[listMonster[i]->m_flag].getDistance(listMonster[i]->GetSprite()->getPosition()) == 0)
 				{
 					listMonster[i]->m_flag++;
+					delay = 0;
 				}
-				listMonster[i]->Move(listPoint[listMonster[i]->m_flag]);
+				else 
+				{
+					delay = 0.4;
+				}
 			}
-
-
-			else if ((listMonster[i]->m_flag < 8) && (listPoint2[listMonster[i]->m_flag].getDistance(listMonster[i]->GetSprite()->getPosition()) == 0) && (listMonster[i]->GetSprite()->isVisible()))
+			else if ((listMonster[i]->m_flag < listPoint2.size() - 1) && (listMonster[i]->GetSprite()->getTag() == 0) && (listMonster[i]->GetSprite()->isVisible()))
 			{
-				if (listMonster[i]->m_flag < listPoint2.size() - 1)
+				if (listPoint2[listMonster[i]->m_flag].getDistance(listMonster[i]->GetSprite()->getPosition()) == 0)
 				{
 					listMonster[i]->m_flag++;
+					delay = 0;
 				}
-				listMonster[i]->Move(listPoint2[listMonster[i]->m_flag]);
+				else
+				{
+					delay = 0.4;
+				}
 			}
+			
+			for (int j = 0; j < listTower.size(); j++)
+			{
+				if (listTower[j]->GetType() == 5)
+					log("Tower :%d", j);
+				{
+					for (int k = 0; k < listTower[j]->GetListSoldier().size(); k++)
+					{
+						MonsterAttack(listMonster[i], listTower[j]->GetListSoldier()[k]);
+						log("Soldier: %d", k);
+					}
+				}
+			}
+			MonsterMove(listMonster[i], listMonster[i]->GetSprite()->getTag(), checkAttack, deltaTime, delay);
 		}
-
+		
 		//Tower shoot
 		for (int tower = 0; tower < listTower.size(); tower++)
 		{
@@ -470,7 +493,29 @@ void WorldScene1::BuildTower(Ref* ref, int type)
 void WorldScene1::moveFlag(Vec2 Pos)
 {
 }
-
+void WorldScene1::MonsterAttack(Monster* monster, Soldier* soldier)
+{
+	if (monster->GetSprite()->getPosition().distance(soldier->GetSprite()->getPosition()) <= 80)
+	{
+		log("x : %f ,y:  %f : ", soldier->GetSprite()->getPosition().x, soldier->GetSprite()->getPosition().y);
+		checkAttack = true;
+	}
+	else
+	{
+		checkAttack = false;
+	}
+}
+void WorldScene1::MonsterMove(Monster* monster ,int tag, bool check, float timedelay, float delay)
+{
+	if (tag == 1 && monster->m_flag < listPoint.size())
+	{
+		monster->Move(listPoint[monster->m_flag], check, timedelay, delay);
+	}
+	else if (tag == 0 && monster->m_flag < listPoint2.size())
+	{
+		monster->Move(listPoint2[monster->m_flag], check, timedelay, delay);
+	}
+}
 bool WorldScene1::onTouchBegan(Touch * touch, Event * event)
 {
 	if (pause)
@@ -618,6 +663,7 @@ void WorldScene1::createmenu(Vec2 point)
 		canBuild->setVisible(true);
 	}
 }
+
 void WorldScene1::StatusMenu(bool check)
 {
 	if (check == true)
@@ -783,14 +829,14 @@ void WorldScene1::startWave()
 	float y2 = obj->getObject("monster2")["y"].asInt();
 	for (int i = 0; i < listTemp.size(); i++)
 	{
-		if (i % 2 == 0)
+		if (listTemp[i]->GetSprite()->getTag() == 0)
 		{
 			//===================Gate2====================================
 			listTemp[i]->GetSprite()->setAnchorPoint(Vec2(0.5, 0.35));
 			listTemp[i]->GetSprite()->setPosition(x2, y2);
 			listTemp[i]->GetSprite()->setScale(0.6);
 		}
-		else
+		else if (listTemp[i]->GetSprite()->getTag() == 1)
 		{
 			listTemp[i]->GetSprite()->setAnchorPoint(Vec2(0.5, 0.35));
 			listTemp[i]->GetSprite()->setPosition(x, y);

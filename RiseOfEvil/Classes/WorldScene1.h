@@ -5,6 +5,7 @@
 #include "ui/CocosGUI.h"
 #include "Tower.h"
 #include "Wave.h"
+#include "Soldier.h"
 #include "Crystal.h"
 #include <algorithm>
 #define BLOOD_BAR 9
@@ -34,6 +35,7 @@ private:
 	vector<Vec2> listLocationTower;
 	vector<Tower*>listTower;
 	PhysicsBody *body;
+	float delay;
 	Monster * nearestMonster;
 	float time;
 	float countTimeToPause;
@@ -80,6 +82,7 @@ private:
 	bool pause = false;
 	bool checkClick = false;
 	bool clickPause = false;
+	bool checkAttack = false;
 public:
 	static Scene* createScene();
 	virtual bool init() override;
@@ -91,6 +94,8 @@ public:
 	void returnToMainMenu();
 	void BuildTower(Ref*,int);
 	void createmenu(Vec2 point);
+	void MonsterAttack(Monster*, Soldier*);
+	void MonsterMove(Monster*, int, bool, float, float);
 	void moveFlag(Vec2 Pos);
 	bool onTouchBegan(Touch *touch, Event *event);
 	void onTouchMoved(Touch * touch, Event * event);
