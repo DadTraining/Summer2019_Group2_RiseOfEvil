@@ -62,7 +62,7 @@ Tower::Tower(Layer * layer, int type, Vec2 Pos)
 	});
 	circleIcon->setPosition(m_sprite->getPosition() + m_sprite->getContentSize() / 2);
 
-	flagIcon = MenuItemImage::create("FlagCallSoldier.png", "FlagCallSoldier.png", [&](Ref* sender) {
+	flagIcon = MenuItemImage::create("FlagCallSoldier.png", "FlagCallSoldier_disable.png", "FlagCallSoldier_disable.png", [&](Ref* sender) {
 		FadeOutPause();
 		rangeBarrackTower->setVisible(true);
 		checkTouchFlag = true;
@@ -103,8 +103,6 @@ Tower::Tower(Layer * layer, int type, Vec2 Pos)
 			{
 				listSoldier[i]->GetSprite()->setPosition(Vec2(Pos.x - (i*i) * i* 32, Pos.y + (i *i) * i*16));
 			}
-			//auto moveBy = MoveBy::create(1, Vec2(50, - 100));
-			//listSoldier[i]->GetSprite()->runAction(moveBy->clone());
 			listSoldier[i]->GetSprite()->setVisible(false);
 		}
 		
@@ -113,7 +111,6 @@ Tower::Tower(Layer * layer, int type, Vec2 Pos)
 	else
 	{
 		flagIcon->setEnabled(false);
-		//rangeBarrackTower->setVisible(false);
 	}
 	for (int i = 0; i < 10; i++)
 	{
