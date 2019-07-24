@@ -68,8 +68,8 @@ Tower::Tower(Layer * layer, int type, Vec2 Pos)
 		checkTouchFlag = true;
 	});
 	flagIcon->setPosition(circleIcon->getPosition().x + circleIcon->getContentSize().width / 2 -10, circleIcon->getPosition().y);
-	circleMenu = Menu::create(flagIcon, nullptr);
-	sellIcon = MenuItemImage::create("sellBtn.png", "sellBtn.png", "sellBtn.png", [&](Ref* sender) {	
+	sellIcon = MenuItemImage::create("sellBtn.png", "sellBtn.png", "sellBtn.png", [&](Ref* sender) {
+		isSell = true;
 	});
 	sellIcon->setPosition(circleIcon->getPosition().x, circleIcon->getPosition().y - circleIcon->getContentSize().height/2 + 10);
 	circleMenu = Menu::create(flagIcon, sellIcon, nullptr);
@@ -78,7 +78,7 @@ Tower::Tower(Layer * layer, int type, Vec2 Pos)
 	circleMenu->setEnabled(true);
 	m_sprite->addChild(circleIcon);
 	circleIcon->setVisible(false);
-	m_sprite->addChild(circleMenu,100);
+	m_sprite->addChild(circleMenu);
 	m_sprite->setScale(0.5f);
 	m_sprite->setPosition(Pos);
 	m_sprite->setAnchorPoint(Vec2(0.3, 0));
@@ -105,8 +105,6 @@ Tower::Tower(Layer * layer, int type, Vec2 Pos)
 			}
 			listSoldier[i]->GetSprite()->setVisible(false);
 		}
-		
-
 	}
 	else
 	{
@@ -117,6 +115,12 @@ Tower::Tower(Layer * layer, int type, Vec2 Pos)
 		Bullet * bullet = new Bullet(layer, m_type);
 		listBullet.push_back(bullet);
 	}
+}
+
+Tower::~Tower()
+{
+	m_sprite->removeFromParent();
+	m_sprite->release();
 }
 
 Sprite * Tower::GetSprite()
@@ -234,6 +238,11 @@ vector<Soldier*> Tower::GetListSoldier()
 int Tower::GetTypeTower()
 {
 	return m_type;
+}
+
+bool Tower::getIsSell()
+{
+	return isSell;
 }
 
 
