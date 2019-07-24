@@ -613,8 +613,7 @@ bool WorldScene1::onTouchBegan(Touch * touch, Event * event)
 					for (int i = 0; i < towerChoosing->GetListSoldier().size(); i++)
 					{
 						towerChoosing->GetListSoldier()[i]->GetSprite()->setVisible(true);
-						towerChoosing->GetListSoldier()[i]->Move(Vec2(Flag->getPositionX() + ((i+1)*5), Flag->getPositionY() + ((i + 1) * 10)));
-
+						towerChoosing->GetListSoldier()[i]->Move(Vec2(Flag->getPositionX() + ((i + 1) * 5), Flag->getPositionY() + ((i + 1) * 10)));
 					}
 				}
 			}
