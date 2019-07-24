@@ -455,7 +455,20 @@ void Monster::AttackCrystal(Crystal *crystal, float deltaTime)
 
 void Monster::DoDead()
 {
-	int num = random(1, 4);
+	auto dropMoney = Sprite::create("_Coin_1.png");
+	Vector<SpriteFrame*> anim;
+	anim.reserve(4);
+	anim.pushBack(SpriteFrame::create("_Coin_1.png",Rect(0,0,29,52)));
+	anim.pushBack(SpriteFrame::create("_Coin_2.png", Rect(0, 0, 29, 52)));
+	anim.pushBack(SpriteFrame::create("_Coin_3.png", Rect(0, 0, 29, 52)));
+	anim.pushBack(SpriteFrame::create("_Coin_4.png", Rect(0, 0, 29, 52)));
+	Animation *animation = Animation::createWithSpriteFrames(anim, 0.3f);
+	Animate *animate = Animate::create(animation);
+	dropMoney->runAction(Sequence::create(DelayTime::create(2), RemoveSelf::create(), nullptr));
+	dropMoney->runAction(animate);
+	dropMoney->setPosition(m_sprite->getPosition());
+	layer->addChild(dropMoney);
+	/*int num = random(1, 4);
 	auto seq = Sequence::create(DelayTime::create(0.3f), FadeOut::create(0), RemoveSelf::create(), nullptr);
 	switch (num)
 	{
@@ -479,7 +492,7 @@ void Monster::DoDead()
 		break;
 	default:
 		break;
-	}
+	}*/
 }
 
 void Monster::SetType(int type)
