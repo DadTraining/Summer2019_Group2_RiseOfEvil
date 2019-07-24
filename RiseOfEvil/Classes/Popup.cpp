@@ -149,7 +149,6 @@ namespace UICustom {
 					//Director::getInstance()->pause();
                 });
                 
-                
                 Menu *menu = Menu::create(yesButton,noButton,NULL);
                 node->addChild(menu,2);
                 menu->setPosition(winSize.width/2, winSize.height/2 - lbl->getContentSize().height/2 - 75);

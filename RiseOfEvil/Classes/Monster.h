@@ -1,6 +1,7 @@
 #pragma once
 #include "cocos2d.h"
 #include "Objects.h"
+#include "Crystal.h"
 #include <string>
 #define NORMAL_MONSTER 1
 #define MAGICAN_MONSTER 2
@@ -28,18 +29,22 @@ class Monster :public Objects
 {
 private:
 	int m_type;
-	int m_png[16] = { 1, 8, 9, 16, 17, 24, 25, 32, 33, 40, 41, 48, 49, 56, 57, 64 };
+	int m_png[32] = { 1, 8, 9, 16, 17, 24, 25, 32, 33, 40, 41, 48, 49, 56, 57, 64, 65, 71, 72, 78, 79, 85, 86, 92, 93, 99, 100, 106, 107, 113, 114, 120 };
 	string m_fomatAnimation;
 	float m_attackSpeed;
 	int m_gold;
 	int m_maxHitPoint;
 	Animation *animation;
 	float m_movementSpeed;
+	float m_speed;
 	float m_velocity;
+	float speed; // 80% maxSpeed
+	float maxSpeed;
+	float countToAttack = 0;
 	Sprite * m_bloodBar;
 	Sprite * m_blood;
 	//vector<Skill *>m_listSkill;
-	int m_range;
+	int m_range = 0;
 	Sprite * hp_bg;
 	Layer *layer;
 	Sprite* dead1;
@@ -47,16 +52,17 @@ private:
 	Sprite* dead3;
 	//Skill * speciall
 	int checkMove = 0;
+	bool isSlow = false;
 public:
 	int m_flag = 0;
 	Monster(Layer*, int);
 	~Monster();
 	void Init();
 	void Update(float deltaTime);
-	void Move(Vec2);
+	void Move(Vec2, bool, float, float);
 	Animation* AnimationMonster(string, int, int, float);
-	void Action(int);
-	void Acttack(Object *);
+	void Action(int, bool);
+	void AttackCrystal(Crystal *,float);
 	void DoDead();
 	void SetType(int type);
 	void SetMovementSpeed(float);
@@ -71,4 +77,9 @@ public:
 	void setProgressBar();
 	float GetVelocity();
 	int GetCheckMove();
+	bool GetIsSlow();
+	void SetSlowRunSpeed();
+	void SetIsSlow(bool);
+	float GetMaxSpeed();
+	int GetDamage();
 };
