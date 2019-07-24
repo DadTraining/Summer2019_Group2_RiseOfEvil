@@ -32,6 +32,7 @@ private:
 	int m_png[32] = { 1, 8, 9, 16, 17, 24, 25, 32, 33, 40, 41, 48, 49, 56, 57, 64, 65, 71, 72, 78, 79, 85, 86, 92, 93, 99, 100, 106, 107, 113, 114, 120 };
 	string m_fomatAnimation;
 	float m_attackSpeed;
+	float m_attackAnimation;
 	int m_gold;
 	int m_maxHitPoint;
 	Animation *animation;

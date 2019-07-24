@@ -96,7 +96,7 @@ public:
 	void returnToMainMenu();
 	void BuildTower(Ref*,int);
 	void createmenu(Vec2 point);
-	void MonsterAttack(Monster*, Vec2);
+	bool MonsterAttack(Monster*);
 	void MonsterMove(Monster*, int, bool, float, float);
 	void moveFlag(Vec2 Pos);
 	bool onTouchBegan(Touch *touch, Event *event);

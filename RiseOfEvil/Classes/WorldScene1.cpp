@@ -326,7 +326,6 @@ void WorldScene1::update(float deltaTime)
 		}
 		for (int i = 0; i < listMonster.size(); i++)
 		{
-			MonsterAttack(listMonster[i], crystal->getSprite()->getPosition());
 			if (listMonster[i]->GetSprite()->getPosition().getDistance(crystal->getSprite()->getPosition()) < 50)
 			{
 				listMonster[i]->AttackCrystal(crystal, deltaTime);
@@ -383,16 +382,9 @@ void WorldScene1::update(float deltaTime)
 				}
 			}
 			
-			for (int j = 0; j < listTower.size(); j++)
-			{
-				if (listTower[j]->GetType() == 5)
-				{
-					for (int k = 0; k < listTower[j]->GetListSoldier().size(); k++)
-					{
-						MonsterAttack(listMonster[i], listTower[j]->GetListSoldier()[k]->GetSprite()->getPosition());
-					}
-				}
-			}
+		
+			
+			checkAttack = MonsterAttack(listMonster[i]);
 			MonsterMove(listMonster[i], listMonster[i]->GetSprite()->getTag(), checkAttack, deltaTime, delay);
 		}
 		
@@ -523,18 +515,28 @@ void WorldScene1::BuildTower(Ref* ref, int type)
 void WorldScene1::moveFlag(Vec2 Pos)
 {
 }
-void WorldScene1::MonsterAttack(Monster* monster, Vec2 point)
+bool WorldScene1::MonsterAttack(Monster* monster)
 {
-	if (monster->GetSprite()->getPosition().distance(point) <= 80 || 
-		monster->GetSprite()->getPosition().getDistance(point) <= 60)
+	if (monster->GetSprite()->getPosition().distance(crystal->getSprite()->getPosition()) <= 50)
 	{
-		checkAttack = true;
+		return true;
 	}
-	else
+	for (int j = 0; j < listTower.size(); j++)
 	{
-		checkAttack = false;
+		if (listTower[j]->GetType() == 5)
+		{
+			for (int k = 0; k < listTower[j]->GetListSoldier().size(); k++)
+			{
+				if (monster->GetSprite()->getPosition().distance(listTower[j]->GetListSoldier()[k]->GetSprite()->getPosition()) <= 20)
+				{
+						return true;
+				}
+			}
+		}
 	}
+	return false;
 }
+		
 void WorldScene1::MonsterMove(Monster* monster ,int tag, bool check, float timedelay, float delay)
 {
 	if (tag == 1 && monster->m_flag < listPoint.size())
