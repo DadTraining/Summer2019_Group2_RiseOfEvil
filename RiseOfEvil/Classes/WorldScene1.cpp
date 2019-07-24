@@ -26,6 +26,11 @@ bool WorldScene1::init()
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 	
+	//==============================================================
+	//use camera
+	cam = Camera::create();
+	addChild(cam, 100);
+
 	//===============================================================
 	//Create function for icon build tower
 	archerIcon = MenuItemImage::create("res/WorldScene1/archerTower.png", "res/WorldScene1/archerTower.png", [&](Ref* sender) {
@@ -117,7 +122,9 @@ bool WorldScene1::init()
 	//Create pause menu 
 	pause_bg = Sprite::create("res/WorldScene1/pause_bag.png");
 	pause_bg->setAnchorPoint(Vec2(0.5, 0));
-	pause_bg->setPosition(Vec2(visibleSize.width / 2, visibleSize.height));
+	//pause_bg->setPosition(Vec2(visibleSize.width / 2, visibleSize.height));
+	//use camera
+	pause_bg->setPosition(Vec2(cam->getPosition().x, cam->getPosition().y + visibleSize.height/2));
 	addChild(pause_bg, 4);
 
 	pauseBtn = ui::Button::create("res/Buttons/WorldScene1/pauseBtn.png", "res/Buttons/WorldScene1/pauseBtn-press.png");
@@ -213,7 +220,7 @@ bool WorldScene1::init()
 	}
 	//=====================================================
 	//Create gold frame
-	auto goldFrame = Sprite::create("goldFrame.png");
+	goldFrame = Sprite::create("goldFrame.png");
 	goldFrame->setAnchorPoint(Vec2(0, 1));
 	goldFrame->setPosition(10, visibleSize.height - 10);
 	goldFrame->removeFromParent();
@@ -361,7 +368,9 @@ void WorldScene1::ExitPauseMenu()
 	pause = false;
 	clickPause = false;
 	Director::getInstance()->resume();
-	pause_bg->runAction(MoveTo::create(0.5, Vec2(visibleSize.width / 2, visibleSize.height)));
+	//pause_bg->runAction(MoveTo::create(0.5, Vec2(visibleSize.width / 2, visibleSize.height)));
+	//use camera
+	pause_bg->runAction(MoveTo::create(0.5, Vec2(cam->getPositionX(), cam->getPositionY() + visibleSize.height / 2)));
 }
 
 //Show Pause menu
@@ -377,15 +386,15 @@ void WorldScene1::ClickPauseButton()
 	towerSlowDetails->setVisible(false);
 	towerBoombardDetails->setVisible(false);
 	towerBarrackDetails->setVisible(false);
-	pause_bg->runAction(MoveTo::create(0.5, Vec2(visibleSize.width / 2,visibleSize.height / 6)));
+	//pause_bg->runAction(MoveTo::create(0.5, Vec2(visibleSize.width / 2,visibleSize.height / 6)));
+	//use camera
+	pause_bg->runAction(MoveTo::create(0.5, Vec2(cam->getPositionX(), cam->getPositionY()/4)));
 	clickPause = true;
 	countTimeToPause = 0;
 }
 
 void WorldScene1::returnToMainMenu()
 {
-	Director::getInstance()->getRunningScene()->pause();
-	Director::getInstance()->replaceScene(TransitionZoomFlipAngular::create(1, MainMenuScene::createScene()));
 	clickPause = false;
 	Label *lbl = Label::createWithTTF("You will lost your process, continue ?", "fonts/Comic_Book.ttf", 40);
 	lbl->setWidth(300);
@@ -497,8 +506,7 @@ bool WorldScene1::onTouchBegan(Touch * touch, Event * event)
 				Flag->setPosition(touch->getLocation());
 					if(towerChoosing->GetSprite()->getPosition().distance(Flag->getPosition())< towerChoosing->GetRange())
 					{
-
-					for (int i = 0; i < towerChoosing->GetListSoldier().size(); i++)
+						for (int i = 0; i < towerChoosing->GetListSoldier().size(); i++)
 					{
 						towerChoosing->GetListSoldier()[i]->Move(Vec2(Flag->getPositionX() + ((i+1)*5), Flag->getPositionY() + ((i + 1) * 10)));
 
@@ -539,7 +547,50 @@ bool WorldScene1::checkLocationBuildTower(Vec2 newPoint)
 
 void WorldScene1::onTouchMoved(Touch * touch, Event * event)
 {
+	auto visi = Director::getInstance()->getVisibleSize();
 	Flag->setPosition(touch->getLocation());
+	//use camera
+	//===============================================================
+	if ((touch->getLocation().x - touch->getPreviousLocation().x) < 0)
+	{
+		if ((cam->getPositionX() + (touch->getLocation().x - touch->getPreviousLocation().x)) > visi.width/2)
+		{
+			cam->setPositionX(cam->getPositionX() + (touch->getLocation().x - touch->getPreviousLocation().x));
+			//mTileMap->setPositionX(mTileMap->getPositionX() - (touch->getLocation().x - touch->getPreviousLocation().x));
+		}
+	}
+	else
+	{
+		if ((cam->getPositionX() + (touch->getLocation().x - touch->getPreviousLocation().x)) < (mTileMap->getContentSize().width - visi.width/2))
+		{
+			cam->setPositionX(cam->getPositionX() + (touch->getLocation().x - touch->getPreviousLocation().x));
+			//mTileMap->setPositionX(mTileMap->getPositionX() - (touch->getLocation().x - touch->getPreviousLocation().x));
+		}
+	}
+
+	if ((touch->getLocation().y - touch->getPreviousLocation().y) < 0)
+	{
+		if ((cam->getPositionY() + (touch->getLocation().y - touch->getPreviousLocation().y)) > visi.height/2)
+		{
+			cam->setPositionY(cam->getPositionY() + (touch->getLocation().y - touch->getPreviousLocation().y));
+			//mTileMap->setPositionY(mTileMap->getPositionY() - (touch->getLocation().y - touch->getPreviousLocation().y));
+		}
+	}
+	else
+	{
+		if ((cam->getPositionY() + (touch->getLocation().y - touch->getPreviousLocation().y)) < mTileMap->getContentSize().height - visi.height/2)
+		{
+			cam->setPositionY(cam->getPositionY() + (touch->getLocation().y - touch->getPreviousLocation().y));
+			//mTileMap->setPositionY(mTileMap->getPositionY() - (touch->getLocation().y - touch->getPreviousLocation().y));
+		}
+	}
+
+	pauseBtn->setPosition(Vec2(cam->getPositionX() + visi.width / 2 - 20, cam->getPositionY() + visi.height / 2 - 20));
+	startBTN->setPosition(Vec2(cam->getPositionX() + visi.width / 2 - 5, cam->getPositionY() - visi.height / 2 + 5));
+	goldFrame->setPosition(Vec2(cam->getPositionX() - visi.width / 2 + 10, cam->getPositionY() + visi.height / 2 - 10));
+	pause_bg->setScale(0.5);
+	pause_bg->setPosition(Vec2(cam->getPosition().x, cam->getPosition().y + visi.height / 2));
+	//================================================================
 }
 
 void WorldScene1::onTouchEnded(Touch * touch, Event * event)

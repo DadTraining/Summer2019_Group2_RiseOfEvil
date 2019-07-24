@@ -21,6 +21,7 @@ class WorldScene1 : public Layer
 {
 private:
 	Wave* wave;
+	Camera *cam;
 	TMXTiledMap* mTileMap;
 	vector<Monster*> listMonster;
 	vector<Monster*>listTemp;
@@ -58,6 +59,7 @@ private:
 	Sprite * towerBoombardDetails;
 	Sprite * towerBarrackDetails;
 	Sprite * Flag;
+	Sprite * goldFrame;
 	ui::Button *resumeBtn;
 	ui::Button *restartBtn;
 	ui::Button *worldMapBtn;
