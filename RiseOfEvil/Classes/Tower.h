@@ -21,25 +21,25 @@ private:
 	vector <Soldier*> listSoldier;
 	vector <Monster*> listMonsterInRange;
 	vector <Monster*> listMonsterNeighbor;
-	//Sprite * CircleMenu;
-	//Sprite * FlagIcon;
 	Menu * circleMenu;
 	MenuItemImage * flagIcon;
 	MenuItemImage * circleIcon;
-	MenuItemImage * upgradeIcon;
+  MenuItemImage * upgradeIcon;
+	MenuItemImage * sellIcon;
 	float m_range = 250;
 	float timeDelay = 0;
 	float m_attackSpeed;
 	int m_gold;
 	bool checkTowerShoot = false;
-	//float countTimeToDamage = 0;
 	bool checkTouchFlag = false;
 	bool checkTypeTowerBarrack = false;
+	bool isSell = false;
 	Sprite * rangeBarrackTower;
 	Point posBullet;
 public:
 	void Init();
 	Tower(Layer* layer, int, Vec2);
+	~Tower();
 	Sprite * GetSprite();
 	void Shoot(Monster*);
 	void Update(float deltaTime, Monster*);
@@ -49,11 +49,10 @@ public:
 	int GetGold();
 	void SetGold(int);
 	int GetDamage();
-	//Sprite * GetCircleMenu();
-	//Sprite * GetFlagIcon();
 	void FadeInPause();
 	void FadeOutPause();
 	bool GetCheckTouchFlag();
+	int GetType();
 	void SetCheckTouchFlag(bool);
 	Sprite * GetRangeBarrackTower();
 	bool GetCheckTypeTowerBarrack();
@@ -63,4 +62,5 @@ public:
 	void SetCheckTowerShoot(bool);
 	vector<Monster*> GetlistMonsterInRange();
 	vector<Monster*> GetListMonsterNeighbor();
+	bool getIsSell();
 };

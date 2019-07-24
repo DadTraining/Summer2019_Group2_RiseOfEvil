@@ -62,15 +62,12 @@ Tower::Tower(Layer * layer, int type, Vec2 Pos)
 	});
 	circleIcon->setPosition(m_sprite->getPosition() + m_sprite->getContentSize() / 2);
 
-	flagIcon = MenuItemImage::create("FlagCallSoldier.png", "FlagCallSoldier.png", [&](Ref* sender) {
+	flagIcon = MenuItemImage::create("FlagCallSoldier.png", "FlagCallSoldier_disable.png", "FlagCallSoldier_disable.png", [&](Ref* sender) {
 		FadeOutPause();
 		rangeBarrackTower->setVisible(true);
 		checkTouchFlag = true;
-		log("oke");
 	});
-	log("%d", checkTouchFlag);
 	flagIcon->setPosition(circleIcon->getPosition().x + circleIcon->getContentSize().width / 2 -10, circleIcon->getPosition().y);
-	// upgrade
 	upgradeIcon = MenuItemImage::create("upgrade_button_normal.png", "upgrade_button_press.png", "upgrade_button_normal.png",[&](Ref* sender)
 	{
 
@@ -78,12 +75,17 @@ Tower::Tower(Layer * layer, int type, Vec2 Pos)
 	upgradeIcon->setPosition(circleIcon->getPosition().x, circleIcon->getPosition().y + circleIcon->getContentSize().height/2 -10);
 	//=============================================
 	circleMenu = Menu::create(flagIcon, upgradeIcon, nullptr);
+	sellIcon = MenuItemImage::create("sellBtn.png", "sellBtn.png", "sellBtn.png", [&](Ref* sender) {
+		isSell = true;
+	});
+	sellIcon->setPosition(circleIcon->getPosition().x, circleIcon->getPosition().y - circleIcon->getContentSize().height/2 + 10);
+	circleMenu = Menu::create(flagIcon, sellIcon, upgradeIcon, nullptr);
 	circleMenu->setPosition(0,0);
 	circleMenu->setVisible(false);
 	circleMenu->setEnabled(true);
 	m_sprite->addChild(circleIcon);
 	circleIcon->setVisible(false);
-	m_sprite->addChild(circleMenu,100);
+	m_sprite->addChild(circleMenu);
 	m_sprite->setScale(0.5f);
 	m_sprite->setPosition(Pos);
 	m_sprite->setAnchorPoint(Vec2(0.3, 0));
@@ -93,7 +95,6 @@ Tower::Tower(Layer * layer, int type, Vec2 Pos)
 	{
 		checkTypeTowerBarrack = true;
 		rangeBarrackTower = Sprite::create("range_of_barrack_tower.png");
-		//rangeBarrackTower->setScale(2.0f);
 		rangeBarrackTower->setVisible(false);
 		rangeBarrackTower->setPosition(m_sprite->getContentSize().width/2, m_sprite->getContentSize().height/2);
 		m_sprite->addChild(rangeBarrackTower);
@@ -109,23 +110,24 @@ Tower::Tower(Layer * layer, int type, Vec2 Pos)
 			{
 				listSoldier[i]->GetSprite()->setPosition(Vec2(Pos.x - (i*i) * i* 32, Pos.y + (i *i) * i*16));
 			}
-			//auto moveBy = MoveBy::create(1, Vec2(50, - 100));
-			//listSoldier[i]->GetSprite()->runAction(moveBy->clone());
 			listSoldier[i]->GetSprite()->setVisible(false);
 		}
-		
-
 	}
 	else
 	{
 		flagIcon->setEnabled(false);
-		//rangeBarrackTower->setVisible(false);
 	}
 	for (int i = 0; i < 10; i++)
 	{
 		Bullet * bullet = new Bullet(layer, m_type);
 		listBullet.push_back(bullet);
 	}
+}
+
+Tower::~Tower()
+{
+	m_sprite->removeFromParent();
+	m_sprite->release();
 }
 
 Sprite * Tower::GetSprite()
@@ -224,6 +226,11 @@ bool Tower::GetCheckTouchFlag()
 	return checkTouchFlag;
 }
 
+int Tower::GetType()
+{
+	return m_type;
+}
+
 void Tower::SetCheckTouchFlag(bool checkTouchFlag)
 {
 	this->checkTouchFlag = checkTouchFlag;
@@ -247,6 +254,11 @@ vector<Soldier*> Tower::GetListSoldier()
 int Tower::GetTypeTower()
 {
 	return m_type;
+}
+
+bool Tower::getIsSell()
+{
+	return isSell;
 }
 
 int Tower::GetDamage()

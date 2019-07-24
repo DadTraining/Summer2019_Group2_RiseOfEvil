@@ -50,13 +50,14 @@ bool WorldMapScene::init()
 	}
 
 	auto backBtn = ui::Button::create("res/Sprites/WorldMapScene/backBtn_normal.png", "res/Sprites/WorldMapScene/backBtn_pressed.png");
-	backBtn->setScale(0.2);
 	backBtn->setPosition(Vec2(100, 50));
+	backBtn->setAnchorPoint(Vec2(0, 0.5));
 	backBtn->addTouchEventListener(CC_CALLBACK_0(WorldMapScene::GoToMainMenu, this));
 	addChild(backBtn);
 
-	auto upgradeBtn = ui::Button::create("res/Sprites/WorldMapScene/UpgradeNormalBtn.png", "res/Sprites/WorldMapScene/UpgradePressBtn.png");
-	upgradeBtn->setPosition(Vec2(visibleSize.width - 150, 50));
+	auto upgradeBtn = ui::Button::create("res/Sprites/WorldMapScene/upgradesBtn_normal.png", "res/Sprites/WorldMapScene/upgradesBtn_pressed.png");
+	upgradeBtn->setPosition(Vec2(visibleSize.width - 100, 50));
+	upgradeBtn->setAnchorPoint(Vec2(1, 0.5));
 	upgradeBtn->addTouchEventListener(CC_CALLBACK_0(WorldMapScene::GoToUpgrade, this));
 	addChild(upgradeBtn);
 

@@ -5,6 +5,7 @@
 #include "ui/CocosGUI.h"
 #include "Tower.h"
 #include "Wave.h"
+#include "Soldier.h"
 #include "Crystal.h"
 #include <algorithm>
 #define BLOOD_BAR 9
@@ -23,6 +24,7 @@ class WorldScene1 : public Layer
 {
 private:
 	Wave* wave;
+	//Camera *cam;
 	Crystal* crystal;
 	TMXTiledMap* mTileMap;
 	vector<Monster*> listMonster;
@@ -34,6 +36,7 @@ private:
 	vector<Vec2> listLocationTower;
 	vector<Tower*>listTower;
 	PhysicsBody *body;
+	float delay;
 	Monster * nearestMonster;
 	Monster * neighborMonster;
 	float time;
@@ -66,6 +69,7 @@ private:
 	Sprite * towerBoombardDetails;
 	Sprite * towerBarrackDetails;
 	Sprite * Flag;
+	Sprite * goldFrame;
 	ui::Button *resumeBtn;
 	ui::Button *restartBtn;
 	ui::Button *worldMapBtn;
@@ -83,6 +87,7 @@ private:
 	bool checkClick = false;
 	bool clickPause = false;
 	Sprite * rangeBullet;
+	bool checkAttack = false;
 public:
 	static Scene* createScene();
 	virtual bool init() override;
@@ -94,6 +99,8 @@ public:
 	void returnToMainMenu();
 	void BuildTower(Ref*,int);
 	void createmenu(Vec2 point);
+	bool MonsterAttack(Monster*);
+	void MonsterMove(Monster*, int, bool, float, float);
 	void moveFlag(Vec2 Pos);
 	bool onTouchBegan(Touch *touch, Event *event);
 	void onTouchMoved(Touch * touch, Event * event);
