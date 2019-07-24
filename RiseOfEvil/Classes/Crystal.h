@@ -7,6 +7,7 @@ private:
 	Sprite *m_sprite;
 	int m_hitpoint;
 	int m_maxHitpoint;
+	Label *hitpointpercentLabel;
 	Sprite *hpBgSprite;
 	ProgressTimer *hpBar;
 public:

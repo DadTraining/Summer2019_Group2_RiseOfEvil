@@ -221,7 +221,7 @@ bool WorldScene1::init()
 	//===========================================================================
 	//List point to move monster
 	auto road = mTileMap->getObjectGroup("Point");
-	for (int i = 0; i < 16; i++)
+	for (int i = 0; i < 15; i++)
 	{
 		float x = road->getObject("P" + to_string(i + 1))["x"].asInt();
 		float y = road->getObject("P" + to_string(i + 1))["y"].asInt();
@@ -229,7 +229,7 @@ bool WorldScene1::init()
 	}
 	//List point 2 to move monster
 	auto road2 = mTileMap->getObjectGroup("Point2");
-	for (int i = 0; i < 9; i++)
+	for (int i = 0; i < 8; i++)
 	{
 		float x = road2->getObject("P" + to_string(i + 1))["x"].asInt();
 		float y = road2->getObject("P" + to_string(i + 1))["y"].asInt();
@@ -295,6 +295,23 @@ void WorldScene1::update(float deltaTime)
 		else
 		{
 			countTimeToPause += deltaTime;
+		}
+	}
+	for (int i = 0; i < listTower.size(); i++)
+	{
+		if (listTower[i]->getIsSell())
+		{
+			for (int j = 0; j < listLocationTower.size(); j++)
+			{
+				if (listTower[i]->GetSprite()->getPosition() == listLocationTower[j])
+				{
+					listLocationTower.erase(listLocationTower.begin() + j);
+				}
+			}
+			listTower[i]->GetSprite()->setVisible(false);
+			currentGold += listTower[i]->GetGold() / 2;
+			delete listTower[i];
+			listTower.erase(listTower.begin() + i);
 		}
 	}
 	//Set Gold to Label

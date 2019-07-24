@@ -20,8 +20,6 @@ class Tower : public Objects
 private:
 	vector <Bullet *> listBullet;
 	vector <Soldier *>listSoldier;
-	//Sprite * CircleMenu;
-	//Sprite * FlagIcon;
 	Menu * circleMenu;
 	MenuItemImage * flagIcon;
 	MenuItemImage * circleIcon;
@@ -34,10 +32,12 @@ private:
 	float countTimeToDamage = 0;
 	bool checkTouchFlag = false;
 	bool checkTypeTowerBarrack = false;
+	bool isSell = false;
 	Sprite * rangeBarrackTower;
 public:
 	void Init();
 	Tower(Layer* layer, int, Vec2);
+	~Tower();
 	Sprite * GetSprite();
 	void Shoot(Monster * monster);
 	void Update(float deltaTime, Monster* monster);
@@ -58,4 +58,5 @@ public:
 	bool GetCheckTypeTowerBarrack();
 	vector<Soldier *> GetListSoldier();
 	int GetTypeTower();
+	bool getIsSell();
 };

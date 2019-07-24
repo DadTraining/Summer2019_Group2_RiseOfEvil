@@ -15,9 +15,13 @@ void Crystal::Init()
 	m_sprite = Sprite::create("crystalBoss.png");
 	m_hitpoint = Player::GetInstance()->GetCurrentLife();
 	m_maxHitpoint = m_hitpoint;
+	
 	hpBgSprite = Sprite::create("res/WorldScene1/loadingbar_bg.png");
-	hpBgSprite->setPosition(Point(m_sprite->getContentSize().width / 2, m_sprite->getContentSize().height + 10));
+	hpBgSprite->setPosition(Point(m_sprite->getContentSize().width / 2 + 5, m_sprite->getContentSize().height + 10));
+	hitpointpercentLabel = Label::createWithTTF("100%", "fonts/Comic_Book.ttf", 12);
+	hitpointpercentLabel->setPosition(Point(m_sprite->getContentSize().width / 2 + 10, m_sprite->getContentSize().height + 10));
 	m_sprite->addChild(hpBgSprite);
+	m_sprite->addChild(hitpointpercentLabel);
 	hpBar = CCProgressTimer::create(Sprite::create("res/WorldScene1/loadingbar.png"));
 	hpBar->setType(ProgressTimer::Type::BAR);
 	hpBar->setMidpoint(Point(0, 0.5f));
@@ -30,6 +34,7 @@ void Crystal::Init()
 
 void Crystal::setPercentOfHealthBar()
 {
+	hitpointpercentLabel->setString(to_string((int)(m_hitpoint / (m_maxHitpoint * 1.0) * 100)) + "%");
 	hpBar->setPercentage((m_hitpoint / (m_maxHitpoint * 1.0) * 100));
 }
 
