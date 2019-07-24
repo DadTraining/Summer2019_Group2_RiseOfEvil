@@ -1804,7 +1804,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>loadingbarWarrior.png</key>
+            <key>healthbar_Orc.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -1819,7 +1819,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>loadingbar_bgWarrior.png</key>
+            <key>healthbar_bg_Orc.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -1844,13 +1844,13 @@
             <key>premultiplyAlpha</key>
             <false/>
             <key>realTextureFileName</key>
-            <string>_Orc_.png</string>
+            <string>Orc_Warrior.png</string>
             <key>size</key>
             <string>{1980,2010}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:8a45950914d3d0375614c962575db444:85d8f02a5b62f8b6203b995d71bc2e21:b80fb5b373ffd78c149948df30828c7e$</string>
+            <string>$TexturePacker:SmartUpdate:9a87e91e11cf4ddc75c57fa690f8910e:2bf50523f2a183445baf148b3843f691:1767e177db02b0432b97166cbfd14e25$</string>
             <key>textureFileName</key>
-            <string>_Orc_.png</string>
+            <string>Orc_Warrior.png</string>
         </dict>
     </dict>
 </plist>

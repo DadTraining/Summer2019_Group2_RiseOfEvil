@@ -22,12 +22,12 @@ void Monster::Init()
 	{
 	case NORMAL_MONSTER:
 	{	
-		m_spriteNode = SpriteBatchNode::create("_Orc_.png");
-		SpriteFrameCache::getInstance()->addSpriteFramesWithFile("_Orc_.plist");
+		m_spriteNode = SpriteBatchNode::create("Orc_Warrior.png");
+		SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Orc_Warrior.plist");
 		
 		m_sprite = Sprite::createWithSpriteFrameName("_Orc_1.png");
-		m_bloodBar = Sprite::createWithSpriteFrameName("loadingbar_bgWarrior.png");
-		m_blood = Sprite::createWithSpriteFrameName("loadingbarWarrior.png");
+		m_bloodBar = Sprite::createWithSpriteFrameName("healthbar_bg_Orc.png");
+		m_blood = Sprite::createWithSpriteFrameName("healthbar_Orc.png");
 		
 		m_blood->setAnchorPoint(Point(0, 0.5));
 		m_blood->setPosition(Point(0, m_bloodBar->getContentSize().height/2));
@@ -45,6 +45,7 @@ void Monster::Init()
 		m_minimumAtk = 1;
 		m_maximumAtk = 4;
 		m_attackSpeed = 1.0;
+		m_attackAnimation = 0.1f;
 		m_range = 20;
 		m_speed = m_velocity = MEDIUM_SPEED;
 		m_armor = 0;
@@ -258,7 +259,7 @@ void Monster::Action(int direction, bool check)
 	{
 		auto walkingE = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[8], m_png[9], 0.05f));
 		walkingE->retain();
-		auto AttackE = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[24], m_png[25], 0.05f));
+		auto AttackE = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[24], m_png[25], m_attackAnimation));
 		AttackE->retain();
 		if (!check)
 		{
@@ -280,7 +281,7 @@ void Monster::Action(int direction, bool check)
 		
 		auto walkingW = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[0], m_png[1], 0.05f));
 		walkingW->retain();
-		auto AttackW = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[16], m_png[17], 0.05f));
+		auto AttackW = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[16], m_png[17], m_attackAnimation));
 		AttackW->retain();
 		if (!check)
 		{
@@ -301,7 +302,7 @@ void Monster::Action(int direction, bool check)
 	{
 		auto walkingS = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[12], m_png[13], 0.05f));
 		walkingS->retain();
-		auto AttackS = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[28], m_png[29], 0.05f));
+		auto AttackS = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[28], m_png[29], m_attackAnimation));
 		AttackS->retain();
 		if (!check)
 		{
@@ -322,7 +323,7 @@ void Monster::Action(int direction, bool check)
 	{
 		auto walkingN = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[4], m_png[5], 0.05f));
 		walkingN->retain();
-		auto AttackN = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[20], m_png[21], 0.05f));
+		auto AttackN = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[20], m_png[21], m_attackAnimation));
 		AttackN->retain();
 		if (!check)
 		{
@@ -343,7 +344,7 @@ void Monster::Action(int direction, bool check)
 	{
 		auto walkingSE = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[10], m_png[11], 0.05f));
 		walkingSE->retain();
-		auto AttackSE = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[26], m_png[27], 0.05f));
+		auto AttackSE = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[26], m_png[27], m_attackAnimation));
 		AttackSE->retain();
 		if (!check)
 		{
@@ -364,7 +365,7 @@ void Monster::Action(int direction, bool check)
 	{
 		auto walkingSW = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[14], m_png[15], 0.05f));
 		walkingSW->retain();
-		auto AttackSW = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[30], m_png[31], 0.05f));
+		auto AttackSW = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[30], m_png[31], m_attackAnimation));
 		AttackSW->retain();
 		if (!check)
 		{
@@ -384,7 +385,7 @@ void Monster::Action(int direction, bool check)
       {
         auto walkingNE = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[6], m_png[7], 0.05f));
 		walkingNE->retain();
-		auto AttackNE = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[22], m_png[23], 0.05f));
+		auto AttackNE = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[22], m_png[23], m_attackAnimation));
 		AttackNE->retain();
 		if (!check)
 		{
@@ -404,7 +405,7 @@ void Monster::Action(int direction, bool check)
       {
         auto walkingNW = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[2], m_png[3], 0.05f));
 		walkingNW->retain();
-		auto AttackNW = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[18], m_png[19], 0.05f));
+		auto AttackNW = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[18], m_png[19], m_attackAnimation));
 		AttackNW->retain();
 		if (!check)
 		{
