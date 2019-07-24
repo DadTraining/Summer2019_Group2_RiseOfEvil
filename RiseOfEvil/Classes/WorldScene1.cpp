@@ -146,8 +146,14 @@ bool WorldScene1::init()
 	resumeBtn->addTouchEventListener(CC_CALLBACK_0(WorldScene1::ExitPauseMenu, this));
 	resumeBtn->setScale(0.7);
 	pause_bg->addChild(resumeBtn);
-	log("%f - %f", resumeBtn->getPositionX(), resumeBtn->getPositionY());
 
+	moreGoldBtn = ui::Button::create("res/Buttons/WorldScene1/moreGold.png");
+	moreGoldBtn->setPosition(Vec2(pause_bg->getContentSize().width - 10, 10));
+	moreGoldBtn->setScale(0.3);
+	moreGoldBtn->setAnchorPoint(Vec2(1, 0));
+	moreGoldBtn->addClickEventListener(CC_CALLBACK_0(WorldScene1::moreGold, this));
+	pause_bg->addChild(moreGoldBtn);
+	
 	restartBtn = ui::Button::create("res/Buttons/WorldScene1/restartButton.png");
 	restartBtn->setPosition(Vec2(pause_bg->getContentSize().width / 1.32, pause_bg->getContentSize().height / 2));
 	restartBtn->addTouchEventListener(CC_CALLBACK_0(WorldScene1::restart, this));
@@ -199,7 +205,6 @@ bool WorldScene1::init()
 	startWaveBTN2->setVisible(false);
 	addChild(startWaveBTN2, 3);
 
-	
 	//==========================================================
 	//Create first list monster from Wave list
 	numOfWave = 0;
@@ -221,7 +226,7 @@ bool WorldScene1::init()
 	//===========================================================================
 	//List point to move monster
 	auto road = mTileMap->getObjectGroup("Point");
-	for (int i = 0; i < 15; i++)
+	for (int i = 0; i < 16; i++)
 	{
 		float x = road->getObject("P" + to_string(i + 1))["x"].asInt();
 		float y = road->getObject("P" + to_string(i + 1))["y"].asInt();
@@ -229,7 +234,7 @@ bool WorldScene1::init()
 	}
 	//List point 2 to move monster
 	auto road2 = mTileMap->getObjectGroup("Point2");
-	for (int i = 0; i < 8; i++)
+	for (int i = 0; i < 9; i++)
 	{
 		float x = road2->getObject("P" + to_string(i + 1))["x"].asInt();
 		float y = road2->getObject("P" + to_string(i + 1))["y"].asInt();
@@ -310,7 +315,7 @@ void WorldScene1::update(float deltaTime)
 			}
 			listTower[i]->GetSprite()->setVisible(false);
 			currentGold += listTower[i]->GetGold() / 2;
-			delete listTower[i];
+			//delete listTower[i];
 			listTower.erase(listTower.begin() + i);
 		}
 	}
@@ -357,7 +362,7 @@ void WorldScene1::update(float deltaTime)
 		//Monster move
 		for (int i = 0; i < listMonster.size(); i++)
 		{
-			if ((listMonster[i]->m_flag < listPoint.size() - 1) && (listMonster[i]->GetSprite()->getTag() == 1) && (listMonster[i]->GetSprite()->isVisible()))
+			if ((listMonster[i]->m_flag < listPoint.size()) && (listMonster[i]->GetSprite()->getTag() == 1) && (listMonster[i]->GetSprite()->isVisible()))
 			{	
 				if (listPoint[listMonster[i]->m_flag].getDistance(listMonster[i]->GetSprite()->getPosition()) == 0)
 				{
@@ -369,7 +374,7 @@ void WorldScene1::update(float deltaTime)
 					delay = 0.4;
 				}
 			}
-			else if ((listMonster[i]->m_flag < listPoint2.size() - 1) && (listMonster[i]->GetSprite()->getTag() == 0) && (listMonster[i]->GetSprite()->isVisible()))
+			else if ((listMonster[i]->m_flag < listPoint2.size()) && (listMonster[i]->GetSprite()->getTag() == 0) && (listMonster[i]->GetSprite()->isVisible()))
 			{
 				if (listPoint2[listMonster[i]->m_flag].getDistance(listMonster[i]->GetSprite()->getPosition()) == 0)
 				{
@@ -381,9 +386,6 @@ void WorldScene1::update(float deltaTime)
 					delay = 0.4;
 				}
 			}
-			
-		
-			
 			checkAttack = MonsterAttack(listMonster[i]);
 			MonsterMove(listMonster[i], listMonster[i]->GetSprite()->getTag(), checkAttack, deltaTime, delay);
 		}
@@ -926,4 +928,9 @@ void WorldScene1::muteSound()
 
 void WorldScene1::exit()
 {
+}
+
+void WorldScene1::moreGold()
+{
+	currentGold += 200;
 }

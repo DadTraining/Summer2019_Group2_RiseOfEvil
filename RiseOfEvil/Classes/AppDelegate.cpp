@@ -23,15 +23,10 @@
  ****************************************************************************/
 
 #include "AppDelegate.h"
-#include "MainMenuScene.h"
-//#include "MainMenuScene.h"
 #include "WorldScene1.h"
 #include "LogoScene.h"
 #include "ResourceManager.h"
-#include "WorldScene1.h"
 #include "Player.h"
-
-
 
 // #define USE_AUDIO_ENGINE 1
 // #define USE_SIMPLE_AUDIO_ENGINE 1

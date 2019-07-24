@@ -51,7 +51,7 @@ bool WorldMapScene::init()
 
 	auto backBtn = ui::Button::create("res/Sprites/WorldMapScene/backBtn_normal.png", "res/Sprites/WorldMapScene/backBtn_pressed.png");
 	backBtn->setPosition(Vec2(100, 50));
-	backBtn->setAnchorPoint(Vec2(0, 0.5));
+	backBtn->setScale(0.2);
 	backBtn->addTouchEventListener(CC_CALLBACK_0(WorldMapScene::GoToMainMenu, this));
 	addChild(backBtn);
 

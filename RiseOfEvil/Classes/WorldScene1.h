@@ -68,6 +68,7 @@ private:
 	Sprite * towerBarrackDetails;
 	Sprite * Flag;
 	Sprite * goldFrame;
+	ui::Button *moreGoldBtn;
 	ui::Button *resumeBtn;
 	ui::Button *restartBtn;
 	ui::Button *worldMapBtn;
@@ -109,5 +110,6 @@ public:
 	void startWave();
 	void muteSound();
 	void exit();
+	void moreGold();
 	CREATE_FUNC(WorldScene1);
 };
