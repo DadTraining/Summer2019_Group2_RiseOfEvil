@@ -40,7 +40,7 @@ void Bullet::Update(float deltaTime)
 	
 }
 
-Point Bullet::Move(Monster * monster)
+void Bullet::Move(Monster * monster)
 {
 	ccBezierConfig bezier;
 	//================Shoot Bezier=======================
@@ -78,14 +78,11 @@ Point Bullet::Move(Monster * monster)
 	{
 		bezier.endPosition = Point(Vec2(monster->GetSprite()->getPositionX() - (0.4 * monster->GetVelocity()), monster->GetSprite()->getPositionY() + (0.4 * monster->GetVelocity())));
 	}
-	PosBullet = bezier.endPosition;
 	auto movetToOfBullet = BezierTo::create(0.4f, bezier);
 	auto callfunct = CallFunc::create(CC_CALLBACK_0(Bullet::AfterShoot, this));
 	auto sq = Sequence::create(movetToOfBullet, callfunct, nullptr);
 	m_sprite->runAction(RepeatForever::create(RotateBy::create(0.05, 90)));
 	m_sprite->runAction(sq);
-	return PosBullet;
-
 }
 
 void Bullet::AfterShoot()
@@ -108,11 +105,3 @@ void Bullet::Disappear()
 {
 	m_sprite->removeFromParent();
 }
-
-Point Bullet::GetPosBullet()
-{
-	return PosBullet;
-}
-
-
-

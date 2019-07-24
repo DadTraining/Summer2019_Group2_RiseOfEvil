@@ -52,6 +52,7 @@ private:
 	//Skill * speciall
 	int checkMove = 0;
 	bool isSlow = false;
+	float coutTimeToReduceHP = 0;
 public:
 	int m_flag = 0;
 	Monster(Layer*, int);
@@ -81,4 +82,6 @@ public:
 	void SetIsSlow(bool);
 	float GetMaxSpeed();
 	int GetDamage();
+	void ReduceHitPointMonster(int);
+	bool IsDead();
 };

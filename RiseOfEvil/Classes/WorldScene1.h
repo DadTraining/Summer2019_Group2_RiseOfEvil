@@ -35,9 +35,11 @@ private:
 	vector<Tower*>listTower;
 	PhysicsBody *body;
 	Monster * nearestMonster;
+	Monster * neighborMonster;
 	float time;
 	float countTimeToPause;
 	float countTimeToAttack = 0;
+	float countTimeToReduceHP = 0;
 	int currentGold;
 	int numOfWave;
 	int monsterIndex = 0;
@@ -80,6 +82,7 @@ private:
 	bool pause = false;
 	bool checkClick = false;
 	bool clickPause = false;
+	Sprite * rangeBullet;
 public:
 	static Scene* createScene();
 	virtual bool init() override;

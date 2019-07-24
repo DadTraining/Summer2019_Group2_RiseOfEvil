@@ -12,14 +12,15 @@
 #define BOMBARD_TOWER 4
 #define BARRACKS_TOWER 5
 
-
-using namespace std;
 using namespace cocos2d;
+using namespace std;
 class Tower : public Objects
 {
 private:
-	vector <Bullet *> listBullet;
-	vector <Soldier *>listSoldier;
+	vector <Bullet*> listBullet;
+	vector <Soldier*> listSoldier;
+	vector <Monster*> listMonsterInRange;
+	vector <Monster*> listMonsterNeighbor;
 	//Sprite * CircleMenu;
 	//Sprite * FlagIcon;
 	Menu * circleMenu;
@@ -31,7 +32,7 @@ private:
 	float m_attackSpeed;
 	int m_gold;
 	bool checkTowerShoot = false;
-	float countTimeToDamage = 0;
+	//float countTimeToDamage = 0;
 	bool checkTouchFlag = false;
 	bool checkTypeTowerBarrack = false;
 	Sprite * rangeBarrackTower;
@@ -40,9 +41,8 @@ public:
 	void Init();
 	Tower(Layer* layer, int, Vec2);
 	Sprite * GetSprite();
-	void Shoot(Monster * monster);
-	void Update(float deltaTime, Monster* monster);
-	void UpdateBarackTower(float deltaTime, vector<Monster *>);
+	void Shoot(Monster*);
+	void Update(float deltaTime, Monster*);
 	float GetRange();
 	float GetAttackSpeed();
 	void SetAttackSpeed(float);
@@ -59,4 +59,8 @@ public:
 	bool GetCheckTypeTowerBarrack();
 	vector<Soldier *> GetListSoldier();
 	int GetTypeTower();
+	bool GetCheckTowerShoot();
+	void SetCheckTowerShoot(bool);
+	vector<Monster*> GetlistMonsterInRange();
+	vector<Monster*> GetListMonsterNeighbor();
 };

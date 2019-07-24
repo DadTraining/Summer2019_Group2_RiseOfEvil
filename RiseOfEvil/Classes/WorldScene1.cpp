@@ -259,6 +259,11 @@ bool WorldScene1::init()
 	//=====================================================
 	//Assign gold from Player to gold
 	currentGold = Player::GetInstance()->GetCurrentGold();
+	//======================rangeBullet===============================
+	rangeBullet = Sprite::create("range_of_barrack_tower.png");
+	rangeBullet->setVisible(false);
+	rangeBullet->setScale(0.5f);
+	this->addChild(rangeBullet, 6);
 	//=====================================================
 	//Touch event
 	auto touchListener = EventListenerTouchOneByOne::create();
@@ -348,31 +353,75 @@ void WorldScene1::update(float deltaTime)
 		}
 
 		//Tower shoot
-		for (int tower = 0; tower < listTower.size(); tower++)
+
+		for (int k = 0; k < listTower.size(); k++)
 		{
+			vector<Monster*> temp = listTower[k]->GetlistMonsterInRange();
+			temp.clear();
+			vector<Monster*> listNeighbor = listTower[k]->GetListMonsterNeighbor();
+			listNeighbor.clear();
 			for (int i = 0; i < listMonster.size(); i++)
 			{
-				nearestMonster = listMonster[0];
-				if (listMonster[i]->GetSprite()->getPosition().getDistance(listTower[tower]->GetSprite()->getPosition()) < nearestMonster->GetSprite()->getPosition().getDistance(listTower[tower]->GetSprite()->getPosition()))
+				if (listMonster[i]->GetSprite()->getPosition().getDistance(listTower[k]->GetSprite()->getPosition()) < listTower[k]->GetRange())
 				{
-					nearestMonster = listMonster[i];
+
+					temp.push_back(listMonster[i]);
 				}
-				if (nearestMonster->GetSprite()->getPosition().getDistance(listTower[tower]->GetSprite()->getPosition()) < listTower[tower]->GetRange())
+			}
+
+			if (!temp.empty())
+			{
+				nearestMonster = temp[0];
+				for (int j = 0; j < temp.size(); j++)
 				{
-					listTower[tower]->Update(deltaTime, nearestMonster);
-					if (listTower[tower]->GetTypeTower() == SLOW_TOWER)
+					if (temp[j]->GetSprite()->getPosition().getDistance(crystal->getSprite()->getPosition()) <= nearestMonster->GetSprite()->getPosition().getDistance(crystal->getSprite()->getPosition()))
 					{
-						nearestMonster->SetIsSlow(true);
-						nearestMonster->SetSlowRunSpeed();
+						nearestMonster = temp[j];
 					}
-					if (listTower[tower]->GetTypeTower() == BOMBARD_TOWER)
+				}
+				for (int i = 0; i < listMonster.size(); i++)
+				{
+					if (listMonster[i]->GetSprite()->getPosition().getDistance(nearestMonster->GetSprite()->getPosition()) < 180 )
 					{
-						listTower[tower]->UpdateBarackTower(deltaTime, listMonster);
+						log("dis between 2 monster: %f", listMonster[i]->GetSprite()->getPosition().getDistance(nearestMonster->GetSprite()->getPosition()));
+						listNeighbor.push_back(listMonster[i]);
 					}
-					i = 100;
+					log("Size: %d", listNeighbor.size());
+				}
+				if (nearestMonster->IsDead() == false)
+				{
+					listTower[k]->Update(deltaTime, nearestMonster);
+				}
+				if (listTower[k]->GetCheckTowerShoot() == true)
+				{
+					rangeBullet->setVisible(true);
+					rangeBullet->setPosition(nearestMonster->GetSprite()->getPosition());
+					countTimeToReduceHP += deltaTime;
+					if (countTimeToReduceHP >= 0.4)
+					{
+						if (listTower[k]->GetTypeTower() != BOMBARD_TOWER)
+						{
+							nearestMonster->ReduceHitPointMonster(listTower[k]->GetDamage());
+						}
+						else if (listTower[k]->GetTypeTower() == BOMBARD_TOWER)
+						{
+							for (int m = 0; m < listNeighbor.size(); m++)
+							{
+								listNeighbor[m]->ReduceHitPointMonster(listTower[k]->GetDamage());
+							}
+						}
+						listTower[k]->SetCheckTowerShoot(false);
+						countTimeToReduceHP = 0;
+					}
+				}
+				if (listTower[k]->GetTypeTower() == SLOW_TOWER)
+				{
+					nearestMonster->SetIsSlow(true);
+					nearestMonster->SetSlowRunSpeed();
 				}
 			}
 		}
+				
 		//Monster die
 		for (int i = 0; i < listMonster.size(); i++)
 		{

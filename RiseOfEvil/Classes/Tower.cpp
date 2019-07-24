@@ -38,7 +38,7 @@ void Tower::Init()
 		m_minimumAtk = 10;
 		m_maximumAtk = 18;
 		m_attackSpeed = 3.0;
-		m_range = 320;
+		m_range = 180;
 		m_gold = 120;
 		break;
 	case BARRACKS_TOWER:
@@ -136,12 +136,11 @@ void Tower::Shoot(Monster * monster)
 {
 	for (int i = 0; i < listBullet.size(); i++)
 	{
-		if (!listBullet.at(i)->GetSprite()->isVisible())
+		if (!listBullet[i]->GetSprite()->isVisible())
 		{
-			listBullet.at(i)->GetSprite()->setVisible(true);
-			listBullet.at(i)->GetSprite()->setPosition(m_sprite->getPositionX(), m_sprite->getPositionY() + m_sprite->getContentSize().height/2);
-			posBullet = listBullet.at(i)->Move(monster);
-			log("Pos bullet x:%f Pos bullet y: %f bullet:%d", posBullet.x, posBullet.y, i);
+			listBullet[i]->GetSprite()->setVisible(true);
+			listBullet[i]->GetSprite()->setPosition(m_sprite->getPositionX(), m_sprite->getPositionY() + m_sprite->getContentSize().height/2);
+			listBullet[i]->Move(monster);
 			break;
 		}
 	}
@@ -149,18 +148,7 @@ void Tower::Shoot(Monster * monster)
 
 void Tower::Update(float deltaTime, Monster * monster)
 {
-	if (checkTowerShoot)
-	{
-		countTimeToDamage += deltaTime;
-		if (countTimeToDamage >= 0.4)
-		{
-			monster->SetHitPoint(monster->GetHitPoint() - GetDamage());
-
-			countTimeToDamage = 0;
-			checkTowerShoot = false;
-		}
-	}
-	if (m_sprite->getPosition().getDistance(Vec2(monster->GetSprite()->getPositionX(), monster->GetSprite()->getPositionY())) < m_range)
+	if (m_sprite->getPosition().getDistance(monster->GetSprite()->getPosition()) < m_range)
 	{
 		timeDelay += deltaTime;
 		if (timeDelay > m_attackSpeed)
@@ -172,39 +160,24 @@ void Tower::Update(float deltaTime, Monster * monster)
 	}
 }
 
-void Tower::UpdateBarackTower(float deltaTime, vector<Monster*> listMonster)
+bool Tower::GetCheckTowerShoot()
 {
-	for (int i = 0; i < listMonster.size(); i++)
-	{
-		float disBullet = listMonster[i]->GetSprite()->getPosition().distance(posBullet);
-		float disMonster = m_sprite->getPosition().distance(listMonster[i]->GetSprite()->getPosition());
-			if (checkTowerShoot)
-			{
-				countTimeToDamage += deltaTime;
-				if (countTimeToDamage >= 0.4)
-				{
-					if (disMonster < m_range)
-					{
-						timeDelay += deltaTime;
-						if (timeDelay > m_attackSpeed)
-						{
-							Shoot(listMonster[i]);
-							timeDelay = 0;
-							checkTowerShoot = true;
-						}
-					}
-				}
-			if (disBullet < 100)
-			{
-				for (int j = 0; j < listMonster.size(); j++)
-				{
-					listMonster[j]->SetHitPoint(listMonster[j]->GetHitPoint() - GetDamage());
-					countTimeToDamage = 0;
-					checkTowerShoot = false;
-				}
-			}
-		}
-	}
+	return checkTowerShoot;
+}
+
+void Tower::SetCheckTowerShoot(bool check)
+{
+	checkTowerShoot = check;
+}
+
+vector<Monster*> Tower::GetlistMonsterInRange()
+{
+	return listMonsterInRange;
+}
+
+vector<Monster*> Tower::GetListMonsterNeighbor()
+{
+	return listMonsterNeighbor;
 }
 
 float Tower::GetRange()
@@ -275,7 +248,6 @@ int Tower::GetTypeTower()
 {
 	return m_type;
 }
-
 
 int Tower::GetDamage()
 {
