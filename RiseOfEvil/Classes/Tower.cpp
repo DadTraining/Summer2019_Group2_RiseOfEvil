@@ -66,12 +66,15 @@ Tower::Tower(Layer * layer, int type, Vec2 Pos)
 		FadeOutPause();
 		rangeBarrackTower->setVisible(true);
 		checkTouchFlag = true;
-		log("oke");
 	});
-	log("%d", checkTouchFlag);
 	flagIcon->setPosition(circleIcon->getPosition().x + circleIcon->getContentSize().width / 2 -10, circleIcon->getPosition().y);
 
-	circleMenu = Menu::create(flagIcon, nullptr);
+	sellIcon = MenuItemImage::create("sellBtn.png", "sellBtn.png", "sellBtn.png", [&](Ref* sender) {
+		
+	});
+	sellIcon->setPosition(circleIcon->getPosition().x, circleIcon->getPosition().y - circleIcon->getContentSize().height/2 + 10);
+
+	circleMenu = Menu::create(flagIcon, sellIcon, nullptr);
 	circleMenu->setPosition(0,0);
 	circleMenu->setVisible(false);
 	circleMenu->setEnabled(true);

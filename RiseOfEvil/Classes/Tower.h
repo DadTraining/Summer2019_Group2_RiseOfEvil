@@ -25,6 +25,7 @@ private:
 	Menu * circleMenu;
 	MenuItemImage * flagIcon;
 	MenuItemImage * circleIcon;
+	MenuItemImage * sellIcon;
 	float m_range = 250;
 	float timeDelay = 0;
 	float m_attackSpeed;
