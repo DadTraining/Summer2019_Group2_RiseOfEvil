@@ -598,7 +598,6 @@ bool WorldScene1::onTouchBegan(Touch * touch, Event * event)
 	{
 		if (towerChoosing->GetCheckTouchFlag() == false)
 		{
-			//log("oke");
 			towerChoosing->GetRangeBarrackTower()->setVisible(false);
 		}
 		else if (towerChoosing->GetCheckTouchFlag())
