@@ -579,3 +579,18 @@ int Monster::GetDamage()
 	return random(m_minimumAtk, m_maximumAtk);
 }
 
+void Monster::ReduceHitPointMonster(int GetDamage)
+{
+		SetHitPoint(GetHitPoint() - GetDamage);
+}
+
+bool Monster::IsDead()
+{
+	if (m_hitPoint > 0)
+	{
+		return false;
+	}
+	else
+		return true;
+}
+

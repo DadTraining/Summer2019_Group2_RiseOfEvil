@@ -83,7 +83,6 @@ void Bullet::Move(Monster * monster)
 	auto sq = Sequence::create(movetToOfBullet, callfunct, nullptr);
 	m_sprite->runAction(RepeatForever::create(RotateBy::create(0.05, 90)));
 	m_sprite->runAction(sq);
-
 }
 
 void Bullet::AfterShoot()
@@ -106,6 +105,3 @@ void Bullet::Disappear()
 {
 	m_sprite->removeFromParent();
 }
-
-
-

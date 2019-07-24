@@ -38,9 +38,11 @@ private:
 	PhysicsBody *body;
 	float delay;
 	Monster * nearestMonster;
+	Monster * neighborMonster;
 	float time;
 	float countTimeToPause;
 	float countTimeToAttack = 0;
+	float countTimeToReduceHP = 0;
 	int currentGold;
 	int numOfWave;
 	int monsterIndex = 0;
@@ -84,6 +86,7 @@ private:
 	bool pause = false;
 	bool checkClick = false;
 	bool clickPause = false;
+	Sprite * rangeBullet;
 	bool checkAttack = false;
 public:
 	static Scene* createScene();
