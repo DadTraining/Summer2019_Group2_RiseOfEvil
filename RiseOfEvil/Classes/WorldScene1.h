@@ -24,7 +24,7 @@ class WorldScene1 : public Layer
 {
 private:
 	Wave* wave;
-	Camera *cam;
+	//Camera *cam;
 	Crystal* crystal;
 	TMXTiledMap* mTileMap;
 	vector<Monster*> listMonster;
