@@ -55,7 +55,7 @@ bool WorldMapScene::init()
 	backBtn->addTouchEventListener(CC_CALLBACK_0(WorldMapScene::GoToMainMenu, this));
 	addChild(backBtn);
 
-	auto upgradeBtn = ui::Button::create("res/Sprites/WorldMapScene/UpgradeNormalBtn.png", "res/Sprites/WorldMapScene/UpgradePressBtn.png");
+	auto upgradeBtn = ui::Button::create("res/Sprites/WorldMapScene/upgradeBtn_normal.png", "res/Sprites/WorldMapScene/upgradeBtn_pressed.png");
 	upgradeBtn->setPosition(Vec2(visibleSize.width - 150, 50));
 	upgradeBtn->addTouchEventListener(CC_CALLBACK_0(WorldMapScene::GoToUpgrade, this));
 	addChild(upgradeBtn);
