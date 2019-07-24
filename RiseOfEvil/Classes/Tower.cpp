@@ -66,11 +66,8 @@ Tower::Tower(Layer * layer, int type, Vec2 Pos)
 		FadeOutPause();
 		rangeBarrackTower->setVisible(true);
 		checkTouchFlag = true;
-		log("oke");
 	});
-	log("%d", checkTouchFlag);
 	flagIcon->setPosition(circleIcon->getPosition().x + circleIcon->getContentSize().width / 2 -10, circleIcon->getPosition().y);
-
 	circleMenu = Menu::create(flagIcon, nullptr);
 	circleMenu->setPosition(0,0);
 	circleMenu->setVisible(false);
@@ -87,7 +84,6 @@ Tower::Tower(Layer * layer, int type, Vec2 Pos)
 	{
 		checkTypeTowerBarrack = true;
 		rangeBarrackTower = Sprite::create("range_of_barrack_tower.png");
-		//rangeBarrackTower->setScale(2.0f);
 		rangeBarrackTower->setVisible(false);
 		rangeBarrackTower->setPosition(m_sprite->getContentSize().width/2, m_sprite->getContentSize().height/2);
 		m_sprite->addChild(rangeBarrackTower);
