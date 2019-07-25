@@ -217,6 +217,7 @@ bool WorldScene1::init()
 	crystal->getSprite()->setAnchorPoint(Vec2(0.5, 0.3));
 	//crystal->getSprite()->setScale(1.5);
 	crystal->getSprite()->setPosition(Vec2(xPoint,yPoint));
+
 	//===========================================================================
 	//First Location Tower
 	listLocationTower.push_back(Vec2(0, 0));
@@ -330,6 +331,7 @@ void WorldScene1::update(float deltaTime)
 	if (start)
 	{
 		crystal->setPercentOfHealthBar();
+
 		for (int i = 0; i < listMonster.size(); i++)
 		{
 			listMonster[i]->setProgressBar();

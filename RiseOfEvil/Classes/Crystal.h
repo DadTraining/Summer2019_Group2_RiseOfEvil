@@ -10,6 +10,7 @@ private:
 	Label *hitpointpercentLabel;
 	Sprite *hpBgSprite;
 	ProgressTimer *hpBar;
+	ParticleFire *fire;
 public:
 	Crystal(Layer *layer);
 	~Crystal();
