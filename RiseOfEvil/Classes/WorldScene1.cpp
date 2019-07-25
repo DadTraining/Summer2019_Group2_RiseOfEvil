@@ -125,12 +125,9 @@ bool WorldScene1::init()
 	mTileMap->setAnchorPoint(Vec2(0, 0));
 	mTileMap->setPosition(0, 0);
 	addChild(mTileMap, 0);
-	//==========================================================
-	//Create pause menu 
-	pause_bg = Sprite::create("res/WorldScene1/pause_bag.png");
-	pause_bg->setAnchorPoint(Vec2(0.5, 0));
+
 	////================TowerFake===================================
-	TowerFake = Sprite::create("res/WorldScene1/archerTower1.png");
+	TowerFake = Sprite::create("res/WorldScene1/arrowtower1.png");
 	TowerFake->setVisible(false);
 	TowerFake->setAnchorPoint(Vec2(0.3, 0));
 	TowerFake->setScale(0.5);
@@ -140,10 +137,9 @@ bool WorldScene1::init()
 	rangeFakeTower->setVisible(true);
 	TowerFake->addChild(rangeFakeTower);
 	//=================================================================
-
-	//use camera
-	//pause_bg->setPosition(Vec2(cam->getPosition().x, cam->getPosition().y + visibleSize.height/2));
-	
+	//Create pause menu 
+	pause_bg = Sprite::create("res/WorldScene1/pause_bag.png");
+	pause_bg->setAnchorPoint(Vec2(0.5, 0));
 	pause_bg->setPosition(Vec2(visibleSize.width / 2, visibleSize.height));
 	addChild(pause_bg, 6);
 
@@ -279,7 +275,7 @@ bool WorldScene1::init()
 	startBTN->setVisible(false);
 	startBTN->addChild(startLabel);
 	//=====================================================
-	//Create label that show Wave number when new wave start;
+	//Create label that show Wave number when new wave start
 	messageWaveLabel = ResourceManager::GetInstance()->GetLabelById(4);
 	messageWaveLabel->setPosition(visibleSize.width / 2, visibleSize.height / 2);
 	messageWaveLabel->setScale(0.0001);
@@ -288,8 +284,9 @@ bool WorldScene1::init()
 	addChild(messageWaveLabel, 10);
 	//=====================================================
 	//Create label show how to build Tower
-	showHowToBuildTower = Label::createWithTTF("Touch anywhere on the ground to build Tower","fonts/Comic_Book.ttf", 20);
+	showHowToBuildTower = Label::createWithTTF("Touch anywhere on the ground to build Tower", "fonts/Comic_Book.ttf", 20);
 	showHowToBuildTower->setPosition(visibleSize.width / 2, visibleSize.height / 2);
+	showHowToBuildTower->removeFromParent();
 	addChild(showHowToBuildTower, 5);
 	//=====================================================
 	//Assign gold from Player to gold
@@ -301,8 +298,7 @@ bool WorldScene1::init()
 	touchListener->onTouchMoved = CC_CALLBACK_2(WorldScene1::onTouchMoved, this);
 	touchListener->onTouchEnded = CC_CALLBACK_2(WorldScene1::onTouchEnded, this);
 	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchListener, this);
-	time = 0;
-	countTimeToPause = 0;
+	//=====================================================
 	scheduleUpdate();
 	return true;
 }
@@ -374,7 +370,7 @@ void WorldScene1::update(float deltaTime)
 	if (start)
 	{
 		crystal->setPercentOfHealthBar();
-
+		//Set health bar of monster
 		for (int i = 0; i < listMonster.size(); i++)
 		{
 			listMonster[i]->setProgressBar();
@@ -1027,7 +1023,7 @@ void WorldScene1::BuildTowerFake(int type)
 	switch (type)
 	{
 	case 1:
-		TowerFake->setTexture("res/WorldScene1/archerTower1.png");
+		TowerFake->setTexture("res/WorldScene1/arrowtower1.png");
 		rangeFakeTower->setScale(1.11);
 		break;
 	case 2:
