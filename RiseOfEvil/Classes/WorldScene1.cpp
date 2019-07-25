@@ -221,7 +221,6 @@ bool WorldScene1::init()
 	//First Location Tower
 	listLocationTower.push_back(Vec2(0, 0));
 	//===========================================================================
-
 	listTower.push_back(new Tower(this, 1, Vec2(-500,-500)));
 	//===========================================================================
 	//List point to move monster
@@ -277,11 +276,6 @@ bool WorldScene1::init()
 	//=====================================================
 	//Assign gold from Player to gold
 	currentGold = Player::GetInstance()->GetCurrentGold();
-	//======================rangeBullet===============================
-	rangeBullet = Sprite::create("range_of_barrack_tower.png");
-	rangeBullet->setVisible(false);
-	rangeBullet->setScale(0.5f);
-	this->addChild(rangeBullet, 6);
 	//=====================================================
 	//Touch event
 	auto touchListener = EventListenerTouchOneByOne::create();
@@ -426,10 +420,8 @@ void WorldScene1::update(float deltaTime)
 				{
 					if (listMonster[i]->GetSprite()->getPosition().getDistance(nearestMonster->GetSprite()->getPosition()) < 180 )
 					{
-						log("dis between 2 monster: %f", listMonster[i]->GetSprite()->getPosition().getDistance(nearestMonster->GetSprite()->getPosition()));
 						listNeighbor.push_back(listMonster[i]);
 					}
-					log("Size: %d", listNeighbor.size());
 				}
 				if (nearestMonster->IsDead() == false)
 				{
