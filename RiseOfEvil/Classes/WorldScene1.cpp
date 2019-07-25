@@ -333,7 +333,7 @@ void WorldScene1::update(float deltaTime)
 	{
 		if (listTower[i]->getRequestUpdate())
 		{
-			if (listTower[i]->GetGold() > currentGold || listTower[i]->getLevel() > 3) //not enough money and more than 3 level upgraded
+			if (listTower[i]->GetGold() > currentGold || listTower[i]->getLevel() >= 3) //not enough money and more than 3 level upgraded
 			{
 				listTower[i]->acceptUpdate(false);
 			}
@@ -341,6 +341,7 @@ void WorldScene1::update(float deltaTime)
 			{
 				currentGold -= listTower[i]->GetGold();	
 				listTower[i]->acceptUpdate(true);
+				listTower[i]->HideCircleMenu();
 			}
 		}
 	}
@@ -521,7 +522,7 @@ void WorldScene1::restart()
 	this->addChild(popup, 15);
 }
 
-//Hide Pause menu
+//Exit Pause menu
 void WorldScene1::ExitPauseMenu()
 {
 	pauseBtn->setEnabled(true);
@@ -586,6 +587,7 @@ void WorldScene1::BuildTower(Ref* ref, int type)
 void WorldScene1::moveFlag(Vec2 Pos)
 {
 }
+
 bool WorldScene1::MonsterAttack(Monster* monster)
 {
 	if (monster->GetSprite()->getPosition().distance(crystal->getSprite()->getPosition()) <= 50)
@@ -619,6 +621,7 @@ void WorldScene1::MonsterMove(Monster* monster ,int tag, bool check, float timed
 		monster->Move(listPoint2[monster->m_flag], check, timedelay, delay);
 	}
 }
+
 bool WorldScene1::onTouchBegan(Touch * touch, Event * event)
 {
 	if (pause)
@@ -676,11 +679,15 @@ bool WorldScene1::onTouchBegan(Touch * touch, Event * event)
 		if (listTower[i]->GetSprite()->getBoundingBox().containsPoint(touch->getLocation()))
 		{
 			towerChoosing = listTower[i];
-			listTower[i]->FadeInPause();
+			if (listTower[i]->GetGold() > currentGold || listTower[i]->getLevel() >= 3)
+			{
+				listTower[i]->getUpgradeIcon()->setEnabled(false);
+			}
+			listTower[i]->ShowCircleMenu();
 		}
 		else
 		{
-			listTower[i]->FadeOutPause();
+			listTower[i]->HideCircleMenu();
 		}
 	}
 	//======================flag======================
@@ -693,7 +700,7 @@ bool WorldScene1::onTouchBegan(Touch * touch, Event * event)
 		else if (towerChoosing->GetCheckTouchFlag())
 			{
 				towerChoosing->SetCheckTouchFlag(false);
-				towerChoosing->FadeOutPause();
+				towerChoosing->HideCircleMenu();
 				Flag->setVisible(true);
 				towerChoosing->GetRangeBarrackTower()->setVisible(false);
 				Flag->setPosition(touch->getLocation());

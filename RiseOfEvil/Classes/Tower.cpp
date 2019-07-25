@@ -63,7 +63,7 @@ Tower::Tower(Layer * layer, int type, Vec2 Pos)
 	circleIcon->setPosition(m_sprite->getPosition() + m_sprite->getContentSize() / 2);
 
 	flagIcon = MenuItemImage::create("FlagCallSoldier.png", "FlagCallSoldier_disable.png", "FlagCallSoldier_disable.png", [&](Ref* sender) {
-		FadeOutPause();
+		HideCircleMenu();
 		rangeBarrackTower->setVisible(true);
 		checkTouchFlag = true;
 	});
@@ -206,14 +206,14 @@ void Tower::SetGold(int gold)
 	m_gold = gold;
 }
 
-void Tower::FadeInPause()
+void Tower::ShowCircleMenu()
 {
 	circleMenu->setVisible(true);
 	circleMenu->setEnabled(true);
 	circleIcon->setVisible(true);
 }
 
-void Tower::FadeOutPause()
+void Tower::HideCircleMenu()
 {
 	circleMenu->setVisible(false);
 	circleMenu->setEnabled(false);
@@ -310,6 +310,11 @@ void Tower::acceptUpdate(bool condition)
 		upgrade();
 		requestUpdate = false;
 	}
+}
+
+MenuItemImage * Tower::getUpgradeIcon()
+{
+	return upgradeIcon;
 }
 
 int Tower::GetDamage()

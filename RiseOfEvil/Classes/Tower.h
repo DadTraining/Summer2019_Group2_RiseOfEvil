@@ -51,8 +51,8 @@ public:
 	int GetGold();
 	void SetGold(int);
 	int GetDamage();
-	void FadeInPause();
-	void FadeOutPause();
+	void ShowCircleMenu();
+	void HideCircleMenu();
 	bool GetCheckTouchFlag();
 	int GetType();
 	void SetCheckTouchFlag(bool);
@@ -69,4 +69,5 @@ public:
 	void upgrade();
 	bool getRequestUpdate();
 	void acceptUpdate(bool);
+	MenuItemImage * getUpgradeIcon();
 };
