@@ -74,7 +74,6 @@ Tower::Tower(Layer * layer, int type, Vec2 Pos)
 	});
 	upgradeIcon->setPosition(circleIcon->getPosition().x, circleIcon->getPosition().y + circleIcon->getContentSize().height/2 -10);
 	//=============================================
-	circleMenu = Menu::create(flagIcon, upgradeIcon, nullptr);
 	sellIcon = MenuItemImage::create("sellBtn.png", "sellBtn.png", "sellBtn.png", [&](Ref* sender) {
 		isSell = true;
 	});
@@ -150,15 +149,12 @@ void Tower::Shoot(Monster * monster)
 
 void Tower::Update(float deltaTime, Monster * monster)
 {
-	if (m_sprite->getPosition().getDistance(monster->GetSprite()->getPosition()) < m_range)
+	timeDelay += deltaTime;
+	if (timeDelay > m_attackSpeed)
 	{
-		timeDelay += deltaTime;
-		if (timeDelay > m_attackSpeed)
-		{
-			Shoot(monster);
-			timeDelay = 0;
-			checkTowerShoot = true;
-		}
+		Shoot(monster);
+		timeDelay = 0;
+		checkTowerShoot = true;
 	}
 }
 
