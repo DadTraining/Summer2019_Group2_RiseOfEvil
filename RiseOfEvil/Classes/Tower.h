@@ -35,6 +35,7 @@ private:
 	bool checkTouchFlag = false;
 	bool checkTypeTowerBarrack = false;
 	bool isSell = false;
+	bool requestUpdate = false;
 	Sprite * rangeBarrackTower;
 	Point posBullet;
 public:
@@ -66,4 +67,6 @@ public:
 	bool getIsSell();
 	int getLevel();
 	void upgrade();
+	bool getRequestUpdate();
+	void acceptUpdate(bool);
 };

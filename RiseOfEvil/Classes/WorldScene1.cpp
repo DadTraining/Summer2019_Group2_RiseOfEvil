@@ -299,6 +299,7 @@ void WorldScene1::update(float deltaTime)
 	{
 		startBTN->setVisible(true);
 	}
+	//Check pause or not
 	if (clickPause)
 	{
 		if (countTimeToPause >= 0.6)
@@ -325,6 +326,22 @@ void WorldScene1::update(float deltaTime)
 			currentGold += listTower[i]->GetGold() / 2;
 			//delete listTower[i];
 			listTower.erase(listTower.begin() + i);
+		}
+	}
+	//Check tower update
+	for (int i = 0; i < listTower.size(); i++)
+	{
+		if (listTower[i]->getRequestUpdate())
+		{
+			if (listTower[i]->GetGold() > currentGold || listTower[i]->getLevel() > 3) //not enough money and more than 3 level upgraded
+			{
+				listTower[i]->acceptUpdate(false);
+			}
+			else
+			{
+				currentGold -= listTower[i]->GetGold();	
+				listTower[i]->acceptUpdate(true);
+			}
 		}
 	}
 	//Set Gold to Label
@@ -488,6 +505,7 @@ void WorldScene1::update(float deltaTime)
 			}
 		}
 	}
+
 }
 
 void WorldScene1::restart()

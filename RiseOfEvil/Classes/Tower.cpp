@@ -70,7 +70,7 @@ Tower::Tower(Layer * layer, int type, Vec2 Pos)
 	flagIcon->setPosition(circleIcon->getPosition().x + circleIcon->getContentSize().width / 2 -10, circleIcon->getPosition().y);
 	upgradeIcon = MenuItemImage::create("upgrade_button_normal.png", "upgrade_button_press.png", "upgrade_button_press.png",[&](Ref* sender)
 	{
-		upgrade();
+		requestUpdate = true;
 	});
 	upgradeIcon->setPosition(circleIcon->getPosition().x, circleIcon->getPosition().y + circleIcon->getContentSize().height/2 -10);
 	//=============================================
@@ -293,9 +293,23 @@ void Tower::upgrade()
 		m_hitPoint *= m_level;
 		m_minimumAtk *= m_level;
 		m_maximumAtk *= m_level;
-		m_gold *= m_level;
+		m_gold += m_gold;
 	}
 	
+}
+
+bool Tower::getRequestUpdate()
+{
+	return requestUpdate;
+}
+
+void Tower::acceptUpdate(bool condition)
+{
+	if (condition)
+	{
+		upgrade();
+		requestUpdate = false;
+	}
 }
 
 int Tower::GetDamage()
