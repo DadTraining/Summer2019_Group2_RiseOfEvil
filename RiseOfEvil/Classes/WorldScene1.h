@@ -39,7 +39,7 @@ private:
 	float delay;
 	Monster * nearestMonster;
 	Monster * neighborMonster;
-	float time;
+	float time = 0;
 	float countTimeToPause = 0;
 	float countTimeToAttack = 0;
 	float countTimeToReduceHP = 0;
