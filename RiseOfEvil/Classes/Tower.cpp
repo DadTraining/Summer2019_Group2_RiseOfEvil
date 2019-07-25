@@ -149,15 +149,12 @@ void Tower::Shoot(Monster * monster)
 
 void Tower::Update(float deltaTime, Monster * monster)
 {
-	if (m_sprite->getPosition().getDistance(monster->GetSprite()->getPosition()) < m_range)
+	timeDelay += deltaTime;
+	if (timeDelay > m_attackSpeed)
 	{
-		timeDelay += deltaTime;
-		if (timeDelay > m_attackSpeed)
-		{
-			Shoot(monster);
-			timeDelay = 0;
-			checkTowerShoot = true;
-		}
+		Shoot(monster);
+		timeDelay = 0;
+		checkTowerShoot = true;
 	}
 }
 

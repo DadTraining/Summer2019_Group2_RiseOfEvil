@@ -30,12 +30,24 @@ void Crystal::Init()
 	hpBar->setPosition(Point(hpBgSprite->getContentSize().width / 2, hpBgSprite->getContentSize().height / 2));
 	hpBgSprite->addChild(hpBar);
 	hpBgSprite->setScale(0.05);
+
+	//make crystal fire
+	fire = ParticleFire::create();
+	fire->setPosition(Vec2(m_sprite->getContentSize().width / 2, m_sprite->getContentSize().height / 2));
+	fire->setVisible(false);
+	m_sprite->addChild(fire);
 }
 
 void Crystal::setPercentOfHealthBar()
 {
 	hitpointpercentLabel->setString(to_string((int)(m_hitpoint / (m_maxHitpoint * 1.0) * 100)) + "%");
 	hpBar->setPercentage((m_hitpoint / (m_maxHitpoint * 1.0) * 100));
+	//make crystal fire
+	if (hpBar->getPercentage() < 50)
+	{
+		fire->setScale(10/ hpBar->getPercentage());
+		fire->setVisible(true);
+	}
 }
 
 int Crystal::getHitPoint()
