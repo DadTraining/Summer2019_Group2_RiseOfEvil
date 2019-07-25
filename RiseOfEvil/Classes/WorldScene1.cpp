@@ -146,8 +146,14 @@ bool WorldScene1::init()
 	resumeBtn->addTouchEventListener(CC_CALLBACK_0(WorldScene1::ExitPauseMenu, this));
 	resumeBtn->setScale(0.7);
 	pause_bg->addChild(resumeBtn);
-	log("%f - %f", resumeBtn->getPositionX(), resumeBtn->getPositionY());
 
+	moreGoldBtn = ui::Button::create("res/Buttons/WorldScene1/moreGold.png");
+	moreGoldBtn->setPosition(Vec2(pause_bg->getContentSize().width - 10, 10));
+	moreGoldBtn->setScale(0.3);
+	moreGoldBtn->setAnchorPoint(Vec2(1, 0));
+	moreGoldBtn->addClickEventListener(CC_CALLBACK_0(WorldScene1::moreGold, this));
+	pause_bg->addChild(moreGoldBtn);
+	
 	restartBtn = ui::Button::create("res/Buttons/WorldScene1/restartButton.png");
 	restartBtn->setPosition(Vec2(pause_bg->getContentSize().width / 1.32, pause_bg->getContentSize().height / 2));
 	restartBtn->addTouchEventListener(CC_CALLBACK_0(WorldScene1::restart, this));
@@ -199,7 +205,6 @@ bool WorldScene1::init()
 	startWaveBTN2->setVisible(false);
 	addChild(startWaveBTN2, 3);
 
-	
 	//==========================================================
 	//Create first list monster from Wave list
 	numOfWave = 0;
@@ -212,6 +217,7 @@ bool WorldScene1::init()
 	crystal->getSprite()->setAnchorPoint(Vec2(0.5, 0.3));
 	//crystal->getSprite()->setScale(1.5);
 	crystal->getSprite()->setPosition(Vec2(xPoint,yPoint));
+
 	//===========================================================================
 	//First Location Tower
 	listLocationTower.push_back(Vec2(0, 0));
@@ -221,7 +227,7 @@ bool WorldScene1::init()
 	//===========================================================================
 	//List point to move monster
 	auto road = mTileMap->getObjectGroup("Point");
-	for (int i = 0; i < 15; i++)
+	for (int i = 0; i < 16; i++)
 	{
 		float x = road->getObject("P" + to_string(i + 1))["x"].asInt();
 		float y = road->getObject("P" + to_string(i + 1))["y"].asInt();
@@ -229,7 +235,7 @@ bool WorldScene1::init()
 	}
 	//List point 2 to move monster
 	auto road2 = mTileMap->getObjectGroup("Point2");
-	for (int i = 0; i < 8; i++)
+	for (int i = 0; i < 9; i++)
 	{
 		float x = road2->getObject("P" + to_string(i + 1))["x"].asInt();
 		float y = road2->getObject("P" + to_string(i + 1))["y"].asInt();
@@ -272,6 +278,11 @@ bool WorldScene1::init()
 	//=====================================================
 	//Assign gold from Player to gold
 	currentGold = Player::GetInstance()->GetCurrentGold();
+	//======================rangeBullet===============================
+	rangeBullet = Sprite::create("range_of_barrack_tower.png");
+	rangeBullet->setVisible(false);
+	rangeBullet->setScale(0.5f);
+	this->addChild(rangeBullet, 6);
 	//=====================================================
 	//Touch event
 	auto touchListener = EventListenerTouchOneByOne::create();
@@ -310,7 +321,7 @@ void WorldScene1::update(float deltaTime)
 			}
 			listTower[i]->GetSprite()->setVisible(false);
 			currentGold += listTower[i]->GetGold() / 2;
-			delete listTower[i];
+			//delete listTower[i];
 			listTower.erase(listTower.begin() + i);
 		}
 	}
@@ -320,6 +331,7 @@ void WorldScene1::update(float deltaTime)
 	if (start)
 	{
 		crystal->setPercentOfHealthBar();
+
 		for (int i = 0; i < listMonster.size(); i++)
 		{
 			listMonster[i]->setProgressBar();
@@ -357,7 +369,7 @@ void WorldScene1::update(float deltaTime)
 		//Monster move
 		for (int i = 0; i < listMonster.size(); i++)
 		{
-			if ((listMonster[i]->m_flag < listPoint.size() - 1) && (listMonster[i]->GetSprite()->getTag() == 1) && (listMonster[i]->GetSprite()->isVisible()))
+			if ((listMonster[i]->m_flag < listPoint.size()) && (listMonster[i]->GetSprite()->getTag() == 1) && (listMonster[i]->GetSprite()->isVisible()))
 			{	
 				if (listPoint[listMonster[i]->m_flag].getDistance(listMonster[i]->GetSprite()->getPosition()) == 0)
 				{
@@ -369,7 +381,7 @@ void WorldScene1::update(float deltaTime)
 					delay = 0.4;
 				}
 			}
-			else if ((listMonster[i]->m_flag < listPoint2.size() - 1) && (listMonster[i]->GetSprite()->getTag() == 0) && (listMonster[i]->GetSprite()->isVisible()))
+			else if ((listMonster[i]->m_flag < listPoint2.size()) && (listMonster[i]->GetSprite()->getTag() == 0) && (listMonster[i]->GetSprite()->isVisible()))
 			{
 				if (listPoint2[listMonster[i]->m_flag].getDistance(listMonster[i]->GetSprite()->getPosition()) == 0)
 				{
@@ -381,35 +393,80 @@ void WorldScene1::update(float deltaTime)
 					delay = 0.4;
 				}
 			}
-			
-		
-			
 			checkAttack = MonsterAttack(listMonster[i]);
 			MonsterMove(listMonster[i], listMonster[i]->GetSprite()->getTag(), checkAttack, deltaTime, delay);
 		}
 		
 		//Tower shoot
-		for (int tower = 0; tower < listTower.size(); tower++)
+
+		for (int k = 0; k < listTower.size(); k++)
 		{
+			vector<Monster*> temp = listTower[k]->GetlistMonsterInRange();
+			temp.clear();
+			vector<Monster*> listNeighbor = listTower[k]->GetListMonsterNeighbor();
+			listNeighbor.clear();
 			for (int i = 0; i < listMonster.size(); i++)
 			{
-				nearestMonster = listMonster[0];
-				if (listMonster[i]->GetSprite()->getPosition().getDistance(listTower[tower]->GetSprite()->getPosition()) < nearestMonster->GetSprite()->getPosition().getDistance(listTower[tower]->GetSprite()->getPosition()))
+				if (listMonster[i]->GetSprite()->getPosition().getDistance(listTower[k]->GetSprite()->getPosition()) < listTower[k]->GetRange())
 				{
-					nearestMonster = listMonster[i];
+
+					temp.push_back(listMonster[i]);
 				}
-				if (nearestMonster->GetSprite()->getPosition().getDistance(listTower[tower]->GetSprite()->getPosition()) < listTower[tower]->GetRange())
+			}
+
+			if (!temp.empty())
+			{
+				nearestMonster = temp[0];
+				for (int j = 0; j < temp.size(); j++)
 				{
-					listTower[tower]->Update(deltaTime, nearestMonster);
-					if (listTower[tower]->GetTypeTower() == SLOW_TOWER)
+					if (temp[j]->GetSprite()->getPosition().getDistance(crystal->getSprite()->getPosition()) <= nearestMonster->GetSprite()->getPosition().getDistance(crystal->getSprite()->getPosition()))
 					{
-						nearestMonster->SetIsSlow(true);
-						nearestMonster->SetSlowRunSpeed();
+						nearestMonster = temp[j];
 					}
-					i = 100;
+				}
+				for (int i = 0; i < listMonster.size(); i++)
+				{
+					if (listMonster[i]->GetSprite()->getPosition().getDistance(nearestMonster->GetSprite()->getPosition()) < 180 )
+					{
+						log("dis between 2 monster: %f", listMonster[i]->GetSprite()->getPosition().getDistance(nearestMonster->GetSprite()->getPosition()));
+						listNeighbor.push_back(listMonster[i]);
+					}
+					log("Size: %d", listNeighbor.size());
+				}
+				if (nearestMonster->IsDead() == false)
+				{
+					listTower[k]->Update(deltaTime, nearestMonster);
+				}
+				if (listTower[k]->GetCheckTowerShoot() == true)
+				{
+					rangeBullet->setVisible(true);
+					rangeBullet->setPosition(nearestMonster->GetSprite()->getPosition());
+					countTimeToReduceHP += deltaTime;
+					if (countTimeToReduceHP >= 0.4)
+					{
+						if (listTower[k]->GetTypeTower() != BOMBARD_TOWER)
+						{
+							nearestMonster->ReduceHitPointMonster(listTower[k]->GetDamage());
+						}
+						else if (listTower[k]->GetTypeTower() == BOMBARD_TOWER)
+						{
+							for (int m = 0; m < listNeighbor.size(); m++)
+							{
+								listNeighbor[m]->ReduceHitPointMonster(listTower[k]->GetDamage());
+							}
+						}
+						listTower[k]->SetCheckTowerShoot(false);
+						countTimeToReduceHP = 0;
+					}
+				}
+				if (listTower[k]->GetTypeTower() == SLOW_TOWER)
+				{
+					nearestMonster->SetIsSlow(true);
+					nearestMonster->SetSlowRunSpeed();
 				}
 			}
 		}
+				
 		//Monster die
 		for (int i = 0; i < listMonster.size(); i++)
 		{
@@ -926,4 +983,9 @@ void WorldScene1::muteSound()
 
 void WorldScene1::exit()
 {
+}
+
+void WorldScene1::moreGold()
+{
+	currentGold += 200;
 }

@@ -38,7 +38,7 @@ void Tower::Init()
 		m_minimumAtk = 10;
 		m_maximumAtk = 18;
 		m_attackSpeed = 3.0;
-		m_range = 320;
+		m_range = 180;
 		m_gold = 120;
 		break;
 	case BARRACKS_TOWER:
@@ -68,11 +68,17 @@ Tower::Tower(Layer * layer, int type, Vec2 Pos)
 		checkTouchFlag = true;
 	});
 	flagIcon->setPosition(circleIcon->getPosition().x + circleIcon->getContentSize().width / 2 -10, circleIcon->getPosition().y);
+	upgradeIcon = MenuItemImage::create("upgrade_button_normal.png", "upgrade_button_press.png", "upgrade_button_normal.png",[&](Ref* sender)
+	{
+
+	});
+	upgradeIcon->setPosition(circleIcon->getPosition().x, circleIcon->getPosition().y + circleIcon->getContentSize().height/2 -10);
+	//=============================================
 	sellIcon = MenuItemImage::create("sellBtn.png", "sellBtn.png", "sellBtn.png", [&](Ref* sender) {
 		isSell = true;
 	});
 	sellIcon->setPosition(circleIcon->getPosition().x, circleIcon->getPosition().y - circleIcon->getContentSize().height/2 + 10);
-	circleMenu = Menu::create(flagIcon, sellIcon, nullptr);
+	circleMenu = Menu::create(flagIcon, sellIcon, upgradeIcon, nullptr);
 	circleMenu->setPosition(0,0);
 	circleMenu->setVisible(false);
 	circleMenu->setEnabled(true);
@@ -131,11 +137,11 @@ void Tower::Shoot(Monster * monster)
 {
 	for (int i = 0; i < listBullet.size(); i++)
 	{
-		if (!listBullet.at(i)->GetSprite()->isVisible())
+		if (!listBullet[i]->GetSprite()->isVisible())
 		{
-			listBullet.at(i)->GetSprite()->setVisible(true);
-			listBullet.at(i)->GetSprite()->setPosition(m_sprite->getPositionX(), m_sprite->getPositionY() + m_sprite->getContentSize().height/2);
-			listBullet.at(i)->Move(monster);
+			listBullet[i]->GetSprite()->setVisible(true);
+			listBullet[i]->GetSprite()->setPosition(m_sprite->getPositionX(), m_sprite->getPositionY() + m_sprite->getContentSize().height/2);
+			listBullet[i]->Move(monster);
 			break;
 		}
 	}
@@ -143,18 +149,7 @@ void Tower::Shoot(Monster * monster)
 
 void Tower::Update(float deltaTime, Monster * monster)
 {
-	if (checkTowerShoot)
-	{
-		countTimeToDamage += deltaTime;
-		if (countTimeToDamage >= 0.4)
-		{
-			monster->SetHitPoint(monster->GetHitPoint() - GetDamage());
-
-			countTimeToDamage = 0;
-			checkTowerShoot = false;
-		}
-	}
-	if (m_sprite->getPosition().getDistance(Vec2(monster->GetSprite()->getPositionX(), monster->GetSprite()->getPositionY())) < m_range)
+	if (m_sprite->getPosition().getDistance(monster->GetSprite()->getPosition()) < m_range)
 	{
 		timeDelay += deltaTime;
 		if (timeDelay > m_attackSpeed)
@@ -164,6 +159,26 @@ void Tower::Update(float deltaTime, Monster * monster)
 			checkTowerShoot = true;
 		}
 	}
+}
+
+bool Tower::GetCheckTowerShoot()
+{
+	return checkTowerShoot;
+}
+
+void Tower::SetCheckTowerShoot(bool check)
+{
+	checkTowerShoot = check;
+}
+
+vector<Monster*> Tower::GetlistMonsterInRange()
+{
+	return listMonsterInRange;
+}
+
+vector<Monster*> Tower::GetListMonsterNeighbor()
+{
+	return listMonsterNeighbor;
 }
 
 float Tower::GetRange()
@@ -244,7 +259,6 @@ bool Tower::getIsSell()
 {
 	return isSell;
 }
-
 
 int Tower::GetDamage()
 {

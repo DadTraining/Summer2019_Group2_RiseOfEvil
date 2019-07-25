@@ -22,4 +22,5 @@ public:
 	void AfterShoot();
 	Sprite* GetSprite();
 	void Disappear();
+	//Point GetPosBullet();
 };

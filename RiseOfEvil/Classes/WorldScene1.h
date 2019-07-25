@@ -38,9 +38,11 @@ private:
 	PhysicsBody *body;
 	float delay;
 	Monster * nearestMonster;
+	Monster * neighborMonster;
 	float time;
 	float countTimeToPause;
 	float countTimeToAttack = 0;
+	float countTimeToReduceHP = 0;
 	int currentGold;
 	int numOfWave;
 	int monsterIndex = 0;
@@ -68,6 +70,7 @@ private:
 	Sprite * towerBarrackDetails;
 	Sprite * Flag;
 	Sprite * goldFrame;
+	ui::Button *moreGoldBtn;
 	ui::Button *resumeBtn;
 	ui::Button *restartBtn;
 	ui::Button *worldMapBtn;
@@ -84,6 +87,7 @@ private:
 	bool pause = false;
 	bool checkClick = false;
 	bool clickPause = false;
+	Sprite * rangeBullet;
 	bool checkAttack = false;
 public:
 	static Scene* createScene();
@@ -109,5 +113,6 @@ public:
 	void startWave();
 	void muteSound();
 	void exit();
+	void moreGold();
 	CREATE_FUNC(WorldScene1);
 };
