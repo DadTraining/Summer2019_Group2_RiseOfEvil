@@ -27,7 +27,7 @@ bool MainMenuScene::init()
 	btnNewGame->setScale(0.4);
 	btnNewGame->setAnchorPoint(Vec2(0.5, 0.5));
 	btnNewGame->setPosition(Vec2(visibleSize.width /2 , visibleSize.height / 1.9));
-	btnNewGame->addTouchEventListener(CC_CALLBACK_0(MainMenuScene::FadeinChoose, this));
+	btnNewGame->addClickEventListener(CC_CALLBACK_0(MainMenuScene::FadeinChoose, this));
 	this->addChild(btnNewGame, 2);
 
 	//=====================================================================
@@ -36,7 +36,8 @@ bool MainMenuScene::init()
 	btnLoadGame->setScale(0.5);
 	btnLoadGame->setAnchorPoint(Vec2(0.5, 0.5));
 	btnLoadGame->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 - 110));
-	btnLoadGame->addTouchEventListener(CC_CALLBACK_0(MainMenuScene::FadeoutChoose, this));
+	btnLoadGame->addClickEventListener(CC_CALLBACK_0(MainMenuScene::FadeoutChoose, this));
+	btnLoadGame->setEnabled(false);
 	this->addChild(btnLoadGame, 2);
 	//=====================================================================
 	//create Credits Buttons
@@ -52,7 +53,7 @@ bool MainMenuScene::init()
 	btnCampaign->setScale(0.5);
 	btnCampaign->setAnchorPoint(Vec2(0.5, 0.5));
 	btnCampaign->setPosition(Vec2(btnLoadGame->getPositionX(), btnLoadGame->getPositionY() + 40));
-	btnCampaign->addTouchEventListener(CC_CALLBACK_0(MainMenuScene::GoToWorldMap, this));
+	btnCampaign->addClickEventListener(CC_CALLBACK_0(MainMenuScene::GoToWorldMap, this));
 	btnCampaign->setEnabled(false);
 	btnCampaign->runAction(FadeOut::create(0));
 	this->addChild(btnCampaign, 2);
@@ -72,7 +73,7 @@ bool MainMenuScene::init()
 	btnBack->setEnabled(false);
 	btnBack->setPosition(Vec2(btnCredits->getPositionX(), btnCredits->getPositionY() - 40));
 	btnBack->runAction(FadeOut::create(0));
-	btnBack->addTouchEventListener(CC_CALLBACK_0(MainMenuScene::FadeoutChoose, this));
+	btnBack->addClickEventListener(CC_CALLBACK_0(MainMenuScene::FadeoutChoose, this));
 	this->addChild(btnBack, 2);
 	return true;
 }

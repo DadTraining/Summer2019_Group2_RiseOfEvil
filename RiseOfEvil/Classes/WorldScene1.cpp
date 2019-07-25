@@ -136,8 +136,8 @@ bool WorldScene1::init()
 
 
 	pauseBtn = ui::Button::create("res/Buttons/WorldScene1/pauseBtn.png", "res/Buttons/WorldScene1/pauseBtn-press.png");
-	pauseBtn->setScale(0.7);
-	pauseBtn->setPosition(Vec2(visibleSize.width - 20, visibleSize.height - 20));
+	pauseBtn->setScale(1.5);
+	pauseBtn->setPosition(Vec2(visibleSize.width - 40, visibleSize.height - 40));
 	pauseBtn->addClickEventListener(CC_CALLBACK_0(WorldScene1::ClickPauseButton, this));
 	addChild(pauseBtn, 1);
 
@@ -183,7 +183,7 @@ bool WorldScene1::init()
 	startBTN->setAnchorPoint(Vec2(1, 0));
 	startBTN->setPosition(Vec2(visibleSize.width - 5, 5));
 	startBTN->addClickEventListener(CC_CALLBACK_0(WorldScene1::startWave, this));
-	startBTN->setScale(0.5);
+	startBTN->setScale(0.7);
 	addChild(startBTN, 3);
 	//==========================================================
 	//Create start wave button 
@@ -244,7 +244,7 @@ bool WorldScene1::init()
 	//Create gold frame
 	goldFrame = Sprite::create("goldFrame.png");
 	goldFrame->setAnchorPoint(Vec2(0, 1));
-	goldFrame->setPosition(10, visibleSize.height - 10);
+	goldFrame->setPosition(40, visibleSize.height - 20);
 	goldFrame->removeFromParent();
 	addChild(goldFrame, 0);
 	//=====================================================
@@ -257,13 +257,13 @@ bool WorldScene1::init()
 	goldFrame->addChild(goldLabel);
 	//=====================================================
 	//Create label start game
-
 	startLabel = ResourceManager::GetInstance()->GetLabelById(3);
 	startLabel->setPosition(-6, 10);
 	startLabel->setAnchorPoint(Vec2(1, 0));
 	startLabel->setString("Click here to start");
 	startLabel->setVisible(true);
 	startLabel->removeFromParent();
+	startBTN->setVisible(false);
 	startBTN->addChild(startLabel);
 	//=====================================================
 	//Create label that show Wave number when new wave start;
@@ -273,6 +273,11 @@ bool WorldScene1::init()
 	messageWaveLabel->setColor(Color3B::RED);
 	messageWaveLabel->removeFromParent();
 	addChild(messageWaveLabel, 5);
+	//=====================================================
+	//Create label show how to build Tower
+	showHowToBuildTower = Label::createWithTTF("Touch anywhere on the ground to build Tower","fonts/Comic_Book.ttf", 20);
+	showHowToBuildTower->setPosition(visibleSize.width / 2, visibleSize.height / 2);
+	addChild(showHowToBuildTower, 5);
 	//=====================================================
 	//Assign gold from Player to gold
 	currentGold = Player::GetInstance()->GetCurrentGold();
@@ -290,6 +295,10 @@ bool WorldScene1::init()
 }
 void WorldScene1::update(float deltaTime)
 {
+	if (listTower.size() > 1 && !start)
+	{
+		startBTN->setVisible(true);
+	}
 	if (clickPause)
 	{
 		if (countTimeToPause >= 0.6)
@@ -401,7 +410,6 @@ void WorldScene1::update(float deltaTime)
 			{
 				if (listMonster[i]->GetSprite()->getPosition().getDistance(listTower[k]->GetSprite()->getPosition()) < listTower[k]->GetRange())
 				{
-
 					temp.push_back(listMonster[i]);
 				}
 			}
@@ -411,26 +419,24 @@ void WorldScene1::update(float deltaTime)
 				nearestMonster = temp[0];
 				for (int j = 0; j < temp.size(); j++)
 				{
-					if (temp[j]->GetSprite()->getPosition().getDistance(crystal->getSprite()->getPosition()) <= nearestMonster->GetSprite()->getPosition().getDistance(crystal->getSprite()->getPosition()))
+					if (temp[j]->GetSprite()->getPosition().getDistance(crystal->getSprite()->getPosition()) < nearestMonster->GetSprite()->getPosition().getDistance(crystal->getSprite()->getPosition()))
 					{
 						nearestMonster = temp[j];
 					}
 				}
 				for (int i = 0; i < listMonster.size(); i++)
 				{
-					if (listMonster[i]->GetSprite()->getPosition().getDistance(nearestMonster->GetSprite()->getPosition()) < 180 )
+					if (listMonster[i]->GetSprite()->getPosition().getDistance(nearestMonster->GetSprite()->getPosition()) < 90)
 					{
 						listNeighbor.push_back(listMonster[i]);
 					}
 				}
-				if (nearestMonster->IsDead() == false)
+				if (!nearestMonster->IsDead())
 				{
 					listTower[k]->Update(deltaTime, nearestMonster);
 				}
 				if (listTower[k]->GetCheckTowerShoot() == true)
 				{
-					rangeBullet->setVisible(true);
-					rangeBullet->setPosition(nearestMonster->GetSprite()->getPosition());
 					countTimeToReduceHP += deltaTime;
 					if (countTimeToReduceHP >= 0.4)
 					{
@@ -576,7 +582,7 @@ bool WorldScene1::MonsterAttack(Monster* monster)
 			{
 				if (monster->GetSprite()->getPosition().distance(listTower[j]->GetListSoldier()[k]->GetSprite()->getPosition()) <= 20)
 				{
-						return true;
+					return true;
 				}
 			}
 		}
@@ -700,12 +706,12 @@ bool WorldScene1::onTouchBegan(Touch * touch, Event * event)
 	}
 	return true;
 }
-//Check Location To Build
+//Check Location have tower or not
 bool WorldScene1::checkLocationBuildTower(Vec2 newPoint)
 {
 	for (int i = 0; i < listLocationTower.size(); i++)
 	{
-		if (newPoint.getDistance(listLocationTower[i]) < 32)
+		if (newPoint.getDistance(listLocationTower[i]) < 25)
 		{
 			return false;
 		}
@@ -718,57 +724,16 @@ void WorldScene1::onTouchMoved(Touch * touch, Event * event)
 {
 	auto visi = Director::getInstance()->getVisibleSize();
 	Flag->setPosition(touch->getLocation());
-	//use camera
-	//===============================================================
-	//if ((touch->getLocation().x - touch->getPreviousLocation().x) < 0)
-	//{
-	//	if ((cam->getPositionX() + (touch->getLocation().x - touch->getPreviousLocation().x)) > visi.width/2)
-	//	{
-	//		cam->setPositionX(cam->getPositionX() + (touch->getLocation().x - touch->getPreviousLocation().x));
-	//		//mTileMap->setPositionX(mTileMap->getPositionX() - (touch->getLocation().x - touch->getPreviousLocation().x));
-	//	}
-	//}
-	//else
-	//{
-	//	if ((cam->getPositionX() + (touch->getLocation().x - touch->getPreviousLocation().x)) < (mTileMap->getContentSize().width - visi.width/2))
-	//	{
-	//		cam->setPositionX(cam->getPositionX() + (touch->getLocation().x - touch->getPreviousLocation().x));
-	//		//mTileMap->setPositionX(mTileMap->getPositionX() - (touch->getLocation().x - touch->getPreviousLocation().x));
-	//	}
-	//}
-
-	//if ((touch->getLocation().y - touch->getPreviousLocation().y) < 0)
-	//{
-	//	if ((cam->getPositionY() + (touch->getLocation().y - touch->getPreviousLocation().y)) > visi.height/2)
-	//	{
-	//		cam->setPositionY(cam->getPositionY() + (touch->getLocation().y - touch->getPreviousLocation().y));
-	//		//mTileMap->setPositionY(mTileMap->getPositionY() - (touch->getLocation().y - touch->getPreviousLocation().y));
-	//	}
-	//}
-	//else
-	//{
-	//	if ((cam->getPositionY() + (touch->getLocation().y - touch->getPreviousLocation().y)) < mTileMap->getContentSize().height - visi.height/2)
-	//	{
-	//		cam->setPositionY(cam->getPositionY() + (touch->getLocation().y - touch->getPreviousLocation().y));
-	//		//mTileMap->setPositionY(mTileMap->getPositionY() - (touch->getLocation().y - touch->getPreviousLocation().y));
-	//	}
-	//}
-
-	//pauseBtn->setPosition(Vec2(cam->getPositionX() + visi.width / 2 - 20, cam->getPositionY() + visi.height / 2 - 20));
-	//startBTN->setPosition(Vec2(cam->getPositionX() + visi.width / 2 - 5, cam->getPositionY() - visi.height / 2 + 5));
-	//goldFrame->setPosition(Vec2(cam->getPositionX() - visi.width / 2 + 10, cam->getPositionY() + visi.height / 2 - 10));
-	//pause_bg->setScale(0.5);
-	//pause_bg->setPosition(Vec2(cam->getPosition().x, cam->getPosition().y + visi.height / 2));
-	//================================================================
 }
 
 void WorldScene1::onTouchEnded(Touch * touch, Event * event)
 {
+	showHowToBuildTower->setVisible(false);
 	Flag->setPosition(touch->getLocation());
 	Flag->setVisible(false);
 }
 
-//Create list Tower icon 
+//Create menu build Tower
 void WorldScene1::createmenu(Vec2 point)
 {
 	menu->setPosition(point);

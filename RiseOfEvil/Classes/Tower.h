@@ -24,12 +24,13 @@ private:
 	Menu * circleMenu;
 	MenuItemImage * flagIcon;
 	MenuItemImage * circleIcon;
-  MenuItemImage * upgradeIcon;
+	MenuItemImage * upgradeIcon;
 	MenuItemImage * sellIcon;
 	float m_range = 250;
 	float timeDelay = 0;
 	float m_attackSpeed;
 	int m_gold;
+	int m_level;
 	bool checkTowerShoot = false;
 	bool checkTouchFlag = false;
 	bool checkTypeTowerBarrack = false;
@@ -63,4 +64,6 @@ public:
 	vector<Monster*> GetlistMonsterInRange();
 	vector<Monster*> GetListMonsterNeighbor();
 	bool getIsSell();
+	int getLevel();
+	void upgrade();
 };

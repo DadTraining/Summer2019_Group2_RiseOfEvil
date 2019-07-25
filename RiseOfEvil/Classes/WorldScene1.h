@@ -63,6 +63,7 @@ private:
 	Label* goldLabel;
 	Label* startLabel;
 	Label* messageWaveLabel;
+	Label* showHowToBuildTower;
 	Sprite * towerArcherDetails;
 	Sprite * towerMagicDetails;
 	Sprite * towerSlowDetails;

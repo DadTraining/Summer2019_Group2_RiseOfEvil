@@ -27,6 +27,7 @@
 #include "LogoScene.h"
 #include "ResourceManager.h"
 #include "Player.h"
+#include "MainMenuScene.h"
 
 // #define USE_AUDIO_ENGINE 1
 // #define USE_SIMPLE_AUDIO_ENGINE 1
