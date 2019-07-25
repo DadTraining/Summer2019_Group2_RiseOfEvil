@@ -6,7 +6,7 @@ void Tower::Init()
 	switch (m_type)
 	{
 	case ARROW_TOWER:
-		m_sprite = Sprite::create("res/WorldScene1/archerTower1.png");
+		m_sprite = Sprite::create("res/WorldScene1/arrowtower1.png");
 		m_hitPoint = 100;
 		m_minimumAtk = 4;
 		m_maximumAtk = 6;
@@ -57,20 +57,20 @@ Tower::Tower(Layer * layer, int type, Vec2 Pos)
 {
 	m_type = type;
 	Init();
-
+	m_level = 1;
 	circleIcon = MenuItemImage::create("CircleMenu.png", "CircleMenu.png", [&](Ref* sender) {
 	});
 	circleIcon->setPosition(m_sprite->getPosition() + m_sprite->getContentSize() / 2);
 
 	flagIcon = MenuItemImage::create("FlagCallSoldier.png", "FlagCallSoldier_disable.png", "FlagCallSoldier_disable.png", [&](Ref* sender) {
-		FadeOutPause();
+		HideCircleMenu();
 		rangeBarrackTower->setVisible(true);
 		checkTouchFlag = true;
 	});
 	flagIcon->setPosition(circleIcon->getPosition().x + circleIcon->getContentSize().width / 2 -10, circleIcon->getPosition().y);
-	upgradeIcon = MenuItemImage::create("upgrade_button_normal.png", "upgrade_button_press.png", "upgrade_button_normal.png",[&](Ref* sender)
+	upgradeIcon = MenuItemImage::create("upgrade_button_normal.png", "upgrade_button_press.png", "upgrade_button_press.png",[&](Ref* sender)
 	{
-
+		requestUpdate = true;
 	});
 	upgradeIcon->setPosition(circleIcon->getPosition().x, circleIcon->getPosition().y + circleIcon->getContentSize().height/2 -10);
 	//=============================================
@@ -85,7 +85,7 @@ Tower::Tower(Layer * layer, int type, Vec2 Pos)
 	m_sprite->addChild(circleIcon);
 	circleIcon->setVisible(false);
 	m_sprite->addChild(circleMenu);
-	m_sprite->setScale(0.5f);
+	m_sprite->setScale(0.6f);
 	m_sprite->setPosition(Pos);
 	m_sprite->setAnchorPoint(Vec2(0.3, 0));
 	m_sprite->removeFromParent();
@@ -203,14 +203,14 @@ void Tower::SetGold(int gold)
 	m_gold = gold;
 }
 
-void Tower::FadeInPause()
+void Tower::ShowCircleMenu()
 {
 	circleMenu->setVisible(true);
 	circleMenu->setEnabled(true);
 	circleIcon->setVisible(true);
 }
 
-void Tower::FadeOutPause()
+void Tower::HideCircleMenu()
 {
 	circleMenu->setVisible(false);
 	circleMenu->setEnabled(false);
@@ -255,6 +255,63 @@ int Tower::GetTypeTower()
 bool Tower::getIsSell()
 {
 	return isSell;
+}
+
+int Tower::getLevel()
+{
+	return m_level;
+}
+
+void Tower::upgrade()
+{
+	m_level++;
+	if (m_level <= 3)
+	{
+		switch (m_type)
+		{
+		case ARROW_TOWER:
+			m_sprite->setTexture("res/WorldScene1/arrowtower" + to_string(m_level) + ".png");
+			break;
+		case MAGIC_TOWER:
+			m_sprite->setTexture("res/WorldScene1/magictower" + to_string(m_level) + ".png");
+			break;
+		case SLOW_TOWER:
+			m_sprite->setTexture("res/WorldScene1/slowtower" + to_string(m_level) + ".png");
+			break;
+		case BOMBARD_TOWER:
+			m_sprite->setTexture("res/WorldScene1/boomtower" + to_string(m_level) + ".png");
+			break;
+		case BARRACKS_TOWER:
+			m_sprite->setTexture("res/WorldScene1/brracktower" + to_string(m_level) + ".png");
+			break;
+		default:
+			break;
+		}
+		m_hitPoint *= m_level;
+		m_minimumAtk *= m_level;
+		m_maximumAtk *= m_level;
+		m_gold += m_gold;
+	}
+	
+}
+
+bool Tower::getRequestUpdate()
+{
+	return requestUpdate;
+}
+
+void Tower::acceptUpdate(bool condition)
+{
+	if (condition)
+	{
+		upgrade();
+		requestUpdate = false;
+	}
+}
+
+MenuItemImage * Tower::getUpgradeIcon()
+{
+	return upgradeIcon;
 }
 
 int Tower::GetDamage()
