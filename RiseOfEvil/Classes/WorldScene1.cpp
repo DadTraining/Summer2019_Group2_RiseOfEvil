@@ -147,7 +147,6 @@ bool WorldScene1::init()
 	pause_bg->setPosition(Vec2(visibleSize.width / 2, visibleSize.height));
 	addChild(pause_bg, 6);
 
-
 	pauseBtn = ui::Button::create("res/Buttons/WorldScene1/pauseBtn.png", "res/Buttons/WorldScene1/pauseBtn-press.png");
 	pauseBtn->setScale(1.5);
 	pauseBtn->setPosition(Vec2(visibleSize.width - 40, visibleSize.height - 40));
@@ -286,7 +285,7 @@ bool WorldScene1::init()
 	messageWaveLabel->setScale(0.0001);
 	messageWaveLabel->setColor(Color3B::RED);
 	messageWaveLabel->removeFromParent();
-	addChild(messageWaveLabel, 5);
+	addChild(messageWaveLabel, 10);
 	//=====================================================
 	//Create label show how to build Tower
 	showHowToBuildTower = Label::createWithTTF("Touch anywhere on the ground to build Tower","fonts/Comic_Book.ttf", 20);
@@ -325,6 +324,7 @@ void WorldScene1::update(float deltaTime)
 			countTimeToPause += deltaTime;
 		}
 	}
+	//Check sell tower
 	for (int i = 0; i < listTower.size(); i++)
 	{
 		if (listTower[i]->getIsSell())
@@ -358,6 +358,15 @@ void WorldScene1::update(float deltaTime)
 				listTower[i]->HideCircleMenu();
 			}
 		}
+	}
+	//Check build tower
+	if (checkClickBuildButton)
+	{
+		if (hpBar->getPercentage() >= 100)
+		{
+			BuildTower();
+		}
+		hpBar->setPercentage(hpBar->getPercentage() + 5);
 	}
 	//Set Gold to Label
 	goldLabel->setString(to_string(currentGold));
@@ -568,7 +577,6 @@ void WorldScene1::ClickPauseButton()
 	//use camera
 	//pause_bg->runAction(MoveTo::create(0.5, Vec2(cam->getPositionX(), cam->getPositionY()/4)));
 	clickPause = true;
-	countTimeToPause = 0;
 }
 
 void WorldScene1::returnToMainMenu()
@@ -585,9 +593,9 @@ void WorldScene1::returnToMainMenu()
 }
 
 //Build Tower
-void WorldScene1::BuildTower(Ref* ref, int type)
+void WorldScene1::BuildTower()
 {
-	Tower * towerBuild = new Tower(this, type, touchLocation);
+	Tower * towerBuild = new Tower(this, typeOfTowerPrepairToBuild, touchLocation);
 	currentGold -= towerBuild->GetGold();
 	listLocationTower.push_back(touchLocation);
 	listTower.push_back(towerBuild);
@@ -599,6 +607,9 @@ void WorldScene1::BuildTower(Ref* ref, int type)
 	towerBoombardDetails->setVisible(false);
 	towerBarrackDetails->setVisible(false);
 	TowerFake->setVisible(false);
+	checkClickBuildButton = false;
+	hpBgSprite->setVisible(false);
+	hpBar->setPercentage(0);
 }
 
 void WorldScene1::moveFlag(Vec2 Pos)
@@ -732,7 +743,6 @@ bool WorldScene1::onTouchBegan(Touch * touch, Event * event)
 				}
 			}
 	}
-
 	//==========================================
 
 	if (touchOut == true && touchIn == false)
@@ -761,7 +771,6 @@ bool WorldScene1::checkLocationBuildTower(Vec2 newPoint)
 	}
 	return true;
 }
-
 
 void WorldScene1::onTouchMoved(Touch * touch, Event * event)
 {
@@ -828,7 +837,8 @@ void WorldScene1::GetTowerDetails(int type)
 		if (currentGold >= 70)
 		{
 			buyTower = ui::Button::create("res/WorldScene1/buttonBuy70_active.png");
-			buyTower->addClickEventListener(CC_CALLBACK_1(WorldScene1::BuildTower, this, 1));
+			buyTower->addClickEventListener(CC_CALLBACK_0(WorldScene1::LoadingBuildTower, this));
+			typeOfTowerPrepairToBuild = 1;
 			buyTower->setEnabled(true);
 		}
 		else
@@ -845,14 +855,15 @@ void WorldScene1::GetTowerDetails(int type)
 		towerArcherDetails->setPosition(Vec2(menu->getPosition().x, menu->getPosition().y + 100));
 		towerArcherDetails->setVisible(true);
 
-		checkTouchBuildTOwer = true;
+		checkTouchBuildTowerFake = true;
 		BuildTowerFake(1);
 		break;
 	case 2:
 		if (currentGold >= 100)
 		{
 			buyTower = ui::Button::create("res/WorldScene1/buttonBuy100_active.png");
-			buyTower->addClickEventListener(CC_CALLBACK_1(WorldScene1::BuildTower, this, 2));
+			buyTower->addClickEventListener(CC_CALLBACK_0(WorldScene1::LoadingBuildTower, this));
+			typeOfTowerPrepairToBuild = 2;
 			buyTower->setEnabled(true);
 		}
 		else
@@ -867,14 +878,15 @@ void WorldScene1::GetTowerDetails(int type)
 		towerMagicDetails->setPosition(Vec2(menu->getPosition().x, menu->getPosition().y + 100));
 		towerMagicDetails->setVisible(true);
 
-		checkTouchBuildTOwer = true;
+		checkTouchBuildTowerFake = true;
 		BuildTowerFake(2);
 		break;
 	case 5:
 		if (currentGold >= 70)
 		{
 			buyTower = ui::Button::create("res/WorldScene1/buttonBuy70_active.png");
-			buyTower->addClickEventListener(CC_CALLBACK_1(WorldScene1::BuildTower, this, 5));
+			buyTower->addClickEventListener(CC_CALLBACK_0(WorldScene1::LoadingBuildTower, this));
+			typeOfTowerPrepairToBuild = 5;
 			buyTower->setEnabled(true);
 		}
 		else
@@ -889,14 +901,15 @@ void WorldScene1::GetTowerDetails(int type)
 		towerBarrackDetails->setPosition(Vec2(menu->getPosition().x, menu->getPosition().y + 100));
 		towerBarrackDetails->setVisible(true);
 
-		checkTouchBuildTOwer = true;
+		checkTouchBuildTowerFake = true;
 		BuildTowerFake(3);
 		break;
 	case 3:
 		if (currentGold >= 80)
 		{
 			buyTower = ui::Button::create("res/WorldScene1/buttonBuy80_active.png");
-			buyTower->addClickEventListener(CC_CALLBACK_1(WorldScene1::BuildTower, this, 3));
+			buyTower->addClickEventListener(CC_CALLBACK_0(WorldScene1::LoadingBuildTower, this));
+			typeOfTowerPrepairToBuild = 3;
 			buyTower->setEnabled(true);
 		}
 		else
@@ -911,14 +924,15 @@ void WorldScene1::GetTowerDetails(int type)
 		towerSlowDetails->setPosition(Vec2(menu->getPosition().x, menu->getPosition().y + 100));
 		towerSlowDetails->setVisible(true);
 
-		checkTouchBuildTOwer = true;
+		checkTouchBuildTowerFake = true;
 		BuildTowerFake(4);
 		break;
 	case 4: 
 		if (currentGold >= 125)
 		{
 			buyTower = ui::Button::create("res/WorldScene1/buttonBuy125_active.png");
-			buyTower->addClickEventListener(CC_CALLBACK_1(WorldScene1::BuildTower, this, 4));
+			buyTower->addClickEventListener(CC_CALLBACK_0(WorldScene1::LoadingBuildTower, this));
+			typeOfTowerPrepairToBuild = 4;
 			buyTower->setEnabled(true);
 		}
 		else
@@ -933,7 +947,7 @@ void WorldScene1::GetTowerDetails(int type)
 		towerBoombardDetails->setPosition(Vec2(menu->getPosition().x, menu->getPosition().y + 100));
 		towerBoombardDetails->setVisible(true);
 
-		checkTouchBuildTOwer = true;
+		checkTouchBuildTowerFake = true;
 		BuildTowerFake(5);
 		break;
 	default:
@@ -1005,19 +1019,10 @@ void WorldScene1::moreGold()
 	currentGold += 200;
 }
 
-bool WorldScene1::GetCheckTouchBuildTower()
-{
-	return checkTouchBuildTOwer;
-}
-
-void WorldScene1::SetCheckTouchBuildTower(bool check)
-{
-	checkTouchBuildTOwer = check;
-}
 
 void WorldScene1::BuildTowerFake(int type)
 {
-	if (GetCheckTouchBuildTower())
+	if (checkTouchBuildTowerFake)
 	{
 	switch (type)
 	{
@@ -1049,10 +1054,27 @@ void WorldScene1::BuildTowerFake(int type)
 		TowerFake->setPosition(touchLocation);
 		rangeFakeTower->setVisible(true);
 		rangeFakeTower->setPosition(TowerFake->getContentSize().width / 2, TowerFake->getContentSize().height / 2);
-		SetCheckTouchBuildTower(false);	
+		checkTouchBuildTowerFake = false;
 	}
 	else
 	{
 		TowerFake->setVisible(false);
 	}
+}
+
+void WorldScene1::LoadingBuildTower()
+{
+	checkClickBuildButton = true;
+	hpBgSprite = Sprite::create("res/WorldScene1/loadingbar_bg.png");
+	hpBgSprite->setVisible(true);
+	hpBgSprite->setPosition(Point(TowerFake->getContentSize().width / 2, TowerFake->getContentSize().height /2));
+	TowerFake->addChild(hpBgSprite);
+	hpBar = CCProgressTimer::create(Sprite::create("res/WorldScene1/loadingbar.png"));
+	hpBar->setType(ProgressTimer::Type::BAR);
+	hpBar->setMidpoint(Point(0, 0.5f));
+	hpBar->setBarChangeRate(Point(1, 0));
+	hpBar->setPercentage(0);
+	hpBar->setPosition(Point(hpBgSprite->getContentSize().width / 2, hpBgSprite->getContentSize().height / 2));
+	hpBgSprite->addChild(hpBar);
+	hpBgSprite->setScale(0.1);
 }

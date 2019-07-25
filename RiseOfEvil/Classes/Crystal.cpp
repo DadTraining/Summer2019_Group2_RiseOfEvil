@@ -21,7 +21,7 @@ void Crystal::Init()
 	hitpointpercentLabel = Label::createWithTTF("100%", "fonts/Comic_Book.ttf", 12);
 	hitpointpercentLabel->setPosition(Point(m_sprite->getContentSize().width / 2 + 10, m_sprite->getContentSize().height + 10));
 	m_sprite->addChild(hpBgSprite);
-	m_sprite->addChild(hitpointpercentLabel);
+	m_sprite->addChild(hitpointpercentLabel,1);
 	hpBar = CCProgressTimer::create(Sprite::create("res/WorldScene1/loadingbar.png"));
 	hpBar->setType(ProgressTimer::Type::BAR);
 	hpBar->setMidpoint(Point(0, 0.5f));
@@ -42,11 +42,23 @@ void Crystal::setPercentOfHealthBar()
 {
 	hitpointpercentLabel->setString(to_string((int)(m_hitpoint / (m_maxHitpoint * 1.0) * 100)) + "%");
 	hpBar->setPercentage((m_hitpoint / (m_maxHitpoint * 1.0) * 100));
-	//make crystal fire
-	if (hpBar->getPercentage() < 50)
+	if (hpBar->getPercentage() < 0)
 	{
-		fire->setScale(10/ hpBar->getPercentage());
+		hpBar->setPercentage(0);
+	}
+	//make crystal fire
+	if (hpBar->getPercentage() < 60)
+	{
+		hitpointpercentLabel->setColor(Color3B::ORANGE);
+		if (10 / hpBar->getPercentage() <= 1)
+		{
+			fire->setScale(10 / hpBar->getPercentage());
+		}
 		fire->setVisible(true);
+	}
+	if (hpBar->getPercentage() < 30)
+	{
+		hitpointpercentLabel->setColor(Color3B::RED);
 	}
 }
 
