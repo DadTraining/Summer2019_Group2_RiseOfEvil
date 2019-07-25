@@ -104,6 +104,8 @@ bool WorldScene1::init()
 	canBuild = Sprite::create("canbuild.png");
 	canBuild->removeFromParent();
 	canBuild->setPosition(0, 0);
+	canBuild->setAnchorPoint(Vec2(0.5, 0));
+	canBuild->setOpacity(80);
 	canBuild->setScale(0.5);
 	this->addChild(canBuild, 2);
 	canBuild->setVisible(false);
@@ -127,6 +129,17 @@ bool WorldScene1::init()
 	//Create pause menu 
 	pause_bg = Sprite::create("res/WorldScene1/pause_bag.png");
 	pause_bg->setAnchorPoint(Vec2(0.5, 0));
+	////================TowerFake===================================
+	TowerFake = Sprite::create("res/WorldScene1/archerTower1.png");
+	TowerFake->setVisible(false);
+	TowerFake->setAnchorPoint(Vec2(0.3, 0));
+	TowerFake->setScale(0.5);
+	this->addChild(TowerFake, 6);
+	//==================Range Fake Tower===============================
+	rangeFakeTower = Sprite::create("range_of_barrack_tower.png");
+	rangeFakeTower->setVisible(true);
+	TowerFake->addChild(rangeFakeTower);
+	//=================================================================
 
 	//use camera
 	//pause_bg->setPosition(Vec2(cam->getPosition().x, cam->getPosition().y + visibleSize.height/2));
@@ -426,7 +439,7 @@ void WorldScene1::update(float deltaTime)
 				}
 				for (int i = 0; i < listMonster.size(); i++)
 				{
-					if (listMonster[i]->GetSprite()->getPosition().getDistance(nearestMonster->GetSprite()->getPosition()) < 180 )
+					if (listMonster[i]->GetSprite()->getPosition().getDistance(nearestMonster->GetSprite()->getPosition()) < 90 )
 					{
 						log("dis between 2 monster: %f", listMonster[i]->GetSprite()->getPosition().getDistance(nearestMonster->GetSprite()->getPosition()));
 						listNeighbor.push_back(listMonster[i]);
@@ -567,6 +580,7 @@ void WorldScene1::BuildTower(Ref* ref, int type)
 	towerSlowDetails->setVisible(false);
 	towerBoombardDetails->setVisible(false);
 	towerBarrackDetails->setVisible(false);
+	TowerFake->setVisible(false);
 }
 
 void WorldScene1::moveFlag(Vec2 Pos)
@@ -647,6 +661,7 @@ bool WorldScene1::onTouchBegan(Touch * touch, Event * event)
 					towerSlowDetails->setVisible(false);
 					towerBoombardDetails->setVisible(false);
 					towerBarrackDetails->setVisible(false);
+					TowerFake->setVisible(false);
 				}
 			}
 		}
@@ -781,7 +796,7 @@ void WorldScene1::onTouchEnded(Touch * touch, Event * event)
 //Create list Tower icon 
 void WorldScene1::createmenu(Vec2 point)
 {
-	menu->setPosition(point);
+	menu->setPosition(Vec2(point.x +230, point.y));
 	archerIcon->setPosition(menu->getContentSize().width, menu->getContentSize().height);
 	magicIcon->setPosition(menu->getContentSize().width + magicIcon->getContentSize().width, menu->getContentSize().height);
 	slowIcon->setPosition(menu->getContentSize().width + 2 * slowIcon->getContentSize().width, menu->getContentSize().height);
@@ -791,7 +806,7 @@ void WorldScene1::createmenu(Vec2 point)
 	if (!menu->isVisible())
 	{
 		menu->setVisible(true);
-		canBuild->setVisible(true);
+		//canBuild->setVisible(true);
 	}
 }
 
@@ -800,7 +815,7 @@ void WorldScene1::StatusMenu(bool check)
 	if (check == true)
 	{
 		menu->setVisible(true);
-		canBuild->setVisible(true);
+		//canBuild->setVisible(true);
 		cannotBuild->setVisible(false);
 	}
 	else if (check == false)
@@ -813,6 +828,7 @@ void WorldScene1::StatusMenu(bool check)
 		menu->setVisible(false);
 		canBuild->setVisible(false);
 		cannotBuild->setVisible(false);
+		TowerFake->setVisible(false);
 	}
 }
 
@@ -841,9 +857,13 @@ void WorldScene1::GetTowerDetails(int type)
 		towerArcherDetails->addChild(buyTower);
 		buyTower->setScale(0.5);
 		buyTower->setPosition(Vec2(towerArcherDetails->getContentSize().width / 2 + 20, 25));
+
 		towerArcherDetails->setAnchorPoint(Vec2(0.5, 0));
 		towerArcherDetails->setPosition(Vec2(menu->getPosition().x, menu->getPosition().y + 100));
 		towerArcherDetails->setVisible(true);
+
+		checkTouchBuildTOwer = true;
+		BuildTowerFake(1);
 		break;
 	case 2:
 		if (currentGold >= 100)
@@ -863,6 +883,9 @@ void WorldScene1::GetTowerDetails(int type)
 		buyTower->setPosition(Vec2(towerMagicDetails->getContentSize().width / 2 + 20, 25));
 		towerMagicDetails->setPosition(Vec2(menu->getPosition().x, menu->getPosition().y + 100));
 		towerMagicDetails->setVisible(true);
+
+		checkTouchBuildTOwer = true;
+		BuildTowerFake(2);
 		break;
 	case 5:
 		if (currentGold >= 70)
@@ -882,6 +905,9 @@ void WorldScene1::GetTowerDetails(int type)
 		buyTower->setPosition(Vec2(towerBarrackDetails->getContentSize().width / 2 + 20, 25));
 		towerBarrackDetails->setPosition(Vec2(menu->getPosition().x, menu->getPosition().y + 100));
 		towerBarrackDetails->setVisible(true);
+
+		checkTouchBuildTOwer = true;
+		BuildTowerFake(3);
 		break;
 	case 3:
 		if (currentGold >= 80)
@@ -901,6 +927,9 @@ void WorldScene1::GetTowerDetails(int type)
 		buyTower->setPosition(Vec2(towerSlowDetails->getContentSize().width / 2 + 20, 25));
 		towerSlowDetails->setPosition(Vec2(menu->getPosition().x, menu->getPosition().y + 100));
 		towerSlowDetails->setVisible(true);
+
+		checkTouchBuildTOwer = true;
+		BuildTowerFake(4);
 		break;
 	case 4: 
 		if (currentGold >= 125)
@@ -920,6 +949,9 @@ void WorldScene1::GetTowerDetails(int type)
 		buyTower->setPosition(Vec2(towerBoombardDetails->getContentSize().width / 2 + 20, 25));
 		towerBoombardDetails->setPosition(Vec2(menu->getPosition().x, menu->getPosition().y + 100));
 		towerBoombardDetails->setVisible(true);
+
+		checkTouchBuildTOwer = true;
+		BuildTowerFake(5);
 		break;
 	default:
 		break;
@@ -988,4 +1020,56 @@ void WorldScene1::exit()
 void WorldScene1::moreGold()
 {
 	currentGold += 200;
+}
+
+bool WorldScene1::GetCheckTouchBuildTower()
+{
+	return checkTouchBuildTOwer;
+}
+
+void WorldScene1::SetCheckTouchBuildTower(bool check)
+{
+	checkTouchBuildTOwer = check;
+}
+
+void WorldScene1::BuildTowerFake(int type)
+{
+	if (GetCheckTouchBuildTower())
+	{
+	switch (type)
+	{
+	case 1:
+		TowerFake->setTexture("res/WorldScene1/archerTower1.png");
+		rangeFakeTower->setScale(1.11);
+		break;
+	case 2:
+		TowerFake->setTexture("res/WorldScene1/magictower1.png");
+		rangeFakeTower->setScale(1.556);
+		break;
+	case 3:
+		TowerFake->setTexture("res/WorldScene1/brracktower1.png");
+		rangeFakeTower->setScale(1);
+		break;
+	case 4:
+		TowerFake->setTexture("res/WorldScene1/slowtower1.png");
+		rangeFakeTower->setScale(1);
+		break;
+	case 5:
+		TowerFake->setTexture("res/WorldScene1/boomtower1.png");
+		rangeFakeTower->setScale(1);
+		break;
+	default:
+		break;
+	}
+		TowerFake->setVisible(true);
+		TowerFake->setOpacity(100);
+		TowerFake->setPosition(touchLocation);
+		rangeFakeTower->setVisible(true);
+		rangeFakeTower->setPosition(TowerFake->getContentSize().width / 2, TowerFake->getContentSize().height / 2);
+		SetCheckTouchBuildTower(false);	
+	}
+	else
+	{
+		TowerFake->setVisible(false);
+	}
 }

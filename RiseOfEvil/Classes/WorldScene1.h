@@ -70,6 +70,9 @@ private:
 	Sprite * towerBarrackDetails;
 	Sprite * Flag;
 	Sprite * goldFrame;
+	Sprite* TowerFake;
+	Sprite* rangeBullet;
+	Sprite* rangeFakeTower;
 	ui::Button *moreGoldBtn;
 	ui::Button *resumeBtn;
 	ui::Button *restartBtn;
@@ -87,8 +90,8 @@ private:
 	bool pause = false;
 	bool checkClick = false;
 	bool clickPause = false;
-	Sprite * rangeBullet;
 	bool checkAttack = false;
+	bool checkTouchBuildTOwer = false;
 public:
 	static Scene* createScene();
 	virtual bool init() override;
@@ -114,5 +117,8 @@ public:
 	void muteSound();
 	void exit();
 	void moreGold();
+	bool GetCheckTouchBuildTower();
+	void SetCheckTouchBuildTower(bool);
+	void BuildTowerFake(int type);
 	CREATE_FUNC(WorldScene1);
 };
