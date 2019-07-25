@@ -175,6 +175,8 @@ void Monster::Init()
 	}
 }
 float timeCount = 0.5;
+float timeMove = 0;
+
 void Monster::Update(float deltaTime)
 {
 	if (timeCount >= (1.0 + (random(0, 10) / 10 * 1.0)))
@@ -186,7 +188,8 @@ void Monster::Update(float deltaTime)
 		timeCount += deltaTime;
 	}
 }
-float timeMove = 0;
+
+
 void Monster::Move(Vec2 point, bool check, float timedelay, float delay)
 {
 	
@@ -234,6 +237,7 @@ void Monster::Move(Vec2 point, bool check, float timedelay, float delay)
 		timeMove += timedelay;
 	}	
 }
+
 Animation* Monster::AnimationMonster(string prefixName, int pFrameBegin, int pFrameEnd, float delay)
 {
 	Vector<SpriteFrame*> animFrames;
@@ -449,7 +453,7 @@ void Monster::AttackCrystal(Crystal *crystal, float deltaTime)
 	}
 	else
 	{
-    countToAttack += deltaTime;
+		countToAttack += deltaTime;
 	}
 }
 
@@ -592,9 +596,9 @@ int Monster::GetDamage()
 	return random(m_minimumAtk, m_maximumAtk);
 }
 
-void Monster::ReduceHitPointMonster(int GetDamage)
+void Monster::ReduceHitPointMonster(int damage)
 {
-		SetHitPoint(GetHitPoint() - GetDamage);
+	m_hitPoint -= damage;
 }
 
 bool Monster::IsDead()

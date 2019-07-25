@@ -133,6 +133,7 @@ Sprite * Tower::GetSprite()
 {
 	return m_sprite;
 }
+
 void Tower::Shoot(Monster * monster)
 {
 	for (int i = 0; i < listBullet.size(); i++)
@@ -149,12 +150,15 @@ void Tower::Shoot(Monster * monster)
 
 void Tower::Update(float deltaTime, Monster * monster)
 {
-	timeDelay += deltaTime;
 	if (timeDelay > m_attackSpeed)
 	{
 		Shoot(monster);
 		timeDelay = 0;
 		checkTowerShoot = true;
+	}
+	else
+	{
+		timeDelay += deltaTime;
 	}
 }
 

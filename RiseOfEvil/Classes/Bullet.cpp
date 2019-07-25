@@ -35,7 +35,6 @@ Bullet::Bullet(Layer * layer, int type)
 
 void Bullet::Update(float deltaTime)
 {
-	
 }
 
 void Bullet::Move(Monster * monster)
