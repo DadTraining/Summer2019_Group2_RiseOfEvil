@@ -450,7 +450,7 @@ void Monster::AttackCrystal(Crystal *crystal, float deltaTime)
 
 void Monster::DoDead()
 {
-	auto dropMoney = Sprite::create("_Coin_1.png");
+	/*auto dropMoney = Sprite::create("_Coin_1.png");
 	Vector<SpriteFrame*> anim;
 	anim.reserve(4);
 	anim.pushBack(SpriteFrame::create("_Coin_1.png",Rect(0,0,29,52)));
@@ -462,17 +462,19 @@ void Monster::DoDead()
 	dropMoney->runAction(Sequence::create(DelayTime::create(2), RemoveSelf::create(), nullptr));
 	dropMoney->runAction(animate);
 	dropMoney->setPosition(m_sprite->getPosition());
-	layer->addChild(dropMoney);
-	/*int num = random(1, 4);
+	layer->addChild(dropMoney);*/
+	//int num = random(1, 4);
 	auto seq = Sequence::create(DelayTime::create(0.3f), FadeOut::create(0), RemoveSelf::create(), nullptr);
-	switch (num)
-	{
-	case 1:
-		dead1 = Sprite::create("dead1.png");
+	//switch (num)
+	//{
+	//case 1:
+		dead1 = Sprite::create("dead.png");
+		dead1->setScale(0.6);
 		dead1->setPosition(m_sprite->getPosition());
 		layer->addChild(dead1, 3);
+		dead1->runAction(MoveBy::create(0.3f, Vec2(0, 10)));
 		dead1->runAction(seq);
-		break;
+		/*break;
 	case 2:
 		dead2 = Sprite::create("dead2.png");
 		dead2->setPosition(m_sprite->getPosition());

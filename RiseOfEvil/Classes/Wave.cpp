@@ -1,7 +1,8 @@
 #include "Wave.h"
 
-Wave::Wave()
+Wave::Wave(int stage)
 {
+	m_stage = stage;
 	Load();
 }
 
@@ -11,10 +12,12 @@ Wave::~Wave()
 
 void Wave::Load()
 {
-	auto content = FileUtils::getInstance()->getStringFromFile("Stage1Info.bin");
+	auto content = FileUtils::getInstance()->getStringFromFile("Stage"+to_string(m_stage)+"Info.bin");
 	istringstream f(content);
 	int size;
 	int type;
+	f >> road1;
+	f >> road2;
 	f >> size;
 	for (int i = 0; i < size; i++) {
 		f >> type;
@@ -64,4 +67,14 @@ vector<int> Wave::getWave(int numOfWave)
 	default:
 		break;
 	}
+}
+
+int Wave::getRoad1TotalPoint()
+{
+	return road1;
+}
+
+int Wave::getRoad2TotalPoint()
+{
+	return road2;
 }
