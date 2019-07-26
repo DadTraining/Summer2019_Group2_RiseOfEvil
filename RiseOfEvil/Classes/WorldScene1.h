@@ -39,14 +39,15 @@ private:
 	float delay;
 	Monster * nearestMonster;
 	Monster * neighborMonster;
-	float time;
-	float countTimeToPause;
+	float time = 0;
+	float countTimeToPause = 0;
 	float countTimeToAttack = 0;
 	float countTimeToReduceHP = 0;
 	float countTimeToBuildTower = 0;
 	int currentGold;
 	int numOfWave;
 	int monsterIndex = 0;
+	int typeOfTowerPrepairToBuild;
 	Menu *menu;
 	MenuItemImage *archerIcon;
 	MenuItemImage *magicIcon;
@@ -64,6 +65,7 @@ private:
 	Label* goldLabel;
 	Label* startLabel;
 	Label* messageWaveLabel;
+	Label* showHowToBuildTower;
 	Sprite * towerArcherDetails;
 	Sprite * towerMagicDetails;
 	Sprite * towerSlowDetails;
@@ -74,6 +76,8 @@ private:
 	Sprite* TowerFake;
 	Sprite* rangeBullet;
 	Sprite* rangeFakeTower;
+	Sprite* hpBgSprite;
+	ProgressTimer *hpBar;
 	ui::Button *moreGoldBtn;
 	ui::Button *resumeBtn;
 	ui::Button *restartBtn;
@@ -92,7 +96,8 @@ private:
 	bool checkClick = false;
 	bool clickPause = false;
 	bool checkAttack = false;
-	bool checkTouchBuildTOwer = false;
+	bool checkTouchBuildTowerFake = false;
+	bool checkClickBuildButton = false;
 public:
 	static Scene* createScene();
 	virtual bool init() override;
@@ -102,7 +107,7 @@ public:
 	void ExitPauseMenu();
 	void restart();
 	void returnToMainMenu();
-	void BuildTower(Ref*,int);
+	void BuildTower();
 	void createmenu(Vec2 point);
 	bool MonsterAttack(Monster*);
 	void MonsterMove(Monster*, int, bool, float, float);
@@ -118,8 +123,7 @@ public:
 	void muteSound();
 	void exit();
 	void moreGold();
-	bool GetCheckTouchBuildTower();
-	void SetCheckTouchBuildTower(bool);
 	void BuildTowerFake(int type);
+	void LoadingBuildTower();
 	CREATE_FUNC(WorldScene1);
 };

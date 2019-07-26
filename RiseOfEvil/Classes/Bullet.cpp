@@ -30,14 +30,11 @@ Bullet::Bullet(Layer * layer, int type)
 	m_layer = layer;
 	m_sprite->setVisible(false);
 	m_sprite->setScale(0.3f);
-	//bullet->setRotation(-75);
-	//bullet->setPosition();
 	layer->addChild(m_sprite, 5);
 }
 
 void Bullet::Update(float deltaTime)
 {
-	
 }
 
 void Bullet::Move(Monster * monster)

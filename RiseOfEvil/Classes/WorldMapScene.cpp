@@ -33,32 +33,34 @@ bool WorldMapScene::init()
 	for (int i = 0; i < 5; i++) {
 		float x = obj_flag->getObject("Stage" + to_string(i + 1))["x"].asInt();
 		float y = obj_flag->getObject("Stage" + to_string(i + 1))["y"].asInt();
-		auto flag = ui::Button::create("res/Sprites/WorldMapScene/flag_normal.png", "res/Sprites/WorldMapScene/flag_pressed.png");
-		flag->setVisible(false);
+		auto flag = ui::Button::create("res/Sprites/WorldMapScene/flag_normal.png", "res/Sprites/WorldMapScene/flag_pressed.png","res/Sprites/WorldMapScene/flag_disable.png");
+		flag->setEnabled(false);
 		flag->setPosition(Vec2(x, y));
-		flag->setScale(0.2);
+		flag->setScale(0.8);
 		flag->setAnchorPoint(Vec2(0.5, 0));
-		flag->addTouchEventListener(CC_CALLBACK_1(WorldMapScene::GoToStage, this, i + 1));
+		flag->addClickEventListener(CC_CALLBACK_1(WorldMapScene::GoToStage, this, i + 1));
+		add_star(flag->getPosition());
 		addChild(flag, 1);
 		staged.push_back(flag);
 	}
 
 	for (int i = 0; i < Player::GetInstance()->GetCurrentStage(); i++)
 	{
-		staged[i]->setVisible(true);
+		staged[i]->setEnabled(true);
 		add_star(staged[i]->getPosition());
 	}
 
 	auto backBtn = ui::Button::create("res/Sprites/WorldMapScene/backBtn_normal.png", "res/Sprites/WorldMapScene/backBtn_pressed.png");
+	//backBtn->setScale(0.2);
 	backBtn->setPosition(Vec2(100, 50));
 	backBtn->setScale(0.2);
-	backBtn->addTouchEventListener(CC_CALLBACK_0(WorldMapScene::GoToMainMenu, this));
+	backBtn->addClickEventListener(CC_CALLBACK_0(WorldMapScene::GoToMainMenu, this));
 	addChild(backBtn);
 
-	auto upgradeBtn = ui::Button::create("res/Sprites/WorldMapScene/upgradesBtn_normal.png", "res/Sprites/WorldMapScene/upgradesBtn_pressed.png");
+	auto upgradeBtn = ui::Button::create("res/Sprites/WorldMapScene/UpgradeNormalBtn.png", "res/Sprites/WorldMapScene/UpgradePressBtn.png");
 	upgradeBtn->setPosition(Vec2(visibleSize.width - 100, 50));
 	upgradeBtn->setAnchorPoint(Vec2(1, 0.5));
-	upgradeBtn->addTouchEventListener(CC_CALLBACK_0(WorldMapScene::GoToUpgrade, this));
+	upgradeBtn->addClickEventListener(CC_CALLBACK_0(WorldMapScene::GoToUpgrade, this));
 	addChild(upgradeBtn);
 
 	return true;

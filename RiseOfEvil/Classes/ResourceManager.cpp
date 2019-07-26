@@ -72,7 +72,7 @@ void ResourceManager::Load(string fileName)
 		f >> index;
 		f >> off;
 		f >> pathFont;
-		Label *lb = Label::createWithTTF("", pathFont, 30);
+		Label *lb = Label::createWithTTF("", pathFont, 35);
 		lb->retain();
 		m_labels.insert(pair<int, Label*>(index, lb));
 	}
