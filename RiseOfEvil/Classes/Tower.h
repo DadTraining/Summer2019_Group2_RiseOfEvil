@@ -24,16 +24,18 @@ private:
 	Menu * circleMenu;
 	MenuItemImage * flagIcon;
 	MenuItemImage * circleIcon;
-  MenuItemImage * upgradeIcon;
+	MenuItemImage * upgradeIcon;
 	MenuItemImage * sellIcon;
 	float m_range = 250;
 	float timeDelay = 0;
 	float m_attackSpeed;
 	int m_gold;
+	int m_level;
 	bool checkTowerShoot = false;
 	bool checkTouchFlag = false;
 	bool checkTypeTowerBarrack = false;
 	bool isSell = false;
+	bool requestUpdate = false;
 	Sprite * rangeBarrackTower;
 	Point posBullet;
 public:
@@ -49,8 +51,8 @@ public:
 	int GetGold();
 	void SetGold(int);
 	int GetDamage();
-	void FadeInPause();
-	void FadeOutPause();
+	void ShowCircleMenu();
+	void HideCircleMenu();
 	bool GetCheckTouchFlag();
 	int GetType();
 	void SetCheckTouchFlag(bool);
@@ -63,4 +65,9 @@ public:
 	vector<Monster*> GetlistMonsterInRange();
 	vector<Monster*> GetListMonsterNeighbor();
 	bool getIsSell();
+	int getLevel();
+	void upgrade();
+	bool getRequestUpdate();
+	void acceptUpdate(bool);
+	MenuItemImage * getUpgradeIcon();
 };
