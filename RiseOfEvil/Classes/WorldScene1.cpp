@@ -502,6 +502,15 @@ void WorldScene1::update(float deltaTime)
 				listMonster[i]->SetMovementSpeed(listMonster[i]->GetMaxSpeed());
 			}
 		}
+		//BuildTower with time delay
+		//if (GetCheckTouchBuildTower())
+		//{
+		//	countTimeToBuildTower += deltaTime;
+		//	if (countTimeToBuildTower > 3.0)
+		//	{
+		//		countTimeToBuildTower = 0;
+		//	}
+		//}
 	}
 }
 
@@ -794,7 +803,16 @@ void WorldScene1::onTouchEnded(Touch * touch, Event * event)
 //Create list Tower icon 
 void WorldScene1::createmenu(Vec2 point)
 {
-	menu->setPosition(Vec2(point.x +230, point.y));
+	if (touchLocation.x > 350)
+	{
+		menu->setPosition(Vec2(point.x - 150, point.y));
+	}
+	else
+	{
+		menu->setPosition(Vec2(point.x + 150, point.y));
+	}
+	log("touchLocation.x %f contentsize mune.witdh %f", touchLocation.x, abs(menu->getContentSize().width));
+	//menu->setPosition(Vec2(point.x -150, point.y));
 	archerIcon->setPosition(menu->getContentSize().width, menu->getContentSize().height);
 	magicIcon->setPosition(menu->getContentSize().width + magicIcon->getContentSize().width, menu->getContentSize().height);
 	slowIcon->setPosition(menu->getContentSize().width + 2 * slowIcon->getContentSize().width, menu->getContentSize().height);

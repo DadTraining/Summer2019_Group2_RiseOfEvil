@@ -150,7 +150,7 @@ void Tower::Shoot(Monster * monster)
 void Tower::Update(float deltaTime, Monster * monster)
 {
 	timeDelay += deltaTime;
-	if (timeDelay > m_attackSpeed)
+	if (timeDelay >  m_attackSpeed)
 	{
 		Shoot(monster);
 		timeDelay = 0;
