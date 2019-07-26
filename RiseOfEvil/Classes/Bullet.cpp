@@ -84,12 +84,56 @@ void Bullet::Move(Monster * monster)
 
 void Bullet::AfterShoot()
 {
-	auto *expl = ParticleSystemQuad::create("explotion.plist");
-	expl->setVisible(true);
-	expl->setDuration(0.05);
-	expl->setPosition(m_sprite->getPosition());
-	expl->setAutoRemoveOnFinish(true);
-	m_layer->addChild(expl);
+	switch (bullet_type)
+	{
+		case ARROW_BULLET:
+		{
+			explotion_arrow = ParticleSystemQuad::create("explotion.plist");
+			explotion_arrow->setVisible(true);
+			explotion_arrow->setScale(0.7);
+			explotion_arrow->setDuration(0.5);
+			explotion_arrow->setPosition(m_sprite->getPosition());
+			explotion_arrow->setAutoRemoveOnFinish(true);
+			m_layer->addChild(explotion_arrow);
+			break;
+		}
+
+		case MAGIC_BULLET:
+		{
+			auto explotion_magic = ParticleSun::create();
+			explotion_magic->setPosition(m_sprite->getPosition());
+			explotion_magic->setDuration(0.5);
+			explotion_magic->setAutoRemoveOnFinish(true);
+			m_layer->addChild(explotion_magic);
+			break;
+		}
+
+		case SLOW_BULLET:
+		{
+			explotion_slow = ParticleSystemQuad::create("particle_magic.plist");
+			explotion_slow->setVisible(true);
+			explotion_slow->setScale(0.7);
+			explotion_slow->setDuration(0.5);
+			explotion_slow->setPosition(m_sprite->getPosition());
+			explotion_slow->setAutoRemoveOnFinish(true);
+			m_layer->addChild(explotion_slow);
+			break;
+		}
+
+		case BOMBARD_BULLET:
+		{
+			auto explotion_boombard = ParticleSun::create();
+			explotion_boombard->setPosition(m_sprite->getPosition());
+			explotion_boombard->setDuration(0.5);
+			explotion_boombard->setScale(2.5);
+			explotion_boombard->setAutoRemoveOnFinish(true);
+			m_layer->addChild(explotion_boombard);
+			break;
+		}
+	}
+	
+
+
 	m_sprite->setVisible(false);
 }
 

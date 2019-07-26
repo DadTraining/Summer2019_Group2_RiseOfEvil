@@ -12,6 +12,11 @@ class Bullet
 private:
 	Sprite * m_sprite;
 	Layer* m_layer;
+	ParticleSystemQuad * explotion_arrow;
+	ParticleSystemQuad * explotion_magic;
+	ParticleSystemQuad * explotion_slow;
+	ParticleSystemQuad * explotion_bombard;
+
 	int bullet_type;
 public:
 

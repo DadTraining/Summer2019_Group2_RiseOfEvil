@@ -43,6 +43,7 @@ private:
 	float countTimeToPause = 0;
 	float countTimeToAttack = 0;
 	float countTimeToReduceHP = 0;
+	float countTimeToBuildTower = 0;
 	int currentGold;
 	int numOfWave;
 	int monsterIndex = 0;
