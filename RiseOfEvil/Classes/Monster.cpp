@@ -6,8 +6,7 @@ Monster::Monster(Layer * layer, int type)
 	m_type = type;
 	this->layer = layer;
 	Init();
-	maxSpeed = m_movementSpeed;
-	speed = m_movementSpeed * 80 / 100;
+	speed = m_speed * 80 / 100;
 	m_maxHitPoint = m_hitPoint;
 	layer->addChild(m_spriteNode, 3);
 }
@@ -47,7 +46,7 @@ void Monster::Init()
 		m_attackSpeed = 1.0;
 		m_attackAnimation = 0.1f;
 		m_range = 20;
-		m_speed = m_velocity = MEDIUM_SPEED;
+		m_speed = m_movementSpeed = m_velocity = MEDIUM_SPEED;
 		m_armor = 0;
 		m_gold = 6;
 		break;
@@ -267,7 +266,6 @@ void Monster::Action(int direction, bool check)
 		AttackE->retain();
 		if (!check)
 		{
-			m_movementSpeed = m_speed;
 			m_sprite->stopAllActions();
 			m_sprite->runAction(RepeatForever::create(walkingE)->clone());
 		}
@@ -289,7 +287,6 @@ void Monster::Action(int direction, bool check)
 		AttackW->retain();
 		if (!check)
 		{
-			m_movementSpeed = m_speed;
 			m_sprite->stopAllActions();
 			m_sprite->runAction(RepeatForever::create(walkingW)->clone());
 		}
@@ -310,7 +307,6 @@ void Monster::Action(int direction, bool check)
 		AttackS->retain();
 		if (!check)
 		{
-			m_movementSpeed = m_speed;
 			m_sprite->stopAllActions();
 			m_sprite->runAction(RepeatForever::create(walkingS)->clone());
 		}
@@ -331,7 +327,6 @@ void Monster::Action(int direction, bool check)
 		AttackN->retain();
 		if (!check)
 		{
-			m_movementSpeed = m_speed;
 			m_sprite->stopAllActions();
 			m_sprite->runAction(RepeatForever::create(walkingN)->clone());
 		}
@@ -352,7 +347,6 @@ void Monster::Action(int direction, bool check)
 		AttackSE->retain();
 		if (!check)
 		{
-			m_movementSpeed = m_speed;
 			m_sprite->stopAllActions();
 			m_sprite->runAction(RepeatForever::create(walkingSE)->clone());
 		}
@@ -373,7 +367,6 @@ void Monster::Action(int direction, bool check)
 		AttackSW->retain();
 		if (!check)
 		{
-			m_movementSpeed = m_speed;
 			m_sprite->stopAllActions();
 			m_sprite->runAction(RepeatForever::create(walkingSW)->clone());
 		}
@@ -393,7 +386,6 @@ void Monster::Action(int direction, bool check)
 		AttackNE->retain();
 		if (!check)
 		{
-			m_movementSpeed = m_speed;
 			m_sprite->stopAllActions();
 			m_sprite->runAction(RepeatForever::create(walkingNE)->clone());
 		}
@@ -413,7 +405,6 @@ void Monster::Action(int direction, bool check)
 		AttackNW->retain();
 		if (!check)
 		{
-			m_movementSpeed = m_speed;
 			m_sprite->stopAllActions();
 			m_sprite->runAction(RepeatForever::create(walkingNW)->clone());
 		}
@@ -575,7 +566,7 @@ void Monster::SetSlowRunSpeed()
 	{
 		if (m_movementSpeed > speed)
 		{
-			m_movementSpeed -= m_movementSpeed * 20 / 100;
+			m_movementSpeed -= m_speed * 20 / 100;
 			isSlow = false;
 		}
 	}
@@ -586,9 +577,9 @@ void Monster::SetIsSlow(bool isSlow)
 	this->isSlow = isSlow;
 }
 
-float Monster::GetMaxSpeed()
+float Monster::GetMSpeed()
 {
-	return maxSpeed;
+	return m_speed;
 }
 
 int Monster::GetDamage()

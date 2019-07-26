@@ -39,8 +39,7 @@ private:
 	float m_movementSpeed;
 	float m_speed;
 	float m_velocity;
-	float speed; // 80% maxSpeed
-	float maxSpeed;
+	float speed; // 80% maxSpee
 	float countToAttack = 0;
 	Sprite * m_bloodBar;
 	Sprite * m_blood;
@@ -82,7 +81,7 @@ public:
 	bool GetIsSlow();
 	void SetSlowRunSpeed();
 	void SetIsSlow(bool);
-	float GetMaxSpeed();
+	float GetMSpeed();
 	int GetDamage();
 	void ReduceHitPointMonster(int);
 	bool IsDead();
