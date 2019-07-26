@@ -13,5 +13,5 @@ public:
 	~Skill();
 	void Init();
 	Sprite * getSprite();
-	void effect(Object*);
+	void effect(Objects*);
 };
