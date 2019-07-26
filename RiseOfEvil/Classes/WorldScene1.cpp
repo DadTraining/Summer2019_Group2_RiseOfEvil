@@ -492,6 +492,7 @@ void WorldScene1::update(float deltaTime)
 								for (int m = 0; m < listNeighbor.size(); m++)
 								{
 									listNeighbor[m]->ReduceHitPointMonster(listTower[k]->GetDamage());
+									//log("range tower: %f", listTower[k]->GetDamage());
 								}
 							}
 						}
@@ -526,13 +527,13 @@ void WorldScene1::update(float deltaTime)
 		//increase speed
 		for (int i = 0; i<listMonster.size(); i++)
 		{
-			if (listMonster[i]->GetMovementSpeed() < listMonster[i]->GetMaxSpeed())
+			if (listMonster[i]->GetMovementSpeed() < listMonster[i]->GetMSpeed())
 			{
 				listMonster[i]->SetMovementSpeed(listMonster[i]->GetMovementSpeed() + 1);
 			}
 			else
 			{
-				listMonster[i]->SetMovementSpeed(listMonster[i]->GetMaxSpeed());
+				listMonster[i]->SetMovementSpeed(listMonster[i]->GetMSpeed());
 			}
 		}
 		//BuildTower with time delay
@@ -810,7 +811,6 @@ void WorldScene1::createmenu(Vec2 point)
 	{
 		menu->setPosition(Vec2(point.x + 150, point.y));
 	}
-	log("touchLocation.x %f contentsize mune.witdh %f", touchLocation.x, abs(menu->getContentSize().width));
 	//menu->setPosition(Vec2(point.x -150, point.y));
 	archerIcon->setPosition(menu->getContentSize().width, menu->getContentSize().height);
 	magicIcon->setPosition(menu->getContentSize().width + magicIcon->getContentSize().width, menu->getContentSize().height);
