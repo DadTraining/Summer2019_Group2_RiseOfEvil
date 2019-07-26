@@ -458,7 +458,7 @@ void WorldScene1::update(float deltaTime)
 		}
 		for (int i = 0; i < listTower.size(); i++)
 		{
-			listTower[i]->Update(deltaTime);
+			listTower[i]->Update(deltaTime, listMonster);
 		}
 		//Monster die
 		for (int i = 0; i < listMonster.size(); i++)
@@ -473,13 +473,13 @@ void WorldScene1::update(float deltaTime)
 			}
 		}
 		//increase speed
-		for (int i = 0; i<listMonster.size(); i++)
+		for (int i = 0; i < listMonster.size(); i++)
 		{
 			if (listMonster[i]->GetMovementSpeed() < listMonster[i]->GetMSpeed())
 			{
-				listMonster[i]->SetMovementSpeed(listMonster[i]->GetMovementSpeed() + 1);
+				listMonster[i]->SetMovementSpeed(listMonster[i]->GetMovementSpeed() + 0.5);
 			}
-			else
+			if (listMonster[i]->GetMovementSpeed() >= listMonster[i]->GetMSpeed())
 			{
 				listMonster[i]->SetMovementSpeed(listMonster[i]->GetMSpeed());
 				listMonster[i]->GetSprite()->setColor(Color3B(255, 255, 255));

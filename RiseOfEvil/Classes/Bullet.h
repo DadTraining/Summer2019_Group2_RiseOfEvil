@@ -19,11 +19,13 @@ private:
 	Monster *monsterBeHit;
 	int damageOfHit;
 	int bullet_type;
+	vector<Monster*> listOfCurrentMonster;
+	int typeOfTower;
 public:
 	void Init();
 	Bullet(Layer* layer, int type);
 	void Update(float deltaTime);
-	void Move(Monster*,int);
+	void Move(Monster*,int,vector<Monster*>,int);
 	void AfterShoot();
 	Sprite* GetSprite();
 	void Disappear();

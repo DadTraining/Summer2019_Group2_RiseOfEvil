@@ -134,7 +134,7 @@ Sprite * Tower::GetSprite()
 	return m_sprite;
 }
 
-void Tower::Shoot(Monster * monster)
+void Tower::Shoot(vector<Monster*> listMonster)
 {
 	for (int i = 0; i < listBullet.size(); i++)
 	{
@@ -142,19 +142,19 @@ void Tower::Shoot(Monster * monster)
 		{
 			listBullet[i]->GetSprite()->setVisible(true);
 			listBullet[i]->GetSprite()->setPosition(m_sprite->getPositionX(), m_sprite->getPositionY() + m_sprite->getContentSize().height/2);
-			listBullet[i]->Move(monster,GetDamage());
+			listBullet[i]->Move(target, GetDamage(), listMonster, m_type);
 			break;
 		}
 	}
 }
 
-void Tower::Update(float deltaTime)
+void Tower::Update(float deltaTime, vector<Monster*> listMonster)
 {
 	if (target != nullptr)
 	{
 		if (timeDelay > m_attackSpeed)
 		{
-			Shoot(target);
+			Shoot(listMonster);
 			timeDelay = 0;
 			checkTowerShoot = true;
 		}

@@ -45,8 +45,8 @@ public:
 	Tower(Layer* layer, int, Vec2);
 	~Tower();
 	Sprite * GetSprite();
-	void Shoot(Monster*);
-	void Update(float deltaTime);
+	void Shoot(vector<Monster*>);
+	void Update(float deltaTime, vector<Monster*>);
 	float GetRange();
 	float GetAttackSpeed();
 	void SetAttackSpeed(float);

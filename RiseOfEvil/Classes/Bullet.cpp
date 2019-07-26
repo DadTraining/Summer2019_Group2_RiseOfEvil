@@ -37,11 +37,13 @@ void Bullet::Update(float deltaTime)
 {
 }
 
-void Bullet::Move(Monster * monster, int damage)
+void Bullet::Move(Monster * monster, int damage, vector<Monster*> listMonster, int type)
 {
 	ccBezierConfig bezier;
 	monsterBeHit = monster;
 	damageOfHit = damage;
+	listOfCurrentMonster = listMonster;
+	typeOfTower = type;
 	//================Shoot Bezier=======================
 	bezier.controlPoint_1 = Point(m_sprite->getPositionX(), m_sprite->getPositionY()+ 100);
 	bezier.controlPoint_2 = Point(Vec2(((m_sprite->getPositionX() + monster->GetSprite()->getPositionX()) / 2), (m_sprite->getPositionY() + monster->GetSprite()->getPositionY()) / 2 + 200));
@@ -87,6 +89,20 @@ void Bullet::Move(Monster * monster, int damage)
 void Bullet::AfterShoot()
 {
 	monsterBeHit->ReduceHitPointMonster(damageOfHit);
+	if (typeOfTower == 4)
+	{
+		for (int i = 0; i < listOfCurrentMonster.size(); i++)
+		{
+			if (listOfCurrentMonster[i]->GetSprite()->getPosition().distance(monsterBeHit->GetSprite()->getPosition()) <= 90)
+			{ 
+				listOfCurrentMonster[i]->ReduceHitPointMonster(damageOfHit);
+			}
+		}
+	}
+	if (typeOfTower == 3)
+	{
+		monsterBeHit->SetSlowRunSpeed();
+	}
 	switch (bullet_type)
 	{
 		case ARROW_BULLET:

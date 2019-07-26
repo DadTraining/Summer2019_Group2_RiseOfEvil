@@ -564,14 +564,10 @@ bool Monster::GetIsSlow()
 
 void Monster::SetSlowRunSpeed()
 {
-	if (isSlow == true)
+	if (m_movementSpeed > speed)
 	{
-		if (m_movementSpeed > speed)
-		{
-			m_movementSpeed -= m_speed * 20 / 100;
-			m_sprite->setColor(Color3B::BLUE);
-			isSlow = false;
-		}
+		m_movementSpeed -= m_speed * 20 / 100;
+		m_sprite->setColor(Color3B::BLUE);
 	}
 }
 
