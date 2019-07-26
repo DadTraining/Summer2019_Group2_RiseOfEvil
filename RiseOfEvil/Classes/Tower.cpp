@@ -142,23 +142,26 @@ void Tower::Shoot(Monster * monster)
 		{
 			listBullet[i]->GetSprite()->setVisible(true);
 			listBullet[i]->GetSprite()->setPosition(m_sprite->getPositionX(), m_sprite->getPositionY() + m_sprite->getContentSize().height/2);
-			listBullet[i]->Move(monster);
+			listBullet[i]->Move(monster,GetDamage());
 			break;
 		}
 	}
 }
 
-void Tower::Update(float deltaTime, Monster * monster)
+void Tower::Update(float deltaTime)
 {
-	if (timeDelay > m_attackSpeed)
+	if (target != nullptr)
 	{
-		Shoot(monster);
-		timeDelay = 0;
-		checkTowerShoot = true;
-	}
-	else
-	{
-		timeDelay += deltaTime;
+		if (timeDelay > m_attackSpeed)
+		{
+			Shoot(target);
+			timeDelay = 0;
+			checkTowerShoot = true;
+		}
+		else
+		{
+			timeDelay += deltaTime;
+		}
 	}
 }
 
@@ -316,6 +319,28 @@ void Tower::acceptUpdate(bool condition)
 MenuItemImage * Tower::getUpgradeIcon()
 {
 	return upgradeIcon;
+}
+
+Monster * Tower::getTarget()
+{
+	return target;
+}
+
+void Tower::setTarget(Monster * monster)
+{
+	target = monster;
+}
+
+bool Tower::getStatusOfTarget()
+{
+	if (m_sprite->getPosition().distance(target->GetSprite()->getPosition()) > m_range
+		||
+		target->GetHitPoint() <= 0
+		)
+	{
+		return false;
+	}
+	return true;
 }
 
 int Tower::GetDamage()

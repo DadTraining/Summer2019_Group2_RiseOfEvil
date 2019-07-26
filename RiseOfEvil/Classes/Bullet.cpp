@@ -37,9 +37,11 @@ void Bullet::Update(float deltaTime)
 {
 }
 
-void Bullet::Move(Monster * monster)
+void Bullet::Move(Monster * monster, int damage)
 {
 	ccBezierConfig bezier;
+	monsterBeHit = monster;
+	damageOfHit = damage;
 	//================Shoot Bezier=======================
 	bezier.controlPoint_1 = Point(m_sprite->getPositionX(), m_sprite->getPositionY()+ 100);
 	bezier.controlPoint_2 = Point(Vec2(((m_sprite->getPositionX() + monster->GetSprite()->getPositionX()) / 2), (m_sprite->getPositionY() + monster->GetSprite()->getPositionY()) / 2 + 200));
@@ -84,6 +86,7 @@ void Bullet::Move(Monster * monster)
 
 void Bullet::AfterShoot()
 {
+	monsterBeHit->ReduceHitPointMonster(damageOfHit);
 	switch (bullet_type)
 	{
 		case ARROW_BULLET:
@@ -148,4 +151,8 @@ Sprite * Bullet::GetSprite()
 void Bullet::Disappear()
 {
 	m_sprite->removeFromParent();
+}
+
+void Bullet::damageToMonster(Monster *monster)
+{
 }

@@ -16,16 +16,17 @@ private:
 	ParticleSystemQuad * explotion_magic;
 	ParticleSystemQuad * explotion_slow;
 	ParticleSystemQuad * explotion_bombard;
-
+	Monster *monsterBeHit;
+	int damageOfHit;
 	int bullet_type;
 public:
-
 	void Init();
 	Bullet(Layer* layer, int type);
 	void Update(float deltaTime);
-	void Move(Monster*);
+	void Move(Monster*,int);
 	void AfterShoot();
 	Sprite* GetSprite();
 	void Disappear();
+	void damageToMonster(Monster*);
 	//Point GetPosBullet();
 };
