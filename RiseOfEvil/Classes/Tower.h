@@ -28,6 +28,7 @@ private:
 	MenuItemImage * sellIcon;
 	float m_range = 250;
 	float timeDelay = 0;
+	float countTimeToDealDamage;
 	float m_attackSpeed;
 	int m_gold;
 	int m_level;
@@ -38,13 +39,14 @@ private:
 	bool requestUpdate = false;
 	Sprite * rangeBarrackTower;
 	Point posBullet;
+	Monster *target = nullptr;
 public:
 	void Init();
 	Tower(Layer* layer, int, Vec2);
 	~Tower();
 	Sprite * GetSprite();
-	void Shoot(Monster*);
-	void Update(float deltaTime, Monster*);
+	void Shoot(vector<Monster*>);
+	void Update(float deltaTime, vector<Monster*>);
 	float GetRange();
 	float GetAttackSpeed();
 	void SetAttackSpeed(float);
@@ -70,4 +72,7 @@ public:
 	bool getRequestUpdate();
 	void acceptUpdate(bool);
 	MenuItemImage * getUpgradeIcon();
+	Monster * getTarget();
+	void setTarget(Monster*);
+	bool getStatusOfTarget();
 };
