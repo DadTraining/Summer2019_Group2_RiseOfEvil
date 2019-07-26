@@ -17,10 +17,6 @@ Sprite * Skill::getSprite()
 	return m_sprite;
 }
 
-void Skill::effect(Object *)
-{
-}
-
-void Skill::effect()
+void Skill::effect(Objects*)
 {
 }
