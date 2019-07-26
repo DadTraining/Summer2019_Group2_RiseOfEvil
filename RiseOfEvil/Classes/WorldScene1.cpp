@@ -216,7 +216,8 @@ bool WorldScene1::init()
 	//==========================================================
 	//Create first list monster from Wave list
 	numOfWave = 0;
-	wave = new Wave();
+	currentStage = Player::GetInstance()->GetCurrentStage();
+	wave = new Wave(currentStage);
 	//==========================================================
 	crystal = new Crystal(this);
 	auto crystal_position = mTileMap->getObjectGroup("Crystal");

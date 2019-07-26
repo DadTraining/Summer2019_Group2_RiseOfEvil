@@ -45,6 +45,7 @@ private:
 	float countTimeToReduceHP = 0;
 	float countTimeToBuildTower = 0;
 	int currentGold;
+	int currentStage;
 	int numOfWave;
 	int monsterIndex = 0;
 	int typeOfTowerPrepairToBuild;

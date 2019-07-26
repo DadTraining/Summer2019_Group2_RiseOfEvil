@@ -1,7 +1,8 @@
 #include "Wave.h"
 
-Wave::Wave()
+Wave::Wave(int stage)
 {
+	m_stage = stage;
 	Load();
 }
 
@@ -11,7 +12,7 @@ Wave::~Wave()
 
 void Wave::Load()
 {
-	auto content = FileUtils::getInstance()->getStringFromFile("Stage1Info.bin");
+	auto content = FileUtils::getInstance()->getStringFromFile("Stage"+to_string(m_stage)+"Info.bin");
 	istringstream f(content);
 	int size;
 	int type;
