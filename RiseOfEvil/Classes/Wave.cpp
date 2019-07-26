@@ -16,6 +16,8 @@ void Wave::Load()
 	istringstream f(content);
 	int size;
 	int type;
+	f >> road1;
+	f >> road2;
 	f >> size;
 	for (int i = 0; i < size; i++) {
 		f >> type;
@@ -65,4 +67,14 @@ vector<int> Wave::getWave(int numOfWave)
 	default:
 		break;
 	}
+}
+
+int Wave::getRoad1TotalPoint()
+{
+	return road1;
+}
+
+int Wave::getRoad2TotalPoint()
+{
+	return road2;
 }

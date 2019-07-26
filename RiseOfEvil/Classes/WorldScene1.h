@@ -48,6 +48,8 @@ private:
 	int currentStage;
 	int numOfWave;
 	int monsterIndex = 0;
+	int road1TotalPoint;
+	int road2TotalPoint;
 	int typeOfTowerPrepairToBuild;
 	Menu *menu;
 	MenuItemImage *archerIcon;

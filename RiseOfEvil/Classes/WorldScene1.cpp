@@ -218,6 +218,8 @@ bool WorldScene1::init()
 	numOfWave = 0;
 	currentStage = Player::GetInstance()->GetCurrentStage();
 	wave = new Wave(currentStage);
+	road1TotalPoint = wave->getRoad1TotalPoint();
+	road2TotalPoint = wave->getRoad2TotalPoint();
 	//==========================================================
 	crystal = new Crystal(this);
 	auto crystal_position = mTileMap->getObjectGroup("Crystal");
@@ -235,7 +237,7 @@ bool WorldScene1::init()
 	//===========================================================================
 	//List point to move monster
 	auto road = mTileMap->getObjectGroup("Point");
-	for (int i = 0; i < 16; i++)
+	for (int i = 0; i < road1TotalPoint; i++)
 	{
 		float x = road->getObject("P" + to_string(i + 1))["x"].asInt();
 		float y = road->getObject("P" + to_string(i + 1))["y"].asInt();
@@ -243,7 +245,7 @@ bool WorldScene1::init()
 	}
 	//List point 2 to move monster
 	auto road2 = mTileMap->getObjectGroup("Point2");
-	for (int i = 0; i < 9; i++)
+	for (int i = 0; i < road2TotalPoint; i++)
 	{
 		float x = road2->getObject("P" + to_string(i + 1))["x"].asInt();
 		float y = road2->getObject("P" + to_string(i + 1))["y"].asInt();

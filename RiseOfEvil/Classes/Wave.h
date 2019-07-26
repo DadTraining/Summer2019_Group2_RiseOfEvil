@@ -13,9 +13,13 @@ private:
 	vector<int> Wave4;
 	vector<int> Wave5;
 	int m_stage;
+	int road1;
+	int road2;
 public:
 	Wave(int);
 	~Wave();
 	void Load();
 	vector<int> getWave(int);
+	int getRoad1TotalPoint();
+	int getRoad2TotalPoint();
 };
