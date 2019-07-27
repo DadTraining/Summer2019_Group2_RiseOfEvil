@@ -53,7 +53,7 @@ void Monster::Init()
 			m_runAnimation = 0.05f;
 			m_attackAnimation = 0.1f;
 			m_range = 20;
-			m_speed = m_velocity = MEDIUM_SPEED;
+			m_speed = m_movementSpeed = m_velocity = MEDIUM_SPEED;
 			m_armor = 0;
 			m_gold = 6;
 			break;
@@ -88,7 +88,7 @@ void Monster::Init()
 			m_runAnimation = 0.05f;
 			m_attackAnimation = 0.1f;
 			m_range = 20;
-			m_speed = m_velocity = MEDIUM_SPEED;
+			m_speed = m_movementSpeed = m_velocity = MEDIUM_SPEED;
 			m_armor = 0;
 			m_gold = 6;
 			break;
@@ -127,7 +127,7 @@ void Monster::Init()
 			m_attackSpeed = 1.0;
 			m_runAnimation = 0.07f;
 			m_attackAnimation = 0.1f;
-			m_speed = m_velocity = MEDIUM_SPEED;
+			m_speed = m_movementSpeed = m_velocity = MEDIUM_SPEED;
 			m_armor = 0;
 			m_gold = 15;
 			break;
@@ -162,7 +162,7 @@ void Monster::Init()
 			m_attackSpeed = 1.0;
 			m_runAnimation = 0.07f;
 			m_attackAnimation = 0.1f;
-			m_speed = m_velocity = MEDIUM_SPEED;
+			m_speed = m_movementSpeed = m_velocity = MEDIUM_SPEED;
 			m_armor = 0;
 			m_gold = 15;
 			break;
@@ -199,7 +199,7 @@ void Monster::Init()
 		m_attackSpeed = 1.9;
 		m_runAnimation = 0.04f;
 		m_attackAnimation = 0.1f;
-		m_speed = m_velocity = SLOW_SPEED;
+		m_speed = m_movementSpeed = m_velocity = SLOW_SPEED;
 		//m_armor = 0;
 		m_gold = 40;
 		break;
@@ -234,7 +234,7 @@ void Monster::Init()
 		m_attackSpeed = 1.2;
 		m_runAnimation = 0.03f;
 		m_attackAnimation = 0.1f;
-		m_speed = m_velocity = FAST_SPEED;
+		m_speed = m_movementSpeed = m_velocity = FAST_SPEED;
 		m_armor = 0;
 		m_gold = 15;
 		break;
@@ -268,7 +268,7 @@ void Monster::Init()
 		m_attackSpeed = 1.0;
 		m_runAnimation = 0.07f;
 		m_attackAnimation = 0.1f;
-		m_speed = m_velocity = MEDIUM_SPEED;
+		m_speed = m_movementSpeed = m_velocity = MEDIUM_SPEED;
 		m_armor = 0;
 		m_gold = 15;
 		break;
@@ -302,7 +302,7 @@ void Monster::Init()
 		m_attackSpeed = 2.5;
 		m_runAnimation = 0.05f;
 		m_attackAnimation = 0.1f;
-		m_speed = m_velocity = SLOW_SPEED;
+		m_speed = m_movementSpeed = m_velocity = SLOW_SPEED;
 		//sm_armor = 0;
 		m_gold = 100;
 		break;
@@ -313,7 +313,7 @@ void Monster::Init()
 		m_minimumAtk = 200;
 		m_maximumAtk = 400;
 		m_attackSpeed = 2.0;
-		m_movementSpeed = m_velocity = SLOW_SPEED;
+		m_speed = m_movementSpeed = m_velocity = SLOW_SPEED;
 		//m_armor = 0;
 		m_gold = 500;
 		break;
