@@ -6,8 +6,7 @@ Monster::Monster(Layer * layer, int type)
 	m_type = type;
 	this->layer = layer;
 	Init();
-	maxSpeed = m_movementSpeed;
-	speed = m_movementSpeed * 80 / 100;
+	speed = m_speed * 80 / 100;
 	m_maxHitPoint = m_hitPoint;
 	layer->addChild(m_spriteNode, 3);
 }
@@ -22,6 +21,7 @@ void Monster::Init()
 	{
 	case NORMAL_MONSTER:
 	{	
+
 		rand = random(0, 1);
 		if (rand == 0)
 		{
@@ -322,6 +322,8 @@ void Monster::Init()
 	}
 }
 float timeCount = 0.5;
+float timeMove = 0;
+
 void Monster::Update(float deltaTime)
 {
 	if (timeCount >= (1.0 + (random(0, 10) / 10 * 1.0)))
@@ -333,7 +335,8 @@ void Monster::Update(float deltaTime)
 		timeCount += deltaTime;
 	}
 }
-float timeMove = 0;
+
+
 void Monster::Move(Vec2 point, bool check, float timedelay, float delay)
 {
 	
@@ -381,6 +384,7 @@ void Monster::Move(Vec2 point, bool check, float timedelay, float delay)
 		timeMove += timedelay;
 	}	
 }
+
 Animation* Monster::AnimationMonster(string prefixName, int pFrameBegin, int pFrameEnd, float delay)
 {
 	Vector<SpriteFrame*> animFrames;
@@ -410,7 +414,6 @@ void Monster::Action(int direction, bool check)
 		AttackE->retain();
 		if (!check)
 		{
-			m_movementSpeed = m_speed;
 			m_sprite->stopAllActions();
 			m_sprite->runAction(RepeatForever::create(walkingE)->clone());
 		}
@@ -432,7 +435,6 @@ void Monster::Action(int direction, bool check)
 		AttackW->retain();
 		if (!check)
 		{
-			m_movementSpeed = m_speed;
 			m_sprite->stopAllActions();
 			m_sprite->runAction(RepeatForever::create(walkingW)->clone());
 		}
@@ -453,7 +455,6 @@ void Monster::Action(int direction, bool check)
 		AttackS->retain();
 		if (!check)
 		{
-			m_movementSpeed = m_speed;
 			m_sprite->stopAllActions();
 			m_sprite->runAction(RepeatForever::create(walkingS)->clone());
 		}
@@ -474,7 +475,6 @@ void Monster::Action(int direction, bool check)
 		AttackN->retain();
 		if (!check)
 		{
-			m_movementSpeed = m_speed;
 			m_sprite->stopAllActions();
 			m_sprite->runAction(RepeatForever::create(walkingN)->clone());
 		}
@@ -495,7 +495,6 @@ void Monster::Action(int direction, bool check)
 		AttackSE->retain();
 		if (!check)
 		{
-			m_movementSpeed = m_speed;
 			m_sprite->stopAllActions();
 			m_sprite->runAction(RepeatForever::create(walkingSE)->clone());
 		}
@@ -516,7 +515,6 @@ void Monster::Action(int direction, bool check)
 		AttackSW->retain();
 		if (!check)
 		{
-			m_movementSpeed = m_speed;
 			m_sprite->stopAllActions();
 			m_sprite->runAction(RepeatForever::create(walkingSW)->clone());
 		}
@@ -536,7 +534,6 @@ void Monster::Action(int direction, bool check)
 		AttackNE->retain();
 		if (!check)
 		{
-			m_movementSpeed = m_speed;
 			m_sprite->stopAllActions();
 			m_sprite->runAction(RepeatForever::create(walkingNE)->clone());
 		}
@@ -556,7 +553,6 @@ void Monster::Action(int direction, bool check)
 		AttackNW->retain();
 		if (!check)
 		{
-			m_movementSpeed = m_speed;
 			m_sprite->stopAllActions();
 			m_sprite->runAction(RepeatForever::create(walkingNW)->clone());
 		}
@@ -596,22 +592,37 @@ void Monster::AttackCrystal(Crystal *crystal, float deltaTime)
 	}
 	else
 	{
-    countToAttack += deltaTime;
+		countToAttack += deltaTime;
 	}
 }
 
 void Monster::DoDead()
 {
-	int num = random(1, 4);
+	/*auto dropMoney = Sprite::create("_Coin_1.png");
+	Vector<SpriteFrame*> anim;
+	anim.reserve(4);
+	anim.pushBack(SpriteFrame::create("_Coin_1.png",Rect(0,0,29,52)));
+	anim.pushBack(SpriteFrame::create("_Coin_2.png", Rect(0, 0, 29, 52)));
+	anim.pushBack(SpriteFrame::create("_Coin_3.png", Rect(0, 0, 29, 52)));
+	anim.pushBack(SpriteFrame::create("_Coin_4.png", Rect(0, 0, 29, 52)));
+	Animation *animation = Animation::createWithSpriteFrames(anim, 0.3f);
+	Animate *animate = Animate::create(animation);
+	dropMoney->runAction(Sequence::create(DelayTime::create(2), RemoveSelf::create(), nullptr));
+	dropMoney->runAction(animate);
+	dropMoney->setPosition(m_sprite->getPosition());
+	layer->addChild(dropMoney);*/
+	//int num = random(1, 4);
 	auto seq = Sequence::create(DelayTime::create(0.3f), FadeOut::create(0), RemoveSelf::create(), nullptr);
-	switch (num)
-	{
-	case 1:
-		dead1 = Sprite::create("dead1.png");
+	//switch (num)
+	//{
+	//case 1:
+		dead1 = Sprite::create("dead.png");
+		dead1->setScale(0.6);
 		dead1->setPosition(m_sprite->getPosition());
 		layer->addChild(dead1, 3);
+		dead1->runAction(MoveBy::create(0.3f, Vec2(0, 10)));
 		dead1->runAction(seq);
-		break;
+		/*break;
 	case 2:
 		dead2 = Sprite::create("dead2.png");
 		dead2->setPosition(m_sprite->getPosition());
@@ -626,7 +637,7 @@ void Monster::DoDead()
 		break;
 	default:
 		break;
-	}
+	}*/
 }
 
 void Monster::SetType(int type)
@@ -701,13 +712,10 @@ bool Monster::GetIsSlow()
 
 void Monster::SetSlowRunSpeed()
 {
-	if (isSlow == true)
+	if (m_movementSpeed > speed)
 	{
-		if (m_movementSpeed > speed)
-		{
-			m_movementSpeed -= m_movementSpeed * 20 / 100;
-			isSlow = false;
-		}
+		m_movementSpeed -= m_speed * 20 / 100;
+		m_sprite->setColor(Color3B::BLUE);
 	}
 }
 
@@ -716,13 +724,28 @@ void Monster::SetIsSlow(bool isSlow)
 	this->isSlow = isSlow;
 }
 
-float Monster::GetMaxSpeed()
+float Monster::GetMSpeed()
 {
-	return maxSpeed;
+	return m_speed;
 }
 
 int Monster::GetDamage()
 {
 	return random(m_minimumAtk, m_maximumAtk);
+}
+
+void Monster::ReduceHitPointMonster(int damage)
+{
+	m_hitPoint -= damage;
+}
+
+bool Monster::IsDead()
+{
+	if (m_hitPoint > 0)
+	{
+		return false;
+	}
+	else
+		return true;
 }
 

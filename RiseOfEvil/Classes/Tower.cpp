@@ -6,7 +6,7 @@ void Tower::Init()
 	switch (m_type)
 	{
 	case ARROW_TOWER:
-		m_sprite = Sprite::create("res/WorldScene1/archerTower1.png");
+		m_sprite = Sprite::create("res/WorldScene1/arrowtower1.png");
 		m_hitPoint = 100;
 		m_minimumAtk = 4;
 		m_maximumAtk = 6;
@@ -38,7 +38,7 @@ void Tower::Init()
 		m_minimumAtk = 10;
 		m_maximumAtk = 18;
 		m_attackSpeed = 3.0;
-		m_range = 320;
+		m_range = 180;
 		m_gold = 120;
 		break;
 	case BARRACKS_TOWER:
@@ -57,29 +57,35 @@ Tower::Tower(Layer * layer, int type, Vec2 Pos)
 {
 	m_type = type;
 	Init();
-
+	m_level = 1;
 	circleIcon = MenuItemImage::create("CircleMenu.png", "CircleMenu.png", [&](Ref* sender) {
 	});
 	circleIcon->setPosition(m_sprite->getPosition() + m_sprite->getContentSize() / 2);
 
 	flagIcon = MenuItemImage::create("FlagCallSoldier.png", "FlagCallSoldier_disable.png", "FlagCallSoldier_disable.png", [&](Ref* sender) {
-		FadeOutPause();
+		HideCircleMenu();
 		rangeBarrackTower->setVisible(true);
 		checkTouchFlag = true;
 	});
 	flagIcon->setPosition(circleIcon->getPosition().x + circleIcon->getContentSize().width / 2 -10, circleIcon->getPosition().y);
+	upgradeIcon = MenuItemImage::create("upgrade_button_normal.png", "upgrade_button_press.png", "upgrade_button_press.png",[&](Ref* sender)
+	{
+		requestUpdate = true;
+	});
+	upgradeIcon->setPosition(circleIcon->getPosition().x, circleIcon->getPosition().y + circleIcon->getContentSize().height/2 -10);
+	//=============================================
 	sellIcon = MenuItemImage::create("sellBtn.png", "sellBtn.png", "sellBtn.png", [&](Ref* sender) {
 		isSell = true;
 	});
 	sellIcon->setPosition(circleIcon->getPosition().x, circleIcon->getPosition().y - circleIcon->getContentSize().height/2 + 10);
-	circleMenu = Menu::create(flagIcon, sellIcon, nullptr);
+	circleMenu = Menu::create(flagIcon, sellIcon, upgradeIcon, nullptr);
 	circleMenu->setPosition(0,0);
 	circleMenu->setVisible(false);
 	circleMenu->setEnabled(true);
 	m_sprite->addChild(circleIcon);
 	circleIcon->setVisible(false);
 	m_sprite->addChild(circleMenu);
-	m_sprite->setScale(0.5f);
+	m_sprite->setScale(0.6f);
 	m_sprite->setPosition(Pos);
 	m_sprite->setAnchorPoint(Vec2(0.3, 0));
 	m_sprite->removeFromParent();
@@ -127,43 +133,56 @@ Sprite * Tower::GetSprite()
 {
 	return m_sprite;
 }
-void Tower::Shoot(Monster * monster)
+
+void Tower::Shoot(vector<Monster*> listMonster)
 {
 	for (int i = 0; i < listBullet.size(); i++)
 	{
-		if (!listBullet.at(i)->GetSprite()->isVisible())
+		if (!listBullet[i]->GetSprite()->isVisible())
 		{
-			listBullet.at(i)->GetSprite()->setVisible(true);
-			listBullet.at(i)->GetSprite()->setPosition(m_sprite->getPositionX(), m_sprite->getPositionY() + m_sprite->getContentSize().height/2);
-			listBullet.at(i)->Move(monster);
+			listBullet[i]->GetSprite()->setVisible(true);
+			listBullet[i]->GetSprite()->setPosition(m_sprite->getPositionX(), m_sprite->getPositionY() + m_sprite->getContentSize().height/2);
+			listBullet[i]->Move(target, GetDamage(), listMonster, m_type);
 			break;
 		}
 	}
 }
 
-void Tower::Update(float deltaTime, Monster * monster)
+void Tower::Update(float deltaTime, vector<Monster*> listMonster)
 {
-	if (checkTowerShoot)
+	if (target != nullptr)
 	{
-		countTimeToDamage += deltaTime;
-		if (countTimeToDamage >= 0.4)
-		{
-			monster->SetHitPoint(monster->GetHitPoint() - GetDamage());
-
-			countTimeToDamage = 0;
-			checkTowerShoot = false;
-		}
-	}
-	if (m_sprite->getPosition().getDistance(Vec2(monster->GetSprite()->getPositionX(), monster->GetSprite()->getPositionY())) < m_range)
-	{
-		timeDelay += deltaTime;
 		if (timeDelay > m_attackSpeed)
 		{
-			Shoot(monster);
+			Shoot(listMonster);
 			timeDelay = 0;
 			checkTowerShoot = true;
 		}
+		else
+		{
+			timeDelay += deltaTime;
+		}
 	}
+}
+
+bool Tower::GetCheckTowerShoot()
+{
+	return checkTowerShoot;
+}
+
+void Tower::SetCheckTowerShoot(bool check)
+{
+	checkTowerShoot = check;
+}
+
+vector<Monster*> Tower::GetlistMonsterInRange()
+{
+	return listMonsterInRange;
+}
+
+vector<Monster*> Tower::GetListMonsterNeighbor()
+{
+	return listMonsterNeighbor;
 }
 
 float Tower::GetRange()
@@ -191,14 +210,14 @@ void Tower::SetGold(int gold)
 	m_gold = gold;
 }
 
-void Tower::FadeInPause()
+void Tower::ShowCircleMenu()
 {
 	circleMenu->setVisible(true);
 	circleMenu->setEnabled(true);
 	circleIcon->setVisible(true);
 }
 
-void Tower::FadeOutPause()
+void Tower::HideCircleMenu()
 {
 	circleMenu->setVisible(false);
 	circleMenu->setEnabled(false);
@@ -245,6 +264,84 @@ bool Tower::getIsSell()
 	return isSell;
 }
 
+int Tower::getLevel()
+{
+	return m_level;
+}
+
+void Tower::upgrade()
+{
+	m_level++;
+	if (m_level <= 3)
+	{
+		switch (m_type)
+		{
+		case ARROW_TOWER:
+			m_sprite->setTexture("res/WorldScene1/arrowtower" + to_string(m_level) + ".png");
+			break;
+		case MAGIC_TOWER:
+			m_sprite->setTexture("res/WorldScene1/magictower" + to_string(m_level) + ".png");
+			break;
+		case SLOW_TOWER:
+			m_sprite->setTexture("res/WorldScene1/slowtower" + to_string(m_level) + ".png");
+			break;
+		case BOMBARD_TOWER:
+			m_sprite->setTexture("res/WorldScene1/boomtower" + to_string(m_level) + ".png");
+			break;
+		case BARRACKS_TOWER:
+			m_sprite->setTexture("res/WorldScene1/brracktower" + to_string(m_level) + ".png");
+			break;
+		default:
+			break;
+		}
+		m_hitPoint *= m_level;
+		m_minimumAtk *= m_level;
+		m_maximumAtk *= m_level;
+		m_gold += m_gold;
+	}
+	
+}
+
+bool Tower::getRequestUpdate()
+{
+	return requestUpdate;
+}
+
+void Tower::acceptUpdate(bool condition)
+{
+	if (condition)
+	{
+		upgrade();
+		requestUpdate = false;
+	}
+}
+
+MenuItemImage * Tower::getUpgradeIcon()
+{
+	return upgradeIcon;
+}
+
+Monster * Tower::getTarget()
+{
+	return target;
+}
+
+void Tower::setTarget(Monster * monster)
+{
+	target = monster;
+}
+
+bool Tower::getStatusOfTarget()
+{
+	if (m_sprite->getPosition().distance(target->GetSprite()->getPosition()) > m_range
+		||
+		target->GetHitPoint() <= 0
+		)
+	{
+		return false;
+	}
+	return true;
+}
 
 int Tower::GetDamage()
 {

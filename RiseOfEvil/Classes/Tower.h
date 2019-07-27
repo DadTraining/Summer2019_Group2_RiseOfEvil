@@ -12,45 +12,49 @@
 #define BOMBARD_TOWER 4
 #define BARRACKS_TOWER 5
 
-
-using namespace std;
 using namespace cocos2d;
+using namespace std;
 class Tower : public Objects
 {
 private:
-	vector <Bullet *> listBullet;
-	vector <Soldier *>listSoldier;
+	vector <Bullet*> listBullet;
+	vector <Soldier*> listSoldier;
+	vector <Monster*> listMonsterInRange;
+	vector <Monster*> listMonsterNeighbor;
 	Menu * circleMenu;
 	MenuItemImage * flagIcon;
 	MenuItemImage * circleIcon;
+	MenuItemImage * upgradeIcon;
 	MenuItemImage * sellIcon;
 	float m_range = 250;
 	float timeDelay = 0;
+	float countTimeToDealDamage;
 	float m_attackSpeed;
 	int m_gold;
+	int m_level;
 	bool checkTowerShoot = false;
-	float countTimeToDamage = 0;
 	bool checkTouchFlag = false;
 	bool checkTypeTowerBarrack = false;
 	bool isSell = false;
+	bool requestUpdate = false;
 	Sprite * rangeBarrackTower;
+	Point posBullet;
+	Monster *target = nullptr;
 public:
 	void Init();
 	Tower(Layer* layer, int, Vec2);
 	~Tower();
 	Sprite * GetSprite();
-	void Shoot(Monster * monster);
-	void Update(float deltaTime, Monster* monster);
+	void Shoot(vector<Monster*>);
+	void Update(float deltaTime, vector<Monster*>);
 	float GetRange();
 	float GetAttackSpeed();
 	void SetAttackSpeed(float);
 	int GetGold();
 	void SetGold(int);
 	int GetDamage();
-	//Sprite * GetCircleMenu();
-	//Sprite * GetFlagIcon();
-	void FadeInPause();
-	void FadeOutPause();
+	void ShowCircleMenu();
+	void HideCircleMenu();
 	bool GetCheckTouchFlag();
 	int GetType();
 	void SetCheckTouchFlag(bool);
@@ -58,5 +62,17 @@ public:
 	bool GetCheckTypeTowerBarrack();
 	vector<Soldier *> GetListSoldier();
 	int GetTypeTower();
+	bool GetCheckTowerShoot();
+	void SetCheckTowerShoot(bool);
+	vector<Monster*> GetlistMonsterInRange();
+	vector<Monster*> GetListMonsterNeighbor();
 	bool getIsSell();
+	int getLevel();
+	void upgrade();
+	bool getRequestUpdate();
+	void acceptUpdate(bool);
+	MenuItemImage * getUpgradeIcon();
+	Monster * getTarget();
+	void setTarget(Monster*);
+	bool getStatusOfTarget();
 };
