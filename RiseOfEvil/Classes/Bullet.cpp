@@ -37,9 +37,13 @@ void Bullet::Update(float deltaTime)
 {
 }
 
-void Bullet::Move(Monster * monster)
+void Bullet::Move(Monster * monster, int damage, vector<Monster*> listMonster, int type)
 {
 	ccBezierConfig bezier;
+	monsterBeHit = monster;
+	damageOfHit = damage;
+	listOfCurrentMonster = listMonster;
+	typeOfTower = type;
 	//================Shoot Bezier=======================
 	bezier.controlPoint_1 = Point(m_sprite->getPositionX(), m_sprite->getPositionY()+ 100);
 	bezier.controlPoint_2 = Point(Vec2(((m_sprite->getPositionX() + monster->GetSprite()->getPositionX()) / 2), (m_sprite->getPositionY() + monster->GetSprite()->getPositionY()) / 2 + 200));
@@ -84,27 +88,45 @@ void Bullet::Move(Monster * monster)
 
 void Bullet::AfterShoot()
 {
+	monsterBeHit->ReduceHitPointMonster(damageOfHit);
+	if (typeOfTower == 4)
+	{
+		for (int i = 0; i < listOfCurrentMonster.size(); i++)
+		{
+			if (listOfCurrentMonster[i]->GetSprite()->getPosition().distance(monsterBeHit->GetSprite()->getPosition()) <= 90)
+			{ 
+				listOfCurrentMonster[i]->ReduceHitPointMonster(damageOfHit);
+			}
+		}
+	}
+	if (typeOfTower == 3)
+	{
+		monsterBeHit->SetSlowRunSpeed();
+	}
 	switch (bullet_type)
 	{
 		case ARROW_BULLET:
-		{
-			explotion_arrow = ParticleSystemQuad::create("explotion.plist");
-			explotion_arrow->setVisible(true);
-			explotion_arrow->setScale(0.7);
-			explotion_arrow->setDuration(0.5);
-			explotion_arrow->setPosition(m_sprite->getPosition());
-			explotion_arrow->setAutoRemoveOnFinish(true);
-			m_layer->addChild(explotion_arrow);
+		{			
+			auto explotion_magic = ParticleSun::create();
+			explotion_magic->setPosition(m_sprite->getPosition());
+			explotion_magic->setDuration(0.0001);
+			explotion_magic->setEmitterMode(ParticleSystem::Mode::GRAVITY);
+			explotion_magic->setRadialAccel(-70);
+			explotion_magic->setTangentialAccel(20);
+			explotion_magic->setAutoRemoveOnFinish(true);
+			m_layer->addChild(explotion_magic);
 			break;
 		}
 
 		case MAGIC_BULLET:
 		{
-			auto explotion_magic = ParticleSun::create();
-			explotion_magic->setPosition(m_sprite->getPosition());
-			explotion_magic->setDuration(0.5);
-			explotion_magic->setAutoRemoveOnFinish(true);
-			m_layer->addChild(explotion_magic);
+			explotion_arrow = ParticleSystemQuad::create("explotion.plist");
+			explotion_arrow->setVisible(true);
+			explotion_arrow->setScale(0.7);
+			explotion_arrow->setDuration(0.1);
+			explotion_arrow->setPosition(m_sprite->getPosition());
+			explotion_arrow->setAutoRemoveOnFinish(true);
+			m_layer->addChild(explotion_arrow);
 			break;
 		}
 
@@ -112,8 +134,8 @@ void Bullet::AfterShoot()
 		{
 			explotion_slow = ParticleSystemQuad::create("particle_magic.plist");
 			explotion_slow->setVisible(true);
-			explotion_slow->setScale(0.7);
-			explotion_slow->setDuration(0.5);
+			explotion_slow->setScale(0.4);
+			explotion_slow->setDuration(0.2);
 			explotion_slow->setPosition(m_sprite->getPosition());
 			explotion_slow->setAutoRemoveOnFinish(true);
 			m_layer->addChild(explotion_slow);
@@ -145,4 +167,8 @@ Sprite * Bullet::GetSprite()
 void Bullet::Disappear()
 {
 	m_sprite->removeFromParent();
+}
+
+void Bullet::damageToMonster(Monster *monster)
+{
 }

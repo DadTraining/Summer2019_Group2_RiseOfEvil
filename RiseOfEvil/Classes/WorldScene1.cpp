@@ -217,7 +217,10 @@ bool WorldScene1::init()
 	//==========================================================
 	//Create first list monster from Wave list
 	numOfWave = 0;
-	wave = new Wave();
+	currentStage = Player::GetInstance()->GetCurrentStage();
+	wave = new Wave(currentStage);
+	road1TotalPoint = wave->getRoad1TotalPoint();
+	road2TotalPoint = wave->getRoad2TotalPoint();
 	//==========================================================
 	crystal = new Crystal(this);
 	auto crystal_position = mTileMap->getObjectGroup("Crystal");
@@ -235,7 +238,7 @@ bool WorldScene1::init()
 	//===========================================================================
 	//List point to move monster
 	auto road = mTileMap->getObjectGroup("Point");
-	for (int i = 0; i < 16; i++)
+	for (int i = 0; i < road1TotalPoint; i++)
 	{
 		float x = road->getObject("P" + to_string(i + 1))["x"].asInt();
 		float y = road->getObject("P" + to_string(i + 1))["y"].asInt();
@@ -243,7 +246,7 @@ bool WorldScene1::init()
 	}
 	//List point 2 to move monster
 	auto road2 = mTileMap->getObjectGroup("Point2");
-	for (int i = 0; i < 9; i++)
+	for (int i = 0; i < road2TotalPoint; i++)
 	{
 		float x = road2->getObject("P" + to_string(i + 1))["x"].asInt();
 		float y = road2->getObject("P" + to_string(i + 1))["y"].asInt();
@@ -303,6 +306,7 @@ bool WorldScene1::init()
 	scheduleUpdate();
 	return true;
 }
+
 void WorldScene1::update(float deltaTime)
 {
 	if (listTower.size() > 1 && !start)
@@ -437,80 +441,26 @@ void WorldScene1::update(float deltaTime)
 			MonsterMove(listMonster[i], listMonster[i]->GetSprite()->getTag(), checkAttack, deltaTime, delay);
 		}
 		
-		//Tower shoot
-		for (int k = 0; k < listTower.size(); k++)
+		for (int tower = 0; tower < listTower.size(); tower++)
 		{
-			//List monster in range of tower
-			vector<Monster*> temp = listTower[k]->GetlistMonsterInRange();
-			temp.clear();
-			//List monster near the target monster (will be taken damage)
-			vector<Monster*> listNeighbor = listTower[k]->GetListMonsterNeighbor();
-			listNeighbor.clear();
-			//Find monster in range
-			for (int i = 0; i < listMonster.size(); i++)
+			for (int monster = 0; monster < listMonster.size(); monster++)
 			{
-				if (listMonster[i]->GetSprite()->getPosition().getDistance(listTower[k]->GetSprite()->getPosition()) < listTower[k]->GetRange())
+				if (listMonster[monster]->GetSprite()->getPosition().distance(listTower[tower]->GetSprite()->getPosition())
+					<
+					listTower[tower]->GetRange())
 				{
-					temp.push_back(listMonster[i]);
-				}
-			}
-			if (!temp.empty())
-			{
-				//Find the nearest Monster
-				nearestMonster = temp[0];
-				for (int j = 0; j < temp.size(); j++)
-				{
-					if (temp[j]->GetSprite()->getPosition().getDistance(crystal->getSprite()->getPosition()) < nearestMonster->GetSprite()->getPosition().getDistance(crystal->getSprite()->getPosition()))
+					listTower[tower]->setTarget(listMonster[monster]);
+					if (listTower[tower]->getStatusOfTarget())
 					{
-						nearestMonster = temp[j];
+						break;
 					}
-				}
-				//Find monsters in range 90 of nearest monster
-				for (int i = 0; i < listMonster.size(); i++)
-				{
-					if (listMonster[i]->GetSprite()->getPosition().getDistance(nearestMonster->GetSprite()->getPosition()) < 90 )
-					{
-						listNeighbor.push_back(listMonster[i]);
-					}
-				}
-				/*if (!nearestMonster->IsDead())
-				{*/
-				listTower[k]->Update(deltaTime, nearestMonster);
-				//}
-				//Check time to reduce HP of nearest monster
-				if (listTower[k]->GetCheckTowerShoot())
-				{		
-					countTimeToReduceHP += deltaTime;
-					if (countTimeToReduceHP >= 0.4)
-					{
-						if (listTower[k]->GetTypeTower() != BOMBARD_TOWER)
-						{
-							//nearestMonster->ReduceHitPointMonster(listTower[k]->GetDamage());
-							nearestMonster->SetHitPoint(nearestMonster->GetHitPoint() - listTower[k]->GetDamage());
-						}
-						else 
-						{
-							if (listTower[k]->GetTypeTower() == BOMBARD_TOWER)
-							{
-								for (int m = 0; m < listNeighbor.size(); m++)
-								{
-									listNeighbor[m]->ReduceHitPointMonster(listTower[k]->GetDamage());
-								}
-							}
-						}
-						listTower[k]->SetCheckTowerShoot(false);
-						countTimeToReduceHP = 0;
-					}
-
-				}
-				if (listTower[k]->GetTypeTower() == SLOW_TOWER)
-				{
-					nearestMonster->SetIsSlow(true);
-					nearestMonster->SetSlowRunSpeed();
 				}
 			}
 		}
-				
+		for (int i = 0; i < listTower.size(); i++)
+		{
+			listTower[i]->Update(deltaTime, listMonster);
+		}
 		//Monster die
 		for (int i = 0; i < listMonster.size(); i++)
 		{
@@ -524,26 +474,18 @@ void WorldScene1::update(float deltaTime)
 			}
 		}
 		//increase speed
-		for (int i = 0; i<listMonster.size(); i++)
+		for (int i = 0; i < listMonster.size(); i++)
 		{
 			if (listMonster[i]->GetMovementSpeed() < listMonster[i]->GetMSpeed())
 			{
-				listMonster[i]->SetMovementSpeed(listMonster[i]->GetMovementSpeed() + 1);
+				listMonster[i]->SetMovementSpeed(listMonster[i]->GetMovementSpeed() + 0.5);
 			}
-			else
+			if (listMonster[i]->GetMovementSpeed() >= listMonster[i]->GetMSpeed())
 			{
 				listMonster[i]->SetMovementSpeed(listMonster[i]->GetMSpeed());
+				listMonster[i]->GetSprite()->setColor(Color3B(255, 255, 255));
 			}
 		}
-		//BuildTower with time delay
-		//if (GetCheckTouchBuildTower())
-		//{
-		//	countTimeToBuildTower += deltaTime;
-		//	if (countTimeToBuildTower > 3.0)
-		//	{
-		//		countTimeToBuildTower = 0;
-		//	}
-		//}
 	}
 
 }
