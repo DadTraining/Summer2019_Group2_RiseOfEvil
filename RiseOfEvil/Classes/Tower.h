@@ -37,7 +37,9 @@ private:
 	bool isSell = false;
 	bool requestUpdate = false;
 	Sprite * rangeBarrackTower;
+	Sprite * bufferBarrackTower;
 	Point posBullet;
+	int numberOfSoldier;
 public:
 	void Init();
 	Tower(Layer* layer, int, Vec2);

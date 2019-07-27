@@ -63,6 +63,7 @@ bool WorldScene1::init()
 		towerSlowDetails->setVisible(false);
 		towerBoombardDetails->setVisible(false);
 		towerBarrackDetails->setVisible(false);
+		TowerFake->setVisible(false);
 	});
 	cancelMenu->setAnchorPoint(Vec2(1, 0));
 	cancelMenu->setScale(0.5);
@@ -479,11 +480,13 @@ void WorldScene1::update(float deltaTime)
 				//Check time to reduce HP of nearest monster
 				if (listTower[k]->GetCheckTowerShoot())
 				{		
+					countTimeToReduceHP += deltaTime;
 					if (countTimeToReduceHP >= 0.4)
 					{
 						if (listTower[k]->GetTypeTower() != BOMBARD_TOWER)
 						{
-							nearestMonster->ReduceHitPointMonster(listTower[k]->GetDamage());
+							//nearestMonster->ReduceHitPointMonster(listTower[k]->GetDamage());
+							nearestMonster->SetHitPoint(nearestMonster->GetHitPoint() - listTower[k]->GetDamage());
 						}
 						else 
 						{
@@ -492,17 +495,13 @@ void WorldScene1::update(float deltaTime)
 								for (int m = 0; m < listNeighbor.size(); m++)
 								{
 									listNeighbor[m]->ReduceHitPointMonster(listTower[k]->GetDamage());
-									//log("range tower: %f", listTower[k]->GetDamage());
 								}
 							}
 						}
 						listTower[k]->SetCheckTowerShoot(false);
 						countTimeToReduceHP = 0;
 					}
-					else
-					{
-						countTimeToReduceHP += deltaTime;
-					}
+
 				}
 				if (listTower[k]->GetTypeTower() == SLOW_TOWER)
 				{
@@ -752,8 +751,8 @@ bool WorldScene1::onTouchBegan(Touch * touch, Event * event)
 					{
 					for (int i = 0; i < towerChoosing->GetListSoldier().size(); i++)
 					{
-						towerChoosing->GetListSoldier()[i]->GetSprite()->setVisible(true);
-						towerChoosing->GetListSoldier()[i]->Move(Vec2(Flag->getPositionX() + ((i + 1) * 5), Flag->getPositionY() + ((i + 1) * 10)));
+						//towerChoosing->GetListSoldier()[i]->GetSprite()->setVisible(true);
+						//towerChoosing->GetListSoldier()[i]->Move(Vec2(Flag->getPositionX() + ((i + 1) * 5), Flag->getPositionY() + ((i + 1) * 10)));
 					}
 				}
 			}

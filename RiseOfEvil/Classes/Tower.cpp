@@ -96,21 +96,54 @@ Tower::Tower(Layer * layer, int type, Vec2 Pos)
 		rangeBarrackTower = Sprite::create("range_of_barrack_tower.png");
 		rangeBarrackTower->setVisible(false);
 		rangeBarrackTower->setPosition(m_sprite->getContentSize().width/2, m_sprite->getContentSize().height/2);
+		bufferBarrackTower = Sprite::create("rectangle.png");
+		bufferBarrackTower->setVisible(true);
+		bufferBarrackTower->setAnchorPoint(Vec2(0, 0));
+		bufferBarrackTower->setPosition(m_sprite->getContentSize().width / 2, m_sprite->getContentSize().height / 2);
+		log("buffer x: %f buffer y: %f", bufferBarrackTower->getContentSize().width, bufferBarrackTower->getContentSize().height);
 		m_sprite->addChild(rangeBarrackTower);
-		for (int i = 0; i < 3; i++)
+		m_sprite->addChild(bufferBarrackTower);
+		switch (m_level)
 		{
-			Soldier * m_soldier = new Soldier(layer);
-			listSoldier.push_back(m_soldier);
-			if ((i+1) % 2 != 0)
-			{
-				listSoldier[i]->GetSprite()->setPosition(Vec2(Pos.x + (i*i) * i, Pos.y + (i *i) * 2 * i));
-			}
-			else
-			{
-				listSoldier[i]->GetSprite()->setPosition(Vec2(Pos.x - (i*i) * i* 32, Pos.y + (i *i) * i*16));
-			}
-			listSoldier[i]->GetSprite()->setVisible(false);
+		case 1:
+			numberOfSoldier = 3;
+			break;
+		case 2:
+			numberOfSoldier = 4;
+			break;
+		case 3:
+			numberOfSoldier = 5;
+			break;
 		}
+		for (int i = 0; i < numberOfSoldier; i++)
+		{
+			Soldier * m_soldier = new Soldier(layer, m_level);
+			listSoldier.push_back(m_soldier);
+		}
+		for (int i = 0; i < listSoldier.size(); i++)
+		{
+			m_sprite->addChild(listSoldier[i]->GetSprite(), 6);
+		}
+		listSoldier[0]->GetSprite()->setPosition(Vec2(bufferBarrackTower->getPosition().x, bufferBarrackTower->getPosition().y));
+		listSoldier[0]->GetSprite()->setColor(Color3B::BLACK);
+		listSoldier[1]->GetSprite()->setPosition(bufferBarrackTower->getContentSize().width / 2, bufferBarrackTower->getContentSize().height);
+		listSoldier[1]->GetSprite()->setColor(Color3B::YELLOW);
+		listSoldier[2]->GetSprite()->setPosition(bufferBarrackTower->getContentSize().width, 0);
+		listSoldier[2]->GetSprite()->setColor(Color3B::RED);
+		//for (int i = 0; i < 3; i++)
+		//{
+		//	Soldier * m_soldier = new Soldier(layer, m_level);
+		//	listSoldier.push_back(m_soldier);
+		//	if ((i+1) % 2 != 0)
+		//	{
+		//		listSoldier[i]->GetSprite()->setPosition(Vec2(Pos.x + (i*i) * i, Pos.y + (i *i) * 2 * i));
+		//	}
+		//	else
+		//	{
+		//		listSoldier[i]->GetSprite()->setPosition(Vec2(Pos.x - (i*i) * i* 32, Pos.y + (i *i) * i*16));
+		//	}
+		//	listSoldier[i]->GetSprite()->setVisible(false);
+		//}
 	}
 	else
 	{
