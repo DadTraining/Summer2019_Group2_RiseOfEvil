@@ -4,1807 +4,1567 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>_Orc_1.png</key>
+            <key>_minotaur_1.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{180,180}</string>
-                <key>spriteSourceSize</key>
-                <string>{180,180}</string>
-                <key>textureRect</key>
-                <string>{{0,0},{180,180}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>_Orc_10.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{180,180}</string>
-                <key>spriteSourceSize</key>
-                <string>{180,180}</string>
-                <key>textureRect</key>
-                <string>{{1620,0},{180,180}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>_Orc_100.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{180,180}</string>
-                <key>spriteSourceSize</key>
-                <string>{180,180}</string>
-                <key>textureRect</key>
-                <string>{{0,1620},{180,180}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>_Orc_101.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{180,180}</string>
-                <key>spriteSourceSize</key>
-                <string>{180,180}</string>
-                <key>textureRect</key>
-                <string>{{180,1620},{180,180}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>_Orc_102.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{180,180}</string>
-                <key>spriteSourceSize</key>
-                <string>{180,180}</string>
-                <key>textureRect</key>
-                <string>{{360,1620},{180,180}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>_Orc_103.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{180,180}</string>
-                <key>spriteSourceSize</key>
-                <string>{180,180}</string>
-                <key>textureRect</key>
-                <string>{{540,1620},{180,180}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>_Orc_104.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{180,180}</string>
-                <key>spriteSourceSize</key>
-                <string>{180,180}</string>
-                <key>textureRect</key>
-                <string>{{720,1620},{180,180}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>_Orc_105.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{180,180}</string>
-                <key>spriteSourceSize</key>
-                <string>{180,180}</string>
-                <key>textureRect</key>
-                <string>{{900,1620},{180,180}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>_Orc_106.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{180,180}</string>
-                <key>spriteSourceSize</key>
-                <string>{180,180}</string>
-                <key>textureRect</key>
-                <string>{{1080,1620},{180,180}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>_Orc_107.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{180,180}</string>
-                <key>spriteSourceSize</key>
-                <string>{180,180}</string>
-                <key>textureRect</key>
-                <string>{{1260,1620},{180,180}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>_Orc_108.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{180,180}</string>
-                <key>spriteSourceSize</key>
-                <string>{180,180}</string>
-                <key>textureRect</key>
-                <string>{{1440,1620},{180,180}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>_Orc_109.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{180,180}</string>
-                <key>spriteSourceSize</key>
-                <string>{180,180}</string>
-                <key>textureRect</key>
-                <string>{{1620,1620},{180,180}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>_Orc_11.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{180,180}</string>
-                <key>spriteSourceSize</key>
-                <string>{180,180}</string>
-                <key>textureRect</key>
-                <string>{{1800,0},{180,180}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>_Orc_110.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{180,180}</string>
-                <key>spriteSourceSize</key>
-                <string>{180,180}</string>
-                <key>textureRect</key>
-                <string>{{1800,1620},{180,180}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>_Orc_111.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{180,180}</string>
-                <key>spriteSourceSize</key>
-                <string>{180,180}</string>
-                <key>textureRect</key>
-                <string>{{0,1800},{180,180}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>_Orc_112.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{180,180}</string>
-                <key>spriteSourceSize</key>
-                <string>{180,180}</string>
-                <key>textureRect</key>
-                <string>{{180,1800},{180,180}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>_Orc_113.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{0,-15}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{86,68}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{360,1800},{180,180}}</string>
+                <string>{{89,533},{86,68}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>_Orc_114.png</key>
+            <key>_minotaur_10.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{0,-6}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{86,80}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{540,1800},{180,180}}</string>
+                <string>{{91,451},{86,80}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>_Orc_115.png</key>
+            <key>_minotaur_100.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{0,-5}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{76,72}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{720,1800},{180,180}}</string>
+                <string>{{1,1117},{76,72}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>_Orc_116.png</key>
+            <key>_minotaur_101.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{72,84}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{900,1800},{180,180}}</string>
+                <string>{{87,761},{72,84}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
-            <key>_Orc_117.png</key>
+            <key>_minotaur_102.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{-1,7}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{74,94}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1080,1800},{180,180}}</string>
+                <string>{{263,59},{74,94}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
-            <key>_Orc_118.png</key>
+            <key>_minotaur_103.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{0,-12}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,56}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1260,1800},{180,180}}</string>
+                <string>{{263,289},{90,56}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>_Orc_119.png</key>
+            <key>_minotaur_104.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{0,-20}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{72,68}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1440,1800},{180,180}}</string>
+                <string>{{79,1191},{72,68}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>_Orc_12.png</key>
+            <key>_minotaur_11.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{-1,-5}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{88,84}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{0,180},{180,180}}</string>
+                <string>{{93,365},{88,84}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>_Orc_120.png</key>
+            <key>_minotaur_12.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{-1,-8}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{86,86}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1620,1800},{180,180}}</string>
+                <string>{{263,417},{86,86}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>_Orc_13.png</key>
+            <key>_minotaur_13.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{0,-9}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{82,84}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{180,180},{180,180}}</string>
+                <string>{{179,511},{82,84}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>_Orc_14.png</key>
+            <key>_minotaur_14.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{-1,-6}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{84,84}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{360,180},{180,180}}</string>
+                <string>{{177,597},{84,84}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>_Orc_15.png</key>
+            <key>_minotaur_15.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{-1,-3}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{86,82}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{540,180},{180,180}}</string>
+                <string>{{263,505},{86,82}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>_Orc_16.png</key>
+            <key>_minotaur_16.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{0,-6}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{86,80}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{720,180},{180,180}}</string>
+                <string>{{263,589},{86,80}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>_Orc_17.png</key>
+            <key>_minotaur_17.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{0,-6}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{64,84}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{900,180},{180,180}}</string>
+                <string>{{173,833},{64,84}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
-            <key>_Orc_18.png</key>
+            <key>_minotaur_18.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{0,-3}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{64,84}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1080,180},{180,180}}</string>
+                <string>{{87,835},{64,84}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
-            <key>_Orc_19.png</key>
+            <key>_minotaur_19.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{-1,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{66,80}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1260,180},{180,180}}</string>
+                <string>{{251,1043},{66,80}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
-            <key>_Orc_2.png</key>
+            <key>_minotaur_2.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{-1,-14}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{82,72}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{180,0},{180,180}}</string>
+                <string>{{87,901},{82,72}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>_Orc_20.png</key>
+            <key>_minotaur_20.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{-1,-4}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{66,84}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1440,180},{180,180}}</string>
+                <string>{{435,727},{66,84}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>_Orc_21.png</key>
+            <key>_minotaur_21.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{-1,-6}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{66,84}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1620,180},{180,180}}</string>
+                <string>{{345,781},{66,84}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
-            <key>_Orc_22.png</key>
+            <key>_minotaur_22.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{-1,-4}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{66,84}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1800,180},{180,180}}</string>
+                <string>{{259,829},{66,84}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
-            <key>_Orc_23.png</key>
+            <key>_minotaur_23.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{66,80}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{0,360},{180,180}}</string>
+                <string>{{333,1095},{66,80}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
-            <key>_Orc_24.png</key>
+            <key>_minotaur_24.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{0,-4}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{64,84}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{180,360},{180,180}}</string>
+                <string>{{1,837},{64,84}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
-            <key>_Orc_25.png</key>
+            <key>_minotaur_25.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{0,-4}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{78,84}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{360,360},{180,180}}</string>
+                <string>{{87,603},{78,84}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
-            <key>_Orc_26.png</key>
+            <key>_minotaur_26.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{-1,-1}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{76,84}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{540,360},{180,180}}</string>
+                <string>{{1,759},{76,84}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
-            <key>_Orc_27.png</key>
+            <key>_minotaur_27.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{0,1}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{72,82}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{720,360},{180,180}}</string>
+                <string>{{429,897},{72,82}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>_Orc_28.png</key>
+            <key>_minotaur_28.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{0,-1}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{82,82}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{900,360},{180,180}}</string>
+                <string>{{345,849},{82,82}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>_Orc_29.png</key>
+            <key>_minotaur_29.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{-1,-4}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{84,80}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1080,360},{180,180}}</string>
+                <string>{{263,671},{84,80}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>_Orc_3.png</key>
+            <key>_minotaur_3.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{0,-12}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,74}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{360,0},{180,180}}</string>
+                <string>{{355,169},{90,74}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>_Orc_30.png</key>
+            <key>_minotaur_30.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{-1,-1}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{82,82}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1260,360},{180,180}}</string>
+                <string>{{259,897},{82,82}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>_Orc_31.png</key>
+            <key>_minotaur_31.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{-1,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{78,84}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1440,360},{180,180}}</string>
+                <string>{{1,679},{78,84}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
-            <key>_Orc_32.png</key>
+            <key>_minotaur_32.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{0,-3}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{74,86}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1620,360},{180,180}}</string>
+                <string>{{351,625},{74,86}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
-            <key>_Orc_33.png</key>
+            <key>_minotaur_33.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{-1,2}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{88,74}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1800,360},{180,180}}</string>
+                <string>{{1,449},{88,74}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>_Orc_34.png</key>
+            <key>_minotaur_34.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{0,2}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{84,76}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{0,540},{180,180}}</string>
+                <string>{{87,683},{84,76}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>_Orc_35.png</key>
+            <key>_minotaur_35.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{0,1}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,78}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{180,540},{180,180}}</string>
+                <string>{{1,65},{90,78}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>_Orc_36.png</key>
+            <key>_minotaur_36.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{0,-1}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,78}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{360,540},{180,180}}</string>
+                <string>{{93,65},{90,78}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>_Orc_37.png</key>
+            <key>_minotaur_37.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{0,-3}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,76}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{540,540},{180,180}}</string>
+                <string>{{185,65},{90,76}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
-            <key>_Orc_38.png</key>
+            <key>_minotaur_38.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{0,-2}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,78}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{720,540},{180,180}}</string>
+                <string>{{263,135},{90,78}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>_Orc_39.png</key>
+            <key>_minotaur_39.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{0,1}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{88,80}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{900,540},{180,180}}</string>
+                <string>{{1,367},{88,80}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>_Orc_4.png</key>
+            <key>_minotaur_4.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{0,-11}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,74}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{540,0},{180,180}}</string>
+                <string>{{1,145},{90,74}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>_Orc_40.png</key>
+            <key>_minotaur_40.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{0,1}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{84,78}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1080,540},{180,180}}</string>
+                <string>{{349,701},{84,78}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>_Orc_41.png</key>
+            <key>_minotaur_41.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{0,-18}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{88,70}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1260,540},{180,180}}</string>
+                <string>{{355,319},{88,70}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>_Orc_42.png</key>
+            <key>_minotaur_42.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{0,-16}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,72}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1440,540},{180,180}}</string>
+                <string>{{263,215},{90,72}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>_Orc_43.png</key>
+            <key>_minotaur_43.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{0,-12}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,70}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1620,540},{180,180}}</string>
+                <string>{{93,221},{90,70}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>_Orc_44.png</key>
+            <key>_minotaur_44.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{0,-8}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{84,74}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1800,540},{180,180}}</string>
+                <string>{{173,683},{84,74}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>_Orc_45.png</key>
+            <key>_minotaur_45.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{0,-9}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{82,76}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{0,720},{180,180}}</string>
+                <string>{{173,899},{82,76}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>_Orc_46.png</key>
+            <key>_minotaur_46.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{-1,-9}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{84,74}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{180,720},{180,180}}</string>
+                <string>{{259,753},{84,74}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>_Orc_47.png</key>
+            <key>_minotaur_47.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{0,-15}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,70}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{360,720},{180,180}}</string>
+                <string>{{93,293},{90,70}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>_Orc_48.png</key>
+            <key>_minotaur_48.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{0,-17}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,72}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{540,720},{180,180}}</string>
+                <string>{{355,245},{90,72}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>_Orc_49.png</key>
+            <key>_minotaur_49.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{0,-11}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{68,64}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{720,720},{180,180}}</string>
+                <string>{{71,1049},{68,64}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>_Orc_5.png</key>
+            <key>_minotaur_5.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{0,-11}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,70}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{720,0},{180,180}}</string>
+                <string>{{1,295},{90,70}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>_Orc_50.png</key>
+            <key>_minotaur_50.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{0,-7}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{64,64}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{900,720},{180,180}}</string>
+                <string>{{397,1293},{64,64}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>_Orc_51.png</key>
+            <key>_minotaur_51.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{-1,6}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{68,72}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1080,720},{180,180}}</string>
+                <string>{{233,1191},{68,72}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
-            <key>_Orc_52.png</key>
+            <key>_minotaur_52.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{0,9}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{70,76}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1260,720},{180,180}}</string>
+                <string>{{157,1117},{70,76}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
-            <key>_Orc_53.png</key>
+            <key>_minotaur_53.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{0,5}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{70,82}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1440,720},{180,180}}</string>
+                <string>{{431,813},{70,82}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>_Orc_54.png</key>
+            <key>_minotaur_54.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{0,6}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{72,80}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1620,720},{180,180}}</string>
+                <string>{{169,1043},{72,80}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
-            <key>_Orc_55.png</key>
+            <key>_minotaur_55.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{0,2}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{70,68}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1800,720},{180,180}}</string>
+                <string>{{63,1305},{70,68}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>_Orc_56.png</key>
+            <key>_minotaur_56.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{0,-7}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{68,62}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{0,900},{180,180}}</string>
+                <string>{{199,1305},{68,62}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
-            <key>_Orc_57.png</key>
+            <key>_minotaur_57.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{0,-8}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{74,56}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{180,900},{180,180}}</string>
+                <string>{{157,1189},{74,56}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>_Orc_58.png</key>
+            <key>_minotaur_58.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{-1,-13}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{78,60}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{360,900},{180,180}}</string>
+                <string>{{1,1277},{78,60}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
-            <key>_Orc_59.png</key>
+            <key>_minotaur_59.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{-1,-10}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{72,62}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{540,900},{180,180}}</string>
+                <string>{{439,581},{72,62}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
-            <key>_Orc_6.png</key>
+            <key>_minotaur_6.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{0,-10}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,72}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{900,0},{180,180}}</string>
+                <string>{{1,221},{90,72}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>_Orc_60.png</key>
+            <key>_minotaur_60.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{-1,-1}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{70,70}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{720,900},{180,180}}</string>
+                <string>{{263,1277},{70,70}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>_Orc_61.png</key>
+            <key>_minotaur_61.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{-1,-1}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{76,76}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{900,900},{180,180}}</string>
+                <string>{{1,1191},{76,76}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>_Orc_62.png</key>
+            <key>_minotaur_62.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{-1,-2}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{78,78}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1080,900},{180,180}}</string>
+                <string>{{251,1111},{78,78}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>_Orc_63.png</key>
+            <key>_minotaur_63.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{0,-2}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{76,74}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1260,900},{180,180}}</string>
+                <string>{{427,981},{76,74}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
-            <key>_Orc_64.png</key>
+            <key>_minotaur_64.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{0,-2}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{70,62}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1440,900},{180,180}}</string>
+                <string>{{439,655},{70,62}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
-            <key>_Orc_65.png</key>
+            <key>_minotaur_65.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{-1,-8}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{62,88}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1620,900},{180,180}}</string>
+                <string>{{353,391},{62,88}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
-            <key>_Orc_66.png</key>
+            <key>_minotaur_66.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{56,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1800,900},{180,180}}</string>
+                <string>{{263,1},{56,108}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
-            <key>_Orc_67.png</key>
+            <key>_minotaur_67.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{0,-17}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{86,70}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{0,1080},{180,180}}</string>
+                <string>{{1,525},{86,70}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>_Orc_68.png</key>
+            <key>_minotaur_68.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{-1,-19}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{82,64}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{180,1080},{180,180}}</string>
+                <string>{{169,977},{82,64}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>_Orc_69.png</key>
+            <key>_minotaur_69.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{-1,-13}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{72,82}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{360,1080},{180,180}}</string>
+                <string>{{85,975},{72,82}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
-            <key>_Orc_7.png</key>
+            <key>_minotaur_7.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{0,-9}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{88,68}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1080,0},{180,180}}</string>
+                <string>{{263,347},{88,68}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>_Orc_70.png</key>
+            <key>_minotaur_70.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{-1,-7}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{82,86}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{540,1080},{180,180}}</string>
+                <string>{{351,541},{82,86}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
-            <key>_Orc_71.png</key>
+            <key>_minotaur_71.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{-1,2}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{82,104}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{720,1080},{180,180}}</string>
+                <string>{{373,1},{82,104}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
-            <key>_Orc_72.png</key>
+            <key>_minotaur_72.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{-1,-7}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{56,86}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{900,1080},{180,180}}</string>
+                <string>{{445,325},{56,86}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>_Orc_73.png</key>
+            <key>_minotaur_73.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{0,-12}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{64,78}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1080,1080},{180,180}}</string>
+                <string>{{411,1211},{64,78}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
-            <key>_Orc_74.png</key>
+            <key>_minotaur_74.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{0,-9}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{50,86}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1260,1080},{180,180}}</string>
+                <string>{{451,85},{50,86}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>_Orc_75.png</key>
+            <key>_minotaur_75.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{0,-1}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{86,76}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1440,1080},{180,180}}</string>
+                <string>{{185,247},{86,76}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
-            <key>_Orc_76.png</key>
+            <key>_minotaur_76.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{0,2}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{86,84}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1620,1080},{180,180}}</string>
+                <string>{{351,455},{86,84}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>_Orc_77.png</key>
+            <key>_minotaur_77.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{0,-1}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{60,82}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1800,1080},{180,180}}</string>
+                <string>{{253,981},{60,82}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
-            <key>_Orc_78.png</key>
+            <key>_minotaur_78.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{-1,-5}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{54,76}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{0,1260},{180,180}}</string>
+                <string>{{447,173},{54,76}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>_Orc_79.png</key>
+            <key>_minotaur_79.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{-1,-2}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{66,78}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{180,1260},{180,180}}</string>
+                <string>{{331,1163},{66,78}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
-            <key>_Orc_8.png</key>
+            <key>_minotaur_8.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{-1,-13}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{82,72}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1260,0},{180,180}}</string>
+                <string>{{1,903},{82,72}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>_Orc_80.png</key>
+            <key>_minotaur_80.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{-1,1}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{78,82}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{360,1260},{180,180}}</string>
+                <string>{{343,933},{78,82}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
-            <key>_Orc_81.png</key>
+            <key>_minotaur_81.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{86,78}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{540,1260},{180,180}}</string>
+                <string>{{183,423},{86,78}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
-            <key>_Orc_82.png</key>
+            <key>_minotaur_82.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{0,-2}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{88,76}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{720,1260},{180,180}}</string>
+                <string>{{185,157},{88,76}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
-            <key>_Orc_83.png</key>
+            <key>_minotaur_83.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{0,-3}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{76,74}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{900,1260},{180,180}}</string>
+                <string>{{79,1115},{76,74}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>_Orc_84.png</key>
+            <key>_minotaur_84.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{-1,-1}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{86,76}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1080,1260},{180,180}}</string>
+                <string>{{185,335},{86,76}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
-            <key>_Orc_85.png</key>
+            <key>_minotaur_85.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{-1,7}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{62,86}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1260,1260},{180,180}}</string>
+                <string>{{439,493},{62,86}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>_Orc_86.png</key>
+            <key>_minotaur_86.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{0,3}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{56,78}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1440,1260},{180,180}}</string>
+                <string>{{443,413},{56,78}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>_Orc_87.png</key>
+            <key>_minotaur_87.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{-1,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{84,72}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1620,1260},{180,180}}</string>
+                <string>{{173,759},{84,72}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>_Orc_88.png</key>
+            <key>_minotaur_88.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{82,70}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1800,1260},{180,180}}</string>
+                <string>{{1,977},{82,70}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>_Orc_89.png</key>
+            <key>_minotaur_89.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{-1,4}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{80,78}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{0,1440},{180,180}}</string>
+                <string>{{419,1059},{80,78}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>_Orc_9.png</key>
+            <key>_minotaur_9.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{-1,-8}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{80,80}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1440,0},{180,180}}</string>
+                <string>{{337,1013},{80,80}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>_Orc_90.png</key>
+            <key>_minotaur_90.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{-1,-4}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{80,84}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{180,1440},{180,180}}</string>
+                <string>{{1,597},{80,84}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
-            <key>_Orc_91.png</key>
+            <key>_minotaur_91.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{0,-11}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{78,70}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{360,1440},{180,180}}</string>
+                <string>{{415,1139},{78,70}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>_Orc_92.png</key>
+            <key>_minotaur_92.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{-1,-19}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{60,70}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{540,1440},{180,180}}</string>
+                <string>{{335,1231},{60,70}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
-            <key>_Orc_93.png</key>
+            <key>_minotaur_93.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{-1,-20}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{60,68}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{720,1440},{180,180}}</string>
+                <string>{{335,1293},{60,68}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>_Orc_94.png</key>
+            <key>_minotaur_94.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{0,-9}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{54,72}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{900,1440},{180,180}}</string>
+                <string>{{447,251},{54,72}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>_Orc_95.png</key>
+            <key>_minotaur_95.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{0,4}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,74}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1080,1440},{180,180}}</string>
+                <string>{{93,145},{90,74}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>_Orc_96.png</key>
+            <key>_minotaur_96.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{0,7}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{90,82}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1260,1440},{180,180}}</string>
+                <string>{{359,85},{90,82}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>_Orc_97.png</key>
+            <key>_minotaur_97.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{-1,-14}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{62,68}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1440,1440},{180,180}}</string>
+                <string>{{135,1305},{62,68}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>_Orc_98.png</key>
+            <key>_minotaur_98.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{-1,-18}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{56,72}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1620,1440},{180,180}}</string>
+                <string>{{153,1247},{56,72}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
-            <key>_Orc_99.png</key>
+            <key>_minotaur_99.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{-1,0}</string>
                 <key>spriteSize</key>
-                <string>{180,180}</string>
+                <string>{68,66}</string>
                 <key>spriteSourceSize</key>
-                <string>{180,180}</string>
+                <string>{90,108}</string>
                 <key>textureRect</key>
-                <string>{{1800,1440},{180,180}}</string>
+                <string>{{1,1049},{68,66}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>healthbar_Orc.png</key>
+            <key>healthbar_bg_minotaur.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -1815,11 +1575,11 @@
                 <key>spriteSourceSize</key>
                 <string>{260,30}</string>
                 <key>textureRect</key>
-                <string>{{260,1980},{260,30}}</string>
+                <string>{{1,1},{260,30}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>healthbar_bg_Orc.png</key>
+            <key>healthbar_minotaur.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -1830,7 +1590,7 @@
                 <key>spriteSourceSize</key>
                 <string>{260,30}</string>
                 <key>textureRect</key>
-                <string>{{0,1980},{260,30}}</string>
+                <string>{{1,33},{260,30}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -1844,13 +1604,13 @@
             <key>premultiplyAlpha</key>
             <false/>
             <key>realTextureFileName</key>
-            <string>Orc_Warrior.png</string>
+            <string>minotaur.png</string>
             <key>size</key>
-            <string>{1980,2010}</string>
+            <string>{502,1374}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:9a87e91e11cf4ddc75c57fa690f8910e:2bf50523f2a183445baf148b3843f691:1767e177db02b0432b97166cbfd14e25$</string>
+            <string>$TexturePacker:SmartUpdate:aa43f8915b3967ee484c8f424816d1cd:bb6e07d9c15654558eb50ca7f31b897f:f5752508a348ca5012de8baf6eafa3e3$</string>
             <key>textureFileName</key>
-            <string>Orc_Warrior.png</string>
+            <string>minotaur.png</string>
         </dict>
     </dict>
 </plist>
