@@ -43,6 +43,24 @@ void Wave::Load()
 		f >> type;
 		Wave5.push_back(type);
 	}
+	f >> size;
+	for (int i = 0; i < size; i++)
+	{
+		f >> type;
+		Wave6.push_back(type);
+	}
+	f >> size;
+	for (int i = 0; i < size; i++)
+	{
+		f >> type;
+		Wave7.push_back(type);
+	}
+	f >> size;
+	for (int i = 0; i < size; i++)
+	{
+		f >> type;
+		Wave8.push_back(type);
+	}
 }
 
 vector<int> Wave::getWave(int numOfWave)
@@ -63,6 +81,15 @@ vector<int> Wave::getWave(int numOfWave)
 		break;
 	case 5:
 		return Wave5;
+		break;
+	case 6:
+		return Wave6;
+		break;
+	case 7:
+		return Wave7;
+		break;
+	case 8:
+		return Wave8;
 		break;
 	default:
 		break;

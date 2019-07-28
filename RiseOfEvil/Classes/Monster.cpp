@@ -566,6 +566,7 @@ void Monster::Action(int direction, bool check)
       }
 }
 }
+
 void Monster::AttackCrystal(Crystal *crystal, float deltaTime)
 {
 	if (countToAttack >= m_attackSpeed)
@@ -598,46 +599,13 @@ void Monster::AttackCrystal(Crystal *crystal, float deltaTime)
 
 void Monster::DoDead()
 {
-	/*auto dropMoney = Sprite::create("_Coin_1.png");
-	Vector<SpriteFrame*> anim;
-	anim.reserve(4);
-	anim.pushBack(SpriteFrame::create("_Coin_1.png",Rect(0,0,29,52)));
-	anim.pushBack(SpriteFrame::create("_Coin_2.png", Rect(0, 0, 29, 52)));
-	anim.pushBack(SpriteFrame::create("_Coin_3.png", Rect(0, 0, 29, 52)));
-	anim.pushBack(SpriteFrame::create("_Coin_4.png", Rect(0, 0, 29, 52)));
-	Animation *animation = Animation::createWithSpriteFrames(anim, 0.3f);
-	Animate *animate = Animate::create(animation);
-	dropMoney->runAction(Sequence::create(DelayTime::create(2), RemoveSelf::create(), nullptr));
-	dropMoney->runAction(animate);
-	dropMoney->setPosition(m_sprite->getPosition());
-	layer->addChild(dropMoney);*/
-	//int num = random(1, 4);
 	auto seq = Sequence::create(DelayTime::create(0.3f), FadeOut::create(0), RemoveSelf::create(), nullptr);
-	//switch (num)
-	//{
-	//case 1:
-		dead1 = Sprite::create("dead.png");
-		dead1->setScale(0.6);
-		dead1->setPosition(m_sprite->getPosition());
-		layer->addChild(dead1, 3);
-		dead1->runAction(MoveBy::create(0.3f, Vec2(0, 10)));
-		dead1->runAction(seq);
-		/*break;
-	case 2:
-		dead2 = Sprite::create("dead2.png");
-		dead2->setPosition(m_sprite->getPosition());
-		layer->addChild(dead2, 3);
-		dead2->runAction(seq->clone());
-		break;
-	case 3:
-		dead3 = Sprite::create("dead3.png");
-		dead3->setPosition(m_sprite->getPosition());
-		layer->addChild(dead3, 3);
-		dead3->runAction(seq->clone());
-		break;
-	default:
-		break;
-	}*/
+	dead1 = Sprite::create("dead.png");
+	dead1->setScale(0.6);
+	dead1->setPosition(m_sprite->getPosition());
+	layer->addChild(dead1, 3);
+	dead1->runAction(MoveBy::create(0.3f, Vec2(0, 10)));
+	dead1->runAction(seq);
 }
 
 void Monster::SetType(int type)
