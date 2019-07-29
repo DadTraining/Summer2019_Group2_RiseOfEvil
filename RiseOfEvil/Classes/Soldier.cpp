@@ -18,8 +18,9 @@ void Soldier::Init()
 	auto mBody = PhysicsBody::createBox(m_sprite->getContentSize() / 2);
 	mBody->setDynamic(true);
 	mBody->setGravityEnable(false);
+	mBody->setRotationEnable(false);
 	m_sprite->setScale(0.5);
-//	m_sprite->setPhysicsBody(mBody);
+	m_sprite->setPhysicsBody(mBody);
 
 	m_bloodBar->addChild(m_blood, 8);
 	m_sprite->addChild(m_bloodBar, 6);
@@ -48,29 +49,29 @@ void Soldier::Update(float deltaTime)
 void Soldier::Move(Vec2 point)
 {
 	if ((m_sprite->getPosition().y == point.y) && (m_sprite->getPosition().x <= point.x)) {
-		ActionMove(E);
+		Action(E);
 	}
 	else if ((m_sprite->getPosition().y == point.y) && (m_sprite->getPosition().x >= point.x)) {
-		ActionMove(W);
+		Action(W);
 	}
 	else if ((m_sprite->getPosition().x == point.x) && (m_sprite->getPosition().y >= point.y)) {
-		ActionMove(S);
+		Action(S);
 	}
 	else if ((m_sprite->getPosition().x == point.x) && (m_sprite->getPosition().y <= point.y)) {
-		ActionMove(N);
+		Action(N);
 	}
 	else if ((m_sprite->getPosition().x <= point.x) && (m_sprite->getPosition().y >= point.y)) {
-		ActionMove(SE);
+		Action(SE);
 	}
 	else if ((m_sprite->getPosition().x >= point.x) && (m_sprite->getPosition().y >= point.y)) {
-		ActionMove(SW);
+		Action(SW);
 	}
 	else if ((m_sprite->getPosition().x <= point.x) && (m_sprite->getPosition().y <= point.y)) {
-		ActionMove(NE);
+		Action(NE);
 	}
 	else if ((m_sprite->getPosition().x >= point.x) && (m_sprite->getPosition().y <= point.y))
 	{
-		ActionMove(NW);
+		Action(NW);
 	}
 	auto moveTo = MoveTo::create(point.getDistance(m_sprite->getPosition()) / m_movementSpeed, Vec2(point.x, point.y));
 	auto callbackHide = CallFunc::create(CC_CALLBACK_0(Soldier::SetTouchFlagTwo,this));
@@ -87,30 +88,30 @@ void Soldier::MoveToMonster(Vec2 point, bool check, float timedelay)
 		if (timeRun >= 0.4)
 		{
 			if ((m_sprite->getPosition().y == point.y) && (m_sprite->getPosition().x <= point.x)) {
-				Action(E, check);
+				ActionMove(E, check);
 			}
 			else if ((m_sprite->getPosition().y == point.y) && (m_sprite->getPosition().x >= point.x)) {
-				Action(W, check);
+				ActionMove(W, check);
 			}
 			else if ((m_sprite->getPosition().x == point.x) && (m_sprite->getPosition().y >= point.y)) {
-				Action(S, check);
+				ActionMove(S, check);
 			}
 			else if ((m_sprite->getPosition().x == point.x) && (m_sprite->getPosition().y <= point.y)) {
-				Action(N, check);
+				ActionMove(N, check);
 			}
 			else if ((m_sprite->getPosition().x <= point.x) && (m_sprite->getPosition().y >= point.y)) {
-				Action(SE, check);
+				ActionMove(SE, check);
 			}
 			else if ((m_sprite->getPosition().x >= point.x) && (m_sprite->getPosition().y >= point.y)) {
-				Action(SW, check);
+				ActionMove(SW, check);
 			}
 			else if ((m_sprite->getPosition().x <= point.x) && (m_sprite->getPosition().y <= point.y)) {
-				Action(NE, check);
-			}
+				ActionMove(NE, check);
+			} 
 			else if ((m_sprite->getPosition().x >= point.x) && (m_sprite->getPosition().y <= point.y))
 			{
-				Action(NW, check);
-			}
+				ActionMove(NW, check);
+			}		
 			m_sprite->runAction(MoveTo::create(point.getDistance(m_sprite->getPosition()) / m_movementSpeed, Vec2(point.x, point.y)));			
 			timeRun = 0;
 		}
@@ -121,8 +122,6 @@ void Soldier::MoveToMonster(Vec2 point, bool check, float timedelay)
 		
 	}	
 }
-
-
 Animation * Soldier::AnimationMonster(string prefixName, int pFrameBegin, int pFrameEnd, float delay)
 {
 
@@ -141,7 +140,7 @@ Animation * Soldier::AnimationMonster(string prefixName, int pFrameBegin, int pF
 	return animation;
 }
 
-void Soldier::ActionMove(int direction)
+void Soldier::Action(int direction)
 {
 	switch (direction)
 	{
@@ -242,7 +241,7 @@ void Soldier::ActionMove(int direction)
 	}
 }
 
-void Soldier::Action(int direction, bool check)
+void Soldier::ActionMove(int direction, bool check)
 {
 	switch (direction)
 	{
@@ -440,6 +439,11 @@ vector<Monster*> Soldier::GetListMonsterAttack()
 void Soldier::SetListMonsterAttack(Monster * monster)
 {
 	m_listMonsterAttack.push_back(monster);
+}
+
+void Soldier::SetListMonsterAttackClear()
+{
+	m_listMonsterAttack.clear();
 }
 
 float Soldier::GetMSpeed()

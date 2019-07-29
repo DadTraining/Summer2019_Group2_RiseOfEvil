@@ -17,7 +17,7 @@ private:
 	float m_attackSpeed;
 	float m_runAnimation;
 	float m_attackAnimation;
-	bool touchFlag = true;
+	bool touchFlag = false;
 	bool checkFindMonster = false;
 	vector<Monster*> m_listMonsterAttack;
 	int m_gold;
@@ -41,8 +41,10 @@ public:
 	void Move(Vec2);
 	void MoveToMonster(Vec2, bool, float);
 	Animation* AnimationMonster(string, int, int, float);
-	void ActionMove(int);
-	void Action(int, bool);
+
+	void Action(int);
+	void ActionMove(int, bool);
+	void AttackMonster(Monster*);
 	bool GetTouchFlag();
 	void SetTouchFlag(bool);
 	bool GetCheckFindMonster();
@@ -50,6 +52,7 @@ public:
 	void SetTouchFlagTwo();
 	vector<Monster*> GetListMonsterAttack();
 	void SetListMonsterAttack(Monster*);
+	void SetListMonsterAttackClear();
 	float GetMSpeed();
 	float GetMovementSpeed();
 	void SetMovementSpeed(float);
