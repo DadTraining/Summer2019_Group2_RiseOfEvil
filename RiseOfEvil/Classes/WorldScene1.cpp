@@ -686,6 +686,10 @@ bool WorldScene1::onTouchBegan(Touch * touch, Event * event)
 		if (listTower[i]->GetSprite()->getBoundingBox().containsPoint(touch->getLocation()))
 		{
 			towerChoosing = listTower[i];
+			if (listTower[i]->getLevel() == 3)
+			{
+				listTower[i]->getPriceUpgradeLabel()->setString("MAX");
+			}
 			if (listTower[i]->GetGold() > currentGold || listTower[i]->getLevel() >= 3)
 			{
 				listTower[i]->getUpgradeIcon()->setEnabled(false);
