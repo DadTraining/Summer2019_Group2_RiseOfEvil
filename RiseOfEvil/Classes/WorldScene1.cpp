@@ -145,7 +145,7 @@ bool WorldScene1::init()
 	addChild(pause_bg, 6);
 
 	pauseBtn = ui::Button::create("res/Buttons/WorldScene1/pauseBtn.png", "res/Buttons/WorldScene1/pauseBtn-press.png");
-	pauseBtn->setScale(1.5);
+	pauseBtn->setScale(1.2);
 	pauseBtn->setPosition(Vec2(visibleSize.width - 40, visibleSize.height - 40));
 	pauseBtn->addClickEventListener(CC_CALLBACK_0(WorldScene1::ClickPauseButton, this));
 	addChild(pauseBtn, 1);
@@ -316,7 +316,7 @@ void WorldScene1::update(float deltaTime)
 	//Check pause or not
 	if (clickPause)
 	{
-		if (countTimeToPause >= 0.6)
+		if (countTimeToPause >= 0.4)
 		{
 			Director::getInstance()->pause();
 		}
@@ -387,8 +387,12 @@ void WorldScene1::update(float deltaTime)
 				listMonster[i]->AttackCrystal(crystal, deltaTime);
 			}
 		}
+		if (time >= 40)
+		{
+			startWave();
+		}
 		if (time >= 35) {
-			if ((numOfWave + 1) <= 5)
+			if ((numOfWave + 1) <= 8)
 			{
 				startWaveBTN->setVisible(true);
 				startWaveBTN2->setVisible(true);
@@ -399,9 +403,7 @@ void WorldScene1::update(float deltaTime)
 				startWaveBTN2->setEnabled(false);
 			}
 		}
-		else {
-			time += deltaTime;
-		}
+		time += deltaTime;
 		for (int i = 0; i < listMonster.size(); i++)
 		{
 			if (!(listMonster[i]->GetSprite()->isVisible()))
@@ -523,12 +525,13 @@ void WorldScene1::restart()
 //Exit Pause menu
 void WorldScene1::ExitPauseMenu()
 {
-	pauseBtn->setEnabled(true);
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 	pause = false;
 	clickPause = false;
 	Director::getInstance()->resume();
-	pause_bg->runAction(MoveTo::create(0.5, Vec2(visibleSize.width / 2, visibleSize.height)));
+	pauseBtn->setEnabled(true);
+	pauseBtn->setPosition(Vec2(visibleSize.width - 40, visibleSize.height - 40));
+	pause_bg->runAction(MoveTo::create(0.4, Vec2(visibleSize.width / 2, visibleSize.height)));
 	//use camera
 	//pause_bg->runAction(MoveTo::create(0.5, Vec2(cam->getPositionX(), cam->getPositionY() + visibleSize.height / 2)));
 }
@@ -538,7 +541,9 @@ void WorldScene1::ClickPauseButton()
 {
 	pauseBtn->setEnabled(false);
 	auto visibleSize = Director::getInstance()->getVisibleSize();
+	pauseBtn->setPosition(Vec2(visibleSize.width + 100, visibleSize.height + 100));
 	pause = true;
+	countTimeToPause = 0;
 	//Set other windows disappear
 	menu->setVisible(false);
 	towerArcherDetails->setVisible(false);
@@ -546,7 +551,7 @@ void WorldScene1::ClickPauseButton()
 	towerSlowDetails->setVisible(false);
 	towerBoombardDetails->setVisible(false);
 	towerBarrackDetails->setVisible(false);
-	pause_bg->runAction(MoveTo::create(0.5, Vec2(visibleSize.width / 2,visibleSize.height / 6)));
+	pause_bg->runAction(MoveTo::create(0.4, Vec2(visibleSize.width / 2,visibleSize.height / 6)));
 	//use camera
 	//pause_bg->runAction(MoveTo::create(0.5, Vec2(cam->getPositionX(), cam->getPositionY()/4)));
 	clickPause = true;
@@ -685,6 +690,11 @@ bool WorldScene1::onTouchBegan(Touch * touch, Event * event)
 			{
 				listTower[i]->getUpgradeIcon()->setEnabled(false);
 				listTower[i]->getPriceUpgradeLabel()->setColor(Color3B::RED);
+			}
+			else
+			{
+				listTower[i]->getUpgradeIcon()->setEnabled(true);
+				listTower[i]->getPriceUpgradeLabel()->setColor(Color3B::YELLOW);
 			}
 			listTower[i]->ShowCircleMenu();
 		}
