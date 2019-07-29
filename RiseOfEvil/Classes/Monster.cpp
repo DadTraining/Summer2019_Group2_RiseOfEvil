@@ -432,7 +432,10 @@ void Monster::AttackCrystal(Crystal *crystal, float deltaTime)
 	if (countToAttack >= m_attackSpeed)
 	{
 		auto damage = GetDamage();
-		crystal->setHitPoint(crystal->getHitPoint() - damage);
+		if (crystal->getHitPoint() > 0)
+		{
+			crystal->setHitPoint(crystal->getHitPoint() - damage);
+		}
 		auto damageLabel = Label::createWithTTF("" + to_string(random(1, 10)), "fonts/Comic_Book.ttf", 20);
 		if (damage > 50)
 		{

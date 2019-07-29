@@ -43,6 +43,7 @@ private:
 	float countTimeToPause = 0;
 	float countTimeToAttack = 0;
 	float countTimeToReduceHP = 0;
+	float countTimeToBuildTower = 0;
 	int currentGold;
 	int numOfWave;
 	int monsterIndex = 0;
@@ -56,6 +57,7 @@ private:
 	MenuItemImage *cancelMenu;
 	Sprite *pause_bg;
 	Sprite* canBuild;
+	Sprite* gameover_bg;
 	Sprite* cannotBuild;
 	Vec2 touchLocation;	
 	Vec2 point;
@@ -97,6 +99,7 @@ private:
 	bool checkAttack = false;
 	bool checkTouchBuildTowerFake = false;
 	bool checkClickBuildButton = false;
+	bool checkgameover = false;
 public:
 	static Scene* createScene();
 	virtual bool init() override;

@@ -155,6 +155,26 @@ bool WorldScene1::init()
 	resumeBtn->setScale(0.7);
 	pause_bg->addChild(resumeBtn);
 
+	//create layer game over 
+	gameover_bg = Sprite::create("gameover_bg.png");
+	gameover_bg->setAnchorPoint(Vec2(0.5, 0));
+	gameover_bg->setPosition(Vec2(visibleSize.width / 2, visibleSize.height));
+	addChild(gameover_bg, 6);
+	
+	auto homeBtn = ui::Button::create("home.png","home_pressed.png");
+	homeBtn->setPosition(Vec2(gameover_bg->getContentSize().width/2 -70, gameover_bg->getContentSize().height / 5));
+	homeBtn->addTouchEventListener(CC_CALLBACK_0(WorldScene1::returnToMainMenu, this));
+	homeBtn->setScale(0.7);
+	gameover_bg->addChild(homeBtn);
+	
+	auto resumeBtn = ui::Button::create("resume.png","resume_pressed.png");
+	resumeBtn->setPosition(Vec2(gameover_bg->getContentSize().width/2 +70, gameover_bg->getContentSize().height / 5));
+	resumeBtn->addTouchEventListener(CC_CALLBACK_0(WorldScene1::restart, this));
+	resumeBtn->setScale(0.7);
+	gameover_bg->addChild(resumeBtn);
+
+	//===========================================
+
 	moreGoldBtn = ui::Button::create("res/Buttons/WorldScene1/moreGold.png");
 	moreGoldBtn->setPosition(Vec2(pause_bg->getContentSize().width - 10, 10));
 	moreGoldBtn->setScale(0.3);
@@ -304,6 +324,7 @@ bool WorldScene1::init()
 }
 void WorldScene1::update(float deltaTime)
 {
+	auto visibleSize = Director::getInstance()->getVisibleSize();
 	if (listTower.size() > 1 && !start)
 	{
 		startBTN->setVisible(true);
@@ -436,6 +457,30 @@ void WorldScene1::update(float deltaTime)
 			MonsterMove(listMonster[i], listMonster[i]->GetSprite()->getTag(), checkAttack, deltaTime, delay);
 		}
 		
+		//crystal burst
+		if (crystal->getcrystalBurst() == true && crystal->getCheckLose() == false)
+		{
+			for (int i = 0; i < listMonster.size(); i++)
+			{
+				if (listMonster[i]->GetSprite()->isVisible())
+				{
+					listMonster[i]->SetHitPoint(0);
+				}
+			}
+			crystal->setHitPoint(crystal->getmaxHitPoint());
+		}
+		
+		if(crystal->getCheckLose() == true)
+		{
+			if (!checkgameover)
+			{
+				pause = true;
+				clickPause = true;
+				gameover_bg->runAction(MoveTo::create(0.5, Vec2(visibleSize.width / 2, visibleSize.height / 6)));
+			}
+			checkgameover = true;
+		}
+
 		//Tower shoot
 		for (int k = 0; k < listTower.size(); k++)
 		{
@@ -535,6 +580,15 @@ void WorldScene1::update(float deltaTime)
 				listMonster[i]->SetMovementSpeed(listMonster[i]->GetMaxSpeed());
 			}
 		}
+		//BuildTower with time delay
+		//if (GetCheckTouchBuildTower())
+		//{
+		//	countTimeToBuildTower += deltaTime;
+		//	if (countTimeToBuildTower > 3.0)
+		//	{
+		//		countTimeToBuildTower = 0;
+		//	}
+		//}
 	}
 
 }
@@ -793,7 +847,16 @@ void WorldScene1::onTouchEnded(Touch * touch, Event * event)
 //Create menu build Tower
 void WorldScene1::createmenu(Vec2 point)
 {
-	menu->setPosition(Vec2(point.x +230, point.y));
+	if (touchLocation.x > 350)
+	{
+		menu->setPosition(Vec2(point.x - 150, point.y));
+	}
+	else
+	{
+		menu->setPosition(Vec2(point.x + 150, point.y));
+	}
+	log("touchLocation.x %f contentsize mune.witdh %f", touchLocation.x, abs(menu->getContentSize().width));
+	//menu->setPosition(Vec2(point.x -150, point.y));
 	archerIcon->setPosition(menu->getContentSize().width, menu->getContentSize().height);
 	magicIcon->setPosition(menu->getContentSize().width + magicIcon->getContentSize().width, menu->getContentSize().height);
 	slowIcon->setPosition(menu->getContentSize().width + 2 * slowIcon->getContentSize().width, menu->getContentSize().height);

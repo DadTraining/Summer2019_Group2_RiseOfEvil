@@ -40,6 +40,7 @@ void Crystal::Init()
 
 void Crystal::setPercentOfHealthBar()
 {
+	crystalBurst = false;
 	hitpointpercentLabel->setString(to_string((int)(m_hitpoint / (m_maxHitpoint * 1.0) * 100)) + "%");
 	hpBar->setPercentage((m_hitpoint / (m_maxHitpoint * 1.0) * 100));
 	if (hpBar->getPercentage() < 0)
@@ -47,7 +48,7 @@ void Crystal::setPercentOfHealthBar()
 		hpBar->setPercentage(0);
 	}
 	//make crystal fire
-	if (hpBar->getPercentage() < 60)
+	if (hpBar->getPercentage() < 60 && hpBar->getPercentage() > 40)
 	{
 		hitpointpercentLabel->setColor(Color3B::ORANGE);
 		if (10 / hpBar->getPercentage() <= 1)
@@ -60,6 +61,25 @@ void Crystal::setPercentOfHealthBar()
 	{
 		hitpointpercentLabel->setColor(Color3B::RED);
 	}
+	if (hpBar->getPercentage() == 0)
+	{
+		count++;
+		if (count <= 2)
+		{
+			auto burst = ParticleSystemQuad::create("explotion.plist");
+			burst->setScale(3);
+			burst->setDuration(0.5);
+			burst->setPosition(Vec2(m_sprite->getContentSize().width / 2, m_sprite->getContentSize().height / 2));
+			burst->setAutoRemoveOnFinish(true);
+			m_sprite->addChild(burst);
+			fire->setVisible(false);
+		}
+		if (count == 2)
+		{
+			checkLose = true;
+		}
+		crystalBurst = true;
+	}
 }
 
 int Crystal::getHitPoint()
@@ -70,6 +90,21 @@ int Crystal::getHitPoint()
 void Crystal::setHitPoint(int hitPoint)
 {
 	m_hitpoint = hitPoint;
+}
+
+bool Crystal::getcrystalBurst()
+{
+	return crystalBurst;
+}
+
+bool Crystal::getCheckLose()
+{
+	return checkLose;
+}
+
+int Crystal::getmaxHitPoint()
+{
+	return m_maxHitpoint;
 }
 
 Sprite * Crystal::getSprite()
