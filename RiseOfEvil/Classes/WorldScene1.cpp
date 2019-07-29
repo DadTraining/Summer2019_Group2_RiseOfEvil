@@ -480,7 +480,6 @@ void WorldScene1::update(float deltaTime)
 			listTower[i]->Update(deltaTime, listMonster);
 			
 		}
-
 		//increase speed when monster is slowing
 		for (int i = 0; i < listMonster.size(); i++)
 		{
@@ -495,7 +494,6 @@ void WorldScene1::update(float deltaTime)
 			}
 		}
 	}
-
 }
 
 void WorldScene1::restart()
@@ -675,6 +673,7 @@ bool WorldScene1::onTouchBegan(Touch * touch, Event * event)
 			if (listTower[i]->GetGold() > currentGold || listTower[i]->getLevel() >= 3)
 			{
 				listTower[i]->getUpgradeIcon()->setEnabled(false);
+				listTower[i]->getPriceUpgradeLabel()->setColor(Color3B::RED);
 			}
 			listTower[i]->ShowCircleMenu();
 		}
