@@ -1,19 +1,32 @@
 #pragma once
 #include "cocos2d.h"
 #include "Monster.h"
+#include <iostream>
+#define LEVEL1 1
+#define LEVEL2 2
+#define LEVEL3 3
 using namespace cocos2d;
-class Soldier : public Objects
+using namespace std;
+class Soldier :public Objects
 {
 private:
-	float timeDelay = 0;
-	float m_movementSpeed = 20;
+	int level;
+	int m_maxHitPoint;
+	int rangeOfSoldier = 50;
+	float m_attackSpeed;
+	float m_movementSpeed;
+	float m_speed;
+	float m_velocity;
+	float timeMove = 0;
+	int checkMove = 0;
+	Layer * layer;
 public:
-	Soldier(Layer *);
+	Soldier(Layer* layer, int level);
 	~Soldier();
 	void Init();
 	void Update(float deltaTime);
-	void Move(Vec2);
-	void AttackMonster(Monster*);
-	float GetMovementSpeed();
-	void SetMovementSpeed(float);
+	void MoveSoldier(Vec2 , bool, float, float);
+	void Action(int, bool);
+	void MoveToFlag(Vec2 Pos);
+	Monster *FindNearestMonster(Monster *);
 };

@@ -63,6 +63,7 @@ bool WorldScene1::init()
 		towerSlowDetails->setVisible(false);
 		towerBoombardDetails->setVisible(false);
 		towerBarrackDetails->setVisible(false);
+		TowerFake->setVisible(false);
 	});
 	cancelMenu->setAnchorPoint(Vec2(1, 0));
 	cancelMenu->setScale(0.5);
@@ -481,18 +482,28 @@ void WorldScene1::update(float deltaTime)
 			
 		}
 		//increase speed when monster is slowing
-		for (int i = 0; i < listMonster.size(); i++)
+		if (countTimeToIncreaseSpeedMonster > 0.3)
 		{
-			if (listMonster[i]->GetMovementSpeed() < listMonster[i]->GetMSpeed())
+			for (int i = 0; i < listMonster.size(); i++)
 			{
-				listMonster[i]->SetMovementSpeed(listMonster[i]->GetMovementSpeed() + 0.5);
+				if (listMonster[i]->GetMovementSpeed() < listMonster[i]->GetMSpeed())
+				{
+					listMonster[i]->SetMovementSpeed(listMonster[i]->GetMovementSpeed() + 1);
+				}
+				else
+				{
+					listMonster[i]->SetMovementSpeed(listMonster[i]->GetMSpeed());
+					listMonster[i]->GetSprite()->setColor(Color3B(255, 255, 255));
+				}
 			}
-			if (listMonster[i]->GetMovementSpeed() >= listMonster[i]->GetMSpeed())
-			{
-				listMonster[i]->SetMovementSpeed(listMonster[i]->GetMSpeed());
-				listMonster[i]->GetSprite()->setColor(Color3B(255, 255, 255));
-			}
+			countTimeToIncreaseSpeedMonster = 0;
+
 		}
+		else
+		{
+			countTimeToIncreaseSpeedMonster += deltaTime;
+		}
+
 	}
 }
 
@@ -700,8 +711,8 @@ bool WorldScene1::onTouchBegan(Touch * touch, Event * event)
 					{
 					for (int i = 0; i < towerChoosing->GetListSoldier().size(); i++)
 					{
-						towerChoosing->GetListSoldier()[i]->GetSprite()->setVisible(true);
-						towerChoosing->GetListSoldier()[i]->Move(Vec2(Flag->getPositionX() + ((i + 1) * 5), Flag->getPositionY() + ((i + 1) * 10)));
+						//towerChoosing->GetListSoldier()[i]->GetSprite()->setVisible(true);
+						//towerChoosing->GetListSoldier()[i]->Move(Vec2(Flag->getPositionX() + ((i + 1) * 5), Flag->getPositionY() + ((i + 1) * 10)));
 					}
 				}
 			}

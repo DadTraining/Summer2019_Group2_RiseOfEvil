@@ -684,6 +684,7 @@ void Monster::SetSlowRunSpeed()
 	{
 		m_movementSpeed -= m_speed * 20 / 100;
 		m_sprite->setColor(Color3B::BLUE);
+		log("movement speed:%f", m_movementSpeed);
 	}
 }
 

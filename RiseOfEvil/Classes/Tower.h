@@ -41,6 +41,7 @@ private:
 	bool requestUpdate = false;
 	Sprite * rangeBarrackTower;
 	Point posBullet;
+	int numberOfSoldier;
 	Monster *target = nullptr;
 	Label *priceUpgradeLabel;
 public:
