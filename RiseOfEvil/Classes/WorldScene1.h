@@ -101,7 +101,7 @@ private:
 	bool clickPause = false;
 	bool checkMonsterAttack = false;
 	bool checkSoldierAttack = false;
-	bool checkSoldierFlag = true;
+	bool checkSoldierFlag = false;
 	bool checkTouchBuildTowerFake = false;
 	bool checkClickBuildButton = false;
 	bool checkFindMonster = false;

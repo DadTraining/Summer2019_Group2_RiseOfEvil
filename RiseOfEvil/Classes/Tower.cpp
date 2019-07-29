@@ -109,7 +109,7 @@ Tower::Tower(Layer * layer, int type, Vec2 Pos)
 			{
 				listSoldier[i]->GetSprite()->setPosition(Vec2(Pos.x - (i*i) * i* 32, Pos.y + (i *i) * i*16));
 			}
-			listSoldier[i]->GetSprite()->setVisible(false);
+			listSoldier[i]->GetSprite()->setVisible(true);
 		}
 	}
 	else
