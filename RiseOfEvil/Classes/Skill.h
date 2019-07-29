@@ -21,9 +21,4 @@ public:
 	void Init();
 	Sprite * getSprite();
 	void effect(Objects*);
-	//void increaseAttackSpeedSkill(Tower * tower, vector<Tower*>listTower);
-	//void increaseAttackDamageSkill(Tower * tower, vector<Tower*>listTower);
-	//void slowSkill(Tower * tower, vector<Monster*> listMonster);
-	//void burnSkill(Tower * tower, vector<Monster*> listMonster, float deltaTime);
-	//void bossSkill(Monster * boss, vector<Monster *>listMonster, float deltaTime);
 };

@@ -157,9 +157,12 @@ Tower::Tower(Layer * layer, int type, Vec2 Pos)
 			break;
 		}
 	}
-	towerSkill->getSprite()->setPosition(m_sprite->getContentSize().width / 2, m_sprite->getContentSize().height / 2);
-	towerSkill->getSprite()->setVisible(false);
-	m_sprite->addChild(towerSkill->getSprite(), 6);
+	if (m_type != BARRACKS_TOWER)
+	{
+		towerSkill->getSprite()->setPosition(m_sprite->getContentSize().width / 2, m_sprite->getContentSize().height / 2);
+		towerSkill->getSprite()->setVisible(false);
+		m_sprite->addChild(towerSkill->getSprite(), 6);
+	}
 }
 
 Tower::~Tower()
@@ -440,9 +443,7 @@ void Tower::slowSkill(vector<Monster*> listMonster)
 			&& listMonster[i]->GetMovementSpeed() > listMonster[i]->GetMSpeed() * 60 / 100)
 		{
 			listMonster[i]->SetMovementSpeed(listMonster[i]->GetMovementSpeed() - listMonster[i]->GetMSpeed() * 10 / 100);
-		}
-	//	log("speed of monster %d: %f", i ,listMonster[i]->GetMovementSpeed());
-			// if monster out range increase speed 
+		} 
 	}
 }
 
@@ -486,6 +487,7 @@ void Tower::bossSkill(Monster * boss, vector<Monster*> listMonster, float deltaT
 			}
 		}
 	}
+}
 void Tower::clickSellIcon()
 {
 	confirmIcon->setEnabled(true);
