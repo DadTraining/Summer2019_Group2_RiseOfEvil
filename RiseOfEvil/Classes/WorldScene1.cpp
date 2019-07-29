@@ -505,6 +505,29 @@ void WorldScene1::update(float deltaTime)
 			countTimeToIncreaseSpeedMonster += deltaTime;
 		}
 
+		for (int i = 0; i < listTower.size(); i++)
+		{
+			if (listTower[i]->getLevel() == 3)
+			{
+				switch (listTower[i]->GetType())
+				{
+				case ARROW_TOWER:
+					//listTower[i]->increaseAttackSpeedSkill(listTower);
+					break;
+				case MAGIC_TOWER:
+					//listTower[i]->increaseAttackDamageSkill(listTower);
+					break;
+				case SLOW_TOWER:
+					listTower[i]->slowSkill(listMonster);
+					break;
+				case BOMBARD_TOWER:
+					listTower[i]->burnSkill(listMonster, deltaTime);
+						
+				}
+
+			}
+		}
+
 	}
 
 }

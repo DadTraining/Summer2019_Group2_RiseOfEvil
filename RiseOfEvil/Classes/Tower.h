@@ -4,6 +4,7 @@
 #include "Objects.h"
 #include "Monster.h"
 #include "Soldier.h"
+#include "Skill.h"
 #include <iostream>
 
 #define ARROW_TOWER 1
@@ -41,6 +42,9 @@ private:
 	Point posBullet;
 	int numberOfSoldier;
 	Monster *target = nullptr;
+	Skill * towerSkill;
+	float countTimeToReduceHPForBurnSkill = 0;
+	float countTimeToIncreaseHP = 0;
 public:
 	void Init();
 	Tower(Layer* layer, int, Vec2);
@@ -76,4 +80,9 @@ public:
 	Monster * getTarget();
 	void setTarget(Monster*);
 	bool getStatusOfTarget();
+	void increaseAttackSpeedSkill(vector<Tower*>listTower);
+	void increaseAttackDamageSkill(vector<Tower*>listTower);
+	void slowSkill(vector<Monster*> listMonster);
+	void burnSkill(vector<Monster*> listMonster, float deltaTime);
+	void bossSkill(Monster * boss, vector<Monster *>listMonster, float deltaTime);
 };

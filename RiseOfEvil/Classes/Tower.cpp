@@ -108,38 +108,18 @@ Tower::Tower(Layer * layer, int type, Vec2 Pos)
 			numberOfSoldier = 5;
 			break;
 		}
-		for (int i = 0; i < numberOfSoldier; i++)
-		{
-			Soldier * m_soldier = new Soldier(layer, m_level);
-			listSoldier.push_back(m_soldier);
-		}
-		for (int i = 0; i < listSoldier.size(); i++)
-		{
-			m_sprite->addChild(listSoldier[i]->GetSprite(), 6);
-		}
-		listSoldier[0]->GetSprite()->setPosition(Vec2(Pos.x, Pos.y));
-		listSoldier[1]->GetSprite()->setPosition(Vec2(Pos.x + 15, Pos.y));
-		listSoldier[2]->GetSprite()->setPosition(Vec2(Pos.x + 30, Pos.y + 30));
-		//listSoldier[0]->GetSprite()->setPosition(Vec2(bufferBarrackTower->getPosition().x, bufferBarrackTower->getPosition().y));
-		//listSoldier[0]->GetSprite()->setColor(Color3B::BLACK);
-		//listSoldier[1]->GetSprite()->setPosition(bufferBarrackTower->getContentSize().width / 2, bufferBarrackTower->getContentSize().height);
-		//listSoldier[1]->GetSprite()->setColor(Color3B::YELLOW);
-		//listSoldier[2]->GetSprite()->setPosition(bufferBarrackTower->getContentSize().width, 0);
-		//listSoldier[2]->GetSprite()->setColor(Color3B::RED);
-		//for (int i = 0; i < 3; i++)
+		//for (int i = 0; i < numberOfSoldier; i++)
 		//{
 		//	Soldier * m_soldier = new Soldier(layer, m_level);
 		//	listSoldier.push_back(m_soldier);
-		//	if ((i+1) % 2 != 0)
-		//	{
-		//		listSoldier[i]->GetSprite()->setPosition(Vec2(Pos.x + (i*i) * i, Pos.y + (i *i) * 2 * i));
-		//	}
-		//	else
-		//	{
-		//		listSoldier[i]->GetSprite()->setPosition(Vec2(Pos.x - (i*i) * i* 32, Pos.y + (i *i) * i*16));
-		//	}
-		//	listSoldier[i]->GetSprite()->setVisible(false);
 		//}
+		//for (int i = 0; i < listSoldier.size(); i++)
+		//{
+		//	m_sprite->addChild(listSoldier[i]->GetSprite(), 6);
+		//}
+		//listSoldier[0]->GetSprite()->setPosition(Vec2(Pos.x, Pos.y));
+		//listSoldier[1]->GetSprite()->setPosition(Vec2(Pos.x + 15, Pos.y));
+		//listSoldier[2]->GetSprite()->setPosition(Vec2(Pos.x + 30, Pos.y + 30));
 	}
 	else
 	{
@@ -150,6 +130,32 @@ Tower::Tower(Layer * layer, int type, Vec2 Pos)
 		Bullet * bullet = new Bullet(layer, m_type);
 		listBullet.push_back(bullet);
 	}
+	switch (m_type)
+	{
+		case ARROW_TOWER:
+		{
+			towerSkill = new Skill(INCREASE_ATTACKSPEED_SKILL);
+			break;
+		}
+		case MAGIC_TOWER:
+		{
+			towerSkill = new Skill(INCREASE_ATTACKDAMAGE_SKILL);
+			break;
+		}
+		case SLOW_TOWER:
+		{
+			towerSkill = new Skill(SLOW_TOWER);
+			break;
+		}
+		case BOMBARD_TOWER:
+		{
+			towerSkill = new Skill(BOMBARD_TOWER);
+			break;
+		}
+	}
+	towerSkill->getSprite()->setPosition(m_sprite->getContentSize().width / 2, m_sprite->getContentSize().height / 2);
+	towerSkill->getSprite()->setVisible(false);
+	m_sprite->addChild(towerSkill->getSprite(), 6);
 }
 
 Tower::~Tower()
@@ -333,7 +339,10 @@ void Tower::upgrade()
 		m_maximumAtk *= m_level;
 		m_gold += m_gold;
 	}
-	
+	if (m_level == 3)
+	{
+		towerSkill->getSprite()->setVisible(true);
+	}
 }
 
 bool Tower::getRequestUpdate()
@@ -379,6 +388,88 @@ bool Tower::getStatusOfTarget()
 		return true;
 	}
 	return false;
+}
+
+void Tower::increaseAttackSpeedSkill(vector<Tower*> listTower)
+{
+	for (int i = 0; i < listTower.size(); i++)
+	{
+		float increaseAttackSpeed = listTower[i]->GetAttackSpeed() + listTower[i]->GetAttackSpeed() * 20 / 100;
+		if (m_sprite->getPosition().distance(listTower[i]->GetSprite()->getPosition()) < 150)
+		{
+			listTower[i]->SetAttackSpeed(increaseAttackSpeed);
+		}
+	}
+}
+
+void Tower::increaseAttackDamageSkill(vector<Tower*> listTower)
+{
+	for (int i = 0; i < listTower.size(); i++)
+	{
+		int increaseMinimumAtk = listTower[i]->GetMinimumAtk() + (int)listTower[i]->GetMinimumAtk() * 20 / 100;
+		int increaseMaximumAtk = listTower[i]->GetMaximumAtk() + (int)listTower[i]->GetMaximumAtk() * 20 / 100;
+		if (m_sprite->getPosition().distance(listTower[i]->GetSprite()->getPosition()) < 150)
+		{
+			listTower[i]->SetMinimumAtk(increaseMinimumAtk);
+			listTower[i]->SetMaximumAtk(increaseMaximumAtk);
+		}
+	}
+}
+
+void Tower::slowSkill(vector<Monster*> listMonster)
+{
+	for (int i = 0; i < listMonster.size(); i++)
+	{
+		if (m_sprite->getPosition().distance(listMonster[i]->GetSprite()->getPosition()) < 150 
+			&& listMonster[i]->GetMovementSpeed() > listMonster[i]->GetMSpeed() * 60 / 100)
+		{
+			listMonster[i]->SetMovementSpeed(listMonster[i]->GetMovementSpeed() - listMonster[i]->GetMSpeed() * 10 / 100);
+		}
+	//	log("speed of monster %d: %f", i ,listMonster[i]->GetMovementSpeed());
+			// if monster out range increase speed 
+	}
+}
+
+void Tower::burnSkill(vector<Monster*> listMonster, float deltaTime)
+{
+	if (countTimeToReduceHPForBurnSkill >= 1)
+	{
+		for (int i = 0; i < listMonster.size(); i++)
+		{
+				if (m_sprite->getPosition().distance(listMonster[i]->GetSprite()->getPosition()) < 150)
+				{
+					listMonster[i]->SetHitPoint(listMonster[i]->GetHitPoint() - 5);
+					countTimeToReduceHPForBurnSkill = 0;
+				}
+			}
+		}
+	else
+	{
+		countTimeToReduceHPForBurnSkill += deltaTime;
+	}
+}
+
+void Tower::bossSkill(Monster * boss, vector<Monster*> listMonster, float deltaTime)
+{
+	for (int i = 0; i < listMonster.size(); i++)
+	{
+		if (boss->GetSprite()->getPosition().distance(listMonster[i]->GetSprite()->getPosition()) < 150)
+		{
+			listMonster[i]->SetMSpeed(listMonster[i]->GetMSpeed() + 10);
+			if (listMonster[i]->GetHitPoint() < listMonster[i]->GetMaxHitPoint())
+			{
+				if (countTimeToIncreaseHP > 1)
+				{
+					listMonster[i]->SetHitPoint(listMonster[i]->GetHitPoint() + 5);
+					countTimeToIncreaseHP = 0;
+				}
+				else
+				{
+					countTimeToIncreaseHP += deltaTime;
+				}
+			}
+		}
+	}
 }
 
 int Tower::GetDamage()
