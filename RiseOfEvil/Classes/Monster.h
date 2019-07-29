@@ -69,6 +69,7 @@ public:
 	void DoDead();
 	void SetType(int type);
 	void SetMovementSpeed(float);
+	void SetMSpeed(float);
 	void SetAttackSpeed(float);
 	void SetGold(int);
 	void SetRange(int);
@@ -85,6 +86,7 @@ public:
 	void SetIsSlow(bool);
 	float GetMSpeed();
 	int GetDamage();
+	int GetMaxHitPoint();
 	void ReduceHitPointMonster(int);
 	bool IsDead();
 };

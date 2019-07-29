@@ -47,7 +47,11 @@ void Bullet::Move(Monster * monster, int damage, vector<Monster*> listMonster, i
 	//================Shoot Bezier=======================
 	bezier.controlPoint_1 = Point(m_sprite->getPositionX(), m_sprite->getPositionY()+ 100);
 	bezier.controlPoint_2 = Point(Vec2(((m_sprite->getPositionX() + monster->GetSprite()->getPositionX()) / 2), (m_sprite->getPositionY() + monster->GetSprite()->getPositionY()) / 2 + 200));
-	if (monster->GetCheckMove() == 1)
+	if (monster->GetMovementSpeed() == 0)
+	{
+		bezier.endPosition = Point(Vec2(monster->GetSprite()->getPositionX() -50, monster->GetSprite()->getPositionY()));
+	}
+	else if (monster->GetCheckMove() == 1)
 	{
 		bezier.endPosition = Point(Vec2(monster->GetSprite()->getPositionX() + (0.4 * monster->GetVelocity()), monster->GetSprite()->getPositionY()));
 	}
