@@ -1,7 +1,8 @@
 #include "Wave.h"
 
-Wave::Wave()
+Wave::Wave(int stage)
 {
+	m_stage = stage;
 	Load();
 }
 
@@ -11,10 +12,22 @@ Wave::~Wave()
 
 void Wave::Load()
 {
-	auto content = FileUtils::getInstance()->getStringFromFile("Stage1Info.bin");
+	auto finalWaveInfo = FileUtils::getInstance()->getStringFromFile("finalWave.bin");
+	istringstream finalWave(finalWaveInfo);
+	int sizeOfWave;
+	int typeOfMonster;
+	finalWave >> sizeOfWave;
+	for (int i = 0; i < sizeOfWave; i++)
+	{
+		finalWave >> typeOfMonster;
+		finalWaveInfo.push_back(typeOfMonster);
+	}
+	auto content = FileUtils::getInstance()->getStringFromFile("Stage"+to_string(m_stage)+"Info.bin");
 	istringstream f(content);
 	int size;
 	int type;
+	f >> road1;
+	f >> road2;
 	f >> size;
 	for (int i = 0; i < size; i++) {
 		f >> type;
@@ -40,6 +53,24 @@ void Wave::Load()
 		f >> type;
 		Wave5.push_back(type);
 	}
+	f >> size;
+	for (int i = 0; i < size; i++)
+	{
+		f >> type;
+		Wave6.push_back(type);
+	}
+	f >> size;
+	for (int i = 0; i < size; i++)
+	{
+		f >> type;
+		Wave7.push_back(type);
+	}
+	f >> size;
+	for (int i = 0; i < size; i++)
+	{
+		f >> type;
+		Wave8.push_back(type);
+	}
 }
 
 vector<int> Wave::getWave(int numOfWave)
@@ -61,7 +92,29 @@ vector<int> Wave::getWave(int numOfWave)
 	case 5:
 		return Wave5;
 		break;
+	case 6:
+		return Wave6;
+		break;
+	case 7:
+		return Wave7;
+		break;
+	case 8:
+		return Wave8;
+		break;
+	case 10:
+		return finalWaveInfo;
+		break;
 	default:
 		break;
 	}
+}
+
+int Wave::getRoad1TotalPoint()
+{
+	return road1;
+}
+
+int Wave::getRoad2TotalPoint()
+{
+	return road2;
 }

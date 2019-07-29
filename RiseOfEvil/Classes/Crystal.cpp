@@ -68,7 +68,7 @@ void Crystal::setPercentOfHealthBar()
 		{
 			auto burst = ParticleSystemQuad::create("explotion.plist");
 			burst->setScale(3);
-			burst->setDuration(0.5);
+			burst->setDuration(0.4);
 			burst->setPosition(Vec2(m_sprite->getContentSize().width / 2, m_sprite->getContentSize().height / 2));
 			burst->setAutoRemoveOnFinish(true);
 			m_sprite->addChild(burst);

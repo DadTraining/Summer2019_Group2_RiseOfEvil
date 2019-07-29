@@ -44,9 +44,13 @@ private:
 	float countTimeToAttack = 0;
 	float countTimeToReduceHP = 0;
 	float countTimeToBuildTower = 0;
+	float countTimeToIncreaseSpeedMonster = 0;
 	int currentGold;
+	int currentStage;
 	int numOfWave;
 	int monsterIndex = 0;
+	int road1TotalPoint;
+	int road2TotalPoint;
 	int typeOfTowerPrepairToBuild;
 	Menu *menu;
 	MenuItemImage *archerIcon;
@@ -96,10 +100,14 @@ private:
 	bool pause = false;
 	bool checkClick = false;
 	bool clickPause = false;
-	bool checkAttack = false;
+	bool checkMonsterAttack = false;
+	bool checkSoldierAttack = false;
+	bool checkSoldierFlag = false;
 	bool checkTouchBuildTowerFake = false;
 	bool checkClickBuildButton = false;
 	bool checkgameover = false;
+	bool checkFindMonster = false;
+	vector<Monster*> m_listMonsterSoldierFound;
 public:
 	static Scene* createScene();
 	virtual bool init() override;
@@ -112,6 +120,8 @@ public:
 	void BuildTower();
 	void createmenu(Vec2 point);
 	bool MonsterAttack(Monster*);
+	void SoldierFindMonster(Soldier*,bool, float);
+	bool SoldierAttack(Soldier*);
 	void MonsterMove(Monster*, int, bool, float, float);
 	void moveFlag(Vec2 Pos);
 	bool onTouchBegan(Touch *touch, Event *event);
@@ -127,5 +137,6 @@ public:
 	void moreGold();
 	void BuildTowerFake(int type);
 	void LoadingBuildTower();
+	bool CheckListMonsterSoldierFound(Monster*);
 	CREATE_FUNC(WorldScene1);
 };

@@ -1,19 +1,59 @@
 #pragma once
 #include "cocos2d.h"
 #include "Monster.h"
+#include <iostream>
+#define LEVEL1 1
+#define LEVEL2 2
+#define LEVEL3 3
 using namespace cocos2d;
+using namespace std;
 class Soldier : public Objects
 {
 private:
-	float timeDelay = 0;
-	float m_movementSpeed = 20;
+	int m_type;
+	float rand;
+	int m_png[32];
+	string m_fomatAnimation;
+	float m_attackSpeed;
+	float m_runAnimation;
+	float m_attackAnimation;
+	bool touchFlag = false;
+	bool checkFindMonster = false;
+	vector<Monster*> m_listMonsterAttack;
+	int m_gold;
+	int m_maxHitPoint;
+	Animation *animation;
+	float m_movementSpeed;
+	float m_speed;
+	float m_velocity;
+	float speed; // 80% maxSpee
+	float countToAttack = 0;
+	Sprite * m_bloodBar;
+	Sprite * m_blood;
+	//vector<Skill *>m_listSkill;
+	int m_range = 0;
+	Sprite * hp_bg;
 public:
-	Soldier(Layer *);
+	Soldier(Layer* layer);
 	~Soldier();
 	void Init();
 	void Update(float deltaTime);
 	void Move(Vec2);
+	void MoveToMonster(Vec2, bool, float);
+	Animation* AnimationMonster(string, int, int, float);
+
+	void Action(int);
+	void ActionMove(int, bool);
 	void AttackMonster(Monster*);
+	bool GetTouchFlag();
+	void SetTouchFlag(bool);
+	bool GetCheckFindMonster();
+	void SetCheckFindMonster(bool);
+	void SetTouchFlagTwo();
+	vector<Monster*> GetListMonsterAttack();
+	void SetListMonsterAttack(Monster*);
+	void SetListMonsterAttackClear();
+	float GetMSpeed();
 	float GetMovementSpeed();
 	void SetMovementSpeed(float);
 };

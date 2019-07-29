@@ -6,8 +6,7 @@ Monster::Monster(Layer * layer, int type)
 	m_type = type;
 	this->layer = layer;
 	Init();
-	maxSpeed = m_movementSpeed;
-	speed = m_movementSpeed * 80 / 100;
+	speed = m_speed * 80 / 100;
 	m_maxHitPoint = m_hitPoint;
 	layer->addChild(m_spriteNode, 3);
 }
@@ -22,104 +21,198 @@ void Monster::Init()
 	{
 	case NORMAL_MONSTER:
 	{	
-		m_spriteNode = SpriteBatchNode::create("Orc_Warrior.png");
-		SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Orc_Warrior.plist");
-		
-		m_sprite = Sprite::createWithSpriteFrameName("_Orc_1.png");
-		m_bloodBar = Sprite::createWithSpriteFrameName("healthbar_bg_Orc.png");
-		m_blood = Sprite::createWithSpriteFrameName("healthbar_Orc.png");
-		
-		m_blood->setAnchorPoint(Point(0, 0.5));
-		m_blood->setPosition(Point(0, m_bloodBar->getContentSize().height/2));
-		
-		m_bloodBar->setPosition(Point(m_sprite->getContentSize().width / 2, m_sprite->getContentSize().height * 0.6));
-		m_bloodBar->setScale(0.2);
 
-		m_bloodBar->addChild(m_blood,8);
-		m_sprite->addChild(m_bloodBar, 6);
-		m_spriteNode->addChild(m_sprite);
-		m_sprite->setVisible(false);
-		m_fomatAnimation = "_Orc_";		
-		m_hitPoint = 24;
-		m_maxHitPoint = 24;
-		m_minimumAtk = 1;
-		m_maximumAtk = 4;
-		m_attackSpeed = 1.0;
-		m_attackAnimation = 0.1f;
-		m_range = 20;
-		m_speed = m_velocity = MEDIUM_SPEED;
-		m_armor = 0;
-		m_gold = 6;
-		break;
+		rand = random(0, 1);
+		if (rand == 0)
+		{
+			m_spriteNode = SpriteBatchNode::create("skeleton.png");
+			SpriteFrameCache::getInstance()->addSpriteFramesWithFile("skeleton.plist");
+
+			m_sprite = Sprite::createWithSpriteFrameName("_skeleton_1.png");
+			m_bloodBar = Sprite::createWithSpriteFrameName("healthbar_bg_skeleton.png");
+			m_blood = Sprite::createWithSpriteFrameName("healthbar_skeleton.png");
+
+			m_blood->setAnchorPoint(Point(0, 0.5));
+			m_blood->setPosition(Point(0, m_bloodBar->getContentSize().height / 2));
+
+			m_bloodBar->setPosition(Point(m_sprite->getContentSize().width / 2, m_sprite->getContentSize().height * 1.05));
+			m_bloodBar->setScale(0.2);
+
+			m_bloodBar->addChild(m_blood, 8);
+			m_sprite->addChild(m_bloodBar, 6);
+			m_spriteNode->addChild(m_sprite);
+			m_sprite->setVisible(false);
+			m_fomatAnimation = "_skeleton_";
+			m_png[0] = 1; m_png[1] = 8; m_png[2] = 9; m_png[3] = 16; m_png[4] = 17; m_png[5] = 24; m_png[6] = 25; m_png[7] = 32; m_png[8] = 33; m_png[9] = 40; m_png[10] = 41; m_png[11] = 48; m_png[12] = 49; m_png[13] = 56; m_png[14] = 57; m_png[15] = 64;
+			m_png[16] = 65; m_png[17] = 78; m_png[18] = 79; m_png[19] = 92; m_png[20] = 93; m_png[21] = 106; m_png[22] = 107; m_png[23] = 120; m_png[24] = 121; m_png[25] = 134; m_png[26] = 135; m_png[27] = 148; m_png[28] = 149; m_png[29] = 162; m_png[30] = 163; m_png[31] = 176;
+			m_hitPoint = 24;
+			m_maxHitPoint = 24;
+			m_minimumAtk = 1;
+			m_maximumAtk = 4;
+			m_attackSpeed = 1.0;
+			m_runAnimation = 0.05f;
+			m_attackAnimation = 0.1f;
+			m_range = 20;
+			m_speed = m_movementSpeed = m_velocity = MEDIUM_SPEED;
+			m_armor = 0;
+			m_gold = 6;
+			break;
+		}
+		else
+		{
+			m_spriteNode = SpriteBatchNode::create("skeletongirl.png");
+			SpriteFrameCache::getInstance()->addSpriteFramesWithFile("skeletongirl.plist");
+
+			m_sprite = Sprite::createWithSpriteFrameName("_skeletongirl_1.png");
+			m_bloodBar = Sprite::createWithSpriteFrameName("healthbar_bg_skeletongirl.png");
+			m_blood = Sprite::createWithSpriteFrameName("healthbar_skeletongirl.png");
+
+			m_blood->setAnchorPoint(Point(0, 0.5));
+			m_blood->setPosition(Point(0, m_bloodBar->getContentSize().height / 2));
+
+			m_bloodBar->setPosition(Point(m_sprite->getContentSize().width / 2, m_sprite->getContentSize().height * 1.05));
+			m_bloodBar->setScale(0.2);
+
+			m_bloodBar->addChild(m_blood, 8);
+			m_sprite->addChild(m_bloodBar, 6);
+			m_spriteNode->addChild(m_sprite);
+			m_sprite->setVisible(false);
+			m_fomatAnimation = "_skeletongirl_";
+			m_png[0] = 1; m_png[1] = 8; m_png[2] = 9; m_png[3] = 16; m_png[4] = 17; m_png[5] = 24; m_png[6] = 25; m_png[7] = 32; m_png[8] = 33; m_png[9] = 40; m_png[10] = 41; m_png[11] = 48; m_png[12] = 49; m_png[13] = 56; m_png[14] = 57; m_png[15] = 64;
+			m_png[16] = 65; m_png[17] = 74; m_png[18] = 75; m_png[19] = 84; m_png[20] = 85; m_png[21] = 94; m_png[22] = 95; m_png[23] = 104; m_png[24] = 105; m_png[25] = 114; m_png[26] = 115; m_png[27] = 124; m_png[28] = 125; m_png[29] = 134; m_png[30] = 135; m_png[31] = 144;
+			m_hitPoint = 24;
+			m_maxHitPoint = 24;
+			m_minimumAtk = 1;
+			m_maximumAtk = 4;
+			m_attackSpeed = 1.0;
+			m_runAnimation = 0.05f;
+			m_attackAnimation = 0.1f;
+			m_range = 20;
+			m_speed = m_movementSpeed = m_velocity = MEDIUM_SPEED;
+			m_armor = 0;
+			m_gold = 6;
+			break;
+		}		
 	}
 	case MAGICAN_MONSTER:
+	{
+		rand = random(0, 1);
+		if (rand == 0)
+		{
+			m_spriteNode = SpriteBatchNode::create("globin.png");
+			SpriteFrameCache::getInstance()->addSpriteFramesWithFile("globin.plist");
+
+			m_sprite = Sprite::createWithSpriteFrameName("_globin_1.png");
+
+			m_bloodBar = Sprite::createWithSpriteFrameName("healthbar_bg_globin.png");
+			m_blood = Sprite::createWithSpriteFrameName("healthbar_globin.png");
+			m_blood->setAnchorPoint(Point(0, 0.5));
+			m_blood->setPosition(Point(0, m_bloodBar->getContentSize().height / 2));
+
+			m_bloodBar->setPosition(Point(m_sprite->getContentSize().width / 2, m_sprite->getContentSize().height * 0.6));
+			m_bloodBar->setScale(0.2);
+
+			m_bloodBar->addChild(m_blood, 8);
+			m_sprite->addChild(m_bloodBar, 6);
+			m_spriteNode->addChild(m_sprite);
+			m_sprite->setVisible(false);
+			m_fomatAnimation = "_globin_";
+			m_png[0] = 1; m_png[1] = 16; m_png[2] = 17; m_png[3] = 32; m_png[4] = 33; m_png[5] = 48; m_png[6] = 49; m_png[7] = 64; m_png[8] = 65; m_png[9] = 80; m_png[10] = 81; m_png[11] = 96; m_png[12] = 97; m_png[13] = 112; m_png[14] = 113; m_png[15] = 128;
+			m_png[16] = 129; m_png[17] = 136; m_png[18] = 137; m_png[19] = 144; m_png[20] = 145; m_png[21] = 152; m_png[22] = 153; m_png[23] = 160; m_png[24] = 161; m_png[25] = 168; m_png[26] = 169; m_png[27] = 176; m_png[28] = 177; m_png[29] = 184; m_png[30] = 185; m_png[31] = 192;
+
+			m_hitPoint = 120;
+			m_maxHitPoint = 120;
+			m_minimumAtk = 5;
+			m_maximumAtk = 7;
+			m_attackSpeed = 1.0;
+			m_runAnimation = 0.07f;
+			m_attackAnimation = 0.1f;
+			m_speed = m_movementSpeed = m_velocity = MEDIUM_SPEED;
+			m_armor = 0;
+			m_gold = 15;
+			break;
+		}
+		else 
+		{
+			m_spriteNode = SpriteBatchNode::create("zombie.png");
+			SpriteFrameCache::getInstance()->addSpriteFramesWithFile("zombie.plist");
+
+			m_sprite = Sprite::createWithSpriteFrameName("_zombie_1.png");
+
+			m_bloodBar = Sprite::createWithSpriteFrameName("healthbar_bg_zombie.png");
+			m_blood = Sprite::createWithSpriteFrameName("healthbar_zombie.png");
+			m_blood->setAnchorPoint(Point(0, 0.5));
+			m_blood->setPosition(Point(0, m_bloodBar->getContentSize().height / 2));
+
+			m_bloodBar->setPosition(Point(m_sprite->getContentSize().width / 2, m_sprite->getContentSize().height * 1.05));
+			m_bloodBar->setScale(0.2);
+
+			m_bloodBar->addChild(m_blood, 8);
+			m_sprite->addChild(m_bloodBar, 6);
+			m_spriteNode->addChild(m_sprite);
+			m_sprite->setVisible(false);
+			m_fomatAnimation = "_zombie_";
+			m_png[0] = 1; m_png[1] = 8; m_png[2] = 9; m_png[3] = 16; m_png[4] = 17; m_png[5] = 24; m_png[6] = 25; m_png[7] = 32; m_png[8] = 33; m_png[9] = 40; m_png[10] = 41; m_png[11] = 48; m_png[12] = 49; m_png[13] = 56; m_png[14] = 57; m_png[15] = 64;
+			m_png[16] = 65; m_png[17] = 74; m_png[18] = 75; m_png[19] = 84; m_png[20] = 85; m_png[21] = 94; m_png[22] = 95; m_png[23] = 104; m_png[24] = 105; m_png[25] = 114; m_png[26] = 115; m_png[27] = 124; m_png[28] = 125; m_png[29] = 134; m_png[30] = 135; m_png[31] = 144;
+
+			m_hitPoint = 120;
+			m_maxHitPoint = 120;
+			m_minimumAtk = 5;
+			m_maximumAtk = 7;
+			m_attackSpeed = 1.0;
+			m_runAnimation = 0.07f;
+			m_attackAnimation = 0.1f;
+			m_speed = m_movementSpeed = m_velocity = MEDIUM_SPEED;
+			m_armor = 0;
+			m_gold = 15;
+			break;
+		}
 		
-		/*m_spriteNode = SpriteBatchNode::create("Gobin_Walking.png");
-		SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Gobin_Walking.plist");
+	}		
+	case TANK_MONSTER:
+	{
+		m_spriteNode = SpriteBatchNode::create("minotaur.png");
+		SpriteFrameCache::getInstance()->addSpriteFramesWithFile("minotaur.plist");
 
-		m_sprite = Sprite::createWithSpriteFrameName("_gobin_1.png");
+		m_sprite = Sprite::createWithSpriteFrameName("_minotaur_1.png");
 
-		m_bloodBar = Sprite::createWithSpriteFrameName("loadingbar_bgGobin.png");
-		m_blood = Sprite::createWithSpriteFrameName("loadingbarGobin.png");
+		m_bloodBar = Sprite::createWithSpriteFrameName("healthbar_bg_minotaur.png");
+		m_blood = Sprite::createWithSpriteFrameName("healthbar_minotaur.png");
 		m_blood->setAnchorPoint(Point(0, 0.5));
 		m_blood->setPosition(Point(0, m_bloodBar->getContentSize().height / 2));
 
-		m_bloodBar->setPosition(Point(m_sprite->getContentSize().width / 2, m_sprite->getContentSize().height * 0.6));
+		m_bloodBar->setPosition(Point(m_sprite->getContentSize().width / 2, m_sprite->getContentSize().height * 1.05));
 		m_bloodBar->setScale(0.2);
 
 		m_bloodBar->addChild(m_blood, 8);
 		m_sprite->addChild(m_bloodBar, 6);
 		m_spriteNode->addChild(m_sprite);
 		m_sprite->setVisible(false);
-		m_fomatAnimation = "_gobin_";
-		m_hitPoint = 120;
-		m_maxHitPoint = 120;
-		m_minimumAtk = 5;
-		m_maximumAtk = 7;
-		m_attackSpeed = 1.0;
-		m_movementSpeed = m_velocity = MEDIUM_SPEED;
-		m_armor = 0;
-		m_gold = 15;*/
+		m_fomatAnimation = "_minotaur_";
+		m_png[0] = 1; m_png[1] = 8; m_png[2] = 9; m_png[3] = 16; m_png[4] = 17; m_png[5] = 24; m_png[6] = 25; m_png[7] = 32; m_png[8] = 33; m_png[9] = 40; m_png[10] = 41; m_png[11] = 48; m_png[12] = 49; m_png[13] = 56; m_png[14] = 57; m_png[15] = 64;
+		m_png[16] = 65; m_png[17] = 69; m_png[18] = 70; m_png[19] = 74; m_png[20] = 75; m_png[21] = 79; m_png[22] = 80; m_png[23] = 84; m_png[24] = 85; m_png[25] = 89; m_png[26] = 90; m_png[27] = 94; m_png[28] = 95; m_png[29] = 99; m_png[30] = 100; m_png[31] = 104;
+		m_sprite->setScale(1.3);
+		m_hitPoint = 960;
+		m_maxHitPoint = 960;
+		m_minimumAtk = 40;
+		m_maximumAtk = 60;
+		m_attackSpeed = 1.9;
+		m_runAnimation = 0.04f;
+		m_attackAnimation = 0.1f;
+		m_speed = m_movementSpeed = m_velocity = SLOW_SPEED;
+		//m_armor = 0;
+		m_gold = 40;
 		break;
-	case TANK_MONSTER:
-		
-		//m_spriteNode = SpriteBatchNode::create("Minotaur_Walking.png");
-		//SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Minotaur_Walking.plist");
-
-		//m_sprite = Sprite::createWithSpriteFrameName("_Minotaur_1.png");
-	
-		//m_bloodBar = Sprite::createWithSpriteFrameName("loadingbar_bgMinotaur.png");
-		//m_blood = Sprite::createWithSpriteFrameName("loadingbarMinotaur.png");
-		//m_blood->setAnchorPoint(Point(0, 0.5));
-		//m_blood->setPosition(Point(0, m_bloodBar->getContentSize().height / 2));
-
-		//m_bloodBar->setPosition(Point(m_sprite->getContentSize().width / 2, m_sprite->getContentSize().height * 0.6));
-		//m_bloodBar->setScale(0.2);
-
-		//m_bloodBar->addChild(m_blood, 8);
-		//m_sprite->addChild(m_bloodBar, 6);
-		//m_spriteNode->addChild(m_sprite);
-		//m_sprite->setVisible(false);
-		//m_fomatAnimation = "_Minotaur_";
-		//
-		//m_hitPoint = 960;
-		//m_maxHitPoint = 960;
-		//m_minimumAtk = 40;
-		//m_maximumAtk = 60;
-		//m_attackSpeed = 1.9;
-		//m_movementSpeed = m_velocity = SLOW_SPEED;
-		////m_armor = 0;
-		//m_gold = 40;
-		break;
-	case SPEED_MONSTER:
-		
-		/*m_spriteNode = SpriteBatchNode::create("Ant_Walking.png");
-		SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Ant_Walking.plist");
+	}		
+	case SPEED_MONSTER:		
+	{
+		m_spriteNode = SpriteBatchNode::create("ant.png");
+		SpriteFrameCache::getInstance()->addSpriteFramesWithFile("ant.plist");
 
 		m_sprite = Sprite::createWithSpriteFrameName("_ant_1.png");
 
-		m_bloodBar = Sprite::createWithSpriteFrameName("loadingbar_bgAnt.png");
-		m_blood = Sprite::createWithSpriteFrameName("loadingbarAnt.png");
+		m_bloodBar = Sprite::createWithSpriteFrameName("healthbar_bg_ant.png");
+		m_blood = Sprite::createWithSpriteFrameName("healthbar_ant.png");
 		m_blood->setAnchorPoint(Point(0, 0.5));
 		m_blood->setPosition(Point(0, m_bloodBar->getContentSize().height / 2));
 
@@ -131,42 +224,96 @@ void Monster::Init()
 		m_spriteNode->addChild(m_sprite);
 		m_sprite->setVisible(false);
 		m_fomatAnimation = "_ant_";
+		m_png[0] = 1; m_png[1] = 12; m_png[2] = 13; m_png[3] = 24; m_png[4] = 25; m_png[5] = 36; m_png[6] = 37; m_png[7] = 48; m_png[8] = 49; m_png[9] = 60; m_png[10] = 61; m_png[11] = 72; m_png[12] = 73; m_png[13] = 84; m_png[14] = 85; m_png[15] = 96;
+		m_png[16] = 97; m_png[17] = 103; m_png[18] = 104; m_png[19] = 110; m_png[20] = 111; m_png[21] = 117; m_png[22] = 118; m_png[23] = 124; m_png[24] = 125; m_png[25] = 131; m_png[26] = 132; m_png[27] = 138; m_png[28] = 139; m_png[29] = 145; m_png[30] = 146; m_png[31] = 152;
+
 		m_hitPoint = 42;
 		m_maxHitPoint = 42;
 		m_minimumAtk = 2;
 		m_maximumAtk = 3;
 		m_attackSpeed = 1.2;
-		m_movementSpeed = m_velocity = FAST_SPEED;
+		m_runAnimation = 0.03f;
+		m_attackAnimation = 0.1f;
+		m_speed = m_movementSpeed = m_velocity = FAST_SPEED;
 		m_armor = 0;
-		m_gold = 15;*/
+		m_gold = 15;
 		break;
+	}
+		
 	case SIEGE_MONSTER:
-		m_sprite = ResourceManager::GetInstance()->DuplicateSprite(ResourceManager::GetInstance()->GetSpriteById(SIEGE_MONSTER)); //id = id of MAGICAN_MONSTER
+	{
+		m_spriteNode = SpriteBatchNode::create("dragon.png");
+		SpriteFrameCache::getInstance()->addSpriteFramesWithFile("dragon.plist");
+
+		m_sprite = Sprite::createWithSpriteFrameName("_dragon_1.png");
+
+		m_bloodBar = Sprite::createWithSpriteFrameName("healthbar_bg_dragon.png");
+		m_blood = Sprite::createWithSpriteFrameName("healthbar_dragon.png");
+		m_blood->setAnchorPoint(Point(0, 0.5));
+		m_blood->setPosition(Point(0, m_bloodBar->getContentSize().height / 2));
+
+		m_bloodBar->setPosition(Point(m_sprite->getContentSize().width / 2, m_sprite->getContentSize().height * 1.05));
+		m_bloodBar->setScale(0.2);
+
+		m_bloodBar->addChild(m_blood, 8);
+		m_sprite->addChild(m_bloodBar, 6);
+		m_spriteNode->addChild(m_sprite);
+		m_sprite->setVisible(false);
+		m_fomatAnimation = "_dragon_";
+		m_png[0] = 1; m_png[1] = 16; m_png[2] = 17; m_png[3] = 32; m_png[4] = 33; m_png[5] = 48; m_png[6] = 49; m_png[7] = 64; m_png[8] = 65; m_png[9] = 80; m_png[10] = 81; m_png[11] = 96; m_png[12] = 97; m_png[13] = 112; m_png[14] = 113; m_png[15] = 128;
+		m_png[16] = 129; m_png[17] = 136; m_png[18] = 137; m_png[19] = 144; m_png[20] = 145; m_png[21] = 152; m_png[22] = 153; m_png[23] = 160; m_png[24] = 161; m_png[25] = 168; m_png[26] = 169; m_png[27] = 176; m_png[28] = 177; m_png[29] = 184; m_png[30] = 185; m_png[31] = 192;
 		m_hitPoint = 58;
 		m_minimumAtk = 3;
 		m_maximumAtk = 8;
 		m_attackSpeed = 1.0;
-		m_movementSpeed = m_velocity = MEDIUM_SPEED;		
+		m_runAnimation = 0.07f;
+		m_attackAnimation = 0.1f;
+		m_speed = m_movementSpeed = m_velocity = MEDIUM_SPEED;
 		m_armor = 0;
 		m_gold = 15;
 		break;
+	}
+		
 	case ELITE_MONSTER:
-		m_sprite = ResourceManager::GetInstance()->DuplicateSprite(ResourceManager::GetInstance()->GetSpriteById(ELITE_MONSTER)); //id = id of MAGICAN_MONSTER
+	{
+		m_spriteNode = SpriteBatchNode::create("troll.png");
+		SpriteFrameCache::getInstance()->addSpriteFramesWithFile("troll.plist");
+
+		m_sprite = Sprite::createWithSpriteFrameName("_troll_1.png");
+
+		m_bloodBar = Sprite::createWithSpriteFrameName("healthbar_bg_troll.png");
+		m_blood = Sprite::createWithSpriteFrameName("healthbar_troll.png");
+		m_blood->setAnchorPoint(Point(0, 0.5));
+		m_blood->setPosition(Point(0, m_bloodBar->getContentSize().height / 2));
+
+		m_bloodBar->setPosition(Point(m_sprite->getContentSize().width / 2, m_sprite->getContentSize().height * 1.05));
+		m_bloodBar->setScale(0.2);
+
+		m_bloodBar->addChild(m_blood, 8);
+		m_sprite->addChild(m_bloodBar, 6);
+		m_spriteNode->addChild(m_sprite);
+		m_sprite->setVisible(false);
+		m_fomatAnimation = "_troll_";
+		m_png[0] = 1; m_png[1] = 8; m_png[2] = 9; m_png[3] = 16; m_png[4] = 17; m_png[5] = 24; m_png[6] = 25; m_png[7] = 32; m_png[8] = 33; m_png[9] = 40; m_png[10] = 41; m_png[11] = 48; m_png[12] = 49; m_png[13] = 56; m_png[14] = 57; m_png[15] = 64;
+		m_png[16] = 65; m_png[17] = 73; m_png[18] = 74; m_png[19] = 82; m_png[20] = 83; m_png[21] = 91; m_png[22] = 92; m_png[23] = 100; m_png[24] = 101; m_png[25] = 109; m_png[26] = 110; m_png[27] = 118; m_png[28] = 119; m_png[29] = 127; m_png[30] = 128; m_png[31] = 136;
 		m_hitPoint = 12000;
 		m_minimumAtk = 150;
 		m_maximumAtk = 250;
 		m_attackSpeed = 2.5;
-		m_movementSpeed = m_velocity = SLOW_SPEED;
+		m_runAnimation = 0.05f;
+		m_attackAnimation = 0.1f;
+		m_speed = m_movementSpeed = m_velocity = SLOW_SPEED;
 		//sm_armor = 0;
 		m_gold = 100;
 		break;
+	}	
 	case DARKLORD:
 		m_sprite = ResourceManager::GetInstance()->DuplicateSprite(ResourceManager::GetInstance()->GetSpriteById(DARKLORD)); //id = id of MAGICAN_MONSTER
 		m_hitPoint = 21600;
 		m_minimumAtk = 200;
 		m_maximumAtk = 400;
 		m_attackSpeed = 2.0;
-		m_movementSpeed = m_velocity = SLOW_SPEED;
+		m_speed = m_movementSpeed = m_velocity = SLOW_SPEED;
 		//m_armor = 0;
 		m_gold = 500;
 		break;
@@ -283,7 +430,7 @@ void Monster::Action(int direction, bool check)
 	case W:
 	{
 		
-		auto walkingW = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[0], m_png[1], 0.05f));
+		auto walkingW = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[0], m_png[1], m_runAnimation));
 		walkingW->retain();
 		auto AttackW = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[16], m_png[17], m_attackAnimation));
 		AttackW->retain();
@@ -304,7 +451,7 @@ void Monster::Action(int direction, bool check)
 
 	case S:
 	{
-		auto walkingS = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[12], m_png[13], 0.05f));
+		auto walkingS = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[12], m_png[13], m_runAnimation));
 		walkingS->retain();
 		auto AttackS = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[28], m_png[29], m_attackAnimation));
 		AttackS->retain();
@@ -325,7 +472,7 @@ void Monster::Action(int direction, bool check)
 
 	case N:
 	{
-		auto walkingN = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[4], m_png[5], 0.05f));
+		auto walkingN = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[4], m_png[5], m_runAnimation));
 		walkingN->retain();
 		auto AttackN = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[20], m_png[21], m_attackAnimation));
 		AttackN->retain();
@@ -346,7 +493,7 @@ void Monster::Action(int direction, bool check)
 
 	case SE:
 	{
-		auto walkingSE = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[10], m_png[11], 0.05f));
+		auto walkingSE = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[10], m_png[11], m_runAnimation));
 		walkingSE->retain();
 		auto AttackSE = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[26], m_png[27], m_attackAnimation));
 		AttackSE->retain();
@@ -367,7 +514,7 @@ void Monster::Action(int direction, bool check)
 
 	case SW:
 	{
-		auto walkingSW = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[14], m_png[15], 0.05f));
+		auto walkingSW = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[14], m_png[15], m_runAnimation));
 		walkingSW->retain();
 		auto AttackSW = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[30], m_png[31], m_attackAnimation));
 		AttackSW->retain();
@@ -387,7 +534,7 @@ void Monster::Action(int direction, bool check)
 	}
     case NE: 
       {
-        auto walkingNE = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[6], m_png[7], 0.05f));
+        auto walkingNE = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[6], m_png[7], m_runAnimation));
 		walkingNE->retain();
 		auto AttackNE = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[22], m_png[23], m_attackAnimation));
 		AttackNE->retain();
@@ -407,7 +554,7 @@ void Monster::Action(int direction, bool check)
       }
     case NW:
       {
-        auto walkingNW = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[2], m_png[3], 0.05f));
+        auto walkingNW = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[2], m_png[3], m_runAnimation));
 		walkingNW->retain();
 		auto AttackNW = Animate::create(Monster::AnimationMonster(m_fomatAnimation, m_png[18], m_png[19], m_attackAnimation));
 		AttackNW->retain();
@@ -427,6 +574,7 @@ void Monster::Action(int direction, bool check)
       }
 }
 }
+
 void Monster::AttackCrystal(Crystal *crystal, float deltaTime)
 {
 	if (countToAttack >= m_attackSpeed)
@@ -462,44 +610,13 @@ void Monster::AttackCrystal(Crystal *crystal, float deltaTime)
 
 void Monster::DoDead()
 {
-	auto dropMoney = Sprite::create("_Coin_1.png");
-	Vector<SpriteFrame*> anim;
-	anim.reserve(4);
-	anim.pushBack(SpriteFrame::create("_Coin_1.png",Rect(0,0,29,52)));
-	anim.pushBack(SpriteFrame::create("_Coin_2.png", Rect(0, 0, 29, 52)));
-	anim.pushBack(SpriteFrame::create("_Coin_3.png", Rect(0, 0, 29, 52)));
-	anim.pushBack(SpriteFrame::create("_Coin_4.png", Rect(0, 0, 29, 52)));
-	Animation *animation = Animation::createWithSpriteFrames(anim, 0.3f);
-	Animate *animate = Animate::create(animation);
-	dropMoney->runAction(Sequence::create(DelayTime::create(2), RemoveSelf::create(), nullptr));
-	dropMoney->runAction(animate);
-	dropMoney->setPosition(m_sprite->getPosition());
-	layer->addChild(dropMoney);
-	/*int num = random(1, 4);
 	auto seq = Sequence::create(DelayTime::create(0.3f), FadeOut::create(0), RemoveSelf::create(), nullptr);
-	switch (num)
-	{
-	case 1:
-		dead1 = Sprite::create("dead1.png");
-		dead1->setPosition(m_sprite->getPosition());
-		layer->addChild(dead1, 3);
-		dead1->runAction(seq);
-		break;
-	case 2:
-		dead2 = Sprite::create("dead2.png");
-		dead2->setPosition(m_sprite->getPosition());
-		layer->addChild(dead2, 3);
-		dead2->runAction(seq->clone());
-		break;
-	case 3:
-		dead3 = Sprite::create("dead3.png");
-		dead3->setPosition(m_sprite->getPosition());
-		layer->addChild(dead3, 3);
-		dead3->runAction(seq->clone());
-		break;
-	default:
-		break;
-	}*/
+	dead1 = Sprite::create("dead.png");
+	dead1->setScale(0.6);
+	dead1->setPosition(m_sprite->getPosition());
+	layer->addChild(dead1, 3);
+	dead1->runAction(MoveBy::create(0.3f, Vec2(0, 10)));
+	dead1->runAction(seq);
 }
 
 void Monster::SetType(int type)
@@ -510,6 +627,11 @@ void Monster::SetType(int type)
 void Monster::SetMovementSpeed(float movementSpeed)
 {
 	m_movementSpeed = movementSpeed;
+}
+
+void Monster::SetMSpeed(float mSpeed)
+{
+	m_speed = mSpeed;
 }
 
 void Monster::SetAttackSpeed(float attackSpeed)
@@ -574,13 +696,11 @@ bool Monster::GetIsSlow()
 
 void Monster::SetSlowRunSpeed()
 {
-	if (isSlow == true)
+	if (m_movementSpeed > speed)
 	{
-		if (m_movementSpeed > speed)
-		{
-			m_movementSpeed -= m_movementSpeed * 20 / 100;
-			isSlow = false;
-		}
+		m_movementSpeed -= m_speed * 20 / 100;
+		m_sprite->setColor(Color3B::BLUE);
+		log("movement speed:%f", m_movementSpeed);
 	}
 }
 
@@ -589,14 +709,19 @@ void Monster::SetIsSlow(bool isSlow)
 	this->isSlow = isSlow;
 }
 
-float Monster::GetMaxSpeed()
+float Monster::GetMSpeed()
 {
-	return maxSpeed;
+	return m_speed;
 }
 
 int Monster::GetDamage()
 {
 	return random(m_minimumAtk, m_maximumAtk);
+}
+
+int Monster::GetMaxHitPoint()
+{
+	return m_maxHitPoint;
 }
 
 void Monster::ReduceHitPointMonster(int damage)

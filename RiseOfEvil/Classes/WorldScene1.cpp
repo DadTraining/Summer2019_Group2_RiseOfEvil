@@ -11,7 +11,7 @@ Scene* WorldScene1::createScene()
 	auto scene = Scene::createWithPhysics();
 	auto layer = WorldScene1::create();
 	scene->addChild(layer);
-	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 	return scene;
 }
 bool WorldScene1::init()
@@ -63,6 +63,7 @@ bool WorldScene1::init()
 		towerSlowDetails->setVisible(false);
 		towerBoombardDetails->setVisible(false);
 		towerBarrackDetails->setVisible(false);
+		TowerFake->setVisible(false);
 	});
 	cancelMenu->setAnchorPoint(Vec2(1, 0));
 	cancelMenu->setScale(0.5);
@@ -144,7 +145,7 @@ bool WorldScene1::init()
 	addChild(pause_bg, 6);
 
 	pauseBtn = ui::Button::create("res/Buttons/WorldScene1/pauseBtn.png", "res/Buttons/WorldScene1/pauseBtn-press.png");
-	pauseBtn->setScale(1.5);
+	pauseBtn->setScale(1.2);
 	pauseBtn->setPosition(Vec2(visibleSize.width - 40, visibleSize.height - 40));
 	pauseBtn->addClickEventListener(CC_CALLBACK_0(WorldScene1::ClickPauseButton, this));
 	addChild(pauseBtn, 1);
@@ -236,7 +237,10 @@ bool WorldScene1::init()
 	//==========================================================
 	//Create first list monster from Wave list
 	numOfWave = 0;
-	wave = new Wave();
+	currentStage = Player::GetInstance()->GetCurrentStage();
+	wave = new Wave(currentStage);
+	road1TotalPoint = wave->getRoad1TotalPoint();
+	road2TotalPoint = wave->getRoad2TotalPoint();
 	//==========================================================
 	crystal = new Crystal(this);
 	auto crystal_position = mTileMap->getObjectGroup("Crystal");
@@ -254,7 +258,7 @@ bool WorldScene1::init()
 	//===========================================================================
 	//List point to move monster
 	auto road = mTileMap->getObjectGroup("Point");
-	for (int i = 0; i < 16; i++)
+	for (int i = 0; i < road1TotalPoint; i++)
 	{
 		float x = road->getObject("P" + to_string(i + 1))["x"].asInt();
 		float y = road->getObject("P" + to_string(i + 1))["y"].asInt();
@@ -262,7 +266,7 @@ bool WorldScene1::init()
 	}
 	//List point 2 to move monster
 	auto road2 = mTileMap->getObjectGroup("Point2");
-	for (int i = 0; i < 9; i++)
+	for (int i = 0; i < road2TotalPoint; i++)
 	{
 		float x = road2->getObject("P" + to_string(i + 1))["x"].asInt();
 		float y = road2->getObject("P" + to_string(i + 1))["y"].asInt();
@@ -322,6 +326,7 @@ bool WorldScene1::init()
 	scheduleUpdate();
 	return true;
 }
+
 void WorldScene1::update(float deltaTime)
 {
 	auto visibleSize = Director::getInstance()->getVisibleSize();
@@ -332,7 +337,7 @@ void WorldScene1::update(float deltaTime)
 	//Check pause or not
 	if (clickPause)
 	{
-		if (countTimeToPause >= 0.6)
+		if (countTimeToPause >= 0.4)
 		{
 			Director::getInstance()->pause();
 		}
@@ -403,8 +408,12 @@ void WorldScene1::update(float deltaTime)
 				listMonster[i]->AttackCrystal(crystal, deltaTime);
 			}
 		}
+		if (time >= 40)
+		{
+			startWave();
+		}
 		if (time >= 35) {
-			if ((numOfWave + 1) <= 5)
+			if ((numOfWave + 1) <= 8)
 			{
 				startWaveBTN->setVisible(true);
 				startWaveBTN2->setVisible(true);
@@ -415,9 +424,7 @@ void WorldScene1::update(float deltaTime)
 				startWaveBTN2->setEnabled(false);
 			}
 		}
-		else {
-			time += deltaTime;
-		}
+		time += deltaTime;
 		for (int i = 0; i < listMonster.size(); i++)
 		{
 			if (!(listMonster[i]->GetSprite()->isVisible()))
@@ -453,8 +460,8 @@ void WorldScene1::update(float deltaTime)
 					delay = 0.4;
 				}
 			}
-			checkAttack = MonsterAttack(listMonster[i]);
-			MonsterMove(listMonster[i], listMonster[i]->GetSprite()->getTag(), checkAttack, deltaTime, delay);
+			checkMonsterAttack = MonsterAttack(listMonster[i]);
+			MonsterMove(listMonster[i], listMonster[i]->GetSprite()->getTag(), checkMonsterAttack, deltaTime, delay);
 		}
 		
 		//crystal burst
@@ -476,122 +483,147 @@ void WorldScene1::update(float deltaTime)
 			{
 				pause = true;
 				clickPause = true;
-				gameover_bg->runAction(MoveTo::create(0.5, Vec2(visibleSize.width / 2, visibleSize.height / 6)));
+				gameover_bg->runAction(MoveTo::create(0.4, Vec2(visibleSize.width / 2, visibleSize.height / 6)));
 			}
 			checkgameover = true;
 		}
 
-		//Tower shoot
-		for (int k = 0; k < listTower.size(); k++)
+		//Monster die
+		for (int m = 0; m < listMonster.size(); m++)
 		{
-			//List monster in range of tower
-			vector<Monster*> temp = listTower[k]->GetlistMonsterInRange();
-			temp.clear();
-			//List monster near the target monster (will be taken damage)
-			vector<Monster*> listNeighbor = listTower[k]->GetListMonsterNeighbor();
-			listNeighbor.clear();
-			//Find monster in range
-			for (int i = 0; i < listMonster.size(); i++)
+			if (listMonster[m]->GetHitPoint() <= 0)
 			{
-				if (listMonster[i]->GetSprite()->getPosition().getDistance(listTower[k]->GetSprite()->getPosition()) < listTower[k]->GetRange())
-				{
-					temp.push_back(listMonster[i]);
-				}
+				listMonster[m]->DoDead();
+				listMonster[m]->GetSprite()->setVisible(false);
+				currentGold += listMonster[m]->GetGold();
+				listMonster.erase(listMonster.begin() + m);
 			}
-			if (!temp.empty())
+		}
+		//Monster attack
+		for (int tower = 0; tower < listTower.size(); tower++)
+		{
+			for (int monster = 0; monster < listMonster.size(); monster++)
 			{
-				//Find the nearest Monster
-				nearestMonster = temp[0];
-				for (int j = 0; j < temp.size(); j++)
+				//Check in range and alive
+				if (listMonster[monster]->GetSprite()->getPosition().distance(listTower[tower]->GetSprite()->getPosition())
+					<
+					listTower[tower]->GetRange()
+					&&
+					listMonster[monster]->GetSprite()->isVisible() == true)
 				{
-					if (temp[j]->GetSprite()->getPosition().getDistance(crystal->getSprite()->getPosition()) < nearestMonster->GetSprite()->getPosition().getDistance(crystal->getSprite()->getPosition()))
+					//check target out range or die, set target by nullptr when it happen
+					if (listTower[tower]->getStatusOfTarget())
 					{
-						nearestMonster = temp[j];
-					}
-				}
-				//Find monsters in range 90 of nearest monster
-				for (int i = 0; i < listMonster.size(); i++)
-				{
-					if (listMonster[i]->GetSprite()->getPosition().getDistance(nearestMonster->GetSprite()->getPosition()) < 90 )
-					{
-						listNeighbor.push_back(listMonster[i]);
-					}
-				}
-				/*if (!nearestMonster->IsDead())
-				{*/
-				listTower[k]->Update(deltaTime, nearestMonster);
-				//}
-				//Check time to reduce HP of nearest monster
-				if (listTower[k]->GetCheckTowerShoot())
-				{		
-					if (countTimeToReduceHP >= 0.4)
-					{
-						if (listTower[k]->GetTypeTower() != BOMBARD_TOWER)
-						{
-							nearestMonster->ReduceHitPointMonster(listTower[k]->GetDamage());
-						}
-						else 
-						{
-							if (listTower[k]->GetTypeTower() == BOMBARD_TOWER)
-							{
-								for (int m = 0; m < listNeighbor.size(); m++)
-								{
-									listNeighbor[m]->ReduceHitPointMonster(listTower[k]->GetDamage());
-								}
-							}
-						}
-						listTower[k]->SetCheckTowerShoot(false);
-						countTimeToReduceHP = 0;
+						listTower[tower]->setTarget(listMonster[monster]);
 					}
 					else
 					{
-						countTimeToReduceHP += deltaTime;
+						break;
 					}
 				}
-				if (listTower[k]->GetTypeTower() == SLOW_TOWER)
+			}
+		}
+		//Soldier Attack
+		for (int i = 0; i < listTower.size(); i++)
+		{
+			if (listTower[i]->GetType() == 5)
+			{
+				for (int j = 0; j < listTower[i]->GetListSoldier().size(); j++)
 				{
-					nearestMonster->SetIsSlow(true);
-					nearestMonster->SetSlowRunSpeed();
+					checkSoldierAttack = SoldierAttack(listTower[i]->GetListSoldier()[j]);
+					if (listTower[i]->GetListSoldier()[j]->GetCheckFindMonster() == false)
+					{
+						SoldierFindMonster(listTower[i]->GetListSoldier()[j], listTower[i]->GetListSoldier()[j], deltaTime);
+					}
+					if (!listTower[i]->GetListSoldier()[j]->GetListMonsterAttack().empty()) 
+					{
+						log("ListSolderMonstet:%d", listTower[i]->GetListSoldier()[j]->GetListMonsterAttack().size());
+						log("PositionX: %f  PositionY: %f", listTower[i]->GetListSoldier()[j]->GetListMonsterAttack()[0]->GetSprite()->getPosition().x, listTower[i]->GetListSoldier()[j]->GetListMonsterAttack()[0]->GetSprite()->getPosition().y);
+						listTower[i]->GetListSoldier()[j]->MoveToMonster(listTower[i]->GetListSoldier()[j]->GetListMonsterAttack()[0]->GetSprite()->getPosition(), checkSoldierAttack, deltaTime);
+						if (listTower[i]->GetListSoldier()[j]->GetSprite()->getPosition().distance(listTower[i]->GetListSoldier()[j]->GetListMonsterAttack()[0]->GetSprite()->getPosition()) > 200)
+						{
+							listTower[i]->GetListSoldier()[j]->SetListMonsterAttackClear();
+						}
+					}	
 				}
 			}
 		}
-				
-		//Monster die
-		for (int i = 0; i < listMonster.size(); i++)
+		//Tower main shoot and decrease HP of monster
+		for (int i = 0; i < listTower.size(); i++)
 		{
-			if (listMonster[i]->GetHitPoint() <= 0)
+			listTower[i]->Update(deltaTime, listMonster);
+			
+		}
+		//increase speed when monster is slowing
+		if (countTimeToIncreaseSpeedMonster > 0.3)
+		{
+			for (int i = 0; i < listMonster.size(); i++)
 			{
-				listMonster[i]->DoDead();
-				listMonster[i]->GetSprite()->setVisible(false);
-				currentGold += listMonster[i]->GetGold();
-				delete listMonster[i];
-				listMonster.erase(listMonster.begin() + i);
+				if (listMonster[i]->GetMovementSpeed() < listMonster[i]->GetMSpeed())
+				{
+					listMonster[i]->SetMovementSpeed(listMonster[i]->GetMovementSpeed() + 1);
+				}
+				else
+				{
+					listMonster[i]->SetMovementSpeed(listMonster[i]->GetMSpeed());
+					listMonster[i]->GetSprite()->setColor(Color3B(255, 255, 255));
+				}
+			}
+			countTimeToIncreaseSpeedMonster = 0;
+
+		}
+		else
+		{
+			countTimeToIncreaseSpeedMonster += deltaTime;
+		}
+
+		for (int i = 0; i < listTower.size(); i++)
+		{
+			if (listTower[i]->getLevel() == 3)
+			{
+				switch (listTower[i]->GetType())
+				{
+				case ARROW_TOWER:
+					//listTower[i]->increaseAttackSpeedSkill(listTower);
+					break;
+				case MAGIC_TOWER:
+					//listTower[i]->increaseAttackDamageSkill(listTower);
+					break;
+				case SLOW_TOWER:
+					listTower[i]->slowSkill(listMonster);
+					break;
+				case BOMBARD_TOWER:
+					listTower[i]->burnSkill(listMonster, deltaTime);
+						
+				}
+
 			}
 		}
-		//increase speed
-		for (int i = 0; i<listMonster.size(); i++)
-		{
-			if (listMonster[i]->GetMovementSpeed() < listMonster[i]->GetMaxSpeed())
-			{
-				listMonster[i]->SetMovementSpeed(listMonster[i]->GetMovementSpeed() + 1);
-			}
-			else
-			{
-				listMonster[i]->SetMovementSpeed(listMonster[i]->GetMaxSpeed());
-			}
-		}
-		//BuildTower with time delay
-		//if (GetCheckTouchBuildTower())
-		//{
-		//	countTimeToBuildTower += deltaTime;
-		//	if (countTimeToBuildTower > 3.0)
-		//	{
-		//		countTimeToBuildTower = 0;
-		//	}
-		//}
+
 	}
 
-}
+		for (int i = 0; i < listTower.size(); i++)
+		{
+			if (listTower[i]->GetType() == 5)
+			{
+				for (int j = 0; j < listTower[i]->GetListSoldier().size(); j++)
+				{
+					if (listTower[i]->GetListSoldier()[j]->GetMovementSpeed() < listTower[i]->GetListSoldier()[j]->GetMSpeed())
+					{
+						listTower[i]->GetListSoldier()[j]->SetMovementSpeed(listTower[i]->GetListSoldier()[j]->GetMovementSpeed() + 0.5);
+					}
+					if (listTower[i]->GetListSoldier()[j]->GetMovementSpeed() >= listTower[i]->GetListSoldier()[j]->GetMSpeed())
+					{
+						listTower[i]->GetListSoldier()[j]->SetMovementSpeed(listTower[i]->GetListSoldier()[j]->GetMSpeed());
+						listTower[i]->GetListSoldier()[j]->GetSprite()->setColor(Color3B(255, 255, 255));
+					}
+				}
+			}
+			
+		}
+	}
+
+
 
 void WorldScene1::restart()
 {
@@ -609,12 +641,13 @@ void WorldScene1::restart()
 //Exit Pause menu
 void WorldScene1::ExitPauseMenu()
 {
-	pauseBtn->setEnabled(true);
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 	pause = false;
 	clickPause = false;
 	Director::getInstance()->resume();
-	pause_bg->runAction(MoveTo::create(0.5, Vec2(visibleSize.width / 2, visibleSize.height)));
+	pauseBtn->setEnabled(true);
+	pauseBtn->setPosition(Vec2(visibleSize.width - 40, visibleSize.height - 40));
+	pause_bg->runAction(MoveTo::create(0.4, Vec2(visibleSize.width / 2, visibleSize.height)));
 	//use camera
 	//pause_bg->runAction(MoveTo::create(0.5, Vec2(cam->getPositionX(), cam->getPositionY() + visibleSize.height / 2)));
 }
@@ -624,7 +657,9 @@ void WorldScene1::ClickPauseButton()
 {
 	pauseBtn->setEnabled(false);
 	auto visibleSize = Director::getInstance()->getVisibleSize();
+	pauseBtn->setPosition(Vec2(visibleSize.width + 100, visibleSize.height + 100));
 	pause = true;
+	countTimeToPause = 0;
 	//Set other windows disappear
 	menu->setVisible(false);
 	towerArcherDetails->setVisible(false);
@@ -632,7 +667,7 @@ void WorldScene1::ClickPauseButton()
 	towerSlowDetails->setVisible(false);
 	towerBoombardDetails->setVisible(false);
 	towerBarrackDetails->setVisible(false);
-	pause_bg->runAction(MoveTo::create(0.5, Vec2(visibleSize.width / 2,visibleSize.height / 6)));
+	pause_bg->runAction(MoveTo::create(0.4, Vec2(visibleSize.width / 2,visibleSize.height / 6)));
 	//use camera
 	//pause_bg->runAction(MoveTo::create(0.5, Vec2(cam->getPositionX(), cam->getPositionY()/4)));
 	clickPause = true;
@@ -692,6 +727,47 @@ bool WorldScene1::MonsterAttack(Monster* monster)
 					return true;
 				}
 			}
+		}
+	}
+	return false;
+}
+void WorldScene1::SoldierFindMonster(Soldier* soldier, bool checkAttack, float timedelay)
+{
+	for (int i = 0; i < listMonster.size(); i++)
+	{
+		if (soldier->GetSprite()->getPosition().distance(listMonster[i]->GetSprite()->getPosition()) <= 200)
+		{	
+			if (CheckListMonsterSoldierFound(listMonster[i]))
+			{
+				m_listMonsterSoldierFound.push_back(listMonster[i]);
+				soldier->SetListMonsterAttack(listMonster[i]);
+				soldier->SetCheckFindMonster(true);
+				i = 100;
+			}		
+		}
+	}
+}
+bool WorldScene1::CheckListMonsterSoldierFound(Monster* monster)
+{
+	if (!m_listMonsterSoldierFound.empty()) 
+	{
+		for (int i = 0; i < m_listMonsterSoldierFound.size(); i++)
+		{
+			if (monster == m_listMonsterSoldierFound[i])
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+}
+bool WorldScene1::SoldierAttack(Soldier* soldier)
+{
+	for (int i = 0; i < listMonster.size(); i++)
+	{
+		if (soldier->GetSprite()->getPosition().distance(listMonster[i]->GetSprite()->getPosition()) <= 20)
+		{
+			return true;
 		}
 	}
 	return false;
@@ -767,9 +843,19 @@ bool WorldScene1::onTouchBegan(Touch * touch, Event * event)
 		if (listTower[i]->GetSprite()->getBoundingBox().containsPoint(touch->getLocation()))
 		{
 			towerChoosing = listTower[i];
+			if (listTower[i]->getLevel() == 3)
+			{
+				listTower[i]->getPriceUpgradeLabel()->setString("MAX");
+			}
 			if (listTower[i]->GetGold() > currentGold || listTower[i]->getLevel() >= 3)
 			{
 				listTower[i]->getUpgradeIcon()->setEnabled(false);
+				listTower[i]->getPriceUpgradeLabel()->setColor(Color3B::RED);
+			}
+			else
+			{
+				listTower[i]->getUpgradeIcon()->setEnabled(true);
+				listTower[i]->getPriceUpgradeLabel()->setColor(Color3B::YELLOW);
 			}
 			listTower[i]->ShowCircleMenu();
 		}
@@ -786,7 +872,11 @@ bool WorldScene1::onTouchBegan(Touch * touch, Event * event)
 			towerChoosing->GetRangeBarrackTower()->setVisible(false);
 		}
 		else if (towerChoosing->GetCheckTouchFlag())
-			{
+			{		
+				for (int i = 0; i < towerChoosing->GetListSoldier().size(); i++)
+				{
+					towerChoosing->GetListSoldier()[i]->SetTouchFlag(true);
+				}
 				towerChoosing->SetCheckTouchFlag(false);
 				towerChoosing->HideCircleMenu();
 				Flag->setVisible(true);
@@ -796,7 +886,7 @@ bool WorldScene1::onTouchBegan(Touch * touch, Event * event)
 					{
 					for (int i = 0; i < towerChoosing->GetListSoldier().size(); i++)
 					{
-						towerChoosing->GetListSoldier()[i]->GetSprite()->setVisible(true);
+						towerChoosing->GetListSoldier()[i]->GetSprite()->setVisible(true);	
 						towerChoosing->GetListSoldier()[i]->Move(Vec2(Flag->getPositionX() + ((i + 1) * 5), Flag->getPositionY() + ((i + 1) * 10)));
 					}
 				}
@@ -855,7 +945,6 @@ void WorldScene1::createmenu(Vec2 point)
 	{
 		menu->setPosition(Vec2(point.x + 150, point.y));
 	}
-	log("touchLocation.x %f contentsize mune.witdh %f", touchLocation.x, abs(menu->getContentSize().width));
 	//menu->setPosition(Vec2(point.x -150, point.y));
 	archerIcon->setPosition(menu->getContentSize().width, menu->getContentSize().height);
 	magicIcon->setPosition(menu->getContentSize().width + magicIcon->getContentSize().width, menu->getContentSize().height);
@@ -1138,6 +1227,7 @@ void WorldScene1::LoadingBuildTower()
 	hpBgSprite->setPosition(Point(TowerFake->getContentSize().width / 2, TowerFake->getContentSize().height /2));
 	TowerFake->addChild(hpBgSprite);
 	hpBar = CCProgressTimer::create(Sprite::create("res/WorldScene1/loadingbar.png"));
+	hpBar->setColor(Color3B::RED);
 	hpBar->setType(ProgressTimer::Type::BAR);
 	hpBar->setMidpoint(Point(0, 0.5f));
 	hpBar->setBarChangeRate(Point(1, 0));
