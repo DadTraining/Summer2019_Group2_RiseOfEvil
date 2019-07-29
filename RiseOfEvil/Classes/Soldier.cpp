@@ -2,7 +2,7 @@
 
 void Soldier::Init()
 {
-		m_spriteNode = SpriteBatchNode::create("soldier1.png");
+	m_spriteNode = SpriteBatchNode::create("soldier1.png");
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("soldier1.plist");
 
 	m_sprite = Sprite::createWithSpriteFrameName("_soldier1_1.png");
@@ -45,12 +45,6 @@ void Soldier::Update(float deltaTime)
 {
 }
 
-void Soldier::Action(int direction, bool check)
-{
-	switch (direction)
-	{
-	}
-}
 void Soldier::Move(Vec2 point)
 {
 	if ((m_sprite->getPosition().y == point.y) && (m_sprite->getPosition().x <= point.x)) {
@@ -456,6 +450,18 @@ float Soldier::GetMSpeed()
 float Soldier::GetMovementSpeed()
 {
   return m_movementSpeed;
+}
+
+void Soldier::SetMovementSpeed(float movement)
+{
+	m_movementSpeed = movement;
+}
+
+Soldier::Soldier(Layer * layer)
+{
+	Init();
+	m_sprite->removeFromParent();
+	layer->addChild(m_sprite, 5);
 }
 
 Soldier::~Soldier()

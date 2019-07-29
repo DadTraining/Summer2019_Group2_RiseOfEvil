@@ -34,7 +34,7 @@ private:
 	int m_range = 0;
 	Sprite * hp_bg;
 public:
-	Soldier(Layer* layer, int level);
+	Soldier(Layer* layer);
 	~Soldier();
 	void Init();
 	void Update(float deltaTime);
@@ -43,7 +43,6 @@ public:
 	Animation* AnimationMonster(string, int, int, float);
 	void ActionMove(int);
 	void Action(int, bool);
-	void AttackMonster(Monster*);
 	bool GetTouchFlag();
 	void SetTouchFlag(bool);
 	bool GetCheckFindMonster();

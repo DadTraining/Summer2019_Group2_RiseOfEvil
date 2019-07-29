@@ -553,10 +553,8 @@ void WorldScene1::update(float deltaTime)
 			
 		}
 	}
-
-
-	}
 }
+
 
 void WorldScene1::restart()
 {
