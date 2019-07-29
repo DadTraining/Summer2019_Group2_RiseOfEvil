@@ -414,6 +414,7 @@ void Monster::Action(int direction, bool check)
 		AttackE->retain();
 		if (!check)
 		{
+			m_movementSpeed = m_speed;
 			m_sprite->stopAllActions();
 			m_sprite->runAction(RepeatForever::create(walkingE)->clone());
 		}
@@ -435,6 +436,7 @@ void Monster::Action(int direction, bool check)
 		AttackW->retain();
 		if (!check)
 		{
+			m_movementSpeed = m_speed;
 			m_sprite->stopAllActions();
 			m_sprite->runAction(RepeatForever::create(walkingW)->clone());
 		}
@@ -455,6 +457,7 @@ void Monster::Action(int direction, bool check)
 		AttackS->retain();
 		if (!check)
 		{
+			m_movementSpeed = m_speed;
 			m_sprite->stopAllActions();
 			m_sprite->runAction(RepeatForever::create(walkingS)->clone());
 		}
@@ -475,6 +478,7 @@ void Monster::Action(int direction, bool check)
 		AttackN->retain();
 		if (!check)
 		{
+			m_movementSpeed = m_speed;
 			m_sprite->stopAllActions();
 			m_sprite->runAction(RepeatForever::create(walkingN)->clone());
 		}
@@ -495,6 +499,7 @@ void Monster::Action(int direction, bool check)
 		AttackSE->retain();
 		if (!check)
 		{
+			m_movementSpeed = m_speed;
 			m_sprite->stopAllActions();
 			m_sprite->runAction(RepeatForever::create(walkingSE)->clone());
 		}
@@ -515,6 +520,7 @@ void Monster::Action(int direction, bool check)
 		AttackSW->retain();
 		if (!check)
 		{
+			m_movementSpeed = m_speed;
 			m_sprite->stopAllActions();
 			m_sprite->runAction(RepeatForever::create(walkingSW)->clone());
 		}
@@ -534,6 +540,7 @@ void Monster::Action(int direction, bool check)
 		AttackNE->retain();
 		if (!check)
 		{
+			m_movementSpeed = m_speed;
 			m_sprite->stopAllActions();
 			m_sprite->runAction(RepeatForever::create(walkingNE)->clone());
 		}
@@ -553,6 +560,7 @@ void Monster::Action(int direction, bool check)
 		AttackNW->retain();
 		if (!check)
 		{
+			m_movementSpeed = m_speed;
 			m_sprite->stopAllActions();
 			m_sprite->runAction(RepeatForever::create(walkingNW)->clone());
 		}
