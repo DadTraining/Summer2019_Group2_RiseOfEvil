@@ -6,6 +6,7 @@ void Soldier::Init()
 	{
 	case LEVEL1:
 		m_sprite = Sprite::create("soldier.png");
+		m_sprite->setScale(0.3);
 		m_hitPoint = 50;
 		m_attackSpeed = 1.0;
 		m_velocity = m_speed = m_movementSpeed = MEDIUM_SPEED;

@@ -38,7 +38,6 @@ private:
 	bool isSell = false;
 	bool requestUpdate = false;
 	Sprite * rangeBarrackTower;
-	Sprite * bufferBarrackTower;
 	Point posBullet;
 	int numberOfSoldier;
 	Monster *target = nullptr;

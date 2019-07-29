@@ -483,18 +483,28 @@ void WorldScene1::update(float deltaTime)
 		}
 
 		//increase speed when monster is slowing
-		for (int i = 0; i < listMonster.size(); i++)
+		if (countTimeToIncreaseSpeedMonster > 0.3)
 		{
-			if (listMonster[i]->GetMovementSpeed() < listMonster[i]->GetMSpeed())
+			for (int i = 0; i < listMonster.size(); i++)
 			{
-				listMonster[i]->SetMovementSpeed(listMonster[i]->GetMovementSpeed() + 0.5);
+				if (listMonster[i]->GetMovementSpeed() < listMonster[i]->GetMSpeed())
+				{
+					listMonster[i]->SetMovementSpeed(listMonster[i]->GetMovementSpeed() + 1);
+				}
+				else
+				{
+					listMonster[i]->SetMovementSpeed(listMonster[i]->GetMSpeed());
+					listMonster[i]->GetSprite()->setColor(Color3B(255, 255, 255));
+				}
 			}
-			if (listMonster[i]->GetMovementSpeed() >= listMonster[i]->GetMSpeed())
-			{
-				listMonster[i]->SetMovementSpeed(listMonster[i]->GetMSpeed());
-				listMonster[i]->GetSprite()->setColor(Color3B(255, 255, 255));
-			}
+			countTimeToIncreaseSpeedMonster = 0;
+
 		}
+		else
+		{
+			countTimeToIncreaseSpeedMonster += deltaTime;
+		}
+
 	}
 
 }
