@@ -12,6 +12,7 @@ class Soldier :public Objects
 private:
 	int level;
 	int m_maxHitPoint;
+	int rangeOfSoldier = 50;
 	float m_attackSpeed;
 	float m_movementSpeed;
 	float m_speed;
@@ -26,4 +27,6 @@ public:
 	void Update(float deltaTime);
 	void MoveSoldier(Vec2 , bool, float, float);
 	void Action(int, bool);
+	void MoveToFlag(Vec2 Pos);
+	Monster *FindNearestMonster(Monster *);
 };

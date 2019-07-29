@@ -83,6 +83,22 @@ void Soldier::Action(int direction, bool check)
 	}
 }
 
+void Soldier::MoveToFlag(Vec2 Pos)
+{
+	float dis = m_sprite->getPosition().distance(Pos);
+	auto moveToFlag = MoveTo::create(dis/ m_movementSpeed, Pos);
+	m_sprite->runAction(moveToFlag);
+}
+
+Monster *Soldier::FindNearestMonster(Monster * monster)
+{
+	float dis = m_sprite->getPosition().distance(monster->GetSprite()->getPosition());
+	if (!monster->IsDead() && dis <= rangeOfSoldier)
+	{
+		return monster;
+	}
+}
+
 Soldier::Soldier(Layer * layer, int level)
 {
 	this->level = level;
