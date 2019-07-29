@@ -15,6 +15,7 @@ private:
 	vector<int> Wave6;
 	vector<int> Wave7;
 	vector<int> Wave8;
+	vector<int> finalWaveInfo;
 	int m_stage;
 	int road1;
 	int road2;

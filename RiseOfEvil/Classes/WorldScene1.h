@@ -44,7 +44,7 @@ private:
 	float countTimeToAttack = 0;
 	float countTimeToReduceHP = 0;
 	float countTimeToBuildTower = 0;
-	float countTimeToSlowMonster = 0;
+	float countTimeToIncreaseSpeedMonster = 0;
 	int currentGold;
 	int currentStage;
 	int numOfWave;

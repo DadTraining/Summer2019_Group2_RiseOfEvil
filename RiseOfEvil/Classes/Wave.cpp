@@ -12,6 +12,16 @@ Wave::~Wave()
 
 void Wave::Load()
 {
+	auto finalWaveInfo = FileUtils::getInstance()->getStringFromFile("finalWave.bin");
+	istringstream finalWave(finalWaveInfo);
+	int sizeOfWave;
+	int typeOfMonster;
+	finalWave >> sizeOfWave;
+	for (int i = 0; i < sizeOfWave; i++)
+	{
+		finalWave >> typeOfMonster;
+		finalWaveInfo.push_back(typeOfMonster);
+	}
 	auto content = FileUtils::getInstance()->getStringFromFile("Stage"+to_string(m_stage)+"Info.bin");
 	istringstream f(content);
 	int size;
@@ -90,6 +100,9 @@ vector<int> Wave::getWave(int numOfWave)
 		break;
 	case 8:
 		return Wave8;
+		break;
+	case 10:
+		return finalWaveInfo;
 		break;
 	default:
 		break;

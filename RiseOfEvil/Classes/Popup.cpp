@@ -157,13 +157,13 @@ namespace UICustom {
                 lbl->setPosition(winSize/2);
                 CONFIRM_DIALOGUE_SIZE_OFFSET = Size(CONFIRM_DIALOGUE_SIZE_OFFSET.width,300);
             }
-			//Director::getInstance()->pause();
+			Director::getInstance()->resume();
 			node->addChild(lbl, 3);
             node->initBg(lbl->getContentSize() + CONFIRM_DIALOGUE_SIZE_OFFSET, title);
             node->autorelease();
             return node;
         }
-		//Director::getInstance()->pause();
+		Director::getInstance()->resume();
         CC_SAFE_DELETE(node);
 		//Director::getInstance()->pause();
         return nullptr;

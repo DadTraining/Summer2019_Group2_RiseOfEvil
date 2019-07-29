@@ -1,19 +1,8 @@
 #include "Soldier.h"
 
-Soldier::Soldier(Layer * layer)
-{
-	Init();
-	m_sprite->removeFromParent(); 
-	layer->addChild(m_sprite,15);
-}
-
-Soldier::~Soldier()
-{
-}
-
 void Soldier::Init()
 {
-	m_spriteNode = SpriteBatchNode::create("soldier1.png");
+		m_spriteNode = SpriteBatchNode::create("soldier1.png");
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("soldier1.plist");
 
 	m_sprite = Sprite::createWithSpriteFrameName("_soldier1_1.png");
@@ -54,6 +43,13 @@ void Soldier::Init()
 
 void Soldier::Update(float deltaTime)
 {
+}
+
+void Soldier::Action(int direction, bool check)
+{
+	switch (direction)
+	{
+	}
 }
 void Soldier::Move(Vec2 point)
 {
@@ -131,6 +127,7 @@ void Soldier::MoveToMonster(Vec2 point, bool check, float timedelay)
 		
 	}	
 }
+
 
 Animation * Soldier::AnimationMonster(string prefixName, int pFrameBegin, int pFrameEnd, float delay)
 {
@@ -416,26 +413,6 @@ void Soldier::Action(int direction, bool check)
 	}
 }
 
-void Soldier::AttackMonster(Monster * monster)
-{
-	auto moveTo1 = MoveTo::create(100 / m_movementSpeed, monster->GetSprite()->getPosition());
-	auto moveTo2 = MoveTo::create(50 / m_movementSpeed, monster->GetSprite()->getPosition());
-	if (m_sprite->getPosition().distance(monster->GetSprite()->getPosition()) <= 50)
-	{
-		m_movementSpeed = 0.00001;
-		m_sprite->stopAction(moveTo1);
-		m_sprite->runAction(moveTo2);
-	}
-	else if (m_sprite->getPosition().distance(monster->GetSprite()->getPosition()) <= 100)
-	{		
-		m_movementSpeed = 20;
-		m_sprite->stopAction(moveTo2);
-		m_sprite->runAction(moveTo1);
-		
-	}
-
-}
-
 bool Soldier::GetTouchFlag()
 {
 	return touchFlag;
@@ -478,11 +455,9 @@ float Soldier::GetMSpeed()
 
 float Soldier::GetMovementSpeed()
 {
-	return m_movementSpeed;
+  return m_movementSpeed;
 }
 
-void Soldier::SetMovementSpeed(float movementSpeed)
+Soldier::~Soldier()
 {
-	m_movementSpeed = movementSpeed;
 }
-

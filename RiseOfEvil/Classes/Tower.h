@@ -17,6 +17,7 @@ using namespace std;
 class Tower : public Objects
 {
 private:
+	Layer *layer;
 	vector <Bullet*> listBullet;
 	vector <Soldier*> listSoldier;
 	vector <Monster*> listMonsterInRange;
@@ -26,6 +27,7 @@ private:
 	MenuItemImage * circleIcon;
 	MenuItemImage * upgradeIcon;
 	MenuItemImage * sellIcon;
+	MenuItemImage * confirmIcon;
 	float m_range = 250;
 	float timeDelay = 0;
 	float countTimeToDealDamage;
@@ -39,7 +41,9 @@ private:
 	bool requestUpdate = false;
 	Sprite * rangeBarrackTower;
 	Point posBullet;
+	int numberOfSoldier;
 	Monster *target = nullptr;
+	Label *priceUpgradeLabel;
 public:
 	void Init();
 	Tower(Layer* layer, int, Vec2);
@@ -72,7 +76,10 @@ public:
 	bool getRequestUpdate();
 	void acceptUpdate(bool);
 	MenuItemImage * getUpgradeIcon();
+	Label * getPriceUpgradeLabel();
 	Monster * getTarget();
 	void setTarget(Monster*);
 	bool getStatusOfTarget();
+	void clickSellIcon();
+	void confirmSell();
 };

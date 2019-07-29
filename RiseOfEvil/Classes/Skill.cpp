@@ -10,6 +10,7 @@ Skill::~Skill()
 
 void Skill::Init()
 {
+
 }
 
 Sprite * Skill::getSprite()
