@@ -84,7 +84,7 @@ void Soldier::MoveToMonster(Vec2 point, bool check, float timedelay)
 	
 	if (!touchFlag)
 	{
-		if (timeRun < 0.4)
+		if (timeRun >= 0.4)
 		{
 			if ((m_sprite->getPosition().y == point.y) && (m_sprite->getPosition().x <= point.x)) {
 				Action(E, check);
