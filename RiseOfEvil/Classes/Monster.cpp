@@ -35,7 +35,7 @@ void Monster::Init()
 			m_blood->setAnchorPoint(Point(0, 0.5));
 			m_blood->setPosition(Point(0, m_bloodBar->getContentSize().height / 2));
 
-			m_bloodBar->setPosition(Point(m_sprite->getContentSize().width / 2, m_sprite->getContentSize().height * 0.6));
+			m_bloodBar->setPosition(Point(m_sprite->getContentSize().width / 2, m_sprite->getContentSize().height * 1.05));
 			m_bloodBar->setScale(0.2);
 
 			m_bloodBar->addChild(m_blood, 8);
@@ -70,7 +70,7 @@ void Monster::Init()
 			m_blood->setAnchorPoint(Point(0, 0.5));
 			m_blood->setPosition(Point(0, m_bloodBar->getContentSize().height / 2));
 
-			m_bloodBar->setPosition(Point(m_sprite->getContentSize().width / 2, m_sprite->getContentSize().height * 0.6));
+			m_bloodBar->setPosition(Point(m_sprite->getContentSize().width / 2, m_sprite->getContentSize().height * 1.05));
 			m_bloodBar->setScale(0.2);
 
 			m_bloodBar->addChild(m_blood, 8);
@@ -144,7 +144,7 @@ void Monster::Init()
 			m_blood->setAnchorPoint(Point(0, 0.5));
 			m_blood->setPosition(Point(0, m_bloodBar->getContentSize().height / 2));
 
-			m_bloodBar->setPosition(Point(m_sprite->getContentSize().width / 2, m_sprite->getContentSize().height * 0.6));
+			m_bloodBar->setPosition(Point(m_sprite->getContentSize().width / 2, m_sprite->getContentSize().height * 1.05));
 			m_bloodBar->setScale(0.2);
 
 			m_bloodBar->addChild(m_blood, 8);
@@ -181,7 +181,7 @@ void Monster::Init()
 		m_blood->setAnchorPoint(Point(0, 0.5));
 		m_blood->setPosition(Point(0, m_bloodBar->getContentSize().height / 2));
 
-		m_bloodBar->setPosition(Point(m_sprite->getContentSize().width / 2, m_sprite->getContentSize().height * 0.6));
+		m_bloodBar->setPosition(Point(m_sprite->getContentSize().width / 2, m_sprite->getContentSize().height * 1.05));
 		m_bloodBar->setScale(0.2);
 
 		m_bloodBar->addChild(m_blood, 8);
@@ -191,7 +191,7 @@ void Monster::Init()
 		m_fomatAnimation = "_minotaur_";
 		m_png[0] = 1; m_png[1] = 8; m_png[2] = 9; m_png[3] = 16; m_png[4] = 17; m_png[5] = 24; m_png[6] = 25; m_png[7] = 32; m_png[8] = 33; m_png[9] = 40; m_png[10] = 41; m_png[11] = 48; m_png[12] = 49; m_png[13] = 56; m_png[14] = 57; m_png[15] = 64;
 		m_png[16] = 65; m_png[17] = 69; m_png[18] = 70; m_png[19] = 74; m_png[20] = 75; m_png[21] = 79; m_png[22] = 80; m_png[23] = 84; m_png[24] = 85; m_png[25] = 89; m_png[26] = 90; m_png[27] = 94; m_png[28] = 95; m_png[29] = 99; m_png[30] = 100; m_png[31] = 104;
-
+		m_sprite->setScale(1.3);
 		m_hitPoint = 960;
 		m_maxHitPoint = 960;
 		m_minimumAtk = 40;
@@ -252,7 +252,7 @@ void Monster::Init()
 		m_blood->setAnchorPoint(Point(0, 0.5));
 		m_blood->setPosition(Point(0, m_bloodBar->getContentSize().height / 2));
 
-		m_bloodBar->setPosition(Point(m_sprite->getContentSize().width / 2, m_sprite->getContentSize().height * 0.6));
+		m_bloodBar->setPosition(Point(m_sprite->getContentSize().width / 2, m_sprite->getContentSize().height * 1.05));
 		m_bloodBar->setScale(0.2);
 
 		m_bloodBar->addChild(m_blood, 8);
@@ -286,7 +286,7 @@ void Monster::Init()
 		m_blood->setAnchorPoint(Point(0, 0.5));
 		m_blood->setPosition(Point(0, m_bloodBar->getContentSize().height / 2));
 
-		m_bloodBar->setPosition(Point(m_sprite->getContentSize().width / 2, m_sprite->getContentSize().height * 0.6));
+		m_bloodBar->setPosition(Point(m_sprite->getContentSize().width / 2, m_sprite->getContentSize().height * 1.05));
 		m_bloodBar->setScale(0.2);
 
 		m_bloodBar->addChild(m_blood, 8);
@@ -414,6 +414,7 @@ void Monster::Action(int direction, bool check)
 		AttackE->retain();
 		if (!check)
 		{
+			m_movementSpeed = m_speed;
 			m_sprite->stopAllActions();
 			m_sprite->runAction(RepeatForever::create(walkingE)->clone());
 		}
@@ -435,6 +436,7 @@ void Monster::Action(int direction, bool check)
 		AttackW->retain();
 		if (!check)
 		{
+			m_movementSpeed = m_speed;
 			m_sprite->stopAllActions();
 			m_sprite->runAction(RepeatForever::create(walkingW)->clone());
 		}
@@ -455,6 +457,7 @@ void Monster::Action(int direction, bool check)
 		AttackS->retain();
 		if (!check)
 		{
+			m_movementSpeed = m_speed;
 			m_sprite->stopAllActions();
 			m_sprite->runAction(RepeatForever::create(walkingS)->clone());
 		}
@@ -475,6 +478,7 @@ void Monster::Action(int direction, bool check)
 		AttackN->retain();
 		if (!check)
 		{
+			m_movementSpeed = m_speed;
 			m_sprite->stopAllActions();
 			m_sprite->runAction(RepeatForever::create(walkingN)->clone());
 		}
@@ -495,6 +499,7 @@ void Monster::Action(int direction, bool check)
 		AttackSE->retain();
 		if (!check)
 		{
+			m_movementSpeed = m_speed;
 			m_sprite->stopAllActions();
 			m_sprite->runAction(RepeatForever::create(walkingSE)->clone());
 		}
@@ -515,6 +520,7 @@ void Monster::Action(int direction, bool check)
 		AttackSW->retain();
 		if (!check)
 		{
+			m_movementSpeed = m_speed;
 			m_sprite->stopAllActions();
 			m_sprite->runAction(RepeatForever::create(walkingSW)->clone());
 		}
@@ -534,6 +540,7 @@ void Monster::Action(int direction, bool check)
 		AttackNE->retain();
 		if (!check)
 		{
+			m_movementSpeed = m_speed;
 			m_sprite->stopAllActions();
 			m_sprite->runAction(RepeatForever::create(walkingNE)->clone());
 		}
@@ -553,6 +560,7 @@ void Monster::Action(int direction, bool check)
 		AttackNW->retain();
 		if (!check)
 		{
+			m_movementSpeed = m_speed;
 			m_sprite->stopAllActions();
 			m_sprite->runAction(RepeatForever::create(walkingNW)->clone());
 		}
@@ -616,6 +624,11 @@ void Monster::SetType(int type)
 void Monster::SetMovementSpeed(float movementSpeed)
 {
 	m_movementSpeed = movementSpeed;
+}
+
+void Monster::SetMSpeed(float mSpeed)
+{
+	m_speed = mSpeed;
 }
 
 void Monster::SetAttackSpeed(float attackSpeed)
@@ -684,6 +697,7 @@ void Monster::SetSlowRunSpeed()
 	{
 		m_movementSpeed -= m_speed * 20 / 100;
 		m_sprite->setColor(Color3B::BLUE);
+		log("movement speed:%f", m_movementSpeed);
 	}
 }
 
@@ -700,6 +714,11 @@ float Monster::GetMSpeed()
 int Monster::GetDamage()
 {
 	return random(m_minimumAtk, m_maximumAtk);
+}
+
+int Monster::GetMaxHitPoint()
+{
+	return m_maxHitPoint;
 }
 
 void Monster::ReduceHitPointMonster(int damage)

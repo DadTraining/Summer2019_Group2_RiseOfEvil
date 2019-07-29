@@ -1,16 +1,5 @@
 #include "Soldier.h"
 
-Soldier::Soldier(Layer * layer)
-{
-	Init();
-	m_sprite->removeFromParent(); 
-	layer->addChild(m_sprite,15);
-}
-
-Soldier::~Soldier()
-{
-}
-
 void Soldier::Init()
 {
 	m_spriteNode = SpriteBatchNode::create("soldier1.png");
@@ -56,6 +45,7 @@ void Soldier::Init()
 void Soldier::Update(float deltaTime)
 {
 }
+
 void Soldier::Move(Vec2 point)
 {
 	if ((m_sprite->getPosition().y == point.y) && (m_sprite->getPosition().x <= point.x)) {
@@ -90,13 +80,12 @@ void Soldier::Move(Vec2 point)
 
 }
 float timeRun = 0;
-int countc = 0;
 void Soldier::MoveToMonster(Vec2 point, bool check, float timedelay)
 {
 	
 	if (!touchFlag)
 	{
-		if (timeRun  > 0.4)
+		if (timeRun >= 0.4)
 		{
 			if ((m_sprite->getPosition().y == point.y) && (m_sprite->getPosition().x <= point.x)) {
 				ActionMove(E, check);
@@ -124,8 +113,6 @@ void Soldier::MoveToMonster(Vec2 point, bool check, float timedelay)
 				ActionMove(NW, check);
 			}		
 			m_sprite->runAction(MoveTo::create(point.getDistance(m_sprite->getPosition()) / m_movementSpeed, Vec2(point.x, point.y)));			
-			countc++;
-			log("count : %d", countc);
 			timeRun = 0;
 		}
 		else
@@ -135,7 +122,6 @@ void Soldier::MoveToMonster(Vec2 point, bool check, float timedelay)
 		
 	}	
 }
-	
 Animation * Soldier::AnimationMonster(string prefixName, int pFrameBegin, int pFrameEnd, float delay)
 {
 
@@ -420,26 +406,6 @@ void Soldier::ActionMove(int direction, bool check)
 	}
 }
 
-void Soldier::AttackMonster(Monster * monster)
-{
-	auto moveTo1 = MoveTo::create(100 / m_movementSpeed, monster->GetSprite()->getPosition());
-	auto moveTo2 = MoveTo::create(50 / m_movementSpeed, monster->GetSprite()->getPosition());
-	if (m_sprite->getPosition().distance(monster->GetSprite()->getPosition()) <= 50)
-	{
-		m_movementSpeed = 0.00001;
-		m_sprite->stopAction(moveTo1);
-		m_sprite->runAction(moveTo2);
-	}
-	else if (m_sprite->getPosition().distance(monster->GetSprite()->getPosition()) <= 100)
-	{		
-		m_movementSpeed = 20;
-		m_sprite->stopAction(moveTo2);
-		m_sprite->runAction(moveTo1);
-		
-	}
-
-}
-
 bool Soldier::GetTouchFlag()
 {
 	return touchFlag;
@@ -487,11 +453,21 @@ float Soldier::GetMSpeed()
 
 float Soldier::GetMovementSpeed()
 {
-	return m_movementSpeed;
+  return m_movementSpeed;
 }
 
-void Soldier::SetMovementSpeed(float movementSpeed)
+void Soldier::SetMovementSpeed(float movement)
 {
-	m_movementSpeed = movementSpeed;
+	m_movementSpeed = movement;
 }
 
+Soldier::Soldier(Layer * layer)
+{
+	Init();
+	m_sprite->removeFromParent();
+	layer->addChild(m_sprite, 5);
+}
+
+Soldier::~Soldier()
+{
+}

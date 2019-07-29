@@ -1,6 +1,10 @@
 #pragma once
 #include "cocos2d.h"
 #include "Monster.h"
+#include <iostream>
+#define LEVEL1 1
+#define LEVEL2 2
+#define LEVEL3 3
 using namespace cocos2d;
 using namespace std;
 class Soldier : public Objects
@@ -30,7 +34,7 @@ private:
 	int m_range = 0;
 	Sprite * hp_bg;
 public:
-	Soldier(Layer *);
+	Soldier(Layer* layer);
 	~Soldier();
 	void Init();
 	void Update(float deltaTime);
