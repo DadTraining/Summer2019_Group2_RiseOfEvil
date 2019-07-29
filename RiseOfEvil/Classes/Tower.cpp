@@ -11,7 +11,7 @@ void Tower::Init()
 		m_minimumAtk = 4;
 		m_maximumAtk = 6;
 		m_attackSpeed = 0.8;
-		m_range = 200;
+		m_range = 160;
 		m_gold = 70;
 		break;
 	case MAGIC_TOWER:
@@ -20,7 +20,7 @@ void Tower::Init()
 		m_minimumAtk = 9;
 		m_maximumAtk = 17;
 		m_attackSpeed = 1.5;
-		m_range = 280;
+		m_range = 240;
 		m_gold = 100;
 		break;
 	case SLOW_TOWER:
@@ -185,6 +185,10 @@ void Tower::Update(float deltaTime, vector<Monster*> listMonster)
 {
 	if (target != nullptr)
 	{
+		if (!target->GetSprite()->isVisible())
+		{
+			target = nullptr;
+		}
 		if (timeDelay > m_attackSpeed)
 		{
 			Shoot(listMonster);
@@ -196,6 +200,7 @@ void Tower::Update(float deltaTime, vector<Monster*> listMonster)
 			timeDelay += deltaTime;
 		}
 	}
+	
 }
 
 bool Tower::GetCheckTowerShoot()
@@ -366,14 +371,18 @@ void Tower::setTarget(Monster * monster)
 
 bool Tower::getStatusOfTarget()
 {
+	if (target == nullptr)
+	{
+		return true;
+	}
 	if (m_sprite->getPosition().distance(target->GetSprite()->getPosition()) > m_range
 		||
-		target->GetHitPoint() <= 0
+		target->GetSprite()->isVisible() == false
 		)
 	{
-		return false;
+		return true;
 	}
-	return true;
+	return false;
 }
 
 int Tower::GetDamage()

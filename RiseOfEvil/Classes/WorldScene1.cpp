@@ -440,40 +440,49 @@ void WorldScene1::update(float deltaTime)
 			checkAttack = MonsterAttack(listMonster[i]);
 			MonsterMove(listMonster[i], listMonster[i]->GetSprite()->getTag(), checkAttack, deltaTime, delay);
 		}
-		
+		//Monster die
+		for (int m = 0; m < listMonster.size(); m++)
+		{
+			if (listMonster[m]->GetHitPoint() <= 0)
+			{
+				listMonster[m]->DoDead();
+				listMonster[m]->GetSprite()->setVisible(false);
+				currentGold += listMonster[m]->GetGold();
+				listMonster.erase(listMonster.begin() + m);
+			}
+		}
+		//Monster attack
 		for (int tower = 0; tower < listTower.size(); tower++)
 		{
 			for (int monster = 0; monster < listMonster.size(); monster++)
 			{
+				//Check in range and alive
 				if (listMonster[monster]->GetSprite()->getPosition().distance(listTower[tower]->GetSprite()->getPosition())
 					<
-					listTower[tower]->GetRange())
+					listTower[tower]->GetRange()
+					&&
+					listMonster[monster]->GetSprite()->isVisible() == true)
 				{
-					listTower[tower]->setTarget(listMonster[monster]);
+					//check target out range or die, set target by nullptr when it happen
 					if (listTower[tower]->getStatusOfTarget())
+					{
+						listTower[tower]->setTarget(listMonster[monster]);
+					}
+					else
 					{
 						break;
 					}
 				}
 			}
 		}
+		//Tower main shoot and decrease HP of monster
 		for (int i = 0; i < listTower.size(); i++)
 		{
 			listTower[i]->Update(deltaTime, listMonster);
+			
 		}
-		//Monster die
-		for (int i = 0; i < listMonster.size(); i++)
-		{
-			if (listMonster[i]->GetHitPoint() <= 0)
-			{
-				listMonster[i]->DoDead();
-				listMonster[i]->GetSprite()->setVisible(false);
-				currentGold += listMonster[i]->GetGold();
-				delete listMonster[i];
-				listMonster.erase(listMonster.begin() + i);
-			}
-		}
-		//increase speed
+
+		//increase speed when monster is slowing
 		for (int i = 0; i < listMonster.size(); i++)
 		{
 			if (listMonster[i]->GetMovementSpeed() < listMonster[i]->GetMSpeed())
@@ -1034,6 +1043,7 @@ void WorldScene1::LoadingBuildTower()
 	hpBgSprite->setPosition(Point(TowerFake->getContentSize().width / 2, TowerFake->getContentSize().height /2));
 	TowerFake->addChild(hpBgSprite);
 	hpBar = CCProgressTimer::create(Sprite::create("res/WorldScene1/loadingbar.png"));
+	hpBar->setColor(Color3B::RED);
 	hpBar->setType(ProgressTimer::Type::BAR);
 	hpBar->setMidpoint(Point(0, 0.5f));
 	hpBar->setBarChangeRate(Point(1, 0));
