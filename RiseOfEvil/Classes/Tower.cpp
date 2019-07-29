@@ -47,7 +47,7 @@ void Tower::Init()
 		m_minimumAtk = 0;
 		m_maximumAtk = 0;
 		m_attackSpeed = 300000.0;
-		m_range = 180;
+		m_range = 250;
 		m_gold = 70;
 		break;
 	}
@@ -56,8 +56,11 @@ void Tower::Init()
 Tower::Tower(Layer * layer, int type, Vec2 Pos)
 {
 	m_type = type;
+	this->layer = layer;
 	Init();
 	m_level = 1;
+	priceUpgradeLabel = Label::createWithTTF(to_string(m_gold), "fonts/Comic_Book.ttf", 25);
+	priceUpgradeLabel->setColor(Color3B::YELLOW);
 	circleIcon = MenuItemImage::create("CircleMenu.png", "CircleMenu.png", [&](Ref* sender) {
 	});
 	circleIcon->setPosition(m_sprite->getPosition() + m_sprite->getContentSize() / 2);
@@ -73,12 +76,22 @@ Tower::Tower(Layer * layer, int type, Vec2 Pos)
 		requestUpdate = true;
 	});
 	upgradeIcon->setPosition(circleIcon->getPosition().x, circleIcon->getPosition().y + circleIcon->getContentSize().height/2 -10);
+	priceUpgradeLabel->setPosition(upgradeIcon->getContentSize().width / 2, 10);
+	upgradeIcon->addChild(priceUpgradeLabel);
 	//=============================================
 	sellIcon = MenuItemImage::create("sellBtn.png", "sellBtn.png", "sellBtn.png", [&](Ref* sender) {
-		isSell = true;
+		clickSellIcon();
 	});
 	sellIcon->setPosition(circleIcon->getPosition().x, circleIcon->getPosition().y - circleIcon->getContentSize().height/2 + 10);
-	circleMenu = Menu::create(flagIcon, sellIcon, upgradeIcon, nullptr);
+	//=============================================
+	confirmIcon = MenuItemImage::create("confirm.png", "confirm_disable.png", "confirm_disable.png", [&](Ref* sender) {
+		isSell = true;
+		confirmSell();
+	});
+	confirmIcon->setPosition(circleIcon->getPosition().x, circleIcon->getPosition().y - circleIcon->getContentSize().height / 2 + 10);
+	confirmIcon->setScale(0.9f);
+	confirmIcon->setVisible(false);
+	circleMenu = Menu::create(flagIcon, sellIcon, upgradeIcon, confirmIcon, nullptr);
 	circleMenu->setPosition(0,0);
 	circleMenu->setVisible(false);
 	circleMenu->setEnabled(true);
@@ -95,31 +108,22 @@ Tower::Tower(Layer * layer, int type, Vec2 Pos)
 		checkTypeTowerBarrack = true;
 		rangeBarrackTower = Sprite::create("range_of_barrack_tower.png");
 		rangeBarrackTower->setVisible(false);
-		rangeBarrackTower->setPosition(m_sprite->getContentSize().width/2, m_sprite->getContentSize().height/2);
-		switch (m_level)
+		rangeBarrackTower->setPosition(m_sprite->getContentSize().width / 2, m_sprite->getContentSize().height / 2);
+		m_sprite->addChild(rangeBarrackTower);
+		for (int i = 0; i < 3; i++)
 		{
-		case 1:
-			numberOfSoldier = 3;
-			break;
-		case 2:
-			numberOfSoldier = 4;
-			break;
-		case 3:
-			numberOfSoldier = 5;
-			break;
+			Soldier * m_soldier = new Soldier(layer);
+			listSoldier.push_back(m_soldier);
+			if ((i + 1) % 2 != 0)
+			{
+				listSoldier[i]->GetSprite()->setPosition(Vec2(Pos.x + (i*i) *i, Pos.y + (i *i) * 2 * i));
+			}
+			else
+			{
+				listSoldier[i]->GetSprite()->setPosition(Vec2(Pos.x - (i*i) * i * 32, Pos.y + (i * i) *  i * 16));
+			}
+			listSoldier[i]->GetSprite()->setVisible(true);
 		}
-		//for (int i = 0; i < numberOfSoldier; i++)
-		//{
-		//	Soldier * m_soldier = new Soldier(layer, m_level);
-		//	listSoldier.push_back(m_soldier);
-		//}
-		//for (int i = 0; i < listSoldier.size(); i++)
-		//{
-		//	m_sprite->addChild(listSoldier[i]->GetSprite(), 6);
-		//}
-		//listSoldier[0]->GetSprite()->setPosition(Vec2(Pos.x, Pos.y));
-		//listSoldier[1]->GetSprite()->setPosition(Vec2(Pos.x + 15, Pos.y));
-		//listSoldier[2]->GetSprite()->setPosition(Vec2(Pos.x + 30, Pos.y + 30));
 	}
 	else
 	{
@@ -311,6 +315,11 @@ int Tower::getLevel()
 
 void Tower::upgrade()
 {
+	auto *animation = Sprite::create("upgradeAnimation.png");
+	animation->setPosition(m_sprite->getPosition());
+	animation->setAnchorPoint(Vec2(0.5, 0));
+	animation->runAction(Sequence::create(MoveBy::create(0.2, Vec2(0, 20)), FadeOut::create(0), RemoveSelf::create(), nullptr));
+	layer->addChild(animation, 6);
 	m_level++;
 	if (m_level <= 3)
 	{
@@ -338,6 +347,7 @@ void Tower::upgrade()
 		m_minimumAtk *= m_level;
 		m_maximumAtk *= m_level;
 		m_gold += m_gold;
+		priceUpgradeLabel->setString(to_string(m_gold));
 	}
 	if (m_level == 3)
 	{
@@ -362,6 +372,11 @@ void Tower::acceptUpdate(bool condition)
 MenuItemImage * Tower::getUpgradeIcon()
 {
 	return upgradeIcon;
+}
+
+Label * Tower::getPriceUpgradeLabel()
+{
+	return priceUpgradeLabel;
 }
 
 Monster * Tower::getTarget()
@@ -389,6 +404,7 @@ bool Tower::getStatusOfTarget()
 	}
 	return false;
 }
+
 
 void Tower::increaseAttackSpeedSkill(vector<Tower*> listTower)
 {
@@ -470,6 +486,20 @@ void Tower::bossSkill(Monster * boss, vector<Monster*> listMonster, float deltaT
 			}
 		}
 	}
+void Tower::clickSellIcon()
+{
+	confirmIcon->setEnabled(true);
+	confirmIcon->setVisible(true);
+	sellIcon->setEnabled(false);
+	sellIcon->setVisible(false);
+}
+
+void Tower::confirmSell()
+{
+	confirmIcon->setEnabled(false);
+	confirmIcon->setVisible(false);
+	sellIcon->setEnabled(true);
+	sellIcon->setVisible(true);
 }
 
 int Tower::GetDamage()
