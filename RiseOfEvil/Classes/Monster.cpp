@@ -626,6 +626,11 @@ void Monster::SetMovementSpeed(float movementSpeed)
 	m_movementSpeed = movementSpeed;
 }
 
+void Monster::SetMSpeed(float mSpeed)
+{
+	m_speed = mSpeed;
+}
+
 void Monster::SetAttackSpeed(float attackSpeed)
 {
 	m_attackSpeed = attackSpeed;
@@ -709,6 +714,11 @@ float Monster::GetMSpeed()
 int Monster::GetDamage()
 {
 	return random(m_minimumAtk, m_maximumAtk);
+}
+
+int Monster::GetMaxHitPoint()
+{
+	return m_maxHitPoint;
 }
 
 void Monster::ReduceHitPointMonster(int damage)
