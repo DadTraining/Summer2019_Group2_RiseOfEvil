@@ -47,7 +47,7 @@ void Tower::Init()
 		m_minimumAtk = 0;
 		m_maximumAtk = 0;
 		m_attackSpeed = 300000.0;
-		m_range = 180;
+		m_range = 250;
 		m_gold = 70;
 		break;
 	}
