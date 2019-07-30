@@ -142,7 +142,7 @@ bool WorldScene1::init()
 	pause_bg = Sprite::create("res/WorldScene1/pause_bag.png");
 	pause_bg->setAnchorPoint(Vec2(0.5, 0));
 	pause_bg->setPosition(Vec2(visibleSize.width / 2, visibleSize.height));
-	addChild(pause_bg, 6);
+	addChild(pause_bg, 20);
 
 	pauseBtn = ui::Button::create("res/Buttons/WorldScene1/pauseBtn.png", "res/Buttons/WorldScene1/pauseBtn-press.png");
 	pauseBtn->setScale(1.2);
