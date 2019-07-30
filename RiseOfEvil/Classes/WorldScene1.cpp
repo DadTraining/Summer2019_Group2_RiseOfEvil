@@ -555,27 +555,25 @@ void WorldScene1::update(float deltaTime)
 		}
 
 	}
-
-		for (int i = 0; i < listTower.size(); i++)
+	
+	for (int i = 0; i < listTower.size(); i++)
+	{
+		if (listTower[i]->GetType() == 5)
 		{
-			if (listTower[i]->GetType() == 5)
+			for (int j = 0; j < listTower[i]->GetListSoldier().size(); j++)
 			{
-				for (int j = 0; j < listTower[i]->GetListSoldier().size(); j++)
+				if (listTower[i]->GetListSoldier()[j]->GetMovementSpeed() < listTower[i]->GetListSoldier()[j]->GetMSpeed())
 				{
-					if (listTower[i]->GetListSoldier()[j]->GetMovementSpeed() < listTower[i]->GetListSoldier()[j]->GetMSpeed())
-					{
-						listTower[i]->GetListSoldier()[j]->SetMovementSpeed(listTower[i]->GetListSoldier()[j]->GetMovementSpeed() + 0.5);
-					}
-					if (listTower[i]->GetListSoldier()[j]->GetMovementSpeed() >= listTower[i]->GetListSoldier()[j]->GetMSpeed())
-					{
-						listTower[i]->GetListSoldier()[j]->SetMovementSpeed(listTower[i]->GetListSoldier()[j]->GetMSpeed());
-						listTower[i]->GetListSoldier()[j]->GetSprite()->setColor(Color3B(255, 255, 255));
-					}
+					listTower[i]->GetListSoldier()[j]->SetMovementSpeed(listTower[i]->GetListSoldier()[j]->GetMovementSpeed() + 0.5);
+				}
+				if (listTower[i]->GetListSoldier()[j]->GetMovementSpeed() >= listTower[i]->GetListSoldier()[j]->GetMSpeed())
+				{
+					listTower[i]->GetListSoldier()[j]->SetMovementSpeed(listTower[i]->GetListSoldier()[j]->GetMSpeed());
 				}
 			}
-			
-		}
+		}	
 	}
+}
 
 
 
