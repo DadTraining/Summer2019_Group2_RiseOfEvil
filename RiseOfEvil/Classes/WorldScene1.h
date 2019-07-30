@@ -61,6 +61,7 @@ private:
 	MenuItemImage *cancelMenu;
 	Sprite *pause_bg;
 	Sprite* canBuild;
+	Sprite* gameover_bg;
 	Sprite* cannotBuild;
 	Vec2 touchLocation;	
 	Vec2 point;
@@ -104,6 +105,7 @@ private:
 	bool checkSoldierFlag = false;
 	bool checkTouchBuildTowerFake = false;
 	bool checkClickBuildButton = false;
+	bool checkgameover = false;
 	bool checkFindMonster = false;
 	vector<Monster*> m_listMonsterSoldierFound;
 public:

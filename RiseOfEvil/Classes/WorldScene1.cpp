@@ -156,6 +156,26 @@ bool WorldScene1::init()
 	resumeBtn->setScale(0.7);
 	pause_bg->addChild(resumeBtn);
 
+	//create layer game over 
+	gameover_bg = Sprite::create("gameover_bg.png");
+	gameover_bg->setAnchorPoint(Vec2(0.5, 0));
+	gameover_bg->setPosition(Vec2(visibleSize.width / 2, visibleSize.height));
+	addChild(gameover_bg, 6);
+	
+	auto homeBtn = ui::Button::create("home.png","home_pressed.png");
+	homeBtn->setPosition(Vec2(gameover_bg->getContentSize().width/2 -70, gameover_bg->getContentSize().height / 5));
+	homeBtn->addTouchEventListener(CC_CALLBACK_0(WorldScene1::returnToMainMenu, this));
+	homeBtn->setScale(0.7);
+	gameover_bg->addChild(homeBtn);
+	
+	auto resumeBtn = ui::Button::create("resume.png","resume_pressed.png");
+	resumeBtn->setPosition(Vec2(gameover_bg->getContentSize().width/2 +70, gameover_bg->getContentSize().height / 5));
+	resumeBtn->addTouchEventListener(CC_CALLBACK_0(WorldScene1::restart, this));
+	resumeBtn->setScale(0.7);
+	gameover_bg->addChild(resumeBtn);
+
+	//===========================================
+
 	moreGoldBtn = ui::Button::create("res/Buttons/WorldScene1/moreGold.png");
 	moreGoldBtn->setPosition(Vec2(pause_bg->getContentSize().width - 10, 10));
 	moreGoldBtn->setScale(0.3);
@@ -309,6 +329,7 @@ bool WorldScene1::init()
 
 void WorldScene1::update(float deltaTime)
 {
+	auto visibleSize = Director::getInstance()->getVisibleSize();
 	if (listTower.size() > 1 && !start)
 	{
 		startBTN->setVisible(true);
@@ -442,6 +463,31 @@ void WorldScene1::update(float deltaTime)
 			checkMonsterAttack = MonsterAttack(listMonster[i]);
 			MonsterMove(listMonster[i], listMonster[i]->GetSprite()->getTag(), checkMonsterAttack, deltaTime, delay);
 		}
+		
+		//crystal burst
+		if (crystal->getcrystalBurst() == true && crystal->getCheckLose() == false)
+		{
+			for (int i = 0; i < listMonster.size(); i++)
+			{
+				if (listMonster[i]->GetSprite()->isVisible())
+				{
+					listMonster[i]->SetHitPoint(0);
+				}
+			}
+			crystal->setHitPoint(crystal->getmaxHitPoint());
+		}
+		
+		if(crystal->getCheckLose() == true)
+		{
+			if (!checkgameover)
+			{
+				pause = true;
+				clickPause = true;
+				gameover_bg->runAction(MoveTo::create(0.4, Vec2(visibleSize.width / 2, visibleSize.height / 6)));
+			}
+			checkgameover = true;
+		}
+
 		//Monster die
 		for (int m = 0; m < listMonster.size(); m++)
 		{
