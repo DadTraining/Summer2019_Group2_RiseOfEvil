@@ -10,7 +10,7 @@ void Tower::Init()
 		m_hitPoint = 100;
 		m_minimumAtk = 4;
 		m_maximumAtk = 6;
-		m_attackSpeed = 0.8;
+		m_minimumAttackSpeed = m_attackSpeed = 0.8;
 		m_range = 160;
 		m_gold = 70;
 		break;
@@ -19,7 +19,7 @@ void Tower::Init()
 		m_hitPoint = 100;
 		m_minimumAtk = 9;
 		m_maximumAtk = 17;
-		m_attackSpeed = 1.5;
+		m_minimumAttackSpeed = m_attackSpeed = 1.5;
 		m_range = 240;
 		m_gold = 100;
 		break;
@@ -28,7 +28,7 @@ void Tower::Init()
 		m_hitPoint = 100;
 		m_minimumAtk = 1;
 		m_maximumAtk = 3;
-		m_attackSpeed = 1.3;
+		m_minimumAttackSpeed = m_attackSpeed = 1.3;
 		m_range = 180;
 		m_gold = 80;
 		break;
@@ -37,7 +37,7 @@ void Tower::Init()
 		m_hitPoint = 100;
 		m_minimumAtk = 10;
 		m_maximumAtk = 18;
-		m_attackSpeed = 3.0;
+		m_minimumAttackSpeed = m_attackSpeed = 3.0;
 		m_range = 180;
 		m_gold = 120;
 		break;
@@ -46,7 +46,7 @@ void Tower::Init()
 		m_hitPoint = 100;
 		m_minimumAtk = 0;
 		m_maximumAtk = 0;
-		m_attackSpeed = 300000.0;
+		m_minimumAttackSpeed = m_attackSpeed = 300000.0;
 		m_range = 250;
 		m_gold = 70;
 		break;
@@ -71,6 +71,7 @@ Tower::Tower(Layer * layer, int type, Vec2 Pos)
 		checkTouchFlag = true;
 	});
 	flagIcon->setPosition(circleIcon->getPosition().x + circleIcon->getContentSize().width / 2 -10, circleIcon->getPosition().y);
+	flagIcon->setVisible(false);
 	upgradeIcon = MenuItemImage::create("upgrade_button_normal.png", "upgrade_button_press.png", "upgrade_button_press.png",[&](Ref* sender)
 	{
 		requestUpdate = true;
@@ -91,7 +92,15 @@ Tower::Tower(Layer * layer, int type, Vec2 Pos)
 	confirmIcon->setPosition(circleIcon->getPosition().x, circleIcon->getPosition().y - circleIcon->getContentSize().height / 2 + 10);
 	confirmIcon->setScale(0.9f);
 	confirmIcon->setVisible(false);
-	circleMenu = Menu::create(flagIcon, sellIcon, upgradeIcon, confirmIcon, nullptr);
+	//===================================================
+	skillIcon = MenuItemImage::create("Skills/icon_skill.png", "Skills/icon_skill.png", [&](Ref* sender) {
+		skillDetail->setVisible(true);
+	});
+	skillIcon->setPosition(-circleIcon->getContentSize().width/2 + 40, circleIcon->getPosition().y);
+	skillIcon->setVisible(false);
+	skillIcon->setScale(0.8f);
+	//=====================================================
+	circleMenu = Menu::create(flagIcon, sellIcon, upgradeIcon, confirmIcon, skillIcon, nullptr);
 	circleMenu->setPosition(0,0);
 	circleMenu->setVisible(false);
 	circleMenu->setEnabled(true);
@@ -105,6 +114,7 @@ Tower::Tower(Layer * layer, int type, Vec2 Pos)
 	layer->addChild(m_sprite, 5);
 	if (type == BARRACKS_TOWER)
 	{
+		flagIcon->setVisible(true);
 		checkTypeTowerBarrack = true;
 		rangeBarrackTower = Sprite::create("range_of_barrack_tower.png");
 		rangeBarrackTower->setVisible(false);
@@ -139,21 +149,37 @@ Tower::Tower(Layer * layer, int type, Vec2 Pos)
 		case ARROW_TOWER:
 		{
 			towerSkill = new Skill(INCREASE_ATTACKSPEED_SKILL);
+			skillDetail = Sprite::create("Skills/details/arrowskill_detail.png");
+			skillDetail->setPosition(-circleIcon->getContentSize().width / 2, circleIcon->getPosition().y);
+			skillDetail->setVisible(false);
+			skillIcon->addChild(skillDetail);
 			break;
 		}
 		case MAGIC_TOWER:
 		{
 			towerSkill = new Skill(INCREASE_ATTACKDAMAGE_SKILL);
+			skillDetail = Sprite::create("Skills/details/magic_skill.png");
+			skillDetail->setPosition(-circleIcon->getContentSize().width / 2, circleIcon->getPosition().y);
+			skillDetail->setVisible(false);
+			skillIcon->addChild(skillDetail);
 			break;
 		}
 		case SLOW_TOWER:
 		{
 			towerSkill = new Skill(SLOW_TOWER);
+			skillDetail = Sprite::create("Skills/details/slow_detail.png");
+			skillDetail->setPosition(-circleIcon->getContentSize().width / 2, circleIcon->getPosition().y);
+			skillDetail->setVisible(false);
+			skillIcon->addChild(skillDetail);
 			break;
 		}
 		case BOMBARD_TOWER:
 		{
 			towerSkill = new Skill(BOMBARD_TOWER);
+			skillDetail = Sprite::create("Skills/details/burn_detail.png");
+			skillDetail->setPosition(-circleIcon->getContentSize().width / 2, circleIcon->getPosition().y);
+			skillDetail->setVisible(false);
+			skillIcon->addChild(skillDetail);
 			break;
 		}
 	}
@@ -161,6 +187,26 @@ Tower::Tower(Layer * layer, int type, Vec2 Pos)
 	{
 		towerSkill->getSprite()->setPosition(m_sprite->getContentSize().width / 2, m_sprite->getContentSize().height / 2);
 		towerSkill->getSprite()->setVisible(false);
+		if (m_type == SLOW_TOWER)
+		{
+			auto scaleTo1 = ScaleTo::create(0.2, 0.2);
+			auto scaleTo2 = ScaleTo::create(0.2, 0.4);
+			auto scaleTo3 = ScaleTo::create(0.2, 0.6);
+			auto scaleTo4 = ScaleTo::create(0.2, 0.8);
+			auto scaleTo5 = ScaleTo::create(0.2, 1);
+			auto seq = Sequence::create(scaleTo1, scaleTo2, scaleTo3, scaleTo4, scaleTo5, scaleTo4->clone(), scaleTo3->clone(), scaleTo2->clone(), scaleTo1->clone(), nullptr);
+			towerSkill->getSprite()->runAction(RepeatForever::create(seq));
+		}
+		if (m_type == BOMBARD_TOWER)
+		{
+			auto scaleTo1 = ScaleTo::create(0.2, 0.2);
+			auto scaleTo2 = ScaleTo::create(0.2, 0.4);
+			auto scaleTo3 = ScaleTo::create(0.2, 0.6);
+			auto scaleTo4 = ScaleTo::create(0.2, 0.8);
+			auto scaleTo5 = ScaleTo::create(0.2, 1);
+			auto seq = Sequence::create(scaleTo1, scaleTo2, scaleTo3, scaleTo4, scaleTo5, scaleTo4->clone(), scaleTo3->clone(), scaleTo2->clone(), scaleTo1->clone(), nullptr);
+			towerSkill->getSprite()->runAction(RepeatForever::create(seq));
+		}
 		m_sprite->addChild(towerSkill->getSprite(), 6);
 	}
 }
@@ -355,6 +401,7 @@ void Tower::upgrade()
 	if (m_level == 3)
 	{
 		towerSkill->getSprite()->setVisible(true);
+		skillIcon->setVisible(true);
 	}
 }
 
@@ -408,32 +455,26 @@ bool Tower::getStatusOfTarget()
 	return false;
 }
 
-
-void Tower::increaseAttackSpeedSkill(vector<Tower*> listTower)
+bool Tower::getIncreaseAttackSpeedSkill()
 {
-	for (int i = 0; i < listTower.size(); i++)
-	{
-		float increaseAttackSpeed = listTower[i]->GetAttackSpeed() + listTower[i]->GetAttackSpeed() * 20 / 100;
-		if (m_sprite->getPosition().distance(listTower[i]->GetSprite()->getPosition()) < 150)
-		{
-			listTower[i]->SetAttackSpeed(increaseAttackSpeed);
-		}
-	}
+	return checkIncreaseAttackSpeedSkill;
 }
 
-void Tower::increaseAttackDamageSkill(vector<Tower*> listTower)
+bool Tower::getIncreaseAttackDamageSkill()
 {
-	for (int i = 0; i < listTower.size(); i++)
-	{
-		int increaseMinimumAtk = listTower[i]->GetMinimumAtk() + (int)listTower[i]->GetMinimumAtk() * 20 / 100;
-		int increaseMaximumAtk = listTower[i]->GetMaximumAtk() + (int)listTower[i]->GetMaximumAtk() * 20 / 100;
-		if (m_sprite->getPosition().distance(listTower[i]->GetSprite()->getPosition()) < 150)
-		{
-			listTower[i]->SetMinimumAtk(increaseMinimumAtk);
-			listTower[i]->SetMaximumAtk(increaseMaximumAtk);
-		}
-	}
+	return checkIncreaseAttackDamageSkill;
 }
+
+void Tower::setIncreaseAttackSpeedSkill(bool check)
+{
+	checkIncreaseAttackSpeedSkill = check;
+}
+
+void Tower::setIncreaseAttackDamageSkill(bool check)
+{
+	checkIncreaseAttackDamageSkill = check;
+}
+
 
 void Tower::slowSkill(vector<Monster*> listMonster)
 {
@@ -443,6 +484,7 @@ void Tower::slowSkill(vector<Monster*> listMonster)
 			&& listMonster[i]->GetMovementSpeed() > listMonster[i]->GetMSpeed() * 60 / 100)
 		{
 			listMonster[i]->SetMovementSpeed(listMonster[i]->GetMovementSpeed() - listMonster[i]->GetMSpeed() * 10 / 100);
+			//checkSlowSkill = true;
 		} 
 	}
 }
@@ -457,6 +499,7 @@ void Tower::burnSkill(vector<Monster*> listMonster, float deltaTime)
 				{
 					listMonster[i]->SetHitPoint(listMonster[i]->GetHitPoint() - 5);
 					countTimeToReduceHPForBurnSkill = 0;
+					checkBurnSkill = true;
 				}
 			}
 		}
@@ -502,6 +545,21 @@ void Tower::confirmSell()
 	confirmIcon->setVisible(false);
 	sellIcon->setEnabled(true);
 	sellIcon->setVisible(true);
+}
+
+float Tower::getMinimumAttackSpeed()
+{
+	return m_minimumAttackSpeed;
+}
+
+Skill * Tower::getTowerSkill()
+{
+	return towerSkill;
+}
+
+void Tower::showDetailSkill()
+{
+
 }
 
 int Tower::GetDamage()
