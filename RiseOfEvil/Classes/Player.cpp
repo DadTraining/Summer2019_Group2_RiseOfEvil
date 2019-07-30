@@ -52,6 +52,11 @@ int Player::GetCurrentStage()
 	return m_stage;
 }
 
+void Player::SetCurrentStage(int stage)
+{
+	m_stage = stage;
+}
+
 void Player::SetGold(int gold)
 {
 	m_gold = gold;
