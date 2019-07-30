@@ -8,11 +8,11 @@ void Soldier::Init()
 	m_sprite = Sprite::createWithSpriteFrameName("_soldier1_1.png");
 	m_bloodBar = Sprite::createWithSpriteFrameName("healthbar_bg_soldier1.png");
 	m_blood = Sprite::createWithSpriteFrameName("healthbar_soldier1.png");
-
+	m_blood->setColor(Color3B(051,255,255));
 	m_blood->setAnchorPoint(Point(0, 0.5));
 	m_blood->setPosition(Point(0, m_bloodBar->getContentSize().height / 2));
 
-	m_bloodBar->setPosition(Point(m_sprite->getContentSize().width / 2, m_sprite->getContentSize().height * 0.6));
+	m_bloodBar->setPosition(Point(m_sprite->getContentSize().width / 2, m_sprite->getContentSize().height * 0.8));
 	m_bloodBar->setScale(0.2);
 
 	auto mBody = PhysicsBody::createBox(m_sprite->getContentSize() / 2);

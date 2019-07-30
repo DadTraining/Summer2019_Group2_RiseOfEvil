@@ -142,7 +142,7 @@ bool WorldScene1::init()
 	pause_bg = Sprite::create("res/WorldScene1/pause_bag.png");
 	pause_bg->setAnchorPoint(Vec2(0.5, 0));
 	pause_bg->setPosition(Vec2(visibleSize.width / 2, visibleSize.height));
-	addChild(pause_bg, 6);
+	addChild(pause_bg, 20);
 
 	pauseBtn = ui::Button::create("res/Buttons/WorldScene1/pauseBtn.png", "res/Buttons/WorldScene1/pauseBtn-press.png");
 	pauseBtn->setScale(1.2);
@@ -601,27 +601,25 @@ void WorldScene1::update(float deltaTime)
 		}
 
 	}
-
-		for (int i = 0; i < listTower.size(); i++)
+	
+	for (int i = 0; i < listTower.size(); i++)
+	{
+		if (listTower[i]->GetType() == 5)
 		{
-			if (listTower[i]->GetType() == 5)
+			for (int j = 0; j < listTower[i]->GetListSoldier().size(); j++)
 			{
-				for (int j = 0; j < listTower[i]->GetListSoldier().size(); j++)
+				if (listTower[i]->GetListSoldier()[j]->GetMovementSpeed() < listTower[i]->GetListSoldier()[j]->GetMSpeed())
 				{
-					if (listTower[i]->GetListSoldier()[j]->GetMovementSpeed() < listTower[i]->GetListSoldier()[j]->GetMSpeed())
-					{
-						listTower[i]->GetListSoldier()[j]->SetMovementSpeed(listTower[i]->GetListSoldier()[j]->GetMovementSpeed() + 0.5);
-					}
-					if (listTower[i]->GetListSoldier()[j]->GetMovementSpeed() >= listTower[i]->GetListSoldier()[j]->GetMSpeed())
-					{
-						listTower[i]->GetListSoldier()[j]->SetMovementSpeed(listTower[i]->GetListSoldier()[j]->GetMSpeed());
-						listTower[i]->GetListSoldier()[j]->GetSprite()->setColor(Color3B(255, 255, 255));
-					}
+					listTower[i]->GetListSoldier()[j]->SetMovementSpeed(listTower[i]->GetListSoldier()[j]->GetMovementSpeed() + 0.5);
+				}
+				if (listTower[i]->GetListSoldier()[j]->GetMovementSpeed() >= listTower[i]->GetListSoldier()[j]->GetMSpeed())
+				{
+					listTower[i]->GetListSoldier()[j]->SetMovementSpeed(listTower[i]->GetListSoldier()[j]->GetMSpeed());
 				}
 			}
-			
-		}
+		}	
 	}
+}
 
 
 
