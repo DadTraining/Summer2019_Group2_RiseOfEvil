@@ -458,23 +458,23 @@ void WorldScene1::update(float deltaTime)
 		{
 			for (int monster = 0; monster < listMonster.size(); monster++)
 			{
-				//Check in range and alive
-				if (listMonster[monster]->GetSprite()->getPosition().distance(listTower[tower]->GetSprite()->getPosition())
-					<
-					listTower[tower]->GetRange()
-					&&
-					listMonster[monster]->GetSprite()->isVisible() == true)
-				{
-					//check target out range or die, set target by nullptr when it happen
-					if (listTower[tower]->getStatusOfTarget())
-					{
-						listTower[tower]->setTarget(listMonster[monster]);
-					}
-					else
-					{
-						break;
-					}
-				}
+//Check in range and alive
+if (listMonster[monster]->GetSprite()->getPosition().distance(listTower[tower]->GetSprite()->getPosition())
+	<
+	listTower[tower]->GetRange()
+	&&
+	listMonster[monster]->GetSprite()->isVisible() == true)
+{
+	//check target out range or die, set target by nullptr when it happen
+	if (listTower[tower]->getStatusOfTarget())
+	{
+		listTower[tower]->setTarget(listMonster[monster]);
+	}
+	else
+	{
+		break;
+	}
+}
 			}
 		}
 		//Soldier Attack
@@ -489,7 +489,7 @@ void WorldScene1::update(float deltaTime)
 					{
 						SoldierFindMonster(listTower[i]->GetListSoldier()[j], listTower[i]->GetListSoldier()[j], deltaTime);
 					}
-					if (!listTower[i]->GetListSoldier()[j]->GetListMonsterAttack().empty()) 
+					if (!listTower[i]->GetListSoldier()[j]->GetListMonsterAttack().empty())
 					{
 						log("ListSolderMonstet:%d", listTower[i]->GetListSoldier()[j]->GetListMonsterAttack().size());
 						log("PositionX: %f  PositionY: %f", listTower[i]->GetListSoldier()[j]->GetListMonsterAttack()[0]->GetSprite()->getPosition().x, listTower[i]->GetListSoldier()[j]->GetListMonsterAttack()[0]->GetSprite()->getPosition().y);
@@ -498,7 +498,7 @@ void WorldScene1::update(float deltaTime)
 						{
 							listTower[i]->GetListSoldier()[j]->SetListMonsterAttackClear();
 						}
-					}	
+					}
 				}
 			}
 		}
@@ -506,7 +506,7 @@ void WorldScene1::update(float deltaTime)
 		for (int i = 0; i < listTower.size(); i++)
 		{
 			listTower[i]->Update(deltaTime, listMonster);
-			
+
 		}
 		//increase speed when monster is slowing
 		if (countTimeToIncreaseSpeedMonster > 0.3)
@@ -538,19 +538,49 @@ void WorldScene1::update(float deltaTime)
 				switch (listTower[i]->GetType())
 				{
 				case ARROW_TOWER:
-					//listTower[i]->increaseAttackSpeedSkill(listTower);
+					listTower[i]->setIncreaseAttackSpeedSkill(true);
 					break;
 				case MAGIC_TOWER:
-					//listTower[i]->increaseAttackDamageSkill(listTower);
+					listTower[i]->setIncreaseAttackDamageSkill(true);
 					break;
 				case SLOW_TOWER:
 					listTower[i]->slowSkill(listMonster);
+					//listTower[i]->getTowerSkill()->getSprite()->setVisible(true);
 					break;
 				case BOMBARD_TOWER:
 					listTower[i]->burnSkill(listMonster, deltaTime);
-						
+					//listTower[i]->getTowerSkill()->getSprite()->setVisible(true);
 				}
 
+			}
+			if (listTower[i]->getIncreaseAttackSpeedSkill() == true)
+			{
+				for (int j = 0; j < listTower.size(); j++)
+				{
+					if (listTower[i]->GetSprite()->getPosition().distance(listTower[j]->GetSprite()->getPosition()) < 150
+						&& listTower[i]->GetSprite()->getPosition().distance(listTower[j]->GetSprite()->getPosition()) > 10)
+					{
+						if (listTower[j]->GetAttackSpeed() > listTower[j]->getMinimumAttackSpeed()* 90 / 100)
+						{
+							listTower[j]->SetAttackSpeed(listTower[j]->GetAttackSpeed() * 98 / 100);
+						}
+					}
+				}
+			}
+			if (listTower[i]->getIncreaseAttackDamageSkill() == true)
+			{
+				for (int j = 0; j < listTower.size(); j++)
+				{
+					if (listTower[i]->GetSprite()->getPosition().distance(listTower[j]->GetSprite()->getPosition()) < 150
+						&& listTower[i]->GetSprite()->getPosition().distance(listTower[j]->GetSprite()->getPosition()) > 10)
+					{
+						if (listTower[j]->GetMinimumAtk() < 20 && listTower[j]->GetMaximumAtk() < 60)
+						{
+							listTower[j]->SetMinimumAtk(listTower[j]->GetMinimumAtk() * 110 / 100);
+							listTower[j]->SetMaximumAtk(listTower[j]->GetMaximumAtk() * 110 / 100);
+						}
+					}
+				}
 			}
 		}
 

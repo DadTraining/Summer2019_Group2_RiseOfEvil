@@ -33,6 +33,7 @@ private:
 	float timeDelay = 0;
 	float countTimeToDealDamage;
 	float m_attackSpeed;
+	float m_minimumAttackSpeed;
 	int m_gold;
 	int m_level;
 	bool checkTowerShoot = false;
@@ -48,6 +49,10 @@ private:
 	float countTimeToReduceHPForBurnSkill = 0;
 	float countTimeToIncreaseHP = 0;
 	Label *priceUpgradeLabel;
+	bool checkIncreaseAttackSpeedSkill = false;
+	bool checkIncreaseAttackDamageSkill = false;
+	bool checkBurnSkill = false;
+	bool checkSlowSkill = false;
 public:
 	void Init();
 	Tower(Layer* layer, int, Vec2);
@@ -84,11 +89,15 @@ public:
 	Monster * getTarget();
 	void setTarget(Monster*);
 	bool getStatusOfTarget();
-	void increaseAttackSpeedSkill(vector<Tower*>listTower);
-	void increaseAttackDamageSkill(vector<Tower*>listTower);
+	bool getIncreaseAttackSpeedSkill();
+	bool getIncreaseAttackDamageSkill();
+	void setIncreaseAttackSpeedSkill(bool);
+	void setIncreaseAttackDamageSkill(bool);
 	void slowSkill(vector<Monster*> listMonster);
 	void burnSkill(vector<Monster*> listMonster, float deltaTime);
 	void bossSkill(Monster * boss, vector<Monster *>listMonster, float deltaTime);
 	void clickSellIcon();
 	void confirmSell();
+	float getMinimumAttackSpeed();
+	Skill *getTowerSkill();
 };
