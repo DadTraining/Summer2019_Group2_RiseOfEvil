@@ -126,11 +126,7 @@ bool WorldScene1::init()
 	Flag->setVisible(false);
 	Flag->setPosition(visibleSize.width / 2, visibleSize.height / 2);
 	this->addChild(Flag,5);
-	//==================================================================
-	mTileMap = TMXTiledMap::create("res/MapScene/Map01.tmx");
-	mTileMap->setAnchorPoint(Vec2(0, 0));
-	mTileMap->setPosition(0, 0);
-	addChild(mTileMap, 0);
+
 
 	////================TowerFake===================================
 	TowerFake = Sprite::create("res/WorldScene1/arrowtower1.png");
@@ -219,6 +215,18 @@ bool WorldScene1::init()
 	startBTN->addClickEventListener(CC_CALLBACK_0(WorldScene1::startWave, this));
 	startBTN->setScale(0.7);
 	addChild(startBTN, 3);
+	
+	//Create first list monster from Wave list
+	numOfWave = 0;
+	currentStage = Player::GetInstance()->GetCurrentStage();
+	wave = new Wave(currentStage);
+	road1TotalPoint = wave->getRoad1TotalPoint();
+	road2TotalPoint = wave->getRoad2TotalPoint();
+	//==================================================================
+	mTileMap = TMXTiledMap::create("res/MapScene/Map0" + to_string(currentStage) + ".tmx");
+	mTileMap->setAnchorPoint(Vec2(0, 0));
+	mTileMap->setPosition(0, 0);
+	addChild(mTileMap, 0);
 	//==========================================================
 	//Create start wave button 
 	auto obj = mTileMap->getObjectGroup("StartWaveBTNPosition");
@@ -240,12 +248,6 @@ bool WorldScene1::init()
 	addChild(startWaveBTN2, 3);
 
 	//==========================================================
-	//Create first list monster from Wave list
-	numOfWave = 0;
-	currentStage = Player::GetInstance()->GetCurrentStage();
-	wave = new Wave(currentStage);
-	road1TotalPoint = wave->getRoad1TotalPoint();
-	road2TotalPoint = wave->getRoad2TotalPoint();
 	//==========================================================
 	crystal = new Crystal(this);
 	auto crystal_position = mTileMap->getObjectGroup("Crystal");

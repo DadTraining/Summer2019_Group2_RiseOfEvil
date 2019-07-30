@@ -39,12 +39,11 @@ bool WorldMapScene::init()
 		flag->setScale(0.8);
 		flag->setAnchorPoint(Vec2(0.5, 0));
 		flag->addClickEventListener(CC_CALLBACK_1(WorldMapScene::GoToStage, this, i + 1));
-		add_star(flag->getPosition());
 		addChild(flag, 1);
 		staged.push_back(flag);
 	}
 
-	for (int i = 0; i < Player::GetInstance()->GetCurrentStage(); i++)
+	for (int i = 0; i < 2; i++)
 	{
 		staged[i]->setEnabled(true);
 		add_star(staged[i]->getPosition());
@@ -66,6 +65,30 @@ bool WorldMapScene::init()
 	return true;
 }
 
+void WorldMapScene::GoToStage(Ref* sender, int numOfStage)
+{
+	Player::GetInstance()->SetCurrentStage(numOfStage);
+	Scene *pScene = WorldScene1::createScene();
+	TransitionFade *crssfade = TransitionFade::create(0.5f, pScene);
+	Director::getInstance()->replaceScene(crssfade);
+
+
+}
+
+void WorldMapScene::GoToMainMenu()
+{
+	Scene *pScene = MainMenuScene::create();
+	TransitionFade *crssfade = TransitionFade::create(0.5f, pScene);
+	Director::getInstance()->replaceScene(crssfade);
+}
+
+void WorldMapScene::GoToUpgrade()
+{
+	Scene *pScene = UpgradeScene::create();
+	TransitionFade *crssfade = TransitionFade::create(0.5f, pScene);
+	Director::getInstance()->replaceScene(crssfade);
+}
+
 void WorldMapScene::add_star(Vec2 vec)
 {
 	auto star1 = Sprite::create("res/Sprites/WorldMapScene/star.png");
@@ -84,36 +107,3 @@ void WorldMapScene::add_star(Vec2 vec)
 	addChild(star3);
 }
 
-void WorldMapScene::GoToWorldScene1()
-{
-	Scene *pScene = WorldScene1::createScene();
-	TransitionFade *crssfade = TransitionFade::create(0.5f, pScene);
-	Director::getInstance()->replaceScene(crssfade);
-}
-
-void WorldMapScene::GoToMainMenu()
-{
-	Scene *pScene = MainMenuScene::create();
-	TransitionFade *crssfade = TransitionFade::create(0.5f, pScene);
-	Director::getInstance()->replaceScene(crssfade);
-}
-
-void WorldMapScene::GoToUpgrade()
-{
-	Scene *pScene = UpgradeScene::create();
-	TransitionFade *crssfade = TransitionFade::create(0.5f, pScene);
-	Director::getInstance()->replaceScene(crssfade);
-}
-
-void WorldMapScene::GoToStage(Ref* sender, int numOfStage)
-{
-	switch (numOfStage)
-	{
-	case 1:
-		Scene *pScene = WorldScene1::createScene();
-		TransitionFade *crssfade = TransitionFade::create(0.5f, pScene);
-		Director::getInstance()->replaceScene(crssfade);
-		break;
-
-	}
-}

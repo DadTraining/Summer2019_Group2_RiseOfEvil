@@ -27,7 +27,7 @@
 #include "LogoScene.h"
 #include "ResourceManager.h"
 #include "Player.h"
-#include "MainMenuScene.h"
+#include "WorldMapScene.h"
 
 // #define USE_AUDIO_ENGINE 1
 // #define USE_SIMPLE_AUDIO_ENGINE 1
@@ -108,7 +108,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	Player::GetInstance()->Load();
     // create a scene. it's an autorelease object
 
-    auto scene = WorldScene1::createScene();
+    auto scene = WorldMapScene::createScene();
 
     // run
     director->runWithScene(scene);
