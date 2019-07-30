@@ -5,7 +5,7 @@
 #define LEVEL1 1
 #define LEVEL2 2
 #define LEVEL3 3
-#define SOLDIERSPEED 100;
+#define SOLDIERSPEED 80;
 using namespace cocos2d;
 using namespace std;
 class Soldier : public Objects
@@ -20,9 +20,7 @@ private:
 	float m_attackAnimation;
 	float m_guardAnimation;
 	bool touchFlag = false;
-	bool checkGuard = false;
-	bool checkFindMonster = false;
-	vector<Monster*> m_listMonsterAttack;
+	bool checkAttack = false;
 	int m_gold;
 	int m_maxHitPoint;
 	Animation *animation;
@@ -42,21 +40,17 @@ public:
 	void Init();
 	void Update(float deltaTime);
 	void Move(Vec2);
-	void MoveToMonster(Vec2, bool, float);
+	void MoveToMonster(Vec2, float);
 	Animation* AnimationMonster(string, int, int, float);
 
 	void Action(int);
-	void ActionMove(int, bool);
+	void ActionMove(int);
 	void AttackMonster(Monster*);
 	bool GetTouchFlag();
 	void StopAction();
 	void SetTouchFlag(bool);
 	void SetTouchFlagTwo();
-	bool GetCheckGuard();
-	void SetCheckGuard(bool);
-	vector<Monster*> GetListMonsterAttack();
-	void SetListMonsterAttack(Monster*);
-	void SetListMonsterAttackClear();
+	void SetCheckAttack(bool);
 	int GetRange();
 	void SetRange(int);
 	float GetMSpeed();

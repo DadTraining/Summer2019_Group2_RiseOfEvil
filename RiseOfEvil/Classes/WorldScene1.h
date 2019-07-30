@@ -103,7 +103,6 @@ private:
 	bool checkClick = false;
 	bool clickPause = false;
 	bool checkMonsterAttack = false;
-	bool checkSoldierAttack = false;
 	bool checkTouchBuildTowerFake = false;
 	bool checkClickBuildButton = false;
 	bool checkgameover = false;
@@ -121,8 +120,8 @@ public:
 	void BuildTower();
 	void createmenu(Vec2 point);
 	bool MonsterAttack(Monster*);
-	void SoldierFindMonster(Soldier*,bool, float);
-	bool SoldierAttack(Soldier*);
+	Monster* SoldierFindMonster(Soldier*);
+	bool SoldierAttack(Soldier*, Monster*);
 	void MonsterMove(Monster*, int, bool, float, float);
 	void moveFlag(Vec2 Pos);
 	bool onTouchBegan(Touch *touch, Event *event);
@@ -138,7 +137,6 @@ public:
 	void moreGold();
 	void BuildTowerFake(int type);
 	void LoadingBuildTower();
-	bool CheckListMonsterSoldierFound(Monster*);
 	void showDescription(Ref*,int);
 	CREATE_FUNC(WorldScene1);
 };

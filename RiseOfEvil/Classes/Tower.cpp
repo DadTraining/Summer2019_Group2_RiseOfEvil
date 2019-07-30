@@ -463,7 +463,6 @@ bool Tower::getIncreaseAttackSpeedSkill()
 {
 	return checkIncreaseAttackSpeedSkill;
 }
-
 bool Tower::getIncreaseAttackDamageSkill()
 {
 	return checkIncreaseAttackDamageSkill;
