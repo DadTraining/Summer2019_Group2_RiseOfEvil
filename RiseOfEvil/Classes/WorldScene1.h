@@ -82,6 +82,7 @@ private:
 	Sprite* rangeBullet;
 	Sprite* rangeFakeTower;
 	Sprite* hpBgSprite;
+	Sprite* description;
 	ProgressTimer *hpBar;
 	ui::Button *moreGoldBtn;
 	ui::Button *resumeBtn;
@@ -93,6 +94,7 @@ private:
 	ui::Button *startWaveBTN2;
 	ui::Button *muteBTN;
 	ui::Button *pauseBtn;
+	ui::Button *showDecriptionBtn;
 	bool releaseMonster = false;
 	bool touchOut = false;
 	bool touchIn = false;
@@ -137,5 +139,6 @@ public:
 	void BuildTowerFake(int type);
 	void LoadingBuildTower();
 	bool CheckListMonsterSoldierFound(Monster*);
+	void showDescription(Ref*,int);
 	CREATE_FUNC(WorldScene1);
 };
