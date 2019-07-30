@@ -727,9 +727,9 @@ Monster* WorldScene1::SoldierFindMonster(Soldier* soldier)
 	for (int i = 0; i < listMonster.size(); i++)
 	{
 		if (soldier->GetSprite()->getPosition().distance(listMonster[i]->GetSprite()->getPosition()) <= soldier->GetRange())
-		{	
+		{
 			return listMonster[i];
-		}
+		}			
 	}
 	return nullptr;
 }

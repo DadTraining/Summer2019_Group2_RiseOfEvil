@@ -5,7 +5,7 @@
 #define LEVEL1 1
 #define LEVEL2 2
 #define LEVEL3 3
-#define SOLDIERSPEED 100;
+#define SOLDIERSPEED 80;
 using namespace cocos2d;
 using namespace std;
 class Soldier : public Objects
