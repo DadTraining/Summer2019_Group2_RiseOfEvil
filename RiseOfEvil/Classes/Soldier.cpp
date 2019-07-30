@@ -29,6 +29,7 @@ void Soldier::Init()
 	m_fomatAnimation = "_soldier1_";
 	m_png[0] = 1; m_png[1] = 8; m_png[2] = 9; m_png[3] = 16; m_png[4] = 17; m_png[5] = 24; m_png[6] = 25; m_png[7] = 32; m_png[8] = 33; m_png[9] = 40; m_png[10] = 41; m_png[11] = 48; m_png[12] = 49; m_png[13] = 56; m_png[14] = 57; m_png[15] = 64;
 	m_png[16] = 65; m_png[17] = 71; m_png[18] = 72; m_png[19] = 78; m_png[20] = 79; m_png[21] = 85; m_png[22] = 86; m_png[23] = 92; m_png[24] = 93; m_png[25] = 99; m_png[26] = 100; m_png[27] = 106; m_png[28] = 107; m_png[29] = 113; m_png[30] = 114; m_png[31] = 120;
+	m_png[32] = 121; m_png[33] = 124; m_png[34] = 125; m_png[35] = 128; m_png[36] = 129; m_png[37] = 132; m_png[38] = 133; m_png[39] = 136; m_png[40] = 137; m_png[41] = 140; m_png[42] = 141; m_png[43] = 144; m_png[44] = 145; m_png[45] = 148; m_png[46] = 149; m_png[47] = 152;
 	m_hitPoint = 24;
 	m_maxHitPoint = 24;
 	m_minimumAtk = 1;
@@ -36,8 +37,9 @@ void Soldier::Init()
 	m_attackSpeed = 1.0;
 	m_runAnimation = 0.05f;
 	m_attackAnimation = 0.1f;
-	m_range = 20;
-	m_speed = m_movementSpeed = m_velocity = MEDIUM_SPEED;
+	m_guardAnimation = 0.1f;
+	m_range = 80;
+	m_speed = m_movementSpeed = m_velocity = SOLDIERSPEED;
 	m_armor = 0;
 	m_gold = 6;
 }
@@ -48,50 +50,79 @@ void Soldier::Update(float deltaTime)
 
 void Soldier::Move(Vec2 point)
 {
-	if ((m_sprite->getPosition().y == point.y) && (m_sprite->getPosition().x <= point.x)) {
+	auto Guard = Animate::create(Soldier::AnimationMonster(m_fomatAnimation, m_png[40], m_png[41], m_guardAnimation));
+	Guard->retain();
+	if ((m_sprite->getPosition().y == point.y) && (m_sprite->getPosition().x <= point.x)) 
+	{
 		Action(E);
+		Guard = Animate::create(Soldier::AnimationMonster(m_fomatAnimation, m_png[40], m_png[41], m_guardAnimation));
+		Guard->retain();
 	}
-	else if ((m_sprite->getPosition().y == point.y) && (m_sprite->getPosition().x >= point.x)) {
+	else if ((m_sprite->getPosition().y == point.y) && (m_sprite->getPosition().x >= point.x)) 
+	{
 		Action(W);
+		Guard = Animate::create(Soldier::AnimationMonster(m_fomatAnimation, m_png[32], m_png[33], m_guardAnimation));
+		Guard->retain();
 	}
-	else if ((m_sprite->getPosition().x == point.x) && (m_sprite->getPosition().y >= point.y)) {
+	else if ((m_sprite->getPosition().x == point.x) && (m_sprite->getPosition().y >= point.y)) 
+	{
 		Action(S);
+		Guard = Animate::create(Soldier::AnimationMonster(m_fomatAnimation, m_png[44], m_png[45], m_guardAnimation));
+		Guard->retain();
 	}
-	else if ((m_sprite->getPosition().x == point.x) && (m_sprite->getPosition().y <= point.y)) {
+	else if ((m_sprite->getPosition().x == point.x) && (m_sprite->getPosition().y <= point.y)) 
+	{
 		Action(N);
+		Guard = Animate::create(Soldier::AnimationMonster(m_fomatAnimation, m_png[36], m_png[37], m_guardAnimation));
+		Guard->retain();
 	}
-	else if ((m_sprite->getPosition().x <= point.x) && (m_sprite->getPosition().y >= point.y)) {
+	else if ((m_sprite->getPosition().x <= point.x) && (m_sprite->getPosition().y >= point.y)) 
+	{
 		Action(SE);
+		Guard = Animate::create(Soldier::AnimationMonster(m_fomatAnimation, m_png[42], m_png[43], m_guardAnimation));
+		Guard->retain();
 	}
-	else if ((m_sprite->getPosition().x >= point.x) && (m_sprite->getPosition().y >= point.y)) {
+	else if ((m_sprite->getPosition().x >= point.x) && (m_sprite->getPosition().y >= point.y)) 
+	{
 		Action(SW);
+		Guard = Animate::create(Soldier::AnimationMonster(m_fomatAnimation, m_png[46], m_png[47], m_guardAnimation));
+		Guard->retain();
 	}
-	else if ((m_sprite->getPosition().x <= point.x) && (m_sprite->getPosition().y <= point.y)) {
+	else if ((m_sprite->getPosition().x <= point.x) && (m_sprite->getPosition().y <= point.y)) 
+	{
 		Action(NE);
+		Guard = Animate::create(Soldier::AnimationMonster(m_fomatAnimation, m_png[38], m_png[39], m_guardAnimation));
+		Guard->retain();
 	}
 	else if ((m_sprite->getPosition().x >= point.x) && (m_sprite->getPosition().y <= point.y))
 	{
 		Action(NW);
+		Guard = Animate::create(Soldier::AnimationMonster(m_fomatAnimation, m_png[34], m_png[35], m_guardAnimation));
+		Guard->retain();
 	}
-	auto moveTo = MoveTo::create(point.getDistance(m_sprite->getPosition()) / m_movementSpeed, Vec2(point.x, point.y));
+	auto moveTo = MoveTo::create(point.getDistance(m_sprite->getPosition()) / m_speed, Vec2(point.x, point.y));
 	auto callbackHide = CallFunc::create(CC_CALLBACK_0(Soldier::SetTouchFlagTwo,this));
-	auto sequen = Sequence::create(moveTo, callbackHide, NULL);
+	auto callbackHide2 = CallFunc::create(CC_CALLBACK_0(Soldier::StopAction, this));
+	auto sequen = Sequence::create(moveTo,  callbackHide, callbackHide2, RepeatForever::create(Guard)->clone(), NULL);
 	m_sprite->runAction(sequen);
 
 }
 float timeRun = 0;
-void Soldier::MoveToMonster(Vec2 point, bool check, float timedelay)
+int count11 = 0;
+void Soldier::MoveToMonster(Vec2 point,bool check, float timedelay)
 {
-	
 	if (!touchFlag)
 	{
 		if (timeRun >= 0.4)
 		{
+			
 			if ((m_sprite->getPosition().y == point.y) && (m_sprite->getPosition().x <= point.x)) {
 				ActionMove(E, check);
+				
 			}
 			else if ((m_sprite->getPosition().y == point.y) && (m_sprite->getPosition().x >= point.x)) {
 				ActionMove(W, check);
+				
 			}
 			else if ((m_sprite->getPosition().x == point.x) && (m_sprite->getPosition().y >= point.y)) {
 				ActionMove(S, check);
@@ -112,7 +143,9 @@ void Soldier::MoveToMonster(Vec2 point, bool check, float timedelay)
 			{
 				ActionMove(NW, check);
 			}		
-			m_sprite->runAction(MoveTo::create(point.getDistance(m_sprite->getPosition()) / m_movementSpeed, Vec2(point.x, point.y)));			
+			;
+			auto sequence = Sequence::create(MoveTo::create(point.getDistance(m_sprite->getPosition()) / m_movementSpeed, Vec2(point.x, point.y)),NULL);
+			m_sprite->runAction(sequence);			
 			timeRun = 0;
 		}
 		else
@@ -243,25 +276,35 @@ void Soldier::Action(int direction)
 
 void Soldier::ActionMove(int direction, bool check)
 {
+	log("checkGuard: %d", checkGuard);
 	switch (direction)
 	{
 	case E:
-	{
+	{	
 		auto walkingE = Animate::create(Soldier::AnimationMonster(m_fomatAnimation, m_png[8], m_png[9], 0.05f));
 		walkingE->retain();
 		auto AttackE = Animate::create(Soldier::AnimationMonster(m_fomatAnimation, m_png[24], m_png[25], m_attackAnimation));
 		AttackE->retain();
-		if (!check)
+		
+		if (checkGuard)
 		{
-			m_sprite->stopAllActions();
-			m_sprite->runAction(RepeatForever::create(walkingE)->clone());
+			
 		}
 		else
 		{
-			m_movementSpeed = m_speed / 10000;
-			m_sprite->stopAllActions();
-			m_sprite->runAction(RepeatForever::create(AttackE)->clone());
+			if (!check)
+			{
+				m_sprite->stopAllActions();
+				m_sprite->runAction(RepeatForever::create(walkingE)->clone());
+			}
+			else
+			{
+				m_movementSpeed = m_speed / 10000;
+				m_sprite->stopAllActions();
+				m_sprite->runAction(RepeatForever::create(AttackE)->clone());
+			}
 		}
+		
 		break;
 	}
 
@@ -272,17 +315,27 @@ void Soldier::ActionMove(int direction, bool check)
 		walkingW->retain();
 		auto AttackW = Animate::create(Soldier::AnimationMonster(m_fomatAnimation, m_png[16], m_png[17], m_attackAnimation));
 		AttackW->retain();
-		if (!check)
+		
+
+		if (checkGuard)
 		{
-			m_sprite->stopAllActions();
-			m_sprite->runAction(RepeatForever::create(walkingW)->clone());
+			
 		}
 		else
 		{
-			m_movementSpeed = m_speed / 10000;
-			m_sprite->stopAllActions();
-			m_sprite->runAction(RepeatForever::create(AttackW)->clone());
+			if (!check)
+			{
+				m_sprite->stopAllActions();
+				m_sprite->runAction(RepeatForever::create(walkingW)->clone());
+			}
+			else
+			{
+				m_movementSpeed = m_speed / 10000;
+				m_sprite->stopAllActions();
+				m_sprite->runAction(RepeatForever::create(AttackW)->clone());
+			}
 		}
+		
 		break;
 	}
 
@@ -292,17 +345,27 @@ void Soldier::ActionMove(int direction, bool check)
 		walkingS->retain();
 		auto AttackS = Animate::create(Soldier::AnimationMonster(m_fomatAnimation, m_png[28], m_png[29], m_attackAnimation));
 		AttackS->retain();
-		if (!check)
+		
+
+		if (checkGuard)
 		{
-			m_sprite->stopAllActions();
-			m_sprite->runAction(RepeatForever::create(walkingS)->clone());
+			
 		}
 		else
 		{
-			m_movementSpeed = m_speed / 10000;
-			m_sprite->stopAllActions();
-			m_sprite->runAction(RepeatForever::create(AttackS)->clone());
+			if (!check)
+			{
+				m_sprite->stopAllActions();
+				m_sprite->runAction(RepeatForever::create(walkingS)->clone());
+			}
+			else
+			{
+				m_movementSpeed = m_speed / 10000;
+				m_sprite->stopAllActions();
+				m_sprite->runAction(RepeatForever::create(AttackS)->clone());
+			}
 		}
+		
 		break;
 	}
 
@@ -312,16 +375,25 @@ void Soldier::ActionMove(int direction, bool check)
 		walkingN->retain();
 		auto AttackN = Animate::create(Soldier::AnimationMonster(m_fomatAnimation, m_png[20], m_png[21], m_attackAnimation));
 		AttackN->retain();
-		if (!check)
+		
+
+		if (checkGuard)
 		{
-			m_sprite->stopAllActions();
-			m_sprite->runAction(RepeatForever::create(walkingN)->clone());
+
 		}
 		else
 		{
-			m_movementSpeed = m_speed / 10000;
-			m_sprite->stopAllActions();
-			m_sprite->runAction(RepeatForever::create(AttackN)->clone());
+			if (!check)
+			{
+				m_sprite->stopAllActions();
+				m_sprite->runAction(RepeatForever::create(walkingN)->clone());
+			}
+			else
+			{
+				m_movementSpeed = m_speed / 10000;
+				m_sprite->stopAllActions();
+				m_sprite->runAction(RepeatForever::create(AttackN)->clone());
+			}
 		}
 		break;
 	}
@@ -332,17 +404,27 @@ void Soldier::ActionMove(int direction, bool check)
 		walkingSE->retain();
 		auto AttackSE = Animate::create(Soldier::AnimationMonster(m_fomatAnimation, m_png[26], m_png[27], m_attackAnimation));
 		AttackSE->retain();
-		if (!check)
+		
+
+		if (checkGuard)
 		{
-			m_sprite->stopAllActions();
-			m_sprite->runAction(RepeatForever::create(walkingSE)->clone());
+			
 		}
 		else
 		{
-			m_movementSpeed = m_speed / 10000;
-			m_sprite->stopAllActions();
-			m_sprite->runAction(RepeatForever::create(AttackSE)->clone());
+			if (!check)
+			{
+				m_sprite->stopAllActions();
+				m_sprite->runAction(RepeatForever::create(walkingSE)->clone());
+			}
+			else
+			{
+				m_movementSpeed = m_speed / 10000;
+				m_sprite->stopAllActions();
+				m_sprite->runAction(RepeatForever::create(AttackSE)->clone());
+			}
 		}
+		
 		break;
 	}
 
@@ -352,17 +434,27 @@ void Soldier::ActionMove(int direction, bool check)
 		walkingSW->retain();
 		auto AttackSW = Animate::create(Soldier::AnimationMonster(m_fomatAnimation, m_png[30], m_png[31], m_attackAnimation));
 		AttackSW->retain();
-		if (!check)
+		
+
+		if (checkGuard)
 		{
-			m_sprite->stopAllActions();
-			m_sprite->runAction(RepeatForever::create(walkingSW)->clone());
+			
 		}
 		else
 		{
-			m_movementSpeed = m_speed / 10000;
-			m_sprite->stopAllActions();
-			m_sprite->runAction(RepeatForever::create(AttackSW)->clone());
+			if (!check)
+			{
+				m_sprite->stopAllActions();
+				m_sprite->runAction(RepeatForever::create(walkingSW)->clone());
+			}
+			else
+			{
+				m_movementSpeed = m_speed / 10000;
+				m_sprite->stopAllActions();
+				m_sprite->runAction(RepeatForever::create(AttackSW)->clone());
+			}
 		}
+		
 		break;
 	}
 	case NE:
@@ -371,17 +463,27 @@ void Soldier::ActionMove(int direction, bool check)
 		walkingNE->retain();
 		auto AttackNE = Animate::create(Soldier::AnimationMonster(m_fomatAnimation, m_png[22], m_png[23], m_attackAnimation));
 		AttackNE->retain();
-		if (!check)
+		
+
+		if (checkGuard)
 		{
-			m_sprite->stopAllActions();
-			m_sprite->runAction(RepeatForever::create(walkingNE)->clone());
+			
 		}
 		else
 		{
-			m_movementSpeed = m_speed / 10000;
-			m_sprite->stopAllActions();
-			m_sprite->runAction(RepeatForever::create(AttackNE)->clone());
+			if (!check)
+			{
+				m_sprite->stopAllActions();
+				m_sprite->runAction(RepeatForever::create(walkingNE)->clone());
+			}
+			else
+			{
+				m_movementSpeed = m_speed / 10000;
+				m_sprite->stopAllActions();
+				m_sprite->runAction(RepeatForever::create(AttackNE)->clone());
+			}
 		}
+		
 		break;
 	}
 	case NW:
@@ -390,17 +492,27 @@ void Soldier::ActionMove(int direction, bool check)
 		walkingNW->retain();
 		auto AttackNW = Animate::create(Soldier::AnimationMonster(m_fomatAnimation, m_png[18], m_png[19], m_attackAnimation));
 		AttackNW->retain();
-		if (!check)
+		
+
+		if (checkGuard)
 		{
-			m_sprite->stopAllActions();
-			m_sprite->runAction(RepeatForever::create(walkingNW)->clone());
+			
 		}
 		else
 		{
-			m_movementSpeed = m_speed / 10000;
-			m_sprite->stopAllActions();
-			m_sprite->runAction(RepeatForever::create(AttackNW)->clone());
+			if (!check)
+			{
+				m_sprite->stopAllActions();
+				m_sprite->runAction(RepeatForever::create(walkingNW)->clone());
+			}
+			else
+			{
+				m_movementSpeed = m_speed / 10000;
+				m_sprite->stopAllActions();
+				m_sprite->runAction(RepeatForever::create(AttackNW)->clone());
+			}
 		}
+		
 		break;
 	}
 	}
@@ -411,24 +523,29 @@ bool Soldier::GetTouchFlag()
 	return touchFlag;
 }
 
+void Soldier::StopAction()
+{
+	m_sprite->stopAllActions();
+}
+
 void Soldier::SetTouchFlag(bool touchFlag)
 {
 	this->touchFlag = touchFlag;
 }
 
-bool Soldier::GetCheckFindMonster()
-{
-	return checkFindMonster;
-}
-
-void Soldier::SetCheckFindMonster(bool checkFindMonster)
-{
-	this->checkFindMonster = checkFindMonster;
-}
-
 void Soldier::SetTouchFlagTwo()
 {
 	touchFlag = false;
+}
+
+bool Soldier::GetCheckGuard()
+{
+	return checkGuard;
+}
+
+void Soldier::SetCheckGuard(bool checkGuard)
+{
+	this->checkGuard = checkGuard;
 }
 
 vector<Monster*> Soldier::GetListMonsterAttack()
@@ -444,6 +561,16 @@ void Soldier::SetListMonsterAttack(Monster * monster)
 void Soldier::SetListMonsterAttackClear()
 {
 	m_listMonsterAttack.clear();
+}
+
+int Soldier::GetRange()
+{
+	return m_range;
+}
+
+void Soldier::SetRange(int m_range)
+{
+	this->m_range = m_range;
 }
 
 float Soldier::GetMSpeed()

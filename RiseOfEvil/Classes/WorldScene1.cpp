@@ -531,23 +531,23 @@ if (listMonster[monster]->GetSprite()->getPosition().distance(listTower[tower]->
 				for (int j = 0; j < listTower[i]->GetListSoldier().size(); j++)
 				{
 					checkSoldierAttack = SoldierAttack(listTower[i]->GetListSoldier()[j]);
-					if (listTower[i]->GetListSoldier()[j]->GetCheckFindMonster() == false)
+					if (listTower[i]->GetListSoldier()[j]->GetListMonsterAttack().empty())
 					{
 						SoldierFindMonster(listTower[i]->GetListSoldier()[j], listTower[i]->GetListSoldier()[j], deltaTime);
 					}
 					if (!listTower[i]->GetListSoldier()[j]->GetListMonsterAttack().empty())
 					{
-						log("ListSolderMonstet:%d", listTower[i]->GetListSoldier()[j]->GetListMonsterAttack().size());
-						log("PositionX: %f  PositionY: %f", listTower[i]->GetListSoldier()[j]->GetListMonsterAttack()[0]->GetSprite()->getPosition().x, listTower[i]->GetListSoldier()[j]->GetListMonsterAttack()[0]->GetSprite()->getPosition().y);
 						listTower[i]->GetListSoldier()[j]->MoveToMonster(listTower[i]->GetListSoldier()[j]->GetListMonsterAttack()[0]->GetSprite()->getPosition(), checkSoldierAttack, deltaTime);
-						if (listTower[i]->GetListSoldier()[j]->GetSprite()->getPosition().distance(listTower[i]->GetListSoldier()[j]->GetListMonsterAttack()[0]->GetSprite()->getPosition()) > 200)
+						if (listTower[i]->GetListSoldier()[j]->GetSprite()->getPosition().distance(listTower[i]->GetListSoldier()[j]->GetListMonsterAttack()[0]->GetSprite()->getPosition()) > listTower[i]->GetListSoldier()[j]->GetRange())
 						{
 							listTower[i]->GetListSoldier()[j]->SetListMonsterAttackClear();
 						}
-					}
+					}				
+					
 				}
 			}
 		}
+	
 		//Tower main shoot and decrease HP of monster
 		for (int i = 0; i < listTower.size(); i++)
 		{
@@ -763,21 +763,27 @@ void WorldScene1::SoldierFindMonster(Soldier* soldier, bool checkAttack, float t
 {
 	for (int i = 0; i < listMonster.size(); i++)
 	{
-		if (soldier->GetSprite()->getPosition().distance(listMonster[i]->GetSprite()->getPosition()) <= 200)
+		if (soldier->GetSprite()->getPosition().distance(listMonster[i]->GetSprite()->getPosition()) <= soldier->GetRange())
 		{	
 			if (CheckListMonsterSoldierFound(listMonster[i]))
 			{
-				m_listMonsterSoldierFound.push_back(listMonster[i]);
-				soldier->SetListMonsterAttack(listMonster[i]);
-				soldier->SetCheckFindMonster(true);
-				i = 100;
+				if (soldier->GetListMonsterAttack().empty())
+				{
+					m_listMonsterSoldierFound.push_back(listMonster[i]);
+					soldier->SetListMonsterAttack(listMonster[i]);
+					i = 100;
+				}			
 			}		
 		}
 	}
 }
 bool WorldScene1::CheckListMonsterSoldierFound(Monster* monster)
 {
-	if (!m_listMonsterSoldierFound.empty()) 
+	if (m_listMonsterSoldierFound.empty())
+	{
+		return true;
+	}
+	else 
 	{
 		for (int i = 0; i < m_listMonsterSoldierFound.size(); i++)
 		{
@@ -791,13 +797,13 @@ bool WorldScene1::CheckListMonsterSoldierFound(Monster* monster)
 }
 bool WorldScene1::SoldierAttack(Soldier* soldier)
 {
-	for (int i = 0; i < listMonster.size(); i++)
+	if (!soldier->GetListMonsterAttack().empty())
 	{
-		if (soldier->GetSprite()->getPosition().distance(listMonster[i]->GetSprite()->getPosition()) <= 20)
+		if (soldier->GetSprite()->getPosition().distance(soldier->GetListMonsterAttack()[0]->GetSprite()->getPosition()) <= 20)
 		{
 			return true;
 		}
-	}
+	}	
 	return false;
 }
 		
