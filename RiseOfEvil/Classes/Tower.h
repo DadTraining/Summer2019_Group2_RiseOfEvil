@@ -29,6 +29,7 @@ private:
 	MenuItemImage * upgradeIcon;
 	MenuItemImage * sellIcon;
 	MenuItemImage * confirmIcon;
+	MenuItemImage * skillIcon;
 	float m_range = 250;
 	float timeDelay = 0;
 	float countTimeToDealDamage;
@@ -53,6 +54,7 @@ private:
 	bool checkIncreaseAttackDamageSkill = false;
 	bool checkBurnSkill = false;
 	bool checkSlowSkill = false;
+	Sprite * skillDetail;
 public:
 	void Init();
 	Tower(Layer* layer, int, Vec2);
@@ -100,4 +102,5 @@ public:
 	void confirmSell();
 	float getMinimumAttackSpeed();
 	Skill *getTowerSkill();
+	void showDetailSkill();
 };
