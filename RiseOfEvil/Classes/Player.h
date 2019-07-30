@@ -21,5 +21,6 @@ public:
 	int GetCurrentStar();
 	int GetCurrentLife();
 	int GetCurrentStage();
+	void SetCurrentStage(int stage);
 	void SetGold(int);
 };
