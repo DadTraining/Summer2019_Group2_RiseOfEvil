@@ -103,4 +103,5 @@ public:
 	float getMinimumAttackSpeed();
 	Skill *getTowerSkill();
 	void showDetailSkill();
+	Sprite* getSkillDetails();
 };

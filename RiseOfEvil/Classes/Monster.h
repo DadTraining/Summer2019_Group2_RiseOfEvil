@@ -29,6 +29,7 @@ class Monster :public Objects
 {
 private:
 	int m_type;
+	int id;
 	float rand;
 	int m_png[32];
 	string m_fomatAnimation;
@@ -56,6 +57,7 @@ private:
 	//Skill * speciall
 	int checkMove = 0;
 	bool isSlow = false;
+	bool Dead = false;
 	float coutTimeToReduceHP = 0;
 public:
 	int m_flag = 0;
@@ -90,4 +92,5 @@ public:
 	int GetMaxHitPoint();
 	void ReduceHitPointMonster(int);
 	bool IsDead();
+	int GetId();
 };
