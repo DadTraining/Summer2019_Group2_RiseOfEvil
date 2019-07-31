@@ -314,6 +314,10 @@ void Tower::ShowCircleMenu()
 
 void Tower::HideCircleMenu()
 {
+	if (m_type != BARRACKS_TOWER)
+	{
+		skillDetail->setVisible(false);
+	}
 	circleMenu->setVisible(false);
 	circleMenu->setEnabled(false);
 	circleIcon->setVisible(false);
@@ -402,7 +406,6 @@ void Tower::upgrade()
 		{
 			m_gold *= 2;
 		}
-		priceUpgradeLabel->setString(to_string(m_gold));
 	}
 	if (m_level == 3)
 	{
@@ -581,12 +584,16 @@ void Tower::resetTower(int level)
 		m_maximumAtk = baseMaximumAtk * 2;
 		m_attackSpeed = baseAttackSpeed * 2;
 		break;
-	case 3: 
+	case 3:
 		m_minimumAtk = baseMinnimumAtk * 6;
 		m_maximumAtk = baseMaximumAtk * 6;
 		m_attackSpeed = baseAttackSpeed * 6;
 		break;
 	}
+}
+Sprite * Tower::getSkillDetails()
+{
+	return skillDetail;
 }
 
 int Tower::GetDamage()

@@ -111,6 +111,7 @@ private:
 	bool checkFindMonster = false;
 	bool checkSellTowerLevelThree = false;
 	vector<Monster*> m_listMonsterSoldierFound;
+	vector<Monster*> m_listMonsterIsDead;
 public:
 	static Scene* createScene();
 	virtual bool init() override;

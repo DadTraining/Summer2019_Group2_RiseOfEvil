@@ -108,4 +108,5 @@ public:
 	Skill *getTowerSkill();
 	void showDetailSkill();
 	void resetTower(int);
+	Sprite* getSkillDetails();
 };
