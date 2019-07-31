@@ -312,6 +312,10 @@ void Tower::ShowCircleMenu()
 
 void Tower::HideCircleMenu()
 {
+	if (m_type != BARRACKS_TOWER)
+	{
+		skillDetail->setVisible(false);
+	}
 	circleMenu->setVisible(false);
 	circleMenu->setEnabled(false);
 	circleIcon->setVisible(false);
@@ -400,7 +404,6 @@ void Tower::upgrade()
 		{
 			m_gold *= 2;
 		}
-		priceUpgradeLabel->setString(to_string(m_gold));
 	}
 	if (m_level == 3)
 	{
@@ -563,6 +566,11 @@ Skill * Tower::getTowerSkill()
 void Tower::showDetailSkill()
 {
 
+}
+
+Sprite * Tower::getSkillDetails()
+{
+	return skillDetail;
 }
 
 int Tower::GetDamage()

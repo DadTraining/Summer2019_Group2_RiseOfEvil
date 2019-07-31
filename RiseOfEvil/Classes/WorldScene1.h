@@ -108,6 +108,7 @@ private:
 	bool checkgameover = false;
 	bool checkFindMonster = false;
 	vector<Monster*> m_listMonsterSoldierFound;
+	vector<Monster*> m_listMonsterIsDead;
 public:
 	static Scene* createScene();
 	virtual bool init() override;
