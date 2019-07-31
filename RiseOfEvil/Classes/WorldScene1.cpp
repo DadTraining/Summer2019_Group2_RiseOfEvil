@@ -412,6 +412,17 @@ void WorldScene1::update(float deltaTime)
 		{
 			listMonster[i]->setProgressBar();
 		}
+		//Set health bar of soldier
+		for (int i = 0; i < listTower.size(); i++)
+		{
+			if (listTower[i]->GetType() == 5)
+			{
+				for (int j = 0; j < listTower[i]->GetListSoldier().size(); j++)
+				{
+					listTower[i]->GetListSoldier()[j]->setProgressBar();
+				}
+			}
+		}
 		for (int i = 0; i < listMonster.size(); i++)
 		{
 			if (listMonster[i]->GetSprite()->getPosition().getDistance(crystal->getSprite()->getPosition()) < 50)
@@ -472,7 +483,11 @@ void WorldScene1::update(float deltaTime)
 					delay = 0.4;
 				}
 			}
-			checkMonsterAttack = MonsterAttack(listMonster[i]);
+			checkMonsterAttack = MonsterAttack(listMonster[i], deltaTime);
+			if (checkMonsterAttack)
+			{
+
+			}
 			MonsterMove(listMonster[i], listMonster[i]->GetSprite()->getTag(), checkMonsterAttack, deltaTime, delay);
 		}
 
@@ -536,6 +551,7 @@ void WorldScene1::update(float deltaTime)
 			}
 		}
 		//Soldier Attack
+
 		for (int i = 0; i < listTower.size(); i++)
 		{
 			if (listTower[i]->GetType() == 5)
@@ -543,9 +559,13 @@ void WorldScene1::update(float deltaTime)
 				for (int j = 0; j < listTower[i]->GetListSoldier().size(); j++)
 				{
 					SoldierFindMonster(listTower[i]->GetListSoldier()[j]);
+					if (listTower[i]->GetListSoldier()[j]->GetChecKGuard())
+					{
+						listTower[i]->GetListSoldier()[j]->Guard(deltaTime);				
+					}
 					if (SoldierFindMonster(listTower[i]->GetListSoldier()[j]) != nullptr)
 					{
-						listTower[i]->GetListSoldier()[j]->SetCheckAttack(SoldierAttack(listTower[i]->GetListSoldier()[j], SoldierFindMonster(listTower[i]->GetListSoldier()[j])));
+						listTower[i]->GetListSoldier()[j]->SetCheckAttack(SoldierAttack(listTower[i]->GetListSoldier()[j], SoldierFindMonster(listTower[i]->GetListSoldier()[j]), deltaTime));
 						listTower[i]->GetListSoldier()[j]->MoveToMonster(SoldierFindMonster(listTower[i]->GetListSoldier()[j])->GetSprite()->getPosition(), deltaTime);
 					}
 
@@ -744,7 +764,7 @@ void WorldScene1::moveFlag(Vec2 Pos)
 {
 }
 
-bool WorldScene1::MonsterAttack(Monster* monster)
+bool WorldScene1::MonsterAttack(Monster* monster, float deltaTime)
 {
 	if (monster->GetSprite()->getPosition().distance(crystal->getSprite()->getPosition()) <= 50)
 	{
@@ -758,6 +778,7 @@ bool WorldScene1::MonsterAttack(Monster* monster)
 			{
 				if (monster->GetSprite()->getPosition().distance(listTower[j]->GetListSoldier()[k]->GetSprite()->getPosition()) <= 20)
 				{
+					MonsterHurtSoldier(listTower[j]->GetListSoldier()[k], monster, deltaTime);
 					return true;
 				}
 			}
@@ -765,22 +786,52 @@ bool WorldScene1::MonsterAttack(Monster* monster)
 	}
 	return false;
 }
+float timeMonsterHurtSolider = 0;
+void WorldScene1::MonsterHurtSoldier(Soldier* soldier, Monster* monster, float deltaTime)
+{
+	if (timeMonsterHurtSolider >= monster->GetAttackSpeed())
+	{
+		soldier->ReduceHitPointSoldier(monster->GetDamage());
+		timeMonsterHurtSolider = 0;
+	}
+	else
+	{
+		timeMonsterHurtSolider += deltaTime;
+	}
+	
+}
+float timeSoliderHurtMonster = 0;
+void WorldScene1::SoldierHurtMonster(Soldier * soldier, Monster * monster, float deltaTime)
+{
+	if (timeSoliderHurtMonster >= soldier->GetAttackSpeed())
+	{
+		monster->ReduceHitPointMonster(soldier->GetDamage());
+		timeSoliderHurtMonster = 0;
+	}
+	else
+	{
+		timeSoliderHurtMonster += deltaTime;
+	}
+}
 Monster* WorldScene1::SoldierFindMonster(Soldier* soldier)
 {
 	for (int i = 0; i < listMonster.size(); i++)
 	{
 		if (soldier->GetSprite()->getPosition().distance(listMonster[i]->GetSprite()->getPosition()) <= soldier->GetRange())
 		{
+			soldier->SetCheckGuard(false);
 			return listMonster[i];
 		}			
 	}
+	soldier->SetCheckGuard(true);
 	return nullptr;
 }
 
-bool WorldScene1::SoldierAttack(Soldier* soldier, Monster* monster)
+bool WorldScene1::SoldierAttack(Soldier* soldier, Monster* monster , float deltaTime)
 {
 	if (soldier->GetSprite()->getPosition().distance(monster->GetSprite()->getPosition()) <= 20)
 	{
+		SoldierHurtMonster(soldier, monster, deltaTime);
 		return true;
 	}
 	return false;
@@ -917,12 +968,8 @@ bool WorldScene1::onTouchBegan(Touch * touch, Event * event)
 		{
 			towerChoosing->GetRangeBarrackTower()->setVisible(false);
 		}
-		else if (towerChoosing->GetCheckTouchFlag())
-			{		
-				for (int i = 0; i < towerChoosing->GetListSoldier().size(); i++)
-				{
-					towerChoosing->GetListSoldier()[i]->SetTouchFlag(true);
-				}
+		else
+		{
 				towerChoosing->SetCheckTouchFlag(false);
 				towerChoosing->HideCircleMenu();
 				Flag->setVisible(true);

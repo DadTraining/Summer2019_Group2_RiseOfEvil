@@ -26,8 +26,9 @@ void Soldier::Init()
 	m_bloodBar->setPosition(Point(m_sprite->getContentSize().width / 2, m_sprite->getContentSize().height * 0.8));
 	m_bloodBar->setScale(0.2);
 
-	auto mBody = PhysicsBody::createBox(m_sprite->getContentSize() / 2);
-	mBody->setDynamic(true);
+	auto mBody = PhysicsBody::createBox(m_sprite->getContentSize() / 2,PhysicsMaterial(1,0,1));
+	mBody->setCollisionBitmask(1);
+	mBody->setDynamic(false);
 	mBody->setGravityEnable(false);
 	mBody->setRotationEnable(false);
 	m_sprite->setScale(0.5);
@@ -58,84 +59,96 @@ void Soldier::Init()
 void Soldier::Update(float deltaTime)
 {
 }
-
 void Soldier::Move(Vec2 point)
 {
-	
-	if ((m_sprite->getPosition().y == point.y) && (m_sprite->getPosition().x <= point.x)) 
+	if ((m_sprite->getPosition().y == point.y) && (m_sprite->getPosition().x <= point.x))
 	{
 		Action(E);
+		direction = E;
 	}
-	else if ((m_sprite->getPosition().y == point.y) && (m_sprite->getPosition().x >= point.x)) 
+	else if ((m_sprite->getPosition().y == point.y) && (m_sprite->getPosition().x >= point.x))
 	{
 		Action(W);
+		direction = W;
 	}
-	else if ((m_sprite->getPosition().x == point.x) && (m_sprite->getPosition().y >= point.y)) 
+	else if ((m_sprite->getPosition().x == point.x) && (m_sprite->getPosition().y >= point.y))
 	{
 		Action(S);
+		direction = S;
 	}
-	else if ((m_sprite->getPosition().x == point.x) && (m_sprite->getPosition().y <= point.y)) 
+	else if ((m_sprite->getPosition().x == point.x) && (m_sprite->getPosition().y <= point.y))
 	{
 		Action(N);
+		direction = N;
 	}
-	else if ((m_sprite->getPosition().x <= point.x) && (m_sprite->getPosition().y >= point.y)) 
+	else if ((m_sprite->getPosition().x <= point.x) && (m_sprite->getPosition().y >= point.y))
 	{
 		Action(SE);
+		direction = SE;
 	}
-	else if ((m_sprite->getPosition().x >= point.x) && (m_sprite->getPosition().y >= point.y)) 
+	else if ((m_sprite->getPosition().x >= point.x) && (m_sprite->getPosition().y >= point.y))
 	{
 		Action(SW);
+		direction = SW;
 	}
-	else if ((m_sprite->getPosition().x <= point.x) && (m_sprite->getPosition().y <= point.y)) 
+	else if ((m_sprite->getPosition().x <= point.x) && (m_sprite->getPosition().y <= point.y))
 	{
 		Action(NE);
+		direction = NE;
 	}
 	else if ((m_sprite->getPosition().x >= point.x) && (m_sprite->getPosition().y <= point.y))
 	{
 		Action(NW);
+		direction = NW;
 	}
 	auto moveTo = MoveTo::create(point.getDistance(m_sprite->getPosition()) / m_speed, Vec2(point.x, point.y));
-	auto callbackHide = CallFunc::create(CC_CALLBACK_0(Soldier::SetTouchFlagTwo,this));
-	auto callbackHide2 = CallFunc::create(CC_CALLBACK_0(Soldier::StopAction, this));
-	auto sequen = Sequence::create(moveTo,  callbackHide, callbackHide2, NULL);
+	auto callbackHide = CallFunc::create(CC_CALLBACK_0(Soldier::SetTouchFlagTwo, this));
+	auto callbackHide2 = CallFunc::create(CC_CALLBACK_0(Soldier::StopAllAction, this));
+	auto sequen = Sequence::create(moveTo, callbackHide, callbackHide2, NULL);
 	m_sprite->runAction(sequen);
 
 }
 float timeRun = 0;
-int count11 = 0;
 void Soldier::MoveToMonster(Vec2 point, float timedelay)
 {
-	if (!touchFlag)
+	if (!touchFlag && !checkGuard)
 	{
 		if (timeRun >= 0.4)
 		{
 			
 			if ((m_sprite->getPosition().y == point.y) && (m_sprite->getPosition().x <= point.x)) {
 				ActionMove(E);
+				direction = E;
 				
 			}
 			else if ((m_sprite->getPosition().y == point.y) && (m_sprite->getPosition().x >= point.x)) {
 				ActionMove(W);
-				
+				direction = W;
 			}
 			else if ((m_sprite->getPosition().x == point.x) && (m_sprite->getPosition().y >= point.y)) {
 				ActionMove(S);
+				direction = S;
 			}
 			else if ((m_sprite->getPosition().x == point.x) && (m_sprite->getPosition().y <= point.y)) {
 				ActionMove(N);
+				direction = N;
 			}
 			else if ((m_sprite->getPosition().x <= point.x) && (m_sprite->getPosition().y >= point.y)) {
 				ActionMove(SE);
+				direction = SE;
 			}
 			else if ((m_sprite->getPosition().x >= point.x) && (m_sprite->getPosition().y >= point.y)) {
 				ActionMove(SW);
+				direction = SW;
 			}
 			else if ((m_sprite->getPosition().x <= point.x) && (m_sprite->getPosition().y <= point.y)) {
 				ActionMove(NE);
+				direction = NE;
 			} 
 			else if ((m_sprite->getPosition().x >= point.x) && (m_sprite->getPosition().y <= point.y))
 			{
 				ActionMove(NW);
+				direction = NW;
 			}		
 			;
 			auto sequence = Sequence::create(MoveTo::create(point.getDistance(m_sprite->getPosition()) / m_movementSpeed, Vec2(point.x, point.y)),NULL);
@@ -148,6 +161,22 @@ void Soldier::MoveToMonster(Vec2 point, float timedelay)
 		}
 		
 	}	
+}
+float timeGuard = 0;
+void Soldier::Guard(float deltaTime)
+{
+	if (!touchFlag)
+	{
+		if (timeGuard > 0.3)
+		{
+			ActionGuard(direction);
+			timeGuard = 0;
+		}
+		else
+		{
+			timeGuard += deltaTime;
+		}
+	}		
 }
 Animation * Soldier::AnimationMonster(string prefixName, int pFrameBegin, int pFrameEnd, float delay)
 {
@@ -450,14 +479,97 @@ void Soldier::ActionMove(int direction)
 	}
 }
 
+void Soldier::ActionGuard(int direction)
+{
+	if(!touchFlag)
+	{
+		switch (direction)
+		{
+		case E:
+		{
+			auto GuardE = Animate::create(Soldier::AnimationMonster(m_fomatAnimation, m_png[40], m_png[41], m_guardAnimation));
+			GuardE->retain();
+
+			m_sprite->stopAllActions();
+			m_sprite->runAction(RepeatForever::create(GuardE)->clone());
+			break;
+		}
+
+		case W:
+		{
+
+			auto GuardW = Animate::create(Soldier::AnimationMonster(m_fomatAnimation, m_png[32], m_png[33], m_guardAnimation));
+			GuardW->retain();
+
+			m_sprite->stopAllActions();
+			m_sprite->runAction(RepeatForever::create(GuardW)->clone());
+			break;
+		}
+
+		case S:
+		{
+			auto GuardS = Animate::create(Soldier::AnimationMonster(m_fomatAnimation, m_png[44], m_png[45], m_guardAnimation));
+			GuardS->retain();
+
+			m_sprite->stopAllActions();
+			m_sprite->runAction(RepeatForever::create(GuardS)->clone());
+			break;
+		}
+
+		case N:
+		{
+			auto GuardN = Animate::create(Soldier::AnimationMonster(m_fomatAnimation, m_png[36], m_png[37], m_guardAnimation));
+			GuardN->retain();
+
+			m_sprite->stopAllActions();
+			m_sprite->runAction(RepeatForever::create(GuardN)->clone());
+			break;
+		}
+
+		case SE:
+		{
+			auto GuardSE = Animate::create(Soldier::AnimationMonster(m_fomatAnimation, m_png[42], m_png[43], m_guardAnimation));
+			GuardSE->retain();
+
+			m_sprite->stopAllActions();
+			m_sprite->runAction(RepeatForever::create(GuardSE)->clone());
+			break;
+		}
+
+		case SW:
+		{
+			auto GuardSW = Animate::create(Soldier::AnimationMonster(m_fomatAnimation, m_png[46], m_png[47], m_guardAnimation));
+			GuardSW->retain();
+
+			m_sprite->stopAllActions();
+			m_sprite->runAction(RepeatForever::create(GuardSW)->clone());
+			break;
+		}
+		case NE:
+		{
+			auto GuardNE = Animate::create(Soldier::AnimationMonster(m_fomatAnimation, m_png[38], m_png[39], m_guardAnimation));
+			GuardNE->retain();
+
+			m_sprite->stopAllActions();
+			m_sprite->runAction(RepeatForever::create(GuardNE)->clone());
+			break;
+		}
+		case NW:
+		{
+			auto GuardNW = Animate::create(Soldier::AnimationMonster(m_fomatAnimation, m_png[34], m_png[35], m_guardAnimation));
+			GuardNW->retain();
+
+			m_sprite->stopAllActions();
+			m_sprite->runAction(RepeatForever::create(GuardNW)->clone());
+			break;
+		}
+		}
+	}
+}
+
 bool Soldier::GetTouchFlag()
 {
 	return touchFlag;
-}
-
-void Soldier::StopAction()
-{
-	m_sprite->stopAllActions();
 }
 
 void Soldier::SetTouchFlag(bool touchFlag)
@@ -475,9 +587,40 @@ void Soldier::SetCheckAttack(bool checkAttack)
 	this->checkAttack = checkAttack;
 }
 
+void Soldier::StopAllAction()
+{
+	m_sprite->stopAllActions();
+}
+
+bool Soldier::GetChecKGuard()
+{
+	return checkGuard;
+}
+
+void Soldier::SetCheckGuard(bool checkGuard)
+{
+	this->checkGuard = checkGuard;
+}
+
 int Soldier::GetRange()
 {
 	return m_range;
+}
+void Soldier::setProgressBar()
+{
+	m_blood->setScaleX(abs(m_hitPoint / (m_maxHitPoint * 1.0)));
+}
+int Soldier::GetDamage()
+{
+	return random(m_minimumAtk, m_maximumAtk);
+}
+int Soldier::GetMaxHitPoint()
+{
+	return m_maxHitPoint;
+}
+void Soldier::ReduceHitPointSoldier(int damage)
+{
+	m_hitPoint -= damage;
 }
 
 void Soldier::SetRange(int m_range)
@@ -498,5 +641,20 @@ float Soldier::GetMovementSpeed()
 void Soldier::SetMovementSpeed(float movement)
 {
 	m_movementSpeed = movement;
+}
+
+bool Soldier::IsDead()
+{
+	if (m_hitPoint > 0)
+	{
+		return false;
+	}
+	else
+		return true;
+}
+
+float Soldier::GetAttackSpeed()
+{
+	return m_attackSpeed;
 }
 
