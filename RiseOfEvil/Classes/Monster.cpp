@@ -31,7 +31,6 @@ void Monster::Init()
 			m_sprite = Sprite::createWithSpriteFrameName("_skeleton_1.png");
 			m_bloodBar = Sprite::createWithSpriteFrameName("healthbar_bg_skeleton.png");
 			m_blood = Sprite::createWithSpriteFrameName("healthbar_skeleton.png");
-
 			m_blood->setAnchorPoint(Point(0, 0.5));
 			m_blood->setPosition(Point(0, m_bloodBar->getContentSize().height / 2));
 
@@ -313,7 +312,7 @@ void Monster::Init()
 		m_minimumAtk = 200;
 		m_maximumAtk = 400;
 		m_attackSpeed = 2.0;
-		m_speed = m_movementSpeed = m_velocity = SLOW_SPEED;
+		m_speed = m_movementSpeed = m_movementSpeedRun = m_velocity = SLOW_SPEED;
 		//m_armor = 0;
 		m_gold = 500;
 		break;
@@ -414,12 +413,16 @@ void Monster::Action(int direction, bool check)
 		AttackE->retain();
 		if (!check)
 		{
+			if (m_movementSpeed <= (40 * (m_speed / 100)))
+			{
+				m_movementSpeed = m_speed;
+			}
 			m_sprite->stopAllActions();
 			m_sprite->runAction(RepeatForever::create(walkingE)->clone());
 		}
 		else
 		{
-			m_movementSpeed = m_speed / 10000;
+			m_movementSpeed = m_speed / 1000000;
 			m_sprite->stopAllActions();
 			m_sprite->runAction(RepeatForever::create(AttackE)->clone());
 		}
@@ -435,12 +438,16 @@ void Monster::Action(int direction, bool check)
 		AttackW->retain();
 		if (!check)
 		{
+			if (m_movementSpeed <= (40 * (m_speed / 100)))
+			{
+				m_movementSpeed = m_speed;
+			}
 			m_sprite->stopAllActions();
 			m_sprite->runAction(RepeatForever::create(walkingW)->clone());
 		}
 		else
 		{
-			m_movementSpeed = m_speed / 10000;
+			m_movementSpeed = m_speed / 10000000;
 			m_sprite->stopAllActions();
 			m_sprite->runAction(RepeatForever::create(AttackW)->clone());
 		}
@@ -455,12 +462,16 @@ void Monster::Action(int direction, bool check)
 		AttackS->retain();
 		if (!check)
 		{
+			if (m_movementSpeed <= (40 * (m_speed / 100)))
+			{
+				m_movementSpeed = m_speed;
+			}
 			m_sprite->stopAllActions();
 			m_sprite->runAction(RepeatForever::create(walkingS)->clone());
 		}
 		else
 		{
-			m_movementSpeed = m_speed / 10000;
+			m_movementSpeed = m_speed / 10000000;
 			m_sprite->stopAllActions();
 			m_sprite->runAction(RepeatForever::create(AttackS)->clone());
 		}
@@ -475,12 +486,16 @@ void Monster::Action(int direction, bool check)
 		AttackN->retain();
 		if (!check)
 		{
+			if (m_movementSpeed <= (40 * (m_speed / 100)))
+			{
+				m_movementSpeed = m_speed;
+			}
 			m_sprite->stopAllActions();
 			m_sprite->runAction(RepeatForever::create(walkingN)->clone());
 		}
 		else
 		{
-			m_movementSpeed = m_speed / 10000;
+			m_movementSpeed = m_speed / 10000000;
 			m_sprite->stopAllActions();
 			m_sprite->runAction(RepeatForever::create(AttackN)->clone());
 		}
@@ -495,12 +510,16 @@ void Monster::Action(int direction, bool check)
 		AttackSE->retain();
 		if (!check)
 		{
+			if (m_movementSpeed < (40 * (m_speed / 100)))
+			{
+				m_movementSpeed = m_speed;
+			}
 			m_sprite->stopAllActions();
 			m_sprite->runAction(RepeatForever::create(walkingSE)->clone());
 		}
 		else
 		{
-			m_movementSpeed = m_speed / 10000;
+			m_movementSpeed = m_speed / 10000000;
 			m_sprite->stopAllActions();
 			m_sprite->runAction(RepeatForever::create(AttackSE)->clone());
 		}
@@ -515,12 +534,16 @@ void Monster::Action(int direction, bool check)
 		AttackSW->retain();
 		if (!check)
 		{
+			if (m_movementSpeed < (40 * (m_speed / 100)))
+			{
+				m_movementSpeed = m_speed;
+			}
 			m_sprite->stopAllActions();
 			m_sprite->runAction(RepeatForever::create(walkingSW)->clone());
 		}
 		else
 		{
-			m_movementSpeed = m_speed / 10000;
+			m_movementSpeed = m_speed / 10000000;
 			m_sprite->stopAllActions();
 			m_sprite->runAction(RepeatForever::create(AttackSW)->clone());
 		}
@@ -534,12 +557,16 @@ void Monster::Action(int direction, bool check)
 		AttackNE->retain();
 		if (!check)
 		{
+			if (m_movementSpeed < (40 * (m_speed / 100)))
+			{
+				m_movementSpeed = m_speed;
+			}
 			m_sprite->stopAllActions();
 			m_sprite->runAction(RepeatForever::create(walkingNE)->clone());
 		}
 		else
 		{
-			m_movementSpeed = m_speed / 10000;
+			m_movementSpeed = m_speed / 10000000;
 			m_sprite->stopAllActions();
 			m_sprite->runAction(RepeatForever::create(AttackNE)->clone());
 		}
@@ -553,12 +580,16 @@ void Monster::Action(int direction, bool check)
 		AttackNW->retain();
 		if (!check)
 		{
+			if (m_movementSpeed < (40 * (m_speed / 100)))
+			{
+				m_movementSpeed = m_speed;
+			}
 			m_sprite->stopAllActions();
 			m_sprite->runAction(RepeatForever::create(walkingNW)->clone());
 		}
 		else
 		{
-			m_movementSpeed = m_speed / 10000;
+			m_movementSpeed = m_speed / 1000000;
 			m_sprite->stopAllActions();
 			m_sprite->runAction(RepeatForever::create(AttackNW)->clone());
 		}
@@ -572,7 +603,10 @@ void Monster::AttackCrystal(Crystal *crystal, float deltaTime)
 	if (countToAttack >= m_attackSpeed)
 	{
 		auto damage = GetDamage();
-		crystal->setHitPoint(crystal->getHitPoint() - damage);
+		if (crystal->getHitPoint() > 0)
+		{
+			crystal->setHitPoint(crystal->getHitPoint() - damage);
+		}
 		auto damageLabel = Label::createWithTTF("" + to_string(random(1, 10)), "fonts/Comic_Book.ttf", 20);
 		if (damage > 50)
 		{

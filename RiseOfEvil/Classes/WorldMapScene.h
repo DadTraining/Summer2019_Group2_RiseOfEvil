@@ -11,7 +11,6 @@ public:
 	virtual bool init();
 	CREATE_FUNC(WorldMapScene);
 	void add_star(Vec2 vec);
-	void GoToWorldScene1();
 	void GoToMainMenu();
 	void GoToUpgrade();
 	void GoToStage(Ref*,int);

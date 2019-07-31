@@ -397,7 +397,11 @@ void Tower::upgrade()
 		m_hitPoint *= m_level;
 		m_minimumAtk *= m_level;
 		m_maximumAtk *= m_level;
-		m_gold += m_gold;
+		m_gold *= m_level;
+		if (m_level == 2)
+		{
+			m_gold *= 2;
+		}
 		priceUpgradeLabel->setString(to_string(m_gold));
 	}
 	if (m_level == 3)
@@ -461,7 +465,6 @@ bool Tower::getIncreaseAttackSpeedSkill()
 {
 	return checkIncreaseAttackSpeedSkill;
 }
-
 bool Tower::getIncreaseAttackDamageSkill()
 {
 	return checkIncreaseAttackDamageSkill;

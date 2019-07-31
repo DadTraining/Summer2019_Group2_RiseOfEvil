@@ -11,6 +11,9 @@ private:
 	Sprite *hpBgSprite;
 	ProgressTimer *hpBar;
 	ParticleFire *fire;
+	bool crystalBurst;
+	int count = 0;
+	bool checkLose = false;
 public:
 	Crystal(Layer *layer);
 	~Crystal();
@@ -18,5 +21,8 @@ public:
 	void setPercentOfHealthBar();
 	int getHitPoint();
 	void setHitPoint(int hitPoint);
+	bool getcrystalBurst();
+	bool getCheckLose();
+	int getmaxHitPoint();
 	Sprite* getSprite();
 };

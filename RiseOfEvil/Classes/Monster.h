@@ -38,6 +38,7 @@ private:
 	int m_gold;
 	int m_maxHitPoint;
 	Animation *animation;
+	float m_movementSpeedRun;
 	float m_movementSpeed;
 	float m_speed;
 	float m_velocity;
