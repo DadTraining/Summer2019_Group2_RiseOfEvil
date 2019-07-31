@@ -6,13 +6,13 @@
 #include "Soldier.h"
 #include "Skill.h"
 #include <iostream>
-
+#include <SimpleAudioEngine.h>
 #define ARROW_TOWER 1
 #define MAGIC_TOWER 2
 #define SLOW_TOWER 3
 #define BOMBARD_TOWER 4
 #define BARRACKS_TOWER 5
-
+using namespace CocosDenshion;
 using namespace cocos2d;
 using namespace std;
 class Tower : public Objects
@@ -59,6 +59,11 @@ private:
 	int baseMinnimumAtk;
 	int baseMaximumAtk;
 	float baseAttackSpeed;
+	SimpleAudioEngine * towerArrowAttackSound;
+	SimpleAudioEngine * towerMagicAttackSound;
+	SimpleAudioEngine * towerSlowwAttackSound;
+	SimpleAudioEngine * towerBoombardAttackSound;
+	SimpleAudioEngine * towerBarrackAttackSound;
 public:
 	void Init();
 	Tower(Layer* layer, int, Vec2);
