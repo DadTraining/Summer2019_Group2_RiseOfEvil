@@ -495,7 +495,6 @@ void WorldScene1::update(float deltaTime)
 				checkMonsterAttack = MonsterAttack(listMonster[i], deltaTime);
 				MonsterMove(listMonster[i], listMonster[i]->GetSprite()->getTag(), checkMonsterAttack, deltaTime, delay);
 			}
-
 		}
 
 		//crystal burst
