@@ -1,9 +1,11 @@
 #include "Monster.h"
 #include "ResourceManager.h"
 using namespace std;
+static int main_id = 0;
 Monster::Monster(Layer * layer, int type)
 {
 	m_type = type;
+	id = main_id++;
 	this->layer = layer;
 	Init();
 	speed = m_speed * 80 / 100;
@@ -307,7 +309,28 @@ void Monster::Init()
 		break;
 	}	
 	case DARKLORD:
-		m_sprite = ResourceManager::GetInstance()->DuplicateSprite(ResourceManager::GetInstance()->GetSpriteById(DARKLORD)); //id = id of MAGICAN_MONSTER
+		m_spriteNode = SpriteBatchNode::create("minotaur.png");
+		SpriteFrameCache::getInstance()->addSpriteFramesWithFile("minotaur.plist");
+
+		m_sprite = Sprite::createWithSpriteFrameName("_minotaur_1.png");
+
+		m_bloodBar = Sprite::createWithSpriteFrameName("healthbar_bg_minotaur.png");
+		m_blood = Sprite::createWithSpriteFrameName("healthbar_minotaur.png");
+		m_blood->setAnchorPoint(Point(0, 0.5));
+		m_blood->setPosition(Point(0, m_bloodBar->getContentSize().height / 2));
+
+		m_bloodBar->setPosition(Point(m_sprite->getContentSize().width / 2, m_sprite->getContentSize().height * 1.05));
+		m_bloodBar->setScale(0.2);
+
+		m_bloodBar->addChild(m_blood, 8);
+		m_sprite->addChild(m_bloodBar, 6);
+		m_spriteNode->addChild(m_sprite);
+		m_sprite->setVisible(false);
+		m_fomatAnimation = "_minotaur_";
+		m_png[0] = 1; m_png[1] = 8; m_png[2] = 9; m_png[3] = 16; m_png[4] = 17; m_png[5] = 24; m_png[6] = 25; m_png[7] = 32; m_png[8] = 33; m_png[9] = 40; m_png[10] = 41; m_png[11] = 48; m_png[12] = 49; m_png[13] = 56; m_png[14] = 57; m_png[15] = 64;
+		m_png[16] = 65; m_png[17] = 69; m_png[18] = 70; m_png[19] = 74; m_png[20] = 75; m_png[21] = 79; m_png[22] = 80; m_png[23] = 84; m_png[24] = 85; m_png[25] = 89; m_png[26] = 90; m_png[27] = 94; m_png[28] = 95; m_png[29] = 99; m_png[30] = 100; m_png[31] = 104;
+		m_sprite->setScale(2.5);
+		m_sprite->setColor(Color3B::RED);
 		m_hitPoint = 21600;
 		m_minimumAtk = 200;
 		m_maximumAtk = 400;
@@ -633,13 +656,18 @@ void Monster::AttackCrystal(Crystal *crystal, float deltaTime)
 
 void Monster::DoDead()
 {
-	auto seq = Sequence::create(DelayTime::create(0.3f), FadeOut::create(0), RemoveSelf::create(), nullptr);
-	dead1 = Sprite::create("dead.png");
-	dead1->setScale(0.6);
-	dead1->setPosition(m_sprite->getPosition());
-	layer->addChild(dead1, 3);
-	dead1->runAction(MoveBy::create(0.3f, Vec2(0, 10)));
-	dead1->runAction(seq);
+	if (!Dead)
+	{
+		auto seq = Sequence::create(DelayTime::create(0.3f), FadeOut::create(0), RemoveSelf::create(), nullptr);
+		dead1 = Sprite::create("dead.png");
+		dead1->setScale(0.6);
+		dead1->setPosition(m_sprite->getPosition());
+		layer->addChild(dead1, 3);
+		dead1->runAction(MoveBy::create(0.3f, Vec2(0, 10)));
+		dead1->runAction(seq);
+		Dead = true;
+	}
+	
 }
 
 void Monster::SetType(int type)
@@ -754,11 +782,11 @@ void Monster::ReduceHitPointMonster(int damage)
 
 bool Monster::IsDead()
 {
-	if (m_hitPoint > 0)
-	{
-		return false;
-	}
-	else
-		return true;
+	return Dead;
+}
+
+int Monster::GetId()
+{
+	return id;
 }
 
