@@ -70,6 +70,10 @@ Tower::Tower(Layer * layer, int type, Vec2 Pos)
 		HideCircleMenu();
 		rangeBarrackTower->setVisible(true);
 		checkTouchFlag = true;
+		for (int i = 0; i < GetListSoldier().size(); i++)
+		{
+			GetListSoldier()[i]->SetTouchFlag(true);
+		}
 	});
 	flagIcon->setPosition(circleIcon->getPosition().x + circleIcon->getContentSize().width / 2 -10, circleIcon->getPosition().y);
 	flagIcon->setVisible(false);

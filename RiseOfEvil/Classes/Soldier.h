@@ -11,6 +11,8 @@ using namespace std;
 class Soldier : public Objects
 {
 private:
+	bool Dead = false;
+	int direction = W;
 	int m_type;
 	float rand;
 	int m_png[48];
@@ -21,6 +23,7 @@ private:
 	float m_guardAnimation;
 	bool touchFlag = false;
 	bool checkAttack = false;
+	bool checkGuard = true;
 	int m_gold;
 	int m_maxHitPoint;
 	Animation *animation;
@@ -41,19 +44,30 @@ public:
 	void Update(float deltaTime);
 	void Move(Vec2);
 	void MoveToMonster(Vec2, float);
+	void Guard(float);
 	Animation* AnimationMonster(string, int, int, float);
 
 	void Action(int);
 	void ActionMove(int);
+	void ActionGuard(int);
 	void AttackMonster(Monster*);
 	bool GetTouchFlag();
-	void StopAction();
 	void SetTouchFlag(bool);
 	void SetTouchFlagTwo();
 	void SetCheckAttack(bool);
+	void StopAllAction();
+	bool GetChecKGuard();
+	void SetCheckGuard(bool);
 	int GetRange();
+	void setProgressBar();
+	int GetDamage();
+	int GetMaxHitPoint();
+	void ReduceHitPointSoldier(int);
 	void SetRange(int);
 	float GetMSpeed();
 	float GetMovementSpeed();
 	void SetMovementSpeed(float);
+	bool IsDead();
+	float GetAttackSpeed();
+	void DoDead();
 };
