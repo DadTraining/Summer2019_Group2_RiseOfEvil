@@ -369,6 +369,7 @@ void WorldScene1::update(float deltaTime)
 					listLocationTower.erase(listLocationTower.begin() + j);
 				}
 			}
+			checkSellTowerLevelThree = true;
 			listTower[i]->GetSprite()->setVisible(false);
 			currentGold += listTower[i]->GetGold() / 2;
 			//delete listTower[i];
@@ -659,6 +660,74 @@ void WorldScene1::update(float deltaTime)
 		else
 		{
 			countTimeToIncreaseSpeedMonster += deltaTime;
+		}
+		for (int i = 0; i < listTower.size(); i++)
+		{
+			if (listTower[i]->getLevel() == 3)
+			{
+				switch (listTower[i]->GetType())
+				{
+				case ARROW_TOWER:
+					listTower[i]->setIncreaseAttackSpeedSkill(true);
+					break;
+				case MAGIC_TOWER:
+					listTower[i]->setIncreaseAttackDamageSkill(true);
+					break;
+				case SLOW_TOWER:
+					listTower[i]->slowSkill(listMonster);
+					break;
+				case BOMBARD_TOWER:
+					listTower[i]->burnSkill(listMonster, deltaTime);
+					break;
+
+					//listTower[i]->getTowerSkill()->getSprite()->setVisible(true);
+				}
+
+			}
+			if (listTower[i]->getIncreaseAttackSpeedSkill() == true)
+			{
+				for (int j = 0; j < listTower.size(); j++)
+				{
+					if (listTower[i]->GetSprite()->getPosition().distance(listTower[j]->GetSprite()->getPosition()) < 150)
+					{
+						if (listTower[j]->GetAttackSpeed() > listTower[j]->getMinimumAttackSpeed() * 90 / 100)
+						{
+							listTower[j]->SetAttackSpeed(listTower[j]->GetAttackSpeed()* 95 /100);
+							listArrowTowerTemp.push_back(listTower[j]);
+						}
+					}
+				}
+			}
+			if (listTower[i]->getIncreaseAttackDamageSkill() == true)
+			{
+				for (int j = 0; j < listTower.size(); j++)
+				{
+					if (listTower[i]->GetSprite()->getPosition().distance(listTower[j]->GetSprite()->getPosition()) < 150)
+					{
+						if (listTower[j]->GetMinimumAtk() < 15)
+						{
+							listTower[j]->SetMinimumAtk(listTower[j]->GetMinimumAtk() +5);		
+							listMagicTowerTemp.push_back(listTower[j]);
+						}
+						if (listTower[j]->GetMaximumAtk() < 25)
+						{
+							listTower[j]->SetMaximumAtk(listTower[j]->GetMaximumAtk() + 5);
+							listMagicTowerTemp.push_back(listTower[j]);
+						}
+					}
+				}
+			}
+			if (checkSellTowerLevelThree == true)
+			{
+				for (int m = 0; m < listArrowTowerTemp.size(); m++)
+				{
+					listArrowTowerTemp[m]->resetTower(listArrowTowerTemp[m]->getLevel());
+				}
+				for (int m = 0; m < listMagicTowerTemp.size(); m++)
+				{
+					listMagicTowerTemp[m]->resetTower(listMagicTowerTemp[m]->getLevel());
+				}
+			}
 		}
 	}
 }
@@ -1018,15 +1087,28 @@ void WorldScene1::onTouchEnded(Touch * touch, Event * event)
 //Create menu build Tower
 void WorldScene1::createmenu(Vec2 point)
 {
-	if (touchLocation.x > 350)
+	if (touchLocation.y >= 400)
 	{
-		menu->setPosition(Vec2(point.x - 150, point.y));
+		if (touchLocation.x > 350)
+		{
+			menu->setPosition(Vec2(point.x - 150, point.y - 150));
+		}
+		else if (touchLocation.x <= 350)
+		{
+			menu->setPosition(Vec2(point.x + 180, point.y - 150));
+		}
 	}
 	else
 	{
-		menu->setPosition(Vec2(point.x + 150, point.y));
+		if (touchLocation.x > 350)
+		{
+			menu->setPosition(Vec2(point.x - 150, point.y));
+		}
+		else if (touchLocation.x <= 350)
+		{
+			menu->setPosition(Vec2(point.x + 180, point.y));
+		}
 	}
-	//menu->setPosition(Vec2(point.x -150, point.y));
 	archerIcon->setPosition(menu->getContentSize().width, menu->getContentSize().height);
 	magicIcon->setPosition(menu->getContentSize().width + magicIcon->getContentSize().width, menu->getContentSize().height);
 	slowIcon->setPosition(menu->getContentSize().width + 2 * slowIcon->getContentSize().width, menu->getContentSize().height);

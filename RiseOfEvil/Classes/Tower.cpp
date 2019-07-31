@@ -8,45 +8,46 @@ void Tower::Init()
 	case ARROW_TOWER:
 		m_sprite = Sprite::create("res/WorldScene1/arrowtower1.png");
 		m_hitPoint = 100;
-		m_minimumAtk = 4;
-		m_maximumAtk = 6;
-		m_minimumAttackSpeed = m_attackSpeed = 0.8;
+		baseMinnimumAtk = m_minimumAtk = 4;
+		baseMaximumAtk = m_maximumAtk = 6;
+		baseAttackSpeed = m_minimumAttackSpeed = m_attackSpeed = 0.8;
 		m_range = 160;
 		m_gold = 70;
 		break;
 	case MAGIC_TOWER:
 		m_sprite = Sprite::create("res/WorldScene1/magictower1.png");
 		m_hitPoint = 100;
-		m_minimumAtk = 9;
-		m_maximumAtk = 17;
+		baseMinnimumAtk = m_minimumAtk = 9;
+		baseMaximumAtk = m_maximumAtk = 17;
 		m_minimumAttackSpeed = m_attackSpeed = 1.5;
+		baseAttackSpeed = 1.5;
 		m_range = 240;
 		m_gold = 100;
 		break;
 	case SLOW_TOWER:
 		m_sprite = Sprite::create("res/WorldScene1/slowtower1.png");
 		m_hitPoint = 100;
-		m_minimumAtk = 1;
-		m_maximumAtk = 3;
-		m_minimumAttackSpeed = m_attackSpeed = 1.3;
+		baseMinnimumAtk = m_minimumAtk = 1;
+		baseMaximumAtk = m_maximumAtk = 3;
+		baseAttackSpeed = m_minimumAttackSpeed = m_attackSpeed = 1.3;
 		m_range = 180;
 		m_gold = 80;
 		break;
 	case BOMBARD_TOWER:
 		m_sprite = Sprite::create("res/WorldScene1/boomtower1.png");
 		m_hitPoint = 100;
-		m_minimumAtk = 10;
-		m_maximumAtk = 18;
-		m_minimumAttackSpeed = m_attackSpeed = 3.0;
+		baseMinnimumAtk = m_minimumAtk = 10;
+		baseMaximumAtk = m_maximumAtk = 18;
+		baseAttackSpeed = m_minimumAttackSpeed = m_attackSpeed = 3.0;
 		m_range = 180;
 		m_gold = 120;
 		break;
 	case BARRACKS_TOWER:
 		m_sprite = Sprite::create("res/WorldScene1/brracktower1.png");
 		m_hitPoint = 100;
-		m_minimumAtk = 0;
-		m_maximumAtk = 0;
-		m_minimumAttackSpeed = m_attackSpeed = 300000.0;
+		baseMinnimumAtk = m_minimumAtk = 0;
+		baseMaximumAtk = m_maximumAtk = 0;
+		baseAttackSpeed = m_minimumAttackSpeed = m_attackSpeed = 300000.0;
 		m_range = 250;
 		m_gold = 70;
 		break;
@@ -91,6 +92,7 @@ Tower::Tower(Layer * layer, int type, Vec2 Pos)
 	//=============================================
 	confirmIcon = MenuItemImage::create("confirm.png", "confirm_disable.png", "confirm_disable.png", [&](Ref* sender) {
 		isSell = true;
+
 		confirmSell();
 	});
 	confirmIcon->setPosition(circleIcon->getPosition().x, circleIcon->getPosition().y - circleIcon->getContentSize().height / 2 + 10);
@@ -491,7 +493,7 @@ void Tower::slowSkill(vector<Monster*> listMonster)
 	for (int i = 0; i < listMonster.size(); i++)
 	{
 		if (m_sprite->getPosition().distance(listMonster[i]->GetSprite()->getPosition()) < 150 
-			&& listMonster[i]->GetMovementSpeed() > listMonster[i]->GetMSpeed() * 60 / 100)
+			&& listMonster[i]->GetMovementSpeed() > listMonster[i]->GetMSpeed() * 60 / 100 && listMonster[i]->GetSprite()->isVisible())
 		{
 			listMonster[i]->SetMovementSpeed(listMonster[i]->GetMovementSpeed() - listMonster[i]->GetMSpeed() * 10 / 100);
 			//checkSlowSkill = true;
@@ -505,7 +507,7 @@ void Tower::burnSkill(vector<Monster*> listMonster, float deltaTime)
 	{
 		for (int i = 0; i < listMonster.size(); i++)
 		{
-				if (m_sprite->getPosition().distance(listMonster[i]->GetSprite()->getPosition()) < 150)
+				if (m_sprite->getPosition().distance(listMonster[i]->GetSprite()->getPosition()) < 150 && listMonster[i]->GetSprite()->isVisible())
 				{
 					listMonster[i]->SetHitPoint(listMonster[i]->GetHitPoint() - 5);
 					countTimeToReduceHPForBurnSkill = 0;
@@ -572,6 +574,27 @@ void Tower::showDetailSkill()
 
 }
 
+void Tower::resetTower(int level)
+{
+	switch (level)
+	{
+	case 1:
+		m_minimumAtk = baseMinnimumAtk;
+		m_maximumAtk = baseMaximumAtk;
+		m_attackSpeed = baseAttackSpeed;
+		break;
+	case 2:
+		m_minimumAtk = baseMinnimumAtk * 2;
+		m_maximumAtk = baseMaximumAtk * 2;
+		m_attackSpeed = baseAttackSpeed * 2;
+		break;
+	case 3:
+		m_minimumAtk = baseMinnimumAtk * 6;
+		m_maximumAtk = baseMaximumAtk * 6;
+		m_attackSpeed = baseAttackSpeed * 6;
+		break;
+	}
+}
 Sprite * Tower::getSkillDetails()
 {
 	return skillDetail;

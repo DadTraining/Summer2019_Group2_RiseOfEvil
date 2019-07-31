@@ -35,6 +35,8 @@ private:
 	vector<Vec2> listPoint2;
 	vector<Vec2> listLocationTower;
 	vector<Tower*>listTower;
+	vector<Tower*>listArrowTowerTemp;
+	vector<Tower*>listMagicTowerTemp;
 	PhysicsBody *body;
 	float delay;
 	Monster * nearestMonster;
@@ -107,6 +109,7 @@ private:
 	bool checkClickBuildButton = false;
 	bool checkgameover = false;
 	bool checkFindMonster = false;
+	bool checkSellTowerLevelThree = false;
 	vector<Monster*> m_listMonsterSoldierFound;
 	vector<Monster*> m_listMonsterIsDead;
 public:
