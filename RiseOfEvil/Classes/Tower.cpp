@@ -240,6 +240,30 @@ void Tower::Shoot(vector<Monster*> listMonster)
 			break;
 		}
 	}
+	switch (m_type)
+	{
+	case ARROW_TOWER:
+		towerArrowAttackSound = SimpleAudioEngine::getInstance();
+		towerArrowAttackSound->playEffect("sound/Sound_ArrowHit3.wav", false);
+		break;
+	case MAGIC_TOWER:
+		towerMagicAttackSound = SimpleAudioEngine::getInstance();
+		towerMagicAttackSound->playEffect("sound/necromancer_attack.wav", false);
+		break;
+	case SLOW_TOWER:
+		towerSlowwAttackSound = SimpleAudioEngine::getInstance();
+		towerSlowwAttackSound->playEffect("sound/Sound_MageShot.wav", false);
+		break;
+	case BOMBARD_TOWER:
+		towerBoombardAttackSound = SimpleAudioEngine::getInstance();
+		towerBoombardAttackSound->playEffect("sound/Sound_Bomb1.wav", false);
+		break;
+	case BARRACKS_TOWER:
+		towerBarrackAttackSound = SimpleAudioEngine::getInstance();
+		towerBarrackAttackSound->playEffect("sound/Sound_TowerOpenDoor.wav", false);
+		break;
+	}
+
 }
 
 void Tower::Update(float deltaTime, vector<Monster*> listMonster)

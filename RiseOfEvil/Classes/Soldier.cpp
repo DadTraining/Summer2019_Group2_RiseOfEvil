@@ -19,14 +19,14 @@ void Soldier::Init()
 	m_sprite = Sprite::createWithSpriteFrameName("_soldier1_1.png");
 	m_bloodBar = Sprite::createWithSpriteFrameName("healthbar_bg_soldier1.png");
 	m_blood = Sprite::createWithSpriteFrameName("healthbar_soldier1.png");
-	m_blood->setColor(Color3B(051,255,255));
+	m_blood->setColor(Color3B(051, 255, 255));
 	m_blood->setAnchorPoint(Point(0, 0.5));
 	m_blood->setPosition(Point(0, m_bloodBar->getContentSize().height / 2));
 
 	m_bloodBar->setPosition(Point(m_sprite->getContentSize().width / 2, m_sprite->getContentSize().height * 0.8));
 	m_bloodBar->setScale(0.2);
 
-	auto mBody = PhysicsBody::createBox(m_sprite->getContentSize() / 2,PhysicsMaterial(1,0,1));
+	auto mBody = PhysicsBody::createBox(m_sprite->getContentSize() / 2, PhysicsMaterial(1, 0, 1));
 	mBody->setCollisionBitmask(1);
 	mBody->setDynamic(false);
 	mBody->setGravityEnable(false);
@@ -37,7 +37,7 @@ void Soldier::Init()
 	m_bloodBar->addChild(m_blood, 8);
 	m_sprite->addChild(m_bloodBar, 6);
 	m_spriteNode->addChild(m_sprite);
-	m_sprite->setVisible(false);
+	m_sprite->setVisible(true);
 	m_fomatAnimation = "_soldier1_";
 	m_png[0] = 1; m_png[1] = 8; m_png[2] = 9; m_png[3] = 16; m_png[4] = 17; m_png[5] = 24; m_png[6] = 25; m_png[7] = 32; m_png[8] = 33; m_png[9] = 40; m_png[10] = 41; m_png[11] = 48; m_png[12] = 49; m_png[13] = 56; m_png[14] = 57; m_png[15] = 64;
 	m_png[16] = 65; m_png[17] = 71; m_png[18] = 72; m_png[19] = 78; m_png[20] = 79; m_png[21] = 85; m_png[22] = 86; m_png[23] = 92; m_png[24] = 93; m_png[25] = 99; m_png[26] = 100; m_png[27] = 106; m_png[28] = 107; m_png[29] = 113; m_png[30] = 114; m_png[31] = 120;
@@ -115,11 +115,11 @@ void Soldier::MoveToMonster(Vec2 point, float timedelay)
 	{
 		if (timeRun >= 0.4)
 		{
-			
+
 			if ((m_sprite->getPosition().y == point.y) && (m_sprite->getPosition().x <= point.x)) {
 				ActionMove(E);
 				direction = E;
-				
+
 			}
 			else if ((m_sprite->getPosition().y == point.y) && (m_sprite->getPosition().x >= point.x)) {
 				ActionMove(W);
@@ -144,23 +144,23 @@ void Soldier::MoveToMonster(Vec2 point, float timedelay)
 			else if ((m_sprite->getPosition().x <= point.x) && (m_sprite->getPosition().y <= point.y)) {
 				ActionMove(NE);
 				direction = NE;
-			} 
+			}
 			else if ((m_sprite->getPosition().x >= point.x) && (m_sprite->getPosition().y <= point.y))
 			{
 				ActionMove(NW);
 				direction = NW;
-			}		
+			}
 			;
-			auto sequence = Sequence::create(MoveTo::create(point.getDistance(m_sprite->getPosition()) / m_movementSpeed, Vec2(point.x, point.y)),NULL);
-			m_sprite->runAction(sequence);			
+			auto sequence = Sequence::create(MoveTo::create(point.getDistance(m_sprite->getPosition()) / m_movementSpeed, Vec2(point.x, point.y)), NULL);
+			m_sprite->runAction(sequence);
 			timeRun = 0;
 		}
 		else
 		{
 			timeRun += timedelay;
 		}
-		
-	}	
+
+	}
 }
 float timeGuard = 0;
 void Soldier::Guard(float deltaTime)
@@ -176,7 +176,7 @@ void Soldier::Guard(float deltaTime)
 		{
 			timeGuard += deltaTime;
 		}
-	}		
+	}
 }
 Animation * Soldier::AnimationMonster(string prefixName, int pFrameBegin, int pFrameEnd, float delay)
 {
@@ -219,7 +219,7 @@ void Soldier::Action(int direction)
 		walkingW->retain();
 		auto AttackW = Animate::create(Soldier::AnimationMonster(m_fomatAnimation, m_png[16], m_png[17], m_attackAnimation));
 		AttackW->retain();
-	
+
 		m_sprite->stopAllActions();
 		m_sprite->runAction(RepeatForever::create(walkingW)->clone());
 		break;
@@ -278,7 +278,7 @@ void Soldier::Action(int direction)
 		walkingNE->retain();
 		auto AttackNE = Animate::create(Soldier::AnimationMonster(m_fomatAnimation, m_png[22], m_png[23], m_attackAnimation));
 		AttackNE->retain();
-		
+
 		m_sprite->stopAllActions();
 		m_sprite->runAction(RepeatForever::create(walkingNE)->clone());
 		break;
@@ -291,7 +291,7 @@ void Soldier::Action(int direction)
 		AttackNW->retain();
 
 		m_sprite->stopAllActions();
-		m_sprite->runAction(RepeatForever::create(walkingNW)->clone());	
+		m_sprite->runAction(RepeatForever::create(walkingNW)->clone());
 		break;
 	}
 	}
@@ -302,12 +302,12 @@ void Soldier::ActionMove(int direction)
 	switch (direction)
 	{
 	case E:
-	{	
+	{
 		auto walkingE = Animate::create(Soldier::AnimationMonster(m_fomatAnimation, m_png[8], m_png[9], 0.05f));
 		walkingE->retain();
 		auto AttackE = Animate::create(Soldier::AnimationMonster(m_fomatAnimation, m_png[24], m_png[25], m_attackAnimation));
 		AttackE->retain();
-		
+
 		if (!checkAttack)
 		{
 			m_movementSpeed = m_speed;
@@ -320,7 +320,7 @@ void Soldier::ActionMove(int direction)
 			m_sprite->stopAllActions();
 			m_sprite->runAction(RepeatForever::create(AttackE)->clone());
 		}
-		
+
 		break;
 	}
 
@@ -331,7 +331,7 @@ void Soldier::ActionMove(int direction)
 		walkingW->retain();
 		auto AttackW = Animate::create(Soldier::AnimationMonster(m_fomatAnimation, m_png[16], m_png[17], m_attackAnimation));
 		AttackW->retain();
-		
+
 		if (!checkAttack)
 		{
 			m_movementSpeed = m_speed;
@@ -353,7 +353,7 @@ void Soldier::ActionMove(int direction)
 		walkingS->retain();
 		auto AttackS = Animate::create(Soldier::AnimationMonster(m_fomatAnimation, m_png[28], m_png[29], m_attackAnimation));
 		AttackS->retain();
-		
+
 		if (!checkAttack)
 		{
 			m_movementSpeed = m_speed;
@@ -397,7 +397,7 @@ void Soldier::ActionMove(int direction)
 		walkingSE->retain();
 		auto AttackSE = Animate::create(Soldier::AnimationMonster(m_fomatAnimation, m_png[26], m_png[27], m_attackAnimation));
 		AttackSE->retain();
-		
+
 		if (!checkAttack)
 		{
 			m_movementSpeed = m_speed;
@@ -419,7 +419,7 @@ void Soldier::ActionMove(int direction)
 		walkingSW->retain();
 		auto AttackSW = Animate::create(Soldier::AnimationMonster(m_fomatAnimation, m_png[30], m_png[31], m_attackAnimation));
 		AttackSW->retain();
-		
+
 		if (!checkAttack)
 		{
 			m_movementSpeed = m_speed;
@@ -440,7 +440,7 @@ void Soldier::ActionMove(int direction)
 		walkingNE->retain();
 		auto AttackNE = Animate::create(Soldier::AnimationMonster(m_fomatAnimation, m_png[22], m_png[23], m_attackAnimation));
 		AttackNE->retain();
-		
+
 		if (!checkAttack)
 		{
 			m_movementSpeed = m_speed;
@@ -461,7 +461,7 @@ void Soldier::ActionMove(int direction)
 		walkingNW->retain();
 		auto AttackNW = Animate::create(Soldier::AnimationMonster(m_fomatAnimation, m_png[18], m_png[19], m_attackAnimation));
 		AttackNW->retain();
-	
+
 		if (!checkAttack)
 		{
 			m_movementSpeed = m_speed;
@@ -481,7 +481,7 @@ void Soldier::ActionMove(int direction)
 
 void Soldier::ActionGuard(int direction)
 {
-	if(!touchFlag)
+	if (!touchFlag)
 	{
 		switch (direction)
 		{
@@ -635,7 +635,7 @@ float Soldier::GetMSpeed()
 
 float Soldier::GetMovementSpeed()
 {
-  return m_movementSpeed;
+	return m_movementSpeed;
 }
 
 void Soldier::SetMovementSpeed(float movement)
