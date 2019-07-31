@@ -411,7 +411,7 @@ void Tower::upgrade()
 			m_gold *= 2;
 		}
 	}
-	if (m_level == 3)
+	if (m_level == 3 && m_type != BARRACKS_TOWER)
 	{
 		towerSkill->getSprite()->setVisible(true);
 		skillIcon->setVisible(true);
@@ -616,7 +616,12 @@ void Tower::Reborn(float deltaTime)
 				listSoldier.push_back(m_soldier);
 				if ((i + 1) % 2 != 0)
 				{
+<<<<<<< HEAD
 					listSoldier[i]->GetSprite()->setPosition(Vec2(m_sprite->getPosition().x + (i*i) *i, m_sprite->getPosition().y + (i *i) * 2 * i));
+=======
+					listSoldier[i]->GetSprite()->setPosition(Vec2(600,300));
+					//m_sprite->getPosition().x + (i*i) *i, m_sprite->getPosition().y + (i *i) * 2 * i)
+>>>>>>> 3d83d0b070167d9a70620cbb7641c5c0251eca1b
 				}
 				else
 				{
