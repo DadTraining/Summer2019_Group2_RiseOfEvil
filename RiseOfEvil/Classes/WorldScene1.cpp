@@ -494,7 +494,7 @@ void WorldScene1::update(float deltaTime)
 					}
 				}
 				checkMonsterAttack = MonsterAttack(listMonster[i], deltaTime);
-				MonsterMove(listMonster[i], listMonster[i]->GetSprite()->getTag(), checkMonsterAttack, deltaTime, delay);
+				MonsterMove(listMonster[i], listMonster[i]->GetSprite()->getTag(), checkMonsterAttack, deltaTime, delay);			
 			}
 		}
 
@@ -817,11 +817,14 @@ bool WorldScene1::MonsterAttack(Monster* monster, float deltaTime)
 		{
 			for (int k = 0; k < listTower[j]->GetListSoldier().size(); k++)
 			{
-				if (monster->GetSprite()->getPosition().distance(listTower[j]->GetListSoldier()[k]->GetSprite()->getPosition()) <= 20)
+				if (!listTower[j]->GetListSoldier()[k]->IsDead())
 				{
-					MonsterHurtSoldier(listTower[j]->GetListSoldier()[k], monster, deltaTime);
-					return true;
-				}
+					if (monster->GetSprite()->getPosition().distance(listTower[j]->GetListSoldier()[k]->GetSprite()->getPosition()) <= 20)
+					{
+						MonsterHurtSoldier(listTower[j]->GetListSoldier()[k], monster, deltaTime);
+						return true;
+					}
+				}		
 			}
 		}
 	}
