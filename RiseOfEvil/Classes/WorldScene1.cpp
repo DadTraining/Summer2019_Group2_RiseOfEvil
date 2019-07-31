@@ -1000,15 +1000,28 @@ void WorldScene1::onTouchEnded(Touch * touch, Event * event)
 //Create menu build Tower
 void WorldScene1::createmenu(Vec2 point)
 {
-	if (touchLocation.x > 350)
+	if (touchLocation.y >= 400)
 	{
-		menu->setPosition(Vec2(point.x - 150, point.y));
+		if (touchLocation.x > 350)
+		{
+			menu->setPosition(Vec2(point.x - 150, point.y - 150));
+		}
+		else if (touchLocation.x <= 350)
+		{
+			menu->setPosition(Vec2(point.x + 180, point.y - 150));
+		}
 	}
 	else
 	{
-		menu->setPosition(Vec2(point.x + 150, point.y));
+		if (touchLocation.x > 350)
+		{
+			menu->setPosition(Vec2(point.x - 150, point.y));
+		}
+		else if (touchLocation.x <= 350)
+		{
+			menu->setPosition(Vec2(point.x + 180, point.y));
+		}
 	}
-	//menu->setPosition(Vec2(point.x -150, point.y));
 	archerIcon->setPosition(menu->getContentSize().width, menu->getContentSize().height);
 	magicIcon->setPosition(menu->getContentSize().width + magicIcon->getContentSize().width, menu->getContentSize().height);
 	slowIcon->setPosition(menu->getContentSize().width + 2 * slowIcon->getContentSize().width, menu->getContentSize().height);
