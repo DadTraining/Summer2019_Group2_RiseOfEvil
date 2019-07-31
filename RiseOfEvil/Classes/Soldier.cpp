@@ -32,12 +32,12 @@ void Soldier::Init()
 	mBody->setGravityEnable(false);
 	mBody->setRotationEnable(false);
 	m_sprite->setScale(0.5);
-	m_sprite->setPhysicsBody(mBody);
+//	m_sprite->setPhysicsBody(mBody);
 
 	m_bloodBar->addChild(m_blood, 8);
 	m_sprite->addChild(m_bloodBar, 6);
 	m_spriteNode->addChild(m_sprite);
-	m_sprite->setVisible(false);
+	m_sprite->setVisible(true);
 	m_fomatAnimation = "_soldier1_";
 	m_png[0] = 1; m_png[1] = 8; m_png[2] = 9; m_png[3] = 16; m_png[4] = 17; m_png[5] = 24; m_png[6] = 25; m_png[7] = 32; m_png[8] = 33; m_png[9] = 40; m_png[10] = 41; m_png[11] = 48; m_png[12] = 49; m_png[13] = 56; m_png[14] = 57; m_png[15] = 64;
 	m_png[16] = 65; m_png[17] = 71; m_png[18] = 72; m_png[19] = 78; m_png[20] = 79; m_png[21] = 85; m_png[22] = 86; m_png[23] = 92; m_png[24] = 93; m_png[25] = 99; m_png[26] = 100; m_png[27] = 106; m_png[28] = 107; m_png[29] = 113; m_png[30] = 114; m_png[31] = 120;
