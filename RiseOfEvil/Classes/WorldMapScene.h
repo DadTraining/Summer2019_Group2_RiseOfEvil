@@ -2,10 +2,14 @@
 #pragma once
 #pragma once
 #include "cocos2d.h"
+#include <SimpleAudioEngine.h>
+using namespace CocosDenshion;
 USING_NS_CC;
 
 class WorldMapScene : public Scene
 {
+private:
+	SimpleAudioEngine *touchMusic;
 public:
 	static Scene* createScene();
 	virtual bool init();

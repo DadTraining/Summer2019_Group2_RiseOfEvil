@@ -1,6 +1,8 @@
 #pragma once
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
+#include <SimpleAudioEngine.h>
+using namespace CocosDenshion;
 using namespace cocos2d;
 class MainMenuScene : public cocos2d::Scene
 {
@@ -12,6 +14,7 @@ private:
 	ui::Button * btnCampaign;
 	ui::Button * btnSurvival;
 	ui::Button * btnBack;
+	SimpleAudioEngine *touchMusic;
 public:
 	static cocos2d::Scene* createScene();
 	virtual bool init();

@@ -8,6 +8,7 @@
 #include "Soldier.h"
 #include "Crystal.h"
 #include <algorithm>
+#include <SimpleAudioEngine.h>
 #define BLOOD_BAR 9
 #define E  1
 #define W  2
@@ -17,6 +18,7 @@
 #define NE 6
 #define NW 7
 #define SW 8
+using namespace CocosDenshion;
 using namespace cocos2d;
 using namespace std;
 USING_NS_CC;
@@ -97,6 +99,7 @@ private:
 	ui::Button *muteBTN;
 	ui::Button *pauseBtn;
 	ui::Button *showDecriptionBtn;
+	ui::Button * pauseSound;
 	bool releaseMonster = false;
 	bool touchOut = false;
 	bool touchIn = false;
@@ -112,6 +115,8 @@ private:
 	bool checkSellTowerLevelThree = false;
 	vector<Monster*> m_listMonsterSoldierFound;
 	vector<Monster*> m_listMonsterIsDead;
+	SimpleAudioEngine * backgroundMusic;
+	SimpleAudioEngine * audio;
 public:
 	static Scene* createScene();
 	virtual bool init() override;
@@ -137,6 +142,7 @@ public:
 	void Warning();
 	void startWave();
 	void muteSound();
+	void resumeSound();
 	void exit();
 	void moreGold();
 	void BuildTowerFake(int type);
