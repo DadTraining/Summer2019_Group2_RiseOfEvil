@@ -55,6 +55,10 @@ private:
 	bool checkBurnSkill = false;
 	bool checkSlowSkill = false;
 	Sprite * skillDetail;
+	// to reset Tower after buff
+	int baseMinnimumAtk;
+	int baseMaximumAtk;
+	float baseAttackSpeed;
 public:
 	void Init();
 	Tower(Layer* layer, int, Vec2);
@@ -103,4 +107,5 @@ public:
 	float getMinimumAttackSpeed();
 	Skill *getTowerSkill();
 	void showDetailSkill();
+	void resetTower(int);
 };

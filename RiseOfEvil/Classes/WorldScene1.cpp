@@ -337,10 +337,12 @@ void WorldScene1::update(float deltaTime)
 					listLocationTower.erase(listLocationTower.begin() + j);
 				}
 			}
+			checkSellTowerLevelThree = true;
 			listTower[i]->GetSprite()->setVisible(false);
 			currentGold += listTower[i]->GetGold() / 2;
 			//delete listTower[i];
 			listTower.erase(listTower.begin() + i);
+
 		}
 	}
 	//Check tower update
@@ -530,7 +532,6 @@ if (listMonster[monster]->GetSprite()->getPosition().distance(listTower[tower]->
 		{
 			countTimeToIncreaseSpeedMonster += deltaTime;
 		}
-
 		for (int i = 0; i < listTower.size(); i++)
 		{
 			if (listTower[i]->getLevel() == 3)
@@ -545,11 +546,10 @@ if (listMonster[monster]->GetSprite()->getPosition().distance(listTower[tower]->
 					break;
 				case SLOW_TOWER:
 					listTower[i]->slowSkill(listMonster);
-					//listTower[i]->getTowerSkill()->getSprite()->setVisible(true);
 					break;
 				case BOMBARD_TOWER:
 					listTower[i]->burnSkill(listMonster, deltaTime);
-					//listTower[i]->getTowerSkill()->getSprite()->setVisible(true);
+					break;
 				}
 
 			}
@@ -557,12 +557,12 @@ if (listMonster[monster]->GetSprite()->getPosition().distance(listTower[tower]->
 			{
 				for (int j = 0; j < listTower.size(); j++)
 				{
-					if (listTower[i]->GetSprite()->getPosition().distance(listTower[j]->GetSprite()->getPosition()) < 150
-						&& listTower[i]->GetSprite()->getPosition().distance(listTower[j]->GetSprite()->getPosition()) > 10)
+					if (listTower[i]->GetSprite()->getPosition().distance(listTower[j]->GetSprite()->getPosition()) < 150)
 					{
-						if (listTower[j]->GetAttackSpeed() > listTower[j]->getMinimumAttackSpeed()* 90 / 100)
+						if (listTower[j]->GetAttackSpeed() > (listTower[j]->getMinimumAttackSpeed()*80/100))
 						{
-							listTower[j]->SetAttackSpeed(listTower[j]->GetAttackSpeed() * 98 / 100);
+							listTower[j]->SetAttackSpeed(listTower[j]->GetAttackSpeed()* 95 /100);
+							listArrowTowerTemp.push_back(listTower[j]);
 						}
 					}
 				}
@@ -571,15 +571,30 @@ if (listMonster[monster]->GetSprite()->getPosition().distance(listTower[tower]->
 			{
 				for (int j = 0; j < listTower.size(); j++)
 				{
-					if (listTower[i]->GetSprite()->getPosition().distance(listTower[j]->GetSprite()->getPosition()) < 150
-						&& listTower[i]->GetSprite()->getPosition().distance(listTower[j]->GetSprite()->getPosition()) > 10)
+					if (listTower[i]->GetSprite()->getPosition().distance(listTower[j]->GetSprite()->getPosition()) < 150)
 					{
-						if (listTower[j]->GetMinimumAtk() < 20 && listTower[j]->GetMaximumAtk() < 60)
+						if (listTower[j]->GetMinimumAtk() < 15)
 						{
-							listTower[j]->SetMinimumAtk(listTower[j]->GetMinimumAtk() * 110 / 100);
-							listTower[j]->SetMaximumAtk(listTower[j]->GetMaximumAtk() * 110 / 100);
+							listTower[j]->SetMinimumAtk(listTower[j]->GetMinimumAtk() +5);		
+							listMagicTowerTemp.push_back(listTower[j]);
+						}
+						if (listTower[j]->GetMaximumAtk() < 25)
+						{
+							listTower[j]->SetMaximumAtk(listTower[j]->GetMaximumAtk() + 5);
+							listMagicTowerTemp.push_back(listTower[j]);
 						}
 					}
+				}
+			}
+			if (checkSellTowerLevelThree == true)
+			{
+				for (int m = 0; m < listArrowTowerTemp.size(); m++)
+				{
+					listArrowTowerTemp[m]->resetTower(listArrowTowerTemp[m]->getLevel());
+				}
+				for (int m = 0; m < listMagicTowerTemp.size(); m++)
+				{
+					listMagicTowerTemp[m]->resetTower(listMagicTowerTemp[m]->getLevel());
 				}
 			}
 		}
