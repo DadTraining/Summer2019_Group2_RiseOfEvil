@@ -13,8 +13,8 @@ Soldier::~Soldier()
 
 void Soldier::Init()
 {
-	m_spriteNode = SpriteBatchNode::create("soldier1.png");
-	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("soldier1.plist");
+	m_spriteNode = SpriteBatchNode::create("sol.png");
+	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("sol.plist");
 
 	m_sprite = Sprite::createWithSpriteFrameName("_soldier1_1.png");
 	m_bloodBar = Sprite::createWithSpriteFrameName("healthbar_bg_soldier1.png");
@@ -181,7 +181,7 @@ void Soldier::Guard(float deltaTime)
 Animation * Soldier::AnimationMonster(string prefixName, int pFrameBegin, int pFrameEnd, float delay)
 {
 
- 	Vector<SpriteFrame*> animFrames;
+	Vector<SpriteFrame*> animFrames;
 	for (int i = pFrameBegin; i <= pFrameEnd; i++)
 	{
 		char buffer[20] = { 0 };

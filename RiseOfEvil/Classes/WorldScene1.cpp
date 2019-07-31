@@ -594,7 +594,7 @@ void WorldScene1::update(float deltaTime)
 					SoldierFindMonster(listTower[i]->GetListSoldier()[j]);
 					if (listTower[i]->GetListSoldier()[j]->GetChecKGuard())
 					{
-						//listTower[i]->GetListSoldier()[j]->Guard(deltaTime);				
+						listTower[i]->GetListSoldier()[j]->Guard(deltaTime);				
 					}
 					if (SoldierFindMonster(listTower[i]->GetListSoldier()[j]) != nullptr)
 					{
