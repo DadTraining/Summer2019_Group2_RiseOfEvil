@@ -645,16 +645,19 @@ void Soldier::SetMovementSpeed(float movement)
 
 bool Soldier::IsDead()
 {
-	if (m_hitPoint > 0)
-	{
-		return false;
-	}
-	else
-		return true;
+	return Dead;
 }
 
 float Soldier::GetAttackSpeed()
 {
 	return m_attackSpeed;
+}
+
+void Soldier::DoDead()
+{
+	if (!Dead)
+	{
+		Dead = true;
+	}
 }
 

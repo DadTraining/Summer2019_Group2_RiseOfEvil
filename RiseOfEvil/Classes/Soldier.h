@@ -11,6 +11,7 @@ using namespace std;
 class Soldier : public Objects
 {
 private:
+	bool Dead = false;
 	int direction = W;
 	int m_type;
 	float rand;
@@ -68,4 +69,5 @@ public:
 	void SetMovementSpeed(float);
 	bool IsDead();
 	float GetAttackSpeed();
+	void DoDead();
 };

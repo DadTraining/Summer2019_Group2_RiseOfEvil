@@ -373,6 +373,7 @@ void WorldScene1::update(float deltaTime)
 			currentGold += listTower[i]->GetGold() / 2;
 			//delete listTower[i];
 			listTower.erase(listTower.begin() + i);
+
 		}
 	}
 	//Check tower update
@@ -425,16 +426,19 @@ void WorldScene1::update(float deltaTime)
 		}
 		for (int i = 0; i < listMonster.size(); i++)
 		{
-			if (listMonster[i]->GetSprite()->getPosition().getDistance(crystal->getSprite()->getPosition()) < 50)
+			if (!listMonster[i]->IsDead())
 			{
-				listMonster[i]->AttackCrystal(crystal, deltaTime);
+				if (listMonster[i]->GetSprite()->getPosition().getDistance(crystal->getSprite()->getPosition()) < 50)
+				{
+					listMonster[i]->AttackCrystal(crystal, deltaTime);
+				}
 			}
 		}
 		if (time >= 40)
 		{
 			startWave();
 		}
-		if (time >= 35) 
+		if (time >= 35)
 		{
 			if ((numOfWave + 1) <= 8)
 			{
@@ -450,45 +454,48 @@ void WorldScene1::update(float deltaTime)
 		time += deltaTime;
 		for (int i = 0; i < listMonster.size(); i++)
 		{
-			if (!(listMonster[i]->GetSprite()->isVisible()))
+			if (!listMonster[i]->IsDead())
 			{
-				listMonster[i]->Update(deltaTime);
-				i = 100;
+				if (!(listMonster[i]->GetSprite()->isVisible()))
+				{
+					listMonster[i]->Update(deltaTime);
+					i = 100;
+				}
 			}
 		}
 		//Monster move
 		for (int i = 0; i < listMonster.size(); i++)
 		{
-			if ((listMonster[i]->m_flag < listPoint.size()) && (listMonster[i]->GetSprite()->getTag() == 1) && (listMonster[i]->GetSprite()->isVisible()))
+			if (!listMonster[i]->IsDead())
 			{
-				if (listPoint[listMonster[i]->m_flag].getDistance(listMonster[i]->GetSprite()->getPosition()) == 0)
+				if ((listMonster[i]->m_flag < listPoint.size()) && (listMonster[i]->GetSprite()->getTag() == 1) && (listMonster[i]->GetSprite()->isVisible()))
 				{
-					listMonster[i]->m_flag++;
-					delay = 0;
+					if (listPoint[listMonster[i]->m_flag].getDistance(listMonster[i]->GetSprite()->getPosition()) == 0)
+					{
+						listMonster[i]->m_flag++;
+						delay = 0;
+					}
+					else
+					{
+						delay = 0.4;
+					}
 				}
-				else
+				else if ((listMonster[i]->m_flag < listPoint2.size()) && (listMonster[i]->GetSprite()->getTag() == 0) && (listMonster[i]->GetSprite()->isVisible()))
 				{
-					delay = 0.4;
+					if (listPoint2[listMonster[i]->m_flag].getDistance(listMonster[i]->GetSprite()->getPosition()) == 0)
+					{
+						listMonster[i]->m_flag++;
+						delay = 0;
+					}
+					else
+					{
+						delay = 0.4;
+					}
 				}
+				checkMonsterAttack = MonsterAttack(listMonster[i], deltaTime);
+				MonsterMove(listMonster[i], listMonster[i]->GetSprite()->getTag(), checkMonsterAttack, deltaTime, delay);
 			}
-			else if ((listMonster[i]->m_flag < listPoint2.size()) && (listMonster[i]->GetSprite()->getTag() == 0) && (listMonster[i]->GetSprite()->isVisible()))
-			{
-				if (listPoint2[listMonster[i]->m_flag].getDistance(listMonster[i]->GetSprite()->getPosition()) == 0)
-				{
-					listMonster[i]->m_flag++;
-					delay = 0;
-				}
-				else
-				{
-					delay = 0.4;
-				}
-			}
-			checkMonsterAttack = MonsterAttack(listMonster[i], deltaTime);
-			if (checkMonsterAttack)
-			{
 
-			}
-			MonsterMove(listMonster[i], listMonster[i]->GetSprite()->getTag(), checkMonsterAttack, deltaTime, delay);
 		}
 
 		//crystal burst
@@ -518,36 +525,66 @@ void WorldScene1::update(float deltaTime)
 		//Monster die
 		for (int m = 0; m < listMonster.size(); m++)
 		{
-			if (listMonster[m]->GetHitPoint() <= 0)
+			if (listMonster[m]->GetHitPoint() <= 0 && !listMonster[m]->IsDead())
 			{
 				listMonster[m]->DoDead();
 				listMonster[m]->GetSprite()->setVisible(false);
 				currentGold += listMonster[m]->GetGold();
-				listMonster.erase(listMonster.begin() + m);
 			}
 		}
-		//Monster attack
+		//Soldier die
+		for (int i = 0; i < listTower.size(); i++)
+		{
+			if (listTower[i]->GetType() == 5)
+			{
+				for (int j = 0; j < listTower[i]->GetListSoldier().size(); j++)
+				{
+					if (listTower[i]->GetListSoldier()[j]->GetHitPoint() <= 0 && !listTower[i]->GetListSoldier()[j]->IsDead())
+					{
+						listTower[i]->GetListSoldier()[j]->DoDead();
+						listTower[i]->GetListSoldier()[j]->GetSprite()->setVisible(false);
+					}
+				}
+			}
+		}
+		for (int i = 0; i < listTower.size(); i++)
+		{
+			if (listTower[i]->GetType() == 5)
+			{
+				for (int j = 0; j < listTower[i]->GetListSoldier().size(); j++)
+				{
+					log("visible : %d", listTower[i]->GetListSoldier()[j]->GetSprite()->isVisible());
+					
+				}
+			}
+
+		}
+		//Tower attack
 		for (int tower = 0; tower < listTower.size(); tower++)
 		{
 			for (int monster = 0; monster < listMonster.size(); monster++)
 			{
 				//Check in range and alive
-				if (listMonster[monster]->GetSprite()->getPosition().distance(listTower[tower]->GetSprite()->getPosition())
-					<
-					listTower[tower]->GetRange()
-					&&
-					listMonster[monster]->GetSprite()->isVisible() == true)
+				if (!listMonster[monster]->IsDead())
 				{
-					//check target out range or die, set target by nullptr when it happen
-					if (listTower[tower]->getStatusOfTarget())
+					if (listMonster[monster]->GetSprite()->getPosition().distance(listTower[tower]->GetSprite()->getPosition())
+						<
+						listTower[tower]->GetRange()
+						&&
+						listMonster[monster]->GetSprite()->isVisible() == true)
 					{
-						listTower[tower]->setTarget(listMonster[monster]);
-					}
-					else
-					{
-						break;
+						//check target out range or die, set target by nullptr when it happen
+						if (listTower[tower]->getStatusOfTarget())
+						{
+							listTower[tower]->setTarget(listMonster[monster]);
+						}
+						else
+						{
+							break;
+						}
 					}
 				}
+				
 			}
 		}
 		//Soldier Attack
@@ -578,21 +615,23 @@ void WorldScene1::update(float deltaTime)
 		for (int i = 0; i < listTower.size(); i++)
 		{
 			listTower[i]->Update(deltaTime, listMonster);
-
 		}
 		//increase speed when monster is slowing
 		if (countTimeToIncreaseSpeedMonster > 0.3)
 		{
 			for (int i = 0; i < listMonster.size(); i++)
 			{
-				if (listMonster[i]->GetMovementSpeed() < listMonster[i]->GetMSpeed())
+				if (!listMonster[i]->IsDead())
 				{
-					listMonster[i]->SetMovementSpeed(listMonster[i]->GetMovementSpeed() + 1);
-				}
-				else
-				{
-					listMonster[i]->SetMovementSpeed(listMonster[i]->GetMSpeed());
-					listMonster[i]->GetSprite()->setColor(Color3B(255, 255, 255));
+					if (listMonster[i]->GetMovementSpeed() < listMonster[i]->GetMSpeed())
+					{
+						listMonster[i]->SetMovementSpeed(listMonster[i]->GetMovementSpeed() + 1);
+					}
+					else
+					{
+						listMonster[i]->SetMovementSpeed(listMonster[i]->GetMSpeed());
+						listMonster[i]->GetSprite()->setColor(Color3B(255, 255, 255));
+					}
 				}
 			}
 
@@ -622,60 +661,6 @@ void WorldScene1::update(float deltaTime)
 		{
 			countTimeToIncreaseSpeedMonster += deltaTime;
 		}
-
-		for (int i = 0; i < listTower.size(); i++)
-		{
-			if (listTower[i]->getLevel() == 3)
-			{
-				switch (listTower[i]->GetType())
-				{
-				case ARROW_TOWER:
-					listTower[i]->setIncreaseAttackSpeedSkill(true);
-					break;
-				case MAGIC_TOWER:
-					listTower[i]->setIncreaseAttackDamageSkill(true);
-					break;
-				case SLOW_TOWER:
-					listTower[i]->slowSkill(listMonster);
-					//listTower[i]->getTowerSkill()->getSprite()->setVisible(true);
-					break;
-				case BOMBARD_TOWER:
-
-					listTower[i]->getTowerSkill()->getSprite()->setVisible(true);
-
-				}
-
-			}
-			if (listTower[i]->getIncreaseAttackSpeedSkill() == true)
-			{
-				for (int j = 0; j < listTower.size(); j++)
-				{
-					if (listTower[i]->GetSprite()->getPosition().distance(listTower[j]->GetSprite()->getPosition()) < 150
-						&& listTower[i]->GetSprite()->getPosition().distance(listTower[j]->GetSprite()->getPosition()) > 10)
-					{
-						if (listTower[j]->GetAttackSpeed() > listTower[j]->getMinimumAttackSpeed() * 90 / 100)
-						{
-							listTower[j]->SetAttackSpeed(listTower[j]->GetAttackSpeed() * 98 / 100);
-						}
-					}
-				}
-			}
-			if (listTower[i]->getIncreaseAttackDamageSkill() == true)
-			{
-				for (int j = 0; j < listTower.size(); j++)
-				{
-					if (listTower[i]->GetSprite()->getPosition().distance(listTower[j]->GetSprite()->getPosition()) < 150
-						&& listTower[i]->GetSprite()->getPosition().distance(listTower[j]->GetSprite()->getPosition()) > 10)
-					{
-						if (listTower[j]->GetMinimumAtk() < 20 && listTower[j]->GetMaximumAtk() < 60)
-						{
-							listTower[j]->SetMinimumAtk(listTower[j]->GetMinimumAtk() * 110 / 100);
-							listTower[j]->SetMaximumAtk(listTower[j]->GetMaximumAtk() * 110 / 100);
-						}
-					}
-				}
-			}
-		}
 	}
 }
 void WorldScene1::restart()
@@ -688,7 +673,7 @@ void WorldScene1::restart()
 		auto newScene = WorldScene1::createScene();
 		Director::getInstance()->replaceScene(newScene);
 	});
-	this->addChild(popup, 15);
+	this->addChild(popup, 21);
 }
 
 //Exit Pause menu
@@ -817,10 +802,13 @@ Monster* WorldScene1::SoldierFindMonster(Soldier* soldier)
 {
 	for (int i = 0; i < listMonster.size(); i++)
 	{
-		if (soldier->GetSprite()->getPosition().distance(listMonster[i]->GetSprite()->getPosition()) <= soldier->GetRange())
+		if (!listMonster[i]->IsDead())
 		{
-			soldier->SetCheckGuard(false);
-			return listMonster[i];
+			if (soldier->GetSprite()->getPosition().distance(listMonster[i]->GetSprite()->getPosition()) <= soldier->GetRange())
+			{
+				soldier->SetCheckGuard(false);
+				return listMonster[i];
+			}
 		}			
 	}
 	soldier->SetCheckGuard(true);
@@ -938,10 +926,6 @@ bool WorldScene1::onTouchBegan(Touch * touch, Event * event)
 		if (listTower[i]->GetSprite()->getBoundingBox().containsPoint(touch->getLocation()))
 		{
 			towerChoosing = listTower[i];
-			if (listTower[i]->getLevel() == 3)
-			{
-				listTower[i]->getPriceUpgradeLabel()->setString("MAX");
-			}
 			if (listTower[i]->GetGold() > currentGold || listTower[i]->getLevel() >= 3)
 			{
 				listTower[i]->getUpgradeIcon()->setEnabled(false);
@@ -953,6 +937,10 @@ bool WorldScene1::onTouchBegan(Touch * touch, Event * event)
 				listTower[i]->getPriceUpgradeLabel()->setString(to_string(listTower[i]->GetGold()));
 				listTower[i]->getUpgradeIcon()->setEnabled(true);
 				listTower[i]->getPriceUpgradeLabel()->setColor(Color3B::YELLOW);
+			}
+			if (listTower[i]->getLevel() == 3)
+			{
+				listTower[i]->getPriceUpgradeLabel()->setString("MAX");
 			}
 			listTower[i]->ShowCircleMenu();
 		}
@@ -1283,7 +1271,7 @@ void WorldScene1::exit()
 
 void WorldScene1::moreGold()
 {
-	currentGold += 200;
+	currentGold += 2000;
 }
 
 
