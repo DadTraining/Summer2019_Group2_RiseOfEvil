@@ -789,7 +789,7 @@ void WorldScene1::ClickPauseButton()
 
 void WorldScene1::returnToMainMenu()
 {
-	backgroundMusic->pauseBackgroundMusic;
+	backgroundMusic->pauseBackgroundMusic();
 	clickPause = false;
 	Label *lbl = Label::createWithTTF("You will lost your process, continue ?", "fonts/Comic_Book.ttf", 40);
 	lbl->setWidth(300);
@@ -1320,7 +1320,7 @@ void WorldScene1::startWave()
 	startWaveBTN2->setVisible(false);
 	time = 0;
 	//Plus num of wave
-	numOfWave++;
+	numOfWave = 10;
 	messageWaveLabel->setString("Wave " + to_string(numOfWave) + " is coming !"); //Change string of Wave label
 	messageWaveLabel->runAction(Sequence::create(ScaleTo::create(0.5, 1), DelayTime::create(2), ScaleTo::create(0.3, 0.001), nullptr));
 	vector<int> temp = wave->getWave(numOfWave); //Get info wave from Wave class
