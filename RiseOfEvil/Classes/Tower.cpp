@@ -514,23 +514,33 @@ void Tower::setIncreaseAttackDamageSkill(bool check)
 
 void Tower::slowSkill(vector<Monster*> listMonster)
 {
-	for (int i = 0; i < listMonster.size(); i++)
+	try
 	{
-		if (m_sprite->getPosition().distance(listMonster[i]->GetSprite()->getPosition()) < 150 
-			&& listMonster[i]->GetMovementSpeed() > listMonster[i]->GetMSpeed() * 60 / 100 && listMonster[i]->GetSprite()->isVisible())
+		for (int i = 0; i < listMonster.size(); i++)
 		{
-			listMonster[i]->SetMovementSpeed(listMonster[i]->GetMovementSpeed() - listMonster[i]->GetMSpeed() * 10 / 100);
-			//checkSlowSkill = true;
-		} 
+			if (m_sprite->getPosition().distance(listMonster[i]->GetSprite()->getPosition()) < 150
+				&& listMonster[i]->GetMovementSpeed() > listMonster[i]->GetMSpeed() * 60 / 100 && listMonster[i]->GetSprite()->isVisible())
+			{
+				listMonster[i]->SetMovementSpeed(listMonster[i]->GetMovementSpeed() - listMonster[i]->GetMSpeed() * 10 / 100);
+				//checkSlowSkill = true;
+			}
+		}
 	}
+	catch (...)
+	{
+		log("error in slow skill in Tower.cpp");
+	}
+	
 }
 
 void Tower::burnSkill(vector<Monster*> listMonster, float deltaTime)
 {
-	if (countTimeToReduceHPForBurnSkill >= 1)
+	try
 	{
-		for (int i = 0; i < listMonster.size(); i++)
+		if (countTimeToReduceHPForBurnSkill >= 1)
 		{
+			for (int i = 0; i < listMonster.size(); i++)
+			{
 				if (m_sprite->getPosition().distance(listMonster[i]->GetSprite()->getPosition()) < 150 && listMonster[i]->GetSprite()->isVisible())
 				{
 					listMonster[i]->SetHitPoint(listMonster[i]->GetHitPoint() - 5);
@@ -539,10 +549,16 @@ void Tower::burnSkill(vector<Monster*> listMonster, float deltaTime)
 				}
 			}
 		}
-	else
-	{
-		countTimeToReduceHPForBurnSkill += deltaTime;
+		else
+		{
+			countTimeToReduceHPForBurnSkill += deltaTime;
+		}
 	}
+	catch (...)
+	{
+		log("error in burn skill in Tower.cpp");
+	}
+	
 }
 
 void Tower::bossSkill(Monster * boss, vector<Monster*> listMonster, float deltaTime)

@@ -45,6 +45,10 @@ SpriteBatchNode * Objects::GetSpriteBatchNote()
 
 Sprite * Objects::GetSprite()
 {
+	if (m_sprite == nullptr)
+	{
+		throw "null sprite";
+	}
 	return m_sprite;
 }
 

@@ -606,7 +606,7 @@ void WorldScene1::update(float deltaTime)
 					SoldierFindMonster(listTower[i]->GetListSoldier()[j]);
 					if (listTower[i]->GetListSoldier()[j]->GetChecKGuard())
 					{
-						//listTower[i]->GetListSoldier()[j]->Guard(deltaTime);				
+						listTower[i]->GetListSoldier()[j]->Guard(deltaTime);				
 					}
 					if (SoldierFindMonster(listTower[i]->GetListSoldier()[j]) != nullptr)
 					{
@@ -798,7 +798,7 @@ void WorldScene1::returnToMainMenu()
 		//Director::getInstance()->getRunningScene()->pause();
 		Director::getInstance()->replaceScene(TransitionFade::create(0.3, WorldMapScene::createScene()));
 	});
-	this->addChild(popup, 15);
+	this->addChild(popup, 21);
 }
 
 //Build Tower
@@ -1320,7 +1320,7 @@ void WorldScene1::startWave()
 	startWaveBTN2->setVisible(false);
 	time = 0;
 	//Plus num of wave
-	numOfWave = 10;
+	numOfWave++;
 	messageWaveLabel->setString("Wave " + to_string(numOfWave) + " is coming !"); //Change string of Wave label
 	messageWaveLabel->runAction(Sequence::create(ScaleTo::create(0.5, 1), DelayTime::create(2), ScaleTo::create(0.3, 0.001), nullptr));
 	vector<int> temp = wave->getWave(numOfWave); //Get info wave from Wave class

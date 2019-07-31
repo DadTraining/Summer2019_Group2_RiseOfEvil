@@ -92,26 +92,34 @@ void Bullet::Move(Monster * monster, int damage, vector<Monster*> listMonster, i
 
 void Bullet::AfterShoot()
 {
-	monsterBeHit->ReduceHitPointMonster(damageOfHit);
-	if (typeOfTower == 4)
+	try
 	{
-		for (int i = 0; i < listOfCurrentMonster.size(); i++)
+		monsterBeHit->ReduceHitPointMonster(damageOfHit);
+		if (typeOfTower == 4)
 		{
-			if (!listOfCurrentMonster[i]->IsDead())
+			for (int i = 0; i < listOfCurrentMonster.size(); i++)
 			{
-				if (listOfCurrentMonster[i]->GetSprite()->getPosition().distance(monsterBeHit->GetSprite()->getPosition()) <= 90
-					&&
-					listOfCurrentMonster[i]->GetSprite()->isVisible())
+				if (!listOfCurrentMonster[i]->IsDead())
 				{
-					listOfCurrentMonster[i]->ReduceHitPointMonster(damageOfHit);
+					if (listOfCurrentMonster[i]->GetSprite()->getPosition().distance(monsterBeHit->GetSprite()->getPosition()) <= 90
+						&&
+						listOfCurrentMonster[i]->GetSprite()->isVisible())
+					{
+						listOfCurrentMonster[i]->ReduceHitPointMonster(damageOfHit);
+					}
 				}
 			}
 		}
+		if (typeOfTower == 3)
+		{
+			monsterBeHit->SetSlowRunSpeed();
+		}
 	}
-	if (typeOfTower == 3)
+	catch (...)
 	{
-		monsterBeHit->SetSlowRunSpeed();
+		log("Error in reduce hit point of monster in Bullet.cpp");
 	}
+	
 	switch (bullet_type)
 	{
 		case ARROW_BULLET:

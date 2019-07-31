@@ -43,7 +43,7 @@ bool WorldMapScene::init()
 		staged.push_back(flag);
 	}
 
-	for (int i = 0; i < 2; i++)
+	for (int i = 0; i < Player::GetInstance()->GetCurrentStage(); i++)
 	{
 		staged[i]->setEnabled(true);
 		add_star(staged[i]->getPosition());
