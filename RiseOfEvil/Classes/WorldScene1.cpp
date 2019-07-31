@@ -531,6 +531,33 @@ void WorldScene1::update(float deltaTime)
 				currentGold += listMonster[m]->GetGold();
 			}
 		}
+		//Soldier die
+		for (int i = 0; i < listTower.size(); i++)
+		{
+			if (listTower[i]->GetType() == 5)
+			{
+				for (int j = 0; j < listTower[i]->GetListSoldier().size(); j++)
+				{
+					if (listTower[i]->GetListSoldier()[j]->GetHitPoint() <= 0 && !listTower[i]->GetListSoldier()[j]->IsDead())
+					{
+						listTower[i]->GetListSoldier()[j]->DoDead();
+						listTower[i]->GetListSoldier()[j]->GetSprite()->setVisible(false);
+					}
+				}
+			}
+		}
+		for (int i = 0; i < listTower.size(); i++)
+		{
+			if (listTower[i]->GetType() == 5)
+			{
+				for (int j = 0; j < listTower[i]->GetListSoldier().size(); j++)
+				{
+					log("visible : %d", listTower[i]->GetListSoldier()[j]->GetSprite()->isVisible());
+					
+				}
+			}
+
+		}
 		//Tower attack
 		for (int tower = 0; tower < listTower.size(); tower++)
 		{
@@ -774,10 +801,13 @@ Monster* WorldScene1::SoldierFindMonster(Soldier* soldier)
 {
 	for (int i = 0; i < listMonster.size(); i++)
 	{
-		if (soldier->GetSprite()->getPosition().distance(listMonster[i]->GetSprite()->getPosition()) <= soldier->GetRange())
+		if (!listMonster[i]->IsDead())
 		{
-			soldier->SetCheckGuard(false);
-			return listMonster[i];
+			if (soldier->GetSprite()->getPosition().distance(listMonster[i]->GetSprite()->getPosition()) <= soldier->GetRange())
+			{
+				soldier->SetCheckGuard(false);
+				return listMonster[i];
+			}
 		}			
 	}
 	soldier->SetCheckGuard(true);
