@@ -120,9 +120,9 @@ public:
 	void returnToMainMenu();
 	void BuildTower();
 	void createmenu(Vec2 point);
-	bool MonsterAttack(Monster*);
+	bool MonsterAttack(Monster*, float);
 	Monster* SoldierFindMonster(Soldier*);
-	bool SoldierAttack(Soldier*, Monster*);
+	bool SoldierAttack(Soldier*, Monster*, float);
 	void MonsterMove(Monster*, int, bool, float, float);
 	void moveFlag(Vec2 Pos);
 	bool onTouchBegan(Touch *touch, Event *event);
@@ -139,5 +139,7 @@ public:
 	void BuildTowerFake(int type);
 	void LoadingBuildTower();
 	void showDescription(Ref*,int);
+	void MonsterHurtSoldier(Soldier*, Monster*, float);
+	void SoldierHurtMonster(Soldier*, Monster*, float);
 	CREATE_FUNC(WorldScene1);
 };
