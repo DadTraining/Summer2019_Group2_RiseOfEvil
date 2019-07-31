@@ -126,6 +126,7 @@ Tower::Tower(Layer * layer, int type, Vec2 Pos)
 		rangeBarrackTower->setVisible(false);
 		rangeBarrackTower->setPosition(m_sprite->getContentSize().width / 2, m_sprite->getContentSize().height / 2);
 		m_sprite->addChild(rangeBarrackTower);
+		
 		for (int i = 0; i < 3; i++)
 		{
 			Soldier * m_soldier = new Soldier(layer);
@@ -138,7 +139,6 @@ Tower::Tower(Layer * layer, int type, Vec2 Pos)
 			{
 				listSoldier[i]->GetSprite()->setPosition(Vec2(Pos.x - (i*i) * i * 32, Pos.y + (i * i) *  i * 16));
 			}
-			listSoldier[i]->GetSprite()->setVisible(true);
 		}
 	}
 	else
@@ -411,7 +411,7 @@ void Tower::upgrade()
 			m_gold *= 2;
 		}
 	}
-	if (m_level == 3)
+	if (m_level == 3 && m_type != BARRACKS_TOWER)
 	{
 		towerSkill->getSprite()->setVisible(true);
 		skillIcon->setVisible(true);
@@ -594,6 +594,45 @@ void Tower::resetTower(int level)
 		m_attackSpeed = baseAttackSpeed * 6;
 		break;
 	}
+}
+float timeReborn = 0;
+void Tower::Reborn(float deltaTime)
+{
+	if (timeReborn > 5)
+	{
+		int count = 0;
+		for (int i = 0; i < listSoldier.size(); i++)
+		{
+			if (!listSoldier[i]->IsDead())
+			{
+				count++;
+			}
+		}
+		if (count < 3)
+		{
+			for (int i = 0; i < (3 - count); i++)
+			{
+				Soldier * m_soldier = new Soldier(layer);
+				listSoldier.push_back(m_soldier);
+				if ((i + 1) % 2 != 0)
+				{
+					listSoldier[i]->GetSprite()->setPosition(Vec2(600,300));
+					//m_sprite->getPosition().x + (i*i) *i, m_sprite->getPosition().y + (i *i) * 2 * i)
+				}
+				else
+				{
+					listSoldier[i]->GetSprite()->setPosition(Vec2(m_sprite->getPosition().x - (i*i) * i * 32, m_sprite->getPosition().y + (i * i) *  i * 16));
+				}
+			}
+
+		}
+		timeReborn = 0;
+	}
+	else
+	{
+		timeReborn += deltaTime;
+	}
+	
 }
 Sprite * Tower::getSkillDetails()
 {

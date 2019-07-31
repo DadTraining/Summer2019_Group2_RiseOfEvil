@@ -532,6 +532,14 @@ void WorldScene1::update(float deltaTime)
 				currentGold += listMonster[m]->GetGold();
 			}
 		}
+		//Tower barrack reborn
+		for (int i = 0; i < listTower.size(); i++)
+		{
+			if (listTower[i]->GetType() == 5)
+			{
+				listTower[i]->Reborn(deltaTime);
+			}
+		}
 		//Soldier die
 		for (int i = 0; i < listTower.size(); i++)
 		{
@@ -1026,7 +1034,7 @@ bool WorldScene1::onTouchBegan(Touch * touch, Event * event)
 					{
 					for (int i = 0; i < towerChoosing->GetListSoldier().size(); i++)
 					{
-						towerChoosing->GetListSoldier()[i]->GetSprite()->setVisible(true);	
+					//	towerChoosing->GetListSoldier()[i]->GetSprite()->setVisible(true);	
 						towerChoosing->GetListSoldier()[i]->Move(Vec2(Flag->getPositionX() + ((i + 1) * 5), Flag->getPositionY() + ((i + 1) * 10)));
 					}
 				}
