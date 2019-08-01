@@ -664,6 +664,14 @@ bool Soldier::IsDead()
 	return Dead;
 }
 
+void Soldier::Reborn()
+{
+	if (Dead)
+	{
+		Dead = false;
+	}
+}
+
 float Soldier::GetAttackSpeed()
 {
 	return m_attackSpeed;

@@ -527,7 +527,7 @@ void WorldScene1::update(float deltaTime)
 				}
 				else if ((listMonster[i]->m_flag < listPoint2.size()) && (listMonster[i]->GetSprite()->getTag() == 0) && (listMonster[i]->GetSprite()->isVisible()))
 				{
-					if (listPoint2[listMonster[i]->m_flag].getDistance(listMonster[i]->GetSprite()->getPosition()) == 0 )
+					if (listPoint2[listMonster[i]->m_flag].getDistance(listMonster[i]->GetSprite()->getPosition()) == 0)
 					{
 						listMonster[i]->m_flag++;
 						delay = 0;
@@ -537,8 +537,8 @@ void WorldScene1::update(float deltaTime)
 						delay = 0.4;
 					}
 				}
-				checkMonsterAttack = MonsterAttack(listMonster[i], deltaTime);
-				MonsterMove(listMonster[i], listMonster[i]->GetSprite()->getTag(), checkMonsterAttack, deltaTime, delay);			
+				checkMonsterAttack = MonsterAttack(listMonster[i], deltaTime);			
+				MonsterMove(listMonster[i], listMonster[i]->GetSprite()->getTag(), checkMonsterAttack, deltaTime, delay);				
 			}
 		}
 
@@ -698,7 +698,7 @@ void WorldScene1::update(float deltaTime)
 					{
 						listMonster[i]->SetMovementSpeed(listMonster[i]->GetMovementSpeed() + 1);
 					}
-					else
+					else if(i < listMonster.size())
 					{
 						listMonster[i]->SetMovementSpeed(listMonster[i]->GetMSpeed());
 						listMonster[i]->GetSprite()->setColor(Color3B(255, 255, 255));
@@ -714,12 +714,11 @@ void WorldScene1::update(float deltaTime)
 					{
 						if (listTower[i]->GetListSoldier()[j]->GetMovementSpeed() < listTower[i]->GetListSoldier()[j]->GetMSpeed())
 						{
-							listTower[i]->GetListSoldier()[j]->SetMovementSpeed(listMonster[i]->GetMovementSpeed() + 100);
+							listTower[i]->GetListSoldier()[j]->SetMovementSpeed(listTower[i]->GetListSoldier()[j]->GetMovementSpeed() + 100);
 						}
 						else
 						{
-							listTower[i]->GetListSoldier()[j]->SetMovementSpeed(listMonster[i]->GetMSpeed());
-							listTower[i]->GetListSoldier()[j]->GetSprite()->setColor(Color3B(255, 255, 255));
+							listTower[i]->GetListSoldier()[j]->SetMovementSpeed(listTower[i]->GetListSoldier()[j]->GetMSpeed());
 						}
 					}
 				}
@@ -957,15 +956,6 @@ Monster* WorldScene1::SoldierFindMonster(Soldier* soldier)
 		}			
 	}
 	soldier->SetCheckGuard(true);
-	/*if (soldier->GetSprite()->getPosition().distance(Flag->getPosition()) >= 50)
-	{
-		soldier->SetComeBack(true);
-	}
-	else if(soldier->GetSprite()->getPosition().distance(Flag->getPosition()) <= 10)
-	{
-		soldier->SetComeBack(false);
-	}*/
-	
 	return nullptr;
 }
 

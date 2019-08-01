@@ -641,27 +641,18 @@ void Tower::Reborn(float deltaTime)
 {
 	if (timeReborn > 5)
 	{
-		int count = 0;
 		for (int i = 0; i < listSoldier.size(); i++)
 		{
-			if (!listSoldier[i]->IsDead())
+			if (listSoldier[i]->IsDead())
 			{
-				count++;
+				listSoldier[i]->GetSprite()->setPosition(Vec2(m_sprite->getPosition()));
+				listSoldier[i]->SetHitPoint(listSoldier[i]->GetMaxHitPoint());
+				listSoldier[i]->GetSprite()->setVisible(true);
+				listSoldier[i]->SetCheckGuard(false);
+				listSoldier[i]->SetTouchFlag(true);		
+				listSoldier[i]->Reborn();
+				listSoldier[i]->Move(Vec2(flag.x + random(-5, 5), flag.y + random(-5, 5)));				
 			}
-		}
-		if (count < 3)
-		{
-			for (int i = 0; i < (3 - count); i++)
-			{
-				Soldier * m_soldier = new Soldier(layer);
-				m_soldier->GetSprite()->setPosition(Vec2(m_sprite->getPosition()));
-				m_soldier->SetCheckGuard(false);
-				m_soldier->SetTouchFlag(true);
-				m_soldier->Move(Vec2(flag.x + random(-5, 5), flag.y+ random(-5, 5)));
-				listSoldier.push_back(m_soldier);
-				
-			}
-
 		}
 		timeReborn = 0;
 	}
