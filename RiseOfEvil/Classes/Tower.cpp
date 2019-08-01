@@ -274,6 +274,7 @@ void Tower::Update(float deltaTime, vector<Monster*> listMonster)
 		if (!target->GetSprite()->isVisible() || target->GetSprite()->getPosition().getDistance(m_sprite->getPosition()) > m_range)
 		{
 			target = nullptr;
+			return;
 		}
 		if (timeDelay > m_attackSpeed)
 		{
