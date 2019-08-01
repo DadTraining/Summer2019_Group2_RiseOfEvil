@@ -120,6 +120,8 @@ Tower::Tower(Layer * layer, int type, Vec2 Pos)
 	layer->addChild(m_sprite, 5);
 	if (type == BARRACKS_TOWER)
 	{
+		upgradeIcon->setVisible(false);
+		upgradeIcon->setEnabled(false);
 		flagIcon->setVisible(true);
 		checkTypeTowerBarrack = true;
 		rangeBarrackTower = Sprite::create("range_of_barrack_tower.png");
