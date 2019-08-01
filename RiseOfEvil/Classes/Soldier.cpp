@@ -13,8 +13,8 @@ Soldier::~Soldier()
 
 void Soldier::Init()
 {
-	m_spriteNode = SpriteBatchNode::create("soldier1.png");
-	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("soldier1.plist");
+	m_spriteNode = SpriteBatchNode::create("sol.png");
+	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("sol.plist");
 
 	m_sprite = Sprite::createWithSpriteFrameName("_soldier1_1.png");
 	m_bloodBar = Sprite::createWithSpriteFrameName("healthbar_bg_soldier1.png");
@@ -32,7 +32,7 @@ void Soldier::Init()
 	mBody->setGravityEnable(false);
 	mBody->setRotationEnable(false);
 	m_sprite->setScale(0.5);
-	m_sprite->setPhysicsBody(mBody);
+//	m_sprite->setPhysicsBody(mBody);
 
 	m_bloodBar->addChild(m_blood, 8);
 	m_sprite->addChild(m_bloodBar, 6);

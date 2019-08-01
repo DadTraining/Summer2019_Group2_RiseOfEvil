@@ -20,7 +20,7 @@ void Wave::Load()
 	for (int i = 0; i < sizeOfWave; i++)
 	{
 		finalWave >> typeOfMonster;
-		finalWaveInfo.push_back(typeOfMonster);
+		finalWaveeInfo.push_back(typeOfMonster);
 	}
 	auto content = FileUtils::getInstance()->getStringFromFile("Stage"+to_string(m_stage)+"Info.bin");
 	istringstream f(content);
@@ -102,7 +102,7 @@ vector<int> Wave::getWave(int numOfWave)
 		return Wave8;
 		break;
 	case 10:
-		return finalWaveInfo;
+		return finalWaveeInfo;
 		break;
 	default:
 		break;
