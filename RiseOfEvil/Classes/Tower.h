@@ -44,6 +44,7 @@ private:
 	bool requestUpdate = false;
 	Sprite * rangeBarrackTower;
 	Point posBullet;
+	Vec2 flag;
 	int numberOfSoldier;
 	Monster *target = nullptr;
 	Skill * towerSkill;
@@ -114,5 +115,6 @@ public:
 	void showDetailSkill();
 	void resetTower(int);
 	void Reborn(float);
+	void SetFlagLocation(Vec2);
 	Sprite* getSkillDetails();
 };

@@ -11,7 +11,7 @@ private:
 	Sprite *hpBgSprite;
 	ProgressTimer *hpBar;
 	ParticleFire *fire;
-	bool crystalBurst;
+	bool crystalBurst = false;
 	int count = 0;
 	bool checkLose = false;
 public:
