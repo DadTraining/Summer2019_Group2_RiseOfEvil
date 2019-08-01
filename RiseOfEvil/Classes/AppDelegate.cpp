@@ -108,7 +108,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	Player::GetInstance()->Load();
     // create a scene. it's an autorelease object
 
-    auto scene = WorldMapScene::createScene();
+    auto scene = LogoScene::createScene();
 
     // run
     director->runWithScene(scene);

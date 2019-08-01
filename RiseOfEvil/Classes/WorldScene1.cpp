@@ -402,6 +402,7 @@ void WorldScene1::update(float deltaTime)
 						{
 							listTower[i]->GetListSoldier()[j]->DoDead();
 							listTower[i]->GetListSoldier()[j]->GetSprite()->setVisible(false);
+							delete listTower[i]->GetListSoldier()[j];
 						}
 					}
 					

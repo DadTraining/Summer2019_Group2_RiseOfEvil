@@ -59,6 +59,7 @@ bool WorldMapScene::init()
 	auto upgradeBtn = ui::Button::create("res/Sprites/WorldMapScene/UpgradeNormalBtn.png", "res/Sprites/WorldMapScene/UpgradePressBtn.png");
 	upgradeBtn->setPosition(Vec2(visibleSize.width - 100, 50));
 	upgradeBtn->setAnchorPoint(Vec2(1, 0.5));
+	upgradeBtn->setEnabled(false);
 	upgradeBtn->addClickEventListener(CC_CALLBACK_0(WorldMapScene::GoToUpgrade, this));
 	addChild(upgradeBtn);
 
