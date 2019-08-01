@@ -520,7 +520,7 @@ void Tower::slowSkill(vector<Monster*> listMonster)
 		for (int i = 0; i < listMonster.size(); i++)
 		{
 			if (m_sprite->getPosition().distance(listMonster[i]->GetSprite()->getPosition()) < 150
-				&& listMonster[i]->GetMovementSpeed() > listMonster[i]->GetMSpeed() * 60 / 100 && listMonster[i]->GetSprite()->isVisible())
+				&& listMonster[i]->GetMovementSpeed() > listMonster[i]->GetMSpeed() * 60 / 100 && !listMonster[i]->IsDead())
 			{
 				listMonster[i]->SetMovementSpeed(listMonster[i]->GetMovementSpeed() - listMonster[i]->GetMSpeed() * 10 / 100);
 				//checkSlowSkill = true;
@@ -542,7 +542,7 @@ void Tower::burnSkill(vector<Monster*> listMonster, float deltaTime)
 		{
 			for (int i = 0; i < listMonster.size(); i++)
 			{
-				if (m_sprite->getPosition().distance(listMonster[i]->GetSprite()->getPosition()) < 150 && listMonster[i]->GetSprite()->isVisible())
+				if (m_sprite->getPosition().distance(listMonster[i]->GetSprite()->getPosition()) < 150 && !listMonster[i]->IsDead())
 				{
 					listMonster[i]->SetHitPoint(listMonster[i]->GetHitPoint() - 5);
 					countTimeToReduceHPForBurnSkill = 0;
@@ -654,6 +654,7 @@ void Tower::Reborn(float deltaTime)
 				listSoldier[i]->Move(Vec2(flag.x + random(-5, 5), flag.y + random(-5, 5)));				
 			}
 		}
+		timeReborn = 0;
 	}
 	else
 	{

@@ -87,6 +87,7 @@ private:
 	Sprite* rangeFakeTower;
 	Sprite* hpBgSprite;
 	Sprite* description;
+	Sprite* winGame;
 	ProgressTimer *hpBar;
 	ui::Button *moreGoldBtn;
 	ui::Button *resumeBtn;
@@ -116,6 +117,7 @@ private:
 	bool checkSellTowerLevelThree = false;
 	bool checkKillAllMonster = true;
 	bool checkClickButtonStartFinalWave = false;
+	bool checkWin = true;
 	vector<Monster*> m_listMonsterSoldierFound;
 	vector<Monster*> m_listMonsterIsDead;
 	SimpleAudioEngine * backgroundMusic;

@@ -198,7 +198,7 @@ void Monster::Init()
 		m_attackSpeed = 1.9;
 		m_runAnimation = 0.04f;
 		m_attackAnimation = 0.1f;
-		m_speed = m_movementSpeed = m_velocity = SLOW_SPEED;
+		m_speed = m_movementSpeed = m_velocity = SLOW_SPEED + random(1,5);
 		//m_armor = 0;
 		m_gold = 40;
 		break;
@@ -332,6 +332,8 @@ void Monster::Init()
 		m_minimumAtk = 200;
 		m_maximumAtk = 400;
 		m_attackSpeed = 2.0;
+		m_runAnimation = 0.05f;
+		m_attackAnimation = 0.1f;
 		m_speed = m_movementSpeed = m_movementSpeedRun = m_velocity = SLOW_SPEED;
 		//m_armor = 0;
 		m_gold = 500;
@@ -345,7 +347,8 @@ float timeMove = 0;
 
 void Monster::Update(float deltaTime)
 {
-	if (timeCount >= (1.0 + (random(0, 10) / 10 * 1.0)))
+	//if (timeCount >= (2.0 + (random(0, 10) / 10 * 1.0)))
+	if(timeCount >= 2.0)
 	{
 		m_sprite->setVisible(true);
 		timeCount = 0;
