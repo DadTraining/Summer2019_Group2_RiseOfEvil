@@ -35,6 +35,7 @@ private:
 	float countTimeToDealDamage;
 	float m_attackSpeed;
 	float m_minimumAttackSpeed;
+	int m_maxHitPoint;
 	int m_gold;
 	int m_level;
 	bool checkTowerShoot = false;
@@ -42,6 +43,7 @@ private:
 	bool checkTypeTowerBarrack = false;
 	bool isSell = false;
 	bool requestUpdate = false;
+	bool Dead = false;
 	Sprite * rangeBarrackTower;
 	Point posBullet;
 	Vec2 flag;
@@ -117,4 +119,9 @@ public:
 	void Reborn(float);
 	void SetFlagLocation(Vec2);
 	Sprite* getSkillDetails();
+	void ReduceHitPointTower(int);
+	void setProgressBar();
+	int GetMaxHitPoint();
+	bool IsDead();
+	void DoDead();
 };
