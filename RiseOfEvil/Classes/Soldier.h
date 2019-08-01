@@ -11,6 +11,7 @@ using namespace std;
 class Soldier : public Objects
 {
 private:
+	Layer *layer;
 	bool Dead = false;
 	int direction = W;
 	int m_type;

@@ -665,6 +665,11 @@ void Monster::DoDead()
 		layer->addChild(dead1, 3);
 		dead1->runAction(MoveBy::create(0.3f, Vec2(0, 10)));
 		dead1->runAction(seq);
+		auto labelgold = Label::createWithTTF(" +" + to_string(m_gold), "fonts/Comic_Book.ttf", 20);
+		labelgold->setPosition(m_sprite->getPosition());
+		labelgold->setColor(Color3B::YELLOW);
+		layer->addChild(labelgold);
+		labelgold->runAction(Sequence::create(MoveBy::create(0.5, Vec2(0, 20)), FadeOut::create(0), RemoveSelf::create(), nullptr));
 		Dead = true;
 	}
 	

@@ -3,6 +3,7 @@
 Soldier::Soldier(Layer * layer)
 {
 	Init();
+	this->layer = layer;
 	m_sprite->removeFromParent();
 	layer->addChild(m_sprite, 5);
 }
@@ -681,6 +682,43 @@ void Soldier::DoDead()
 {
 	if (!Dead)
 	{
+		switch (random(1,3))
+		{
+		case 1:
+		{
+			auto seq = Sequence::create(DelayTime::create(0.3f), FadeOut::create(0), RemoveSelf::create(), nullptr);
+			auto dead1 = Sprite::create("dead1.png");
+			dead1->setScale(0.6);
+			dead1->setPosition(m_sprite->getPosition());
+			layer->addChild(dead1, 3);
+			dead1->runAction(MoveBy::create(0.3f, Vec2(0, 10)));
+			dead1->runAction(seq);
+			break;
+		}
+		case 2:
+		{
+			auto seq1 = Sequence::create(DelayTime::create(0.3f), FadeOut::create(0), RemoveSelf::create(), nullptr);
+			auto dead2 = Sprite::create("dead2.png");
+			dead2->setScale(0.6);
+			dead2->setPosition(m_sprite->getPosition());
+			layer->addChild(dead2, 3);
+			dead2->runAction(MoveBy::create(0.3f, Vec2(0, 10)));
+			dead2->runAction(seq1);
+			break;
+		}
+		case 3:
+		{
+			auto seq2 = Sequence::create(DelayTime::create(0.3f), FadeOut::create(0), RemoveSelf::create(), nullptr);
+			auto dead3 = Sprite::create("dead3.png");
+			dead3->setScale(0.6);
+			dead3->setPosition(m_sprite->getPosition());
+			layer->addChild(dead3, 3);
+			dead3->runAction(MoveBy::create(0.3f, Vec2(0, 10)));
+			dead3->runAction(seq2);
+			break;
+		}
+			
+		}
 		Dead = true;
 	}
 }
