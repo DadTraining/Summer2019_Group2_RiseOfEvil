@@ -54,7 +54,7 @@ void Monster::Init()
 			m_runAnimation = 0.05f;
 			m_attackAnimation = 0.1f;
 			m_range = 20;
-			m_speed = m_movementSpeed = m_velocity = MEDIUM_SPEED;
+			m_speed = m_movementSpeed = m_velocity = MEDIUM_SPEED + random(1,3);
 			m_armor = 0;
 			m_gold = 6;
 			break;
@@ -89,7 +89,7 @@ void Monster::Init()
 			m_runAnimation = 0.05f;
 			m_attackAnimation = 0.1f;
 			m_range = 20;
-			m_speed = m_movementSpeed = m_velocity = MEDIUM_SPEED;
+			m_speed = m_movementSpeed = m_velocity = MEDIUM_SPEED + random(1, 3);
 			m_armor = 0;
 			m_gold = 6;
 			break;
@@ -752,7 +752,6 @@ void Monster::SetSlowRunSpeed()
 	{
 		m_movementSpeed -= m_speed * 20 / 100;
 		m_sprite->setColor(Color3B::BLUE);
-		log("movement speed:%f", m_movementSpeed);
 	}
 }
 

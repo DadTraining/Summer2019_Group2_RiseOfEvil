@@ -194,6 +194,12 @@ bool WorldScene1::init()
 	muteBTN->setPosition(Vec2(pause_bg->getContentSize().width / 4, pause_bg->getContentSize().height / 2));
 	muteBTN->addTouchEventListener(CC_CALLBACK_0(WorldScene1::muteSound, this));
 	muteBTN->setScale(0.7);
+	pauseSound = ui::Button::create("cantbuild.png");
+	pauseSound->setVisible(false);
+	pauseSound->setPosition(Vec2(muteBTN->getContentSize().width/2, muteBTN->getContentSize().height/2));
+	pauseSound->addTouchEventListener(CC_CALLBACK_0(WorldScene1::resumeSound, this));
+	pauseSound->setScale(2);
+	muteBTN->addChild(pauseSound);
 	pause_bg->addChild(muteBTN);
 
 	worldMapBtn = ui::Button::create("res/Buttons/WorldScene1/worldMapBtn.png");
@@ -218,7 +224,7 @@ bool WorldScene1::init()
 	
 	//Create first list monster from Wave list
 	numOfWave = 0;
-	currentStage = Player::GetInstance()->GetCurrentStage();
+	currentStage = Player::GetInstance()->GetPlayStage();
 	wave = new Wave(currentStage);
 	road1TotalPoint = wave->getRoad1TotalPoint();
 	road2TotalPoint = wave->getRoad2TotalPoint();
@@ -256,6 +262,10 @@ bool WorldScene1::init()
 	crystal->getSprite()->setAnchorPoint(Vec2(0.5, 0.3));
 	//crystal->getSprite()->setScale(1.5);
 	crystal->getSprite()->setPosition(Vec2(xPoint,yPoint));
+	//================ create audio===================================
+	audio = SimpleAudioEngine::getInstance(); 
+	backgroundMusic = SimpleAudioEngine::getInstance();
+	backgroundMusic->playBackgroundMusic("sound/savage_music_theme.wav", true);
 
 	//===========================================================================
 	//First Location Tower
@@ -330,6 +340,7 @@ bool WorldScene1::init()
 	touchListener->onTouchEnded = CC_CALLBACK_2(WorldScene1::onTouchEnded, this);
 	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchListener, this);
 	//=====================================================
+	//======================================================
 	scheduleUpdate();
 	return true;
 }
@@ -374,7 +385,7 @@ void WorldScene1::update(float deltaTime)
 			currentGold += listTower[i]->GetGold() / 2;
 			//delete listTower[i];
 			listTower.erase(listTower.begin() + i);
-
+			audio->playEffect("sound/Sound_TowerSell.wav", false);
 		}
 	}
 	//Check tower update
@@ -392,6 +403,7 @@ void WorldScene1::update(float deltaTime)
 				listTower[i]->acceptUpdate(true);
 				listTower[i]->HideCircleMenu();
 			}
+			audio->playEffect("sound/Sound_TowerUpgrade.wav", false);
 		}
 	}
 	//Check build tower
@@ -741,7 +753,7 @@ void WorldScene1::restart()
 		auto newScene = WorldScene1::createScene();
 		Director::getInstance()->replaceScene(newScene);
 	});
-	this->addChild(popup, 21);
+	this->addChild(popup, 30);
 }
 
 //Exit Pause menu
@@ -781,6 +793,7 @@ void WorldScene1::ClickPauseButton()
 
 void WorldScene1::returnToMainMenu()
 {
+	backgroundMusic->pauseBackgroundMusic();
 	clickPause = false;
 	Label *lbl = Label::createWithTTF("You will lost your process, continue ?", "fonts/Comic_Book.ttf", 40);
 	lbl->setWidth(300);
@@ -789,7 +802,7 @@ void WorldScene1::returnToMainMenu()
 		//Director::getInstance()->getRunningScene()->pause();
 		Director::getInstance()->replaceScene(TransitionFade::create(0.3, WorldMapScene::createScene()));
 	});
-	this->addChild(popup, 15);
+	this->addChild(popup, 21);
 }
 
 //Build Tower
@@ -798,6 +811,7 @@ void WorldScene1::BuildTower()
 	Tower * towerBuild = new Tower(this, typeOfTowerPrepairToBuild, touchLocation);
 	currentGold -= towerBuild->GetGold();
 	towerBuild->SetGold(towerBuild->GetGold() * 2);
+	audio->playEffect("sound/Sound_TowerBuilding.wav", false);
 	listLocationTower.push_back(touchLocation);
 	listTower.push_back(towerBuild);
 	menu->setVisible(false);
@@ -1085,7 +1099,6 @@ void WorldScene1::onTouchMoved(Touch * touch, Event * event)
 
 void WorldScene1::onTouchEnded(Touch * touch, Event * event)
 {
-
 	showHowToBuildTower->setVisible(false);
 	Flag->setPosition(touch->getLocation());
 	Flag->setVisible(false);
@@ -1310,6 +1323,7 @@ void WorldScene1::startWave()
 		startBTN->setEnabled(false);
 		start = true;
 	}
+	audio->playEffect("sound/Sound_QuestCompleted.wav", false);
 	startWaveBTN->setVisible(false);
 	startWaveBTN2->setVisible(false);
 	time = 0;
@@ -1351,6 +1365,14 @@ void WorldScene1::startWave()
 
 void WorldScene1::muteSound()
 {
+	backgroundMusic->pauseBackgroundMusic();
+	pauseSound->setVisible(true);
+}
+
+void WorldScene1::resumeSound()
+{
+	pauseSound->setVisible(false);
+	backgroundMusic->resumeBackgroundMusic();
 }
 
 void WorldScene1::exit()

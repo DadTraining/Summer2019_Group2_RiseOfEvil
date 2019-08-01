@@ -43,7 +43,7 @@ bool WorldMapScene::init()
 		staged.push_back(flag);
 	}
 
-	for (int i = 0; i < 2; i++)
+	for (int i = 0; i < Player::GetInstance()->GetCurrentStage(); i++)
 	{
 		staged[i]->setEnabled(true);
 		add_star(staged[i]->getPosition());
@@ -67,19 +67,22 @@ bool WorldMapScene::init()
 
 void WorldMapScene::GoToStage(Ref* sender, int numOfStage)
 {
-	Player::GetInstance()->SetCurrentStage(numOfStage);
+	Player::GetInstance()->SetPlayStage(numOfStage);
 	Scene *pScene = WorldScene1::createScene();
 	TransitionFade *crssfade = TransitionFade::create(0.5f, pScene);
 	Director::getInstance()->replaceScene(crssfade);
-
-
+	touchMusic = SimpleAudioEngine::getInstance();
+	touchMusic->playEffect("sound/Sound_GUIButtonCommon.wav", false, 1.0f, 1.0f, 1.0f);
 }
+
 
 void WorldMapScene::GoToMainMenu()
 {
 	Scene *pScene = MainMenuScene::create();
 	TransitionFade *crssfade = TransitionFade::create(0.5f, pScene);
 	Director::getInstance()->replaceScene(crssfade);
+	touchMusic = SimpleAudioEngine::getInstance();
+	touchMusic->playEffect("sound/Sound_GUIOpenTowerMenu.wav", false, 1.0f, 1.0f, 1.0f);
 }
 
 void WorldMapScene::GoToUpgrade()
@@ -87,6 +90,8 @@ void WorldMapScene::GoToUpgrade()
 	Scene *pScene = UpgradeScene::create();
 	TransitionFade *crssfade = TransitionFade::create(0.5f, pScene);
 	Director::getInstance()->replaceScene(crssfade);
+	touchMusic = SimpleAudioEngine::getInstance();
+	touchMusic->playEffect("sound/Sound_GUIButtonCommon.wav", false, 1.0f, 1.0f, 1.0f);
 }
 
 void WorldMapScene::add_star(Vec2 vec)

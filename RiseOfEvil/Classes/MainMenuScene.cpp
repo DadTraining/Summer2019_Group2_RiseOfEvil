@@ -86,6 +86,8 @@ void MainMenuScene::update(float)
 
 void MainMenuScene::GoToWorldMap()
 {
+	touchMusic = SimpleAudioEngine::getInstance();
+	touchMusic->playEffect("sound/Sound_GUIButtonCommon.wav", false, 1.0f, 1.0f, 1.0f);
 	Scene *pScene = WorldMapScene::create();
 	TransitionFade *crssfade = TransitionFade::create(1, pScene);
 	Director::getInstance()->replaceScene(crssfade);
@@ -93,6 +95,8 @@ void MainMenuScene::GoToWorldMap()
 
 void MainMenuScene::FadeinChoose()
 {
+	touchMusic = SimpleAudioEngine::getInstance();
+	touchMusic->playEffect("sound/Sound_GUIOpenTowerMenu.wav", false, 1.0f, 1.0f, 1.0f);
 	auto fadeOut = FadeOut::create(0.3f);
 	auto fadeIn = FadeIn::create(0.3f);
 	/*auto seq = Sequence::create(fadeOut, fadeIn, fadeOut->clone(), fadeIn->clone(), nullptr);
@@ -114,6 +118,8 @@ void MainMenuScene::FadeinChoose()
 
 void MainMenuScene::FadeoutChoose()
 {
+	touchMusic = SimpleAudioEngine::getInstance();
+	touchMusic->playEffect("sound/Sound_GUIOpenTowerMenu.wav", false, 1.0f, 1.0f, 1.0f);
 	auto fadeOut = FadeOut::create(0.3f);
 	auto fadeIn = FadeIn::create(0.3f);
 
