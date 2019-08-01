@@ -24,6 +24,7 @@ private:
 	bool touchFlag = false;
 	bool checkAttack = false;
 	bool checkGuard = true;
+	bool comeBack = false;
 	int m_gold;
 	int m_maxHitPoint;
 	Animation *animation;
@@ -57,6 +58,9 @@ public:
 	void StopAllAction();
 	bool GetChecKGuard();
 	void SetCheckGuard(bool);
+	bool GetComeBack();
+	void SetComeBack(bool);
+	void SetComeBackTwo();
 	int GetRange();
 	void setProgressBar();
 	int GetDamage();

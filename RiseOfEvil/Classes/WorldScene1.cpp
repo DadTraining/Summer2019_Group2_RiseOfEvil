@@ -385,6 +385,18 @@ void WorldScene1::update(float deltaTime)
 				{
 					listLocationTower.erase(listLocationTower.begin() + j);
 				}
+				if (listTower[i]->GetType() == 5)
+				{
+					for (int j = 0; j < listTower[i]->GetListSoldier().size(); j++)
+					{
+						if (!listTower[i]->GetListSoldier()[j]->IsDead())
+						{
+							listTower[i]->GetListSoldier()[j]->DoDead();
+							listTower[i]->GetListSoldier()[j]->GetSprite()->setVisible(false);
+						}
+					}
+					
+				}
 			}
 			checkSellTowerLevelThree = true;
 			listTower[i]->GetSprite()->setVisible(false);
@@ -621,8 +633,12 @@ void WorldScene1::update(float deltaTime)
 				{
 					SoldierFindMonster(listTower[i]->GetListSoldier()[j]);
 					if (listTower[i]->GetListSoldier()[j]->GetChecKGuard())
-					{
+					{					
 						listTower[i]->GetListSoldier()[j]->Guard(deltaTime);				
+					}
+					if (listTower[i]->GetListSoldier()[j]->GetComeBack() && !listTower[i]->GetListSoldier()[j]->GetTouchFlag())
+					{
+						listTower[i]->GetListSoldier()[j]->MoveToMonster(Flag->getPosition(), deltaTime);
 					}
 					if (SoldierFindMonster(listTower[i]->GetListSoldier()[j]) != nullptr)
 					{
@@ -909,6 +925,15 @@ Monster* WorldScene1::SoldierFindMonster(Soldier* soldier)
 		}			
 	}
 	soldier->SetCheckGuard(true);
+	if (soldier->GetSprite()->getPosition().distance(Flag->getPosition()) >= 50)
+	{
+		soldier->SetComeBack(true);
+	}
+	else if(soldier->GetSprite()->getPosition().distance(Flag->getPosition()) <= 10)
+	{
+		soldier->SetComeBack(false);
+	}
+	
 	return nullptr;
 }
 
@@ -919,6 +944,7 @@ bool WorldScene1::SoldierAttack(Soldier* soldier, Monster* monster , float delta
 		SoldierHurtMonster(soldier, monster, deltaTime);
 		return true;
 	}
+	soldier->SetComeBack(true);
 	return false;
 }
 void WorldScene1::showDescription(Ref* ref, int type)
@@ -970,6 +996,7 @@ bool WorldScene1::onTouchBegan(Touch * touch, Event * event)
 	if (checkClickButtonStartFinalWave == true)
 	{
 		return false;
+		checkClickButtonStartFinalWave = false;
 	}
 	else
 	{
@@ -1067,12 +1094,15 @@ bool WorldScene1::onTouchBegan(Touch * touch, Event * event)
 				Flag->setVisible(true);
 				towerChoosing->GetRangeBarrackTower()->setVisible(false);
 				Flag->setPosition(touch->getLocation());
+				towerChoosing->SetFlagLocation(Flag->getPosition());
 				if (towerChoosing->GetSprite()->getPosition().distance(Flag->getPosition()) < towerChoosing->GetRange() / 2)
 				{
 					for (int i = 0; i < towerChoosing->GetListSoldier().size(); i++)
 					{
-						towerChoosing->GetListSoldier()[i]->GetSprite()->setVisible(true);
-						towerChoosing->GetListSoldier()[i]->Move(Vec2(Flag->getPositionX() + ((i + 1) * 5), Flag->getPositionY() + ((i + 1) * 10)));
+						if(!towerChoosing->GetListSoldier()[i]->IsDead())
+						{
+							towerChoosing->GetListSoldier()[i]->Move(Vec2(Flag->getPositionX() + random(-10, 10), Flag->getPositionY() + random(-10, 10)));
+						}	
 					}
 				}
 			}
