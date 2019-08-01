@@ -527,8 +527,8 @@ void WorldScene1::update(float deltaTime)
 						delay = 0.4;
 					}
 				}
-				checkMonsterAttack = MonsterAttack(listMonster[i], deltaTime);
-				MonsterMove(listMonster[i], listMonster[i]->GetSprite()->getTag(), checkMonsterAttack, deltaTime, delay);			
+				checkMonsterAttack = MonsterAttack(listMonster[i], deltaTime);			
+				MonsterMove(listMonster[i], listMonster[i]->GetSprite()->getTag(), checkMonsterAttack, deltaTime, delay);				
 			}
 		}
 
@@ -688,7 +688,7 @@ void WorldScene1::update(float deltaTime)
 					{
 						listMonster[i]->SetMovementSpeed(listMonster[i]->GetMovementSpeed() + 1);
 					}
-					else
+					else if(i < listMonster.size())
 					{
 						listMonster[i]->SetMovementSpeed(listMonster[i]->GetMSpeed());
 						listMonster[i]->GetSprite()->setColor(Color3B(255, 255, 255));
@@ -704,12 +704,11 @@ void WorldScene1::update(float deltaTime)
 					{
 						if (listTower[i]->GetListSoldier()[j]->GetMovementSpeed() < listTower[i]->GetListSoldier()[j]->GetMSpeed())
 						{
-							listTower[i]->GetListSoldier()[j]->SetMovementSpeed(listMonster[i]->GetMovementSpeed() + 100);
+							listTower[i]->GetListSoldier()[j]->SetMovementSpeed(listTower[i]->GetListSoldier()[j]->GetMovementSpeed() + 100);
 						}
 						else
 						{
-							listTower[i]->GetListSoldier()[j]->SetMovementSpeed(listMonster[i]->GetMSpeed());
-							listTower[i]->GetListSoldier()[j]->GetSprite()->setColor(Color3B(255, 255, 255));
+							listTower[i]->GetListSoldier()[j]->SetMovementSpeed(listTower[i]->GetListSoldier()[j]->GetMSpeed());
 						}
 					}
 				}
