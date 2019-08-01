@@ -227,7 +227,11 @@ bool WorldScene1::init()
 	startBTN->addClickEventListener(CC_CALLBACK_0(WorldScene1::startWave, this));
 	startBTN->setScale(0.7);
 	addChild(startBTN, 3);
-	
+	//===============win game===============================
+	winGame = Sprite::create("gamewin_bg.png");
+	winGame->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
+	winGame->setVisible(false);
+	addChild(winGame, 20);
 	//Create first list monster from Wave list
 	numOfWave = 0;
 	currentStage = Player::GetInstance()->GetPlayStage();
@@ -465,7 +469,7 @@ void WorldScene1::update(float deltaTime)
 				}
 			}
 		}
-		if (time >= 40 && crystal->getcrystalBurst() == false)
+		if (time >= 40 && crystal->getcrystalBurst() == false && numOfWave < 8)
 		{
 			startWave();
 		}
@@ -501,7 +505,13 @@ void WorldScene1::update(float deltaTime)
 			{
 				if ((listMonster[i]->m_flag < listPoint.size()) && (listMonster[i]->GetSprite()->getTag() == 1) && (listMonster[i]->GetSprite()->isVisible()))
 				{
-					if (listPoint[listMonster[i]->m_flag].getDistance(listMonster[i]->GetSprite()->getPosition()) == 0)
+					if (listPoint[listMonster[i]->m_flag].getDistance(listMonster[i]->GetSprite()->getPosition()) == 0 && listMonster[i]->m_flag == 0)
+					{
+						listMonster[i]->m_flag++;
+						delay = 0.4;
+					}
+
+					else if (listPoint[listMonster[i]->m_flag].getDistance(listMonster[i]->GetSprite()->getPosition()) == 0)
 					{
 						listMonster[i]->m_flag++;
 						delay = 0;
@@ -513,7 +523,12 @@ void WorldScene1::update(float deltaTime)
 				}
 				else if ((listMonster[i]->m_flag < listPoint2.size()) && (listMonster[i]->GetSprite()->getTag() == 0) && (listMonster[i]->GetSprite()->isVisible()))
 				{
-					if (listPoint2[listMonster[i]->m_flag].getDistance(listMonster[i]->GetSprite()->getPosition()) == 0)
+					if (listPoint2[listMonster[i]->m_flag].getDistance(listMonster[i]->GetSprite()->getPosition()) == 0 && listMonster[i]->m_flag == 0)
+					{
+						listMonster[i]->m_flag++;
+						delay = 0.4;
+					}
+					else if (listPoint2[listMonster[i]->m_flag].getDistance(listMonster[i]->GetSprite()->getPosition()) == 0 )
 					{
 						listMonster[i]->m_flag++;
 						delay = 0;
@@ -561,7 +576,24 @@ void WorldScene1::update(float deltaTime)
 			}
 			checkgameover = true;
 		}
-
+		// check wwin
+		checkWin = true;
+		for (int k = 0; k < listMonster.size(); k++)
+		{
+			if (!listMonster[k]->IsDead())
+			{
+				checkWin = false;
+			}
+			
+		}
+		if (checkWin)
+		{
+			if (numOfWave == 8 || numOfWave == 10)
+			{
+				//YOUWIN!!!!
+				winGame->setVisible(true);
+			}
+		}
 		//Monster die
 		for (int m = 0; m < listMonster.size(); m++)
 		{
@@ -636,10 +668,10 @@ void WorldScene1::update(float deltaTime)
 					{					
 						listTower[i]->GetListSoldier()[j]->Guard(deltaTime);				
 					}
-					if (listTower[i]->GetListSoldier()[j]->GetComeBack() && !listTower[i]->GetListSoldier()[j]->GetTouchFlag())
+					/*if (listTower[i]->GetListSoldier()[j]->GetComeBack() && !listTower[i]->GetListSoldier()[j]->GetTouchFlag())
 					{
 						listTower[i]->GetListSoldier()[j]->MoveToMonster(Flag->getPosition(), deltaTime);
-					}
+					}*/
 					if (SoldierFindMonster(listTower[i]->GetListSoldier()[j]) != nullptr)
 					{
 						listTower[i]->GetListSoldier()[j]->SetCheckAttack(SoldierAttack(listTower[i]->GetListSoldier()[j], SoldierFindMonster(listTower[i]->GetListSoldier()[j]), deltaTime));
@@ -769,6 +801,7 @@ void WorldScene1::update(float deltaTime)
 				}
 			}
 		}
+		
 	}
 }
 void WorldScene1::restart()
@@ -925,14 +958,14 @@ Monster* WorldScene1::SoldierFindMonster(Soldier* soldier)
 		}			
 	}
 	soldier->SetCheckGuard(true);
-	if (soldier->GetSprite()->getPosition().distance(Flag->getPosition()) >= 50)
+	/*if (soldier->GetSprite()->getPosition().distance(Flag->getPosition()) >= 50)
 	{
 		soldier->SetComeBack(true);
 	}
 	else if(soldier->GetSprite()->getPosition().distance(Flag->getPosition()) <= 10)
 	{
 		soldier->SetComeBack(false);
-	}
+	}*/
 	
 	return nullptr;
 }
@@ -995,6 +1028,7 @@ bool WorldScene1::onTouchBegan(Touch * touch, Event * event)
 {
 	if (checkClickButtonStartFinalWave == true)
 	{
+		checkClickButtonStartFinalWave = false;
 		return false;
 	}
 	else
@@ -1414,6 +1448,20 @@ void WorldScene1::startWave()
 			listTemp[i]->GetSprite()->setScale(0.6);
 		}
 	}
+	auto counta = 0;
+	for (int i = 0; i < listMonster.size(); i++)
+	{
+		if (listMonster[i]->IsDead())
+		{
+			delete listMonster[i];
+			listMonster.erase(listMonster.begin() + i);
+		}
+		else
+		{
+			counta++;
+		}
+	}
+	log("%d", counta);
 }
 
 void WorldScene1::muteSound()
