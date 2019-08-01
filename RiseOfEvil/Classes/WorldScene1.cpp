@@ -224,7 +224,7 @@ bool WorldScene1::init()
 	
 	//Create first list monster from Wave list
 	numOfWave = 0;
-	currentStage = Player::GetInstance()->GetCurrentStage();
+	currentStage = Player::GetInstance()->GetPlayStage();
 	wave = new Wave(currentStage);
 	road1TotalPoint = wave->getRoad1TotalPoint();
 	road2TotalPoint = wave->getRoad2TotalPoint();
