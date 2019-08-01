@@ -37,6 +37,7 @@ private:
 	float m_runAnimation;
 	float m_attackAnimation;
 	int m_gold;
+	int m_MaxGold;
 	int m_maxHitPoint;
 	Animation *animation;
 	float m_movementSpeedRun;
@@ -80,6 +81,7 @@ public:
 	float GetMovementSpeed();
 	float GetAttackSpeed();
 	int GetGold();
+	int GetMaxGold();
 	int GetRange();
 	void setProgressBar();
 	float GetVelocity();

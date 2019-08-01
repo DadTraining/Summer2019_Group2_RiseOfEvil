@@ -56,7 +56,7 @@ void Monster::Init()
 			m_range = 20;
 			m_speed = m_movementSpeed = m_velocity = MEDIUM_SPEED + random(1,3);
 			m_armor = 0;
-			m_gold = 6;
+			m_MaxGold = m_gold = 6;
 			break;
 		}
 		else
@@ -91,7 +91,7 @@ void Monster::Init()
 			m_range = 20;
 			m_speed = m_movementSpeed = m_velocity = MEDIUM_SPEED + random(1, 3);
 			m_armor = 0;
-			m_gold = 6;
+			m_MaxGold = m_gold = 6;
 			break;
 		}		
 	}
@@ -130,7 +130,7 @@ void Monster::Init()
 			m_attackAnimation = 0.1f;
 			m_speed = m_movementSpeed = m_velocity = MEDIUM_SPEED;
 			m_armor = 0;
-			m_gold = 15;
+			m_MaxGold = m_gold = 15;
 			break;
 		}
 		else 
@@ -165,7 +165,7 @@ void Monster::Init()
 			m_attackAnimation = 0.1f;
 			m_speed = m_movementSpeed = m_velocity = MEDIUM_SPEED;
 			m_armor = 0;
-			m_gold = 15;
+			m_MaxGold = m_gold = 15;
 			break;
 		}
 		
@@ -200,7 +200,7 @@ void Monster::Init()
 		m_attackAnimation = 0.1f;
 		m_speed = m_movementSpeed = m_velocity = SLOW_SPEED + random(1,5);
 		//m_armor = 0;
-		m_gold = 40;
+		m_MaxGold = m_gold = 40;
 		break;
 	}		
 	case SPEED_MONSTER:		
@@ -235,7 +235,7 @@ void Monster::Init()
 		m_attackAnimation = 0.1f;
 		m_speed = m_movementSpeed = m_velocity = FAST_SPEED;
 		m_armor = 0;
-		m_gold = 15;
+		m_MaxGold = m_gold = 15;
 		break;
 	}
 		
@@ -268,7 +268,7 @@ void Monster::Init()
 		m_attackAnimation = 0.1f;
 		m_speed = m_movementSpeed = m_velocity = MEDIUM_SPEED;
 		m_armor = 0;
-		m_gold = 15;
+		m_MaxGold = m_gold = 15;
 		break;
 	}
 		
@@ -303,7 +303,7 @@ void Monster::Init()
 		m_attackAnimation = 0.1f;
 		m_speed = m_movementSpeed = m_velocity = SLOW_SPEED;
 		//sm_armor = 0;
-		m_gold = 100;
+		m_MaxGold = m_gold = 100;
 		break;
 	}	
 	case DARKLORD:
@@ -336,7 +336,7 @@ void Monster::Init()
 		m_attackAnimation = 0.1f;
 		m_speed = m_movementSpeed = m_movementSpeedRun = m_velocity = SLOW_SPEED;
 		//m_armor = 0;
-		m_gold = 500;
+		m_MaxGold = m_gold = 500;
 		break;
 	default:
 		break;
@@ -665,6 +665,11 @@ void Monster::DoDead()
 		layer->addChild(dead1, 3);
 		dead1->runAction(MoveBy::create(0.3f, Vec2(0, 10)));
 		dead1->runAction(seq);
+		auto labelgold = Label::createWithTTF(" +" + to_string(m_gold), "fonts/Comic_Book.ttf", 20);
+		labelgold->setPosition(m_sprite->getPosition());
+		labelgold->setColor(Color3B::YELLOW);
+		layer->addChild(labelgold);
+		labelgold->runAction(Sequence::create(MoveBy::create(0.5, Vec2(0, 20)), FadeOut::create(0), RemoveSelf::create(), nullptr));
 		Dead = true;
 	}
 	
@@ -718,6 +723,11 @@ float Monster::GetAttackSpeed()
 int Monster::GetGold()
 {
 	return m_gold;
+}
+
+int Monster::GetMaxGold()
+{
+	return m_MaxGold;
 }
 
 int Monster::GetRange()

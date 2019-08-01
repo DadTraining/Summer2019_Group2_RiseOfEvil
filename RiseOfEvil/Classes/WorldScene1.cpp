@@ -402,6 +402,7 @@ void WorldScene1::update(float deltaTime)
 						{
 							listTower[i]->GetListSoldier()[j]->DoDead();
 							listTower[i]->GetListSoldier()[j]->GetSprite()->setVisible(false);
+							delete listTower[i]->GetListSoldier()[j];
 						}
 					}
 					
@@ -513,6 +514,130 @@ void WorldScene1::update(float deltaTime)
 		{
 			if (!listMonster[i]->IsDead())
 			{
+				if (listMonster[i]->GetSprite()->getTag() == 1)
+				{
+					if (listMonster[i]->m_flag < listPoint.size())
+					{
+						if (listMonster[i]->GetMaxGold() == 6)
+						{
+							if (listMonster[i]->m_flag > 4 && listMonster[i]->m_flag < 10)
+							{
+								listMonster[i]->SetGold(listMonster[i]->GetMaxGold() - 2);
+							}
+							else if (listMonster[i]->m_flag >= 10)
+							{
+								listMonster[i]->SetGold(3);
+							}
+						}
+						if (listMonster[i]->GetMaxGold() == 15)
+						{
+							if (listMonster[i]->m_flag > 4 && listMonster[i]->m_flag < 10)
+							{
+								listMonster[i]->SetGold(listMonster[i]->GetMaxGold() - 3);
+							}
+							else if (listMonster[i]->m_flag >= 10)
+							{
+								listMonster[i]->SetGold(8);
+							}
+						}
+						if (listMonster[i]->GetMaxGold() == 20)
+						{
+							if (listMonster[i]->m_flag > 4 && listMonster[i]->m_flag < 10)
+							{
+								listMonster[i]->SetGold(listMonster[i]->GetMaxGold() - 5);
+							}
+							else if (listMonster[i]->m_flag >= 10)
+							{
+								listMonster[i]->SetGold(10);
+							}
+						}
+						if (listMonster[i]->GetMaxGold() == 100)
+						{
+							if (listMonster[i]->m_flag > 4 && listMonster[i]->m_flag < 10)
+							{
+								listMonster[i]->SetGold(listMonster[i]->GetMaxGold() - 20);
+							}
+							else if (listMonster[i]->m_flag >= 10)
+							{
+								listMonster[i]->SetGold(70);
+							}
+						}
+						if (listMonster[i]->GetMaxGold() == 500)
+						{
+							if (listMonster[i]->m_flag > 4 && listMonster[i]->m_flag < 10)
+							{
+								listMonster[i]->SetGold(listMonster[i]->GetMaxGold() - 50);
+							}
+							else if (listMonster[i]->m_flag >= 10)
+							{
+								listMonster[i]->SetGold(300);
+							}
+						}
+
+					}
+				}
+	
+			if (listMonster[i]->GetSprite()->getTag() == 0)
+			{
+				if (listMonster[i]->m_flag < listPoint2.size())
+				{
+					if (listMonster[i]->GetMaxGold() == 6)
+					{
+						if (listMonster[i]->m_flag > 4 && listMonster[i]->m_flag < 10)
+						{
+							listMonster[i]->SetGold(listMonster[i]->GetMaxGold() - 2);
+						}
+						else if (listMonster[i]->m_flag >= 10)
+						{
+							listMonster[i]->SetGold(3);
+						}
+					}
+					if (listMonster[i]->GetMaxGold() == 15 )
+					{
+						if (listMonster[i]->m_flag > 4 && listMonster[i]->m_flag < 10)
+						{
+							listMonster[i]->SetGold(listMonster[i]->GetMaxGold() - 3);
+						}
+						else if (listMonster[i]->m_flag >= 10)
+						{
+							listMonster[i]->SetGold(8);
+						}
+					}
+					if (listMonster[i]->GetMaxGold() == 20)
+					{
+						if (listMonster[i]->m_flag > 4 && listMonster[i]->m_flag < 10)
+						{
+							listMonster[i]->SetGold(listMonster[i]->GetMaxGold() - 5);
+						}
+						else if (listMonster[i]->m_flag >= 10)
+						{
+							listMonster[i]->SetGold(10);
+						}
+					}
+					if (listMonster[i]->GetMaxGold() == 100)
+					{
+						if (listMonster[i]->m_flag > 4 && listMonster[i]->m_flag < 10)
+						{
+							listMonster[i]->SetGold(listMonster[i]->GetMaxGold() - 20);
+						}
+						else if (listMonster[i]->m_flag >= 10)
+						{
+							listMonster[i]->SetGold(70);
+						}
+					}
+					if (listMonster[i]->GetMaxGold() == 500)
+					{
+						if (listMonster[i]->m_flag > 4 && listMonster[i]->m_flag < 10)
+						{
+							listMonster[i]->SetGold(listMonster[i]->GetMaxGold() - 50);
+						}
+						else if (listMonster[i]->m_flag >= 10)
+						{
+							listMonster[i]->SetGold(300);
+						}
+					}
+				}
+			}
 				if ((listMonster[i]->m_flag < listPoint.size()) && (listMonster[i]->GetSprite()->getTag() == 1) && (listMonster[i]->GetSprite()->isVisible()))
 				{
 					if (listPoint[listMonster[i]->m_flag].getDistance(listMonster[i]->GetSprite()->getPosition()) == 0)

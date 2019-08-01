@@ -276,6 +276,7 @@ void Tower::Update(float deltaTime, vector<Monster*> listMonster)
 		if (!target->GetSprite()->isVisible() || target->GetSprite()->getPosition().getDistance(m_sprite->getPosition()) > m_range)
 		{
 			target = nullptr;
+			return;
 		}
 		if (timeDelay > m_attackSpeed)
 		{
@@ -546,7 +547,7 @@ void Tower::burnSkill(vector<Monster*> listMonster, float deltaTime)
 			{
 				if (m_sprite->getPosition().distance(listMonster[i]->GetSprite()->getPosition()) < 150 && !listMonster[i]->IsDead())
 				{
-					listMonster[i]->SetHitPoint(listMonster[i]->GetHitPoint() - 5);
+					listMonster[i]->SetHitPoint(listMonster[i]->GetHitPoint() - 10);
 					countTimeToReduceHPForBurnSkill = 0;
 					checkBurnSkill = true;
 				}
@@ -641,7 +642,7 @@ void Tower::resetTower(int level)
 float timeReborn = 0;
 void Tower::Reborn(float deltaTime)
 {
-	if (timeReborn > 5)
+	if (timeReborn > 10)
 	{
 		for (int i = 0; i < listSoldier.size(); i++)
 		{
