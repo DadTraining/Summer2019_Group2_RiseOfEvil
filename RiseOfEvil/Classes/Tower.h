@@ -113,5 +113,6 @@ public:
 	Skill *getTowerSkill();
 	void showDetailSkill();
 	void resetTower(int);
+	void Reborn(float);
 	Sprite* getSkillDetails();
 };

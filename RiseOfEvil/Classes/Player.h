@@ -12,6 +12,7 @@ private:
 	int m_star;
 	int m_life;
 	int m_stage;
+	int m_playStage;
 public:
 	Player();
 	~Player();
@@ -21,6 +22,8 @@ public:
 	int GetCurrentStar();
 	int GetCurrentLife();
 	int GetCurrentStage();
+	int GetPlayStage();
 	void SetCurrentStage(int stage);
 	void SetGold(int);
+	void SetPlayStage(int);
 };

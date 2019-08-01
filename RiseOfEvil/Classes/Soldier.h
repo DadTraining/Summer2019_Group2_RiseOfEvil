@@ -50,7 +50,6 @@ public:
 	void Action(int);
 	void ActionMove(int);
 	void ActionGuard(int);
-	void AttackMonster(Monster*);
 	bool GetTouchFlag();
 	void SetTouchFlag(bool);
 	void SetTouchFlagTwo();

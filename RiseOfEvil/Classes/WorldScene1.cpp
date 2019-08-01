@@ -230,7 +230,7 @@ bool WorldScene1::init()
 	
 	//Create first list monster from Wave list
 	numOfWave = 0;
-	currentStage = Player::GetInstance()->GetCurrentStage();
+	currentStage = Player::GetInstance()->GetPlayStage();
 	wave = new Wave(currentStage);
 	road1TotalPoint = wave->getRoad1TotalPoint();
 	road2TotalPoint = wave->getRoad2TotalPoint();
@@ -560,6 +560,14 @@ void WorldScene1::update(float deltaTime)
 				currentGold += listMonster[m]->GetGold();
 			}
 		}
+		//Tower barrack reborn
+		for (int i = 0; i < listTower.size(); i++)
+		{
+			if (listTower[i]->GetType() == 5)
+			{
+				listTower[i]->Reborn(deltaTime);
+			}
+		}
 		//Soldier die
 		for (int i = 0; i < listTower.size(); i++)
 		{
@@ -614,7 +622,7 @@ void WorldScene1::update(float deltaTime)
 					SoldierFindMonster(listTower[i]->GetListSoldier()[j]);
 					if (listTower[i]->GetListSoldier()[j]->GetChecKGuard())
 					{
-						//listTower[i]->GetListSoldier()[j]->Guard(deltaTime);				
+						listTower[i]->GetListSoldier()[j]->Guard(deltaTime);				
 					}
 					if (SoldierFindMonster(listTower[i]->GetListSoldier()[j]) != nullptr)
 					{
@@ -806,7 +814,7 @@ void WorldScene1::returnToMainMenu()
 		//Director::getInstance()->getRunningScene()->pause();
 		Director::getInstance()->replaceScene(TransitionFade::create(0.3, WorldMapScene::createScene()));
 	});
-	this->addChild(popup, 15);
+	this->addChild(popup, 21);
 }
 
 //Build Tower
