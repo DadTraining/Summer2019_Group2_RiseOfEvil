@@ -100,6 +100,7 @@ private:
 	ui::Button *pauseBtn;
 	ui::Button *showDecriptionBtn;
 	ui::Button * pauseSound;
+	ui::Button * startWaveFinal;
 	bool releaseMonster = false;
 	bool touchOut = false;
 	bool touchIn = false;
@@ -113,6 +114,8 @@ private:
 	bool checkgameover = false;
 	bool checkFindMonster = false;
 	bool checkSellTowerLevelThree = false;
+	bool checkKillAllMonster = true;
+	bool checkClickButtonStartFinalWave = false;
 	vector<Monster*> m_listMonsterSoldierFound;
 	vector<Monster*> m_listMonsterIsDead;
 	SimpleAudioEngine * backgroundMusic;

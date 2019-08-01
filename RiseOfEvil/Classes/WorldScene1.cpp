@@ -126,6 +126,12 @@ bool WorldScene1::init()
 	Flag->setVisible(false);
 	Flag->setPosition(visibleSize.width / 2, visibleSize.height / 2);
 	this->addChild(Flag,5);
+	//======================start wave final=================================
+	startWaveFinal = ui::Button::create("button_start_final_wave.png");
+	startWaveFinal->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
+	startWaveFinal->setVisible(false);
+	startWaveFinal->addClickEventListener(CC_CALLBACK_0(WorldScene1::startWave, this));
+	addChild(startWaveFinal, 20);
 
 
 	////================TowerFake===================================
@@ -459,7 +465,7 @@ void WorldScene1::update(float deltaTime)
 				}
 			}
 		}
-		if (time >= 40)
+		if (time >= 40 && crystal->getcrystalBurst() == false)
 		{
 			startWave();
 		}
@@ -532,17 +538,27 @@ void WorldScene1::update(float deltaTime)
 			}
 		}
 
-		//crystal burst
+		//crystal burst================================================================================================================
 		if (crystal->getcrystalBurst() == true && crystal->getCheckLose() == false)
 		{
-			for (int i = 0; i < listMonster.size(); i++)
+			if (checkKillAllMonster)
 			{
-				if (listMonster[i]->GetSprite()->isVisible())
+				for (int i = 0; i < listMonster.size(); i++)
 				{
 					listMonster[i]->SetHitPoint(0);
 				}
+				checkKillAllMonster = false;
+				startWaveFinal->setVisible(true);
+				crystal->setHitPoint(crystal->getmaxHitPoint());
+				checkClickButtonStartFinalWave = true;
 			}
-			crystal->setHitPoint(crystal->getmaxHitPoint());
+			//startWave();
+			
+		}
+		if (crystal->getcrystalBurst() == false && crystal->getCheckLose() == false)
+		{
+			//crystal->setHitPoint(crystal->getmaxHitPoint());
+			startWaveFinal->setVisible(false);
 		}
 
 		if (crystal->getCheckLose() == true)
@@ -987,94 +1003,101 @@ void WorldScene1::MonsterMove(Monster* monster ,int tag, bool check, float timed
 
 bool WorldScene1::onTouchBegan(Touch * touch, Event * event)
 {
-	if (pause)
+	if (checkClickButtonStartFinalWave == true)
 	{
 		return false;
 	}
-	touchOut = false;
-	touchIn = false;
-	checkClick = false;
-	
-	for (int i = 0; i < listTower.size(); i++)
+	else
 	{
-		if (listTower[i]->GetSprite()->getBoundingBox().containsPoint(touch->getLocation()))
+
+		if (pause)
 		{
-			towerChoosing = listTower[i];
-			touchOut = false;
-			touchIn = true;
-			checkClick = true;
+			return false;
 		}
-	}
-	if (checkClick == false && checkLocationBuildTower(touch->getLocation()))
-	{	
-		canBuild->setVisible(false);
-		canBuild->setPosition(touch->getLocation());
-		auto listPosTower = mTileMap->getLayer("ListTower");
-		Size sizeListTower = listPosTower->getLayerSize();
-		for (int i = 0; i < sizeListTower.width; i++)
+		touchOut = false;
+		touchIn = false;
+		checkClick = false;
+
+		for (int i = 0; i < listTower.size(); i++)
 		{
-			for (int j = 0; j < sizeListTower.height; j++)
+			if (listTower[i]->GetSprite()->getBoundingBox().containsPoint(touch->getLocation()))
 			{
-				auto TowerSet = listPosTower->getTileAt(Vec2(i, j));
-				if (TowerSet != NULL  && TowerSet->getBoundingBox().containsPoint(touch->getLocation()))
+				towerChoosing = listTower[i];
+				touchOut = false;
+				touchIn = true;
+				checkClick = true;
+			}
+		}
+		if (checkClick == false && checkLocationBuildTower(touch->getLocation()))
+		{
+			canBuild->setVisible(false);
+			canBuild->setPosition(touch->getLocation());
+			auto listPosTower = mTileMap->getLayer("ListTower");
+			Size sizeListTower = listPosTower->getLayerSize();
+			for (int i = 0; i < sizeListTower.width; i++)
+			{
+				for (int j = 0; j < sizeListTower.height; j++)
 				{
-					touchOut = true;
-					touchIn = false;
-					touchLocation = touch->getLocation();	
-					createmenu(touch->getLocation());
-					towerArcherDetails->setVisible(false);
-					towerMagicDetails->setVisible(false);
-					towerSlowDetails->setVisible(false);
-					towerBoombardDetails->setVisible(false);
-					towerBarrackDetails->setVisible(false);
-					TowerFake->setVisible(false);
+					auto TowerSet = listPosTower->getTileAt(Vec2(i, j));
+					if (TowerSet != NULL  && TowerSet->getBoundingBox().containsPoint(touch->getLocation()))
+					{
+						touchOut = true;
+						touchIn = false;
+						touchLocation = touch->getLocation();
+						createmenu(touch->getLocation());
+						towerArcherDetails->setVisible(false);
+						towerMagicDetails->setVisible(false);
+						towerSlowDetails->setVisible(false);
+						towerBoombardDetails->setVisible(false);
+						towerBarrackDetails->setVisible(false);
+						TowerFake->setVisible(false);
+					}
 				}
 			}
 		}
-	}
-	else 
-	{
-		cannotBuild->setPosition(touch->getLocation());
-		cannotBuild->setVisible(true);
-		canBuild->setVisible(false);
-	}
-	for (int i = 0; i < listTower.size(); i++)
-	{
-		if (listTower[i]->GetSprite()->getBoundingBox().containsPoint(touch->getLocation()))
+		else
 		{
-			towerChoosing = listTower[i];
-			if (listTower[i]->GetGold() > currentGold || listTower[i]->getLevel() >= 3)
+			cannotBuild->setPosition(touch->getLocation());
+			cannotBuild->setVisible(true);
+			canBuild->setVisible(false);
+		}
+		for (int i = 0; i < listTower.size(); i++)
+		{
+			if (listTower[i]->GetSprite()->getBoundingBox().containsPoint(touch->getLocation()))
 			{
-				listTower[i]->getUpgradeIcon()->setEnabled(false);
-				listTower[i]->getPriceUpgradeLabel()->setString(to_string(listTower[i]->GetGold()));
-				listTower[i]->getPriceUpgradeLabel()->setColor(Color3B::RED);
+				towerChoosing = listTower[i];
+				if (listTower[i]->GetGold() > currentGold || listTower[i]->getLevel() >= 3)
+				{
+					listTower[i]->getUpgradeIcon()->setEnabled(false);
+					listTower[i]->getPriceUpgradeLabel()->setString(to_string(listTower[i]->GetGold()));
+					listTower[i]->getPriceUpgradeLabel()->setColor(Color3B::RED);
+				}
+				else
+				{
+					listTower[i]->getPriceUpgradeLabel()->setString(to_string(listTower[i]->GetGold()));
+					listTower[i]->getUpgradeIcon()->setEnabled(true);
+					listTower[i]->getPriceUpgradeLabel()->setColor(Color3B::YELLOW);
+				}
+				if (listTower[i]->getLevel() == 3)
+				{
+					listTower[i]->getPriceUpgradeLabel()->setString("MAX");
+				}
+				listTower[i]->ShowCircleMenu();
 			}
 			else
 			{
-				listTower[i]->getPriceUpgradeLabel()->setString(to_string(listTower[i]->GetGold()));
-				listTower[i]->getUpgradeIcon()->setEnabled(true);
-				listTower[i]->getPriceUpgradeLabel()->setColor(Color3B::YELLOW);
+				listTower[i]->HideCircleMenu();
 			}
-			if (listTower[i]->getLevel() == 3)
+		}
+		//======================flag======================
+		if (towerChoosing != nullptr && towerChoosing->GetCheckTypeTowerBarrack() == true)
+		{
+			if (towerChoosing->GetCheckTouchFlag() == false)
 			{
-				listTower[i]->getPriceUpgradeLabel()->setString("MAX");
+				towerChoosing->GetRangeBarrackTower()->setVisible(false);
 			}
-			listTower[i]->ShowCircleMenu();
-		}
-		else
-		{
-			listTower[i]->HideCircleMenu();
-		}
-	}
-	//======================flag======================
-	if (towerChoosing != nullptr && towerChoosing->GetCheckTypeTowerBarrack() == true)
-	{
-		if (towerChoosing->GetCheckTouchFlag() == false)
-		{
-			towerChoosing->GetRangeBarrackTower()->setVisible(false);
-		}
-		else
-		{
+			else
+			{
 				towerChoosing->SetCheckTouchFlag(false);
 				towerChoosing->HideCircleMenu();
 				Flag->setVisible(true);
@@ -1082,7 +1105,7 @@ bool WorldScene1::onTouchBegan(Touch * touch, Event * event)
 				Flag->setPosition(touch->getLocation());
 				towerChoosing->SetFlagLocation(Flag->getPosition());
 				if (towerChoosing->GetSprite()->getPosition().distance(Flag->getPosition()) < towerChoosing->GetRange() / 2)
-					{
+				{
 					for (int i = 0; i < towerChoosing->GetListSoldier().size(); i++)
 					{
 						if(!towerChoosing->GetListSoldier()[i]->IsDead())
@@ -1092,22 +1115,23 @@ bool WorldScene1::onTouchBegan(Touch * touch, Event * event)
 					}
 				}
 			}
-	}
-	//==========================================
+		}
+		//==========================================
 
-	if (touchOut == true && touchIn == false)
-	{
-		StatusMenu(true);
+		if (touchOut == true && touchIn == false)
+		{
+			StatusMenu(true);
+		}
+		if (touchOut == false && touchIn == true)
+		{
+			StatusMenu(false);
+		}
+		if (touchOut == false && touchIn == false)
+		{
+			StatusMenu(false);
+		}
+		return true;
 	}
-	if (touchOut == false && touchIn == true)
-	{
-		StatusMenu(false);
-	}
-	if (touchOut == false && touchIn == false)
-	{
-		StatusMenu(false);
-	}
-	return true;
 }
 //Check Location have tower or not
 bool WorldScene1::checkLocationBuildTower(Vec2 newPoint)
@@ -1348,6 +1372,7 @@ void WorldScene1::Warning()
 
 void WorldScene1::startWave()
 {
+	startWaveFinal->setVisible(false);
 	if (!start)
 	{
 		startBTN->setVisible(false);
@@ -1359,7 +1384,14 @@ void WorldScene1::startWave()
 	startWaveBTN2->setVisible(false);
 	time = 0;
 	//Plus num of wave
-	numOfWave++;
+	if (crystal->getcrystalBurst() == true)
+	{
+		numOfWave = 10;
+	}
+	else
+	{
+		numOfWave++;
+	}
 	messageWaveLabel->setString("Wave " + to_string(numOfWave) + " is coming !"); //Change string of Wave label
 	messageWaveLabel->runAction(Sequence::create(ScaleTo::create(0.5, 1), DelayTime::create(2), ScaleTo::create(0.3, 0.001), nullptr));
 	vector<int> temp = wave->getWave(numOfWave); //Get info wave from Wave class
