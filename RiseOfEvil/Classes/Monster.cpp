@@ -172,13 +172,12 @@ void Monster::Init()
 	}		
 	case TANK_MONSTER:
 	{
-		m_spriteNode = SpriteBatchNode::create("minotaur.png");
-		SpriteFrameCache::getInstance()->addSpriteFramesWithFile("minotaur.plist");
+		m_spriteNode = SpriteBatchNode::create("troll.png");
+		SpriteFrameCache::getInstance()->addSpriteFramesWithFile("troll.plist");
+		m_sprite = Sprite::createWithSpriteFrameName("_troll_1.png");
 
-		m_sprite = Sprite::createWithSpriteFrameName("_minotaur_1.png");
-
-		m_bloodBar = Sprite::createWithSpriteFrameName("healthbar_bg_minotaur.png");
-		m_blood = Sprite::createWithSpriteFrameName("healthbar_minotaur.png");
+		m_bloodBar = Sprite::createWithSpriteFrameName("healthbar_bg_troll.png");
+		m_blood = Sprite::createWithSpriteFrameName("healthbar_troll.png");
 		m_blood->setAnchorPoint(Point(0, 0.5));
 		m_blood->setPosition(Point(0, m_bloodBar->getContentSize().height / 2));
 
@@ -189,10 +188,9 @@ void Monster::Init()
 		m_sprite->addChild(m_bloodBar, 6);
 		m_spriteNode->addChild(m_sprite);
 		m_sprite->setVisible(false);
-		m_fomatAnimation = "_minotaur_";
+		m_fomatAnimation = "_troll_";
 		m_png[0] = 1; m_png[1] = 8; m_png[2] = 9; m_png[3] = 16; m_png[4] = 17; m_png[5] = 24; m_png[6] = 25; m_png[7] = 32; m_png[8] = 33; m_png[9] = 40; m_png[10] = 41; m_png[11] = 48; m_png[12] = 49; m_png[13] = 56; m_png[14] = 57; m_png[15] = 64;
-		m_png[16] = 65; m_png[17] = 69; m_png[18] = 70; m_png[19] = 74; m_png[20] = 75; m_png[21] = 79; m_png[22] = 80; m_png[23] = 84; m_png[24] = 85; m_png[25] = 89; m_png[26] = 90; m_png[27] = 94; m_png[28] = 95; m_png[29] = 99; m_png[30] = 100; m_png[31] = 104;
-		m_sprite->setScale(1.3);
+		m_png[16] = 65; m_png[17] = 73; m_png[18] = 74; m_png[19] = 82; m_png[20] = 83; m_png[21] = 91; m_png[22] = 92; m_png[23] = 100; m_png[24] = 101; m_png[25] = 109; m_png[26] = 110; m_png[27] = 118; m_png[28] = 119; m_png[29] = 127; m_png[30] = 128; m_png[31] = 136;
 		m_hitPoint = 960;
 		m_maxHitPoint = 960;
 		m_minimumAtk = 40;
@@ -243,12 +241,12 @@ void Monster::Init()
 		
 	case SIEGE_MONSTER:
 	{
-		SpriteFrameCache::getInstance()->addSpriteFramesWithFile("troll.plist");
+		m_spriteNode = SpriteBatchNode::create("warrior.png");
+		SpriteFrameCache::getInstance()->addSpriteFramesWithFile("warrior.plist");
+		m_sprite = Sprite::createWithSpriteFrameName("_warrior_1.png");
 
-		m_sprite = Sprite::createWithSpriteFrameName("_troll_1.png");
-
-		m_bloodBar = Sprite::createWithSpriteFrameName("healthbar_bg_troll.png");
-		m_blood = Sprite::createWithSpriteFrameName("healthbar_troll.png");
+		m_bloodBar = Sprite::createWithSpriteFrameName("healthbar_bg_warrior.png");
+		m_blood = Sprite::createWithSpriteFrameName("healthbar_warrior.png");
 		m_blood->setAnchorPoint(Point(0, 0.5));
 		m_blood->setPosition(Point(0, m_bloodBar->getContentSize().height / 2));
 
@@ -259,9 +257,9 @@ void Monster::Init()
 		m_sprite->addChild(m_bloodBar, 6);
 		m_spriteNode->addChild(m_sprite);
 		m_sprite->setVisible(false);
-		m_fomatAnimation = "_troll_";
-		m_png[0] = 1; m_png[1] = 8; m_png[2] = 9; m_png[3] = 16; m_png[4] = 17; m_png[5] = 24; m_png[6] = 25; m_png[7] = 32; m_png[8] = 33; m_png[9] = 40; m_png[10] = 41; m_png[11] = 48; m_png[12] = 49; m_png[13] = 56; m_png[14] = 57; m_png[15] = 64;
-		m_png[16] = 65; m_png[17] = 73; m_png[18] = 74; m_png[19] = 82; m_png[20] = 83; m_png[21] = 91; m_png[22] = 92; m_png[23] = 100; m_png[24] = 101; m_png[25] = 109; m_png[26] = 110; m_png[27] = 118; m_png[28] = 119; m_png[29] = 127; m_png[30] = 128; m_png[31] = 136;
+		m_fomatAnimation = "_warrior_";
+		m_png[0] = 1; m_png[1] = 16; m_png[2] = 17; m_png[3] = 32; m_png[4] = 33; m_png[5] = 48; m_png[6] = 49; m_png[7] = 64; m_png[8] = 65; m_png[9] = 80; m_png[10] = 81; m_png[11] = 96; m_png[12] = 97; m_png[13] = 112; m_png[14] = 113; m_png[15] = 128;
+		m_png[16] = 129; m_png[17] = 144; m_png[18] = 145; m_png[19] = 160; m_png[20] = 161; m_png[21] = 176; m_png[22] = 177; m_png[23] = 192; m_png[24] = 193; m_png[25] = 208; m_png[26] = 209; m_png[27] = 224; m_png[28] = 225; m_png[29] = 240; m_png[30] = 241; m_png[31] = 256;
 		m_hitPoint = 58;
 		m_minimumAtk = 3;
 		m_maximumAtk = 8;
@@ -296,7 +294,6 @@ void Monster::Init()
 		m_fomatAnimation = "_dragon_";
 		m_png[0] = 1; m_png[1] = 16; m_png[2] = 17; m_png[3] = 32; m_png[4] = 33; m_png[5] = 48; m_png[6] = 49; m_png[7] = 64; m_png[8] = 65; m_png[9] = 80; m_png[10] = 81; m_png[11] = 96; m_png[12] = 97; m_png[13] = 112; m_png[14] = 113; m_png[15] = 128;
 		m_png[16] = 129; m_png[17] = 136; m_png[18] = 137; m_png[19] = 144; m_png[20] = 145; m_png[21] = 152; m_png[22] = 153; m_png[23] = 160; m_png[24] = 161; m_png[25] = 168; m_png[26] = 169; m_png[27] = 176; m_png[28] = 177; m_png[29] = 184; m_png[30] = 185; m_png[31] = 192;
-		m_spriteNode = SpriteBatchNode::create("troll.png");
 		
 		m_hitPoint = 12000;
 		m_minimumAtk = 150;
@@ -330,8 +327,7 @@ void Monster::Init()
 		m_fomatAnimation = "_minotaur_";
 		m_png[0] = 1; m_png[1] = 8; m_png[2] = 9; m_png[3] = 16; m_png[4] = 17; m_png[5] = 24; m_png[6] = 25; m_png[7] = 32; m_png[8] = 33; m_png[9] = 40; m_png[10] = 41; m_png[11] = 48; m_png[12] = 49; m_png[13] = 56; m_png[14] = 57; m_png[15] = 64;
 		m_png[16] = 65; m_png[17] = 69; m_png[18] = 70; m_png[19] = 74; m_png[20] = 75; m_png[21] = 79; m_png[22] = 80; m_png[23] = 84; m_png[24] = 85; m_png[25] = 89; m_png[26] = 90; m_png[27] = 94; m_png[28] = 95; m_png[29] = 99; m_png[30] = 100; m_png[31] = 104;
-		m_sprite->setScale(2.5);
-		m_sprite->setColor(Color3B::RED);
+			
 		m_hitPoint = 21600;
 		m_minimumAtk = 200;
 		m_maximumAtk = 400;
