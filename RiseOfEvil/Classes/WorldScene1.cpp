@@ -495,7 +495,12 @@ void WorldScene1::update(float deltaTime)
 			{
 				if ((listMonster[i]->m_flag < listPoint.size()) && (listMonster[i]->GetSprite()->getTag() == 1) && (listMonster[i]->GetSprite()->isVisible()))
 				{
-					if (listPoint[listMonster[i]->m_flag].getDistance(listMonster[i]->GetSprite()->getPosition()) == 0)
+					if (listPoint[listMonster[i]->m_flag].getDistance(listMonster[i]->GetSprite()->getPosition()) == 0 && listMonster[i]->m_flag == 0)
+					{
+						listMonster[i]->m_flag++;
+						delay = 0.4;
+					}
+					else if (listPoint[listMonster[i]->m_flag].getDistance(listMonster[i]->GetSprite()->getPosition()) == 0 && listMonster[i]->m_flag != 0)
 					{
 						listMonster[i]->m_flag++;
 						delay = 0;
@@ -507,7 +512,12 @@ void WorldScene1::update(float deltaTime)
 				}
 				else if ((listMonster[i]->m_flag < listPoint2.size()) && (listMonster[i]->GetSprite()->getTag() == 0) && (listMonster[i]->GetSprite()->isVisible()))
 				{
-					if (listPoint2[listMonster[i]->m_flag].getDistance(listMonster[i]->GetSprite()->getPosition()) == 0)
+					if (listPoint2[listMonster[i]->m_flag].getDistance(listMonster[i]->GetSprite()->getPosition()) == 0 && listMonster[i]->m_flag == 0)
+					{
+						listMonster[i]->m_flag++;
+						delay = 0.4;
+					}
+					else if (listPoint2[listMonster[i]->m_flag].getDistance(listMonster[i]->GetSprite()->getPosition()) == 0 && listMonster[i]->m_flag != 0)
 					{
 						listMonster[i]->m_flag++;
 						delay = 0;

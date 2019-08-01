@@ -45,11 +45,15 @@ SpriteBatchNode * Objects::GetSpriteBatchNote()
 
 Sprite * Objects::GetSprite()
 {
-	if (m_sprite == nullptr)
+	try
 	{
-		throw "null sprite";
+		return m_sprite;
 	}
-	return m_sprite;
+	catch (...)
+	{
+		log("Sprite null !");
+	}
+	
 }
 
 int Objects::GetHitPoint()
