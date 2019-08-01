@@ -232,6 +232,11 @@ bool WorldScene1::init()
 	winGame->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
 	winGame->setVisible(false);
 	addChild(winGame, 20);
+	auto worldMapBtn2 = ui::Button::create("res/Buttons/WorldScene1/worldMapBtn.png");
+	worldMapBtn2->setPosition(Vec2(winGame->getContentSize().width / 2, winGame->getContentSize().height / 4.5));
+	worldMapBtn2->addClickEventListener(CC_CALLBACK_0(WorldScene1::returnToMainMenu, this));
+	worldMapBtn2->setScaleX(0.7);
+	winGame->addChild(worldMapBtn2);
 	//Create first list monster from Wave list
 	numOfWave = 0;
 	currentStage = Player::GetInstance()->GetPlayStage();
@@ -275,7 +280,7 @@ bool WorldScene1::init()
 	//================ create audio===================================
 	audio = SimpleAudioEngine::getInstance(); 
 	backgroundMusic = SimpleAudioEngine::getInstance();
-	backgroundMusic->playBackgroundMusic("sound/savage_music_theme.wav", true);
+	backgroundMusic->playBackgroundMusic("sound/background_sound.wav", true);
 
 	//===========================================================================
 	//First Location Tower
@@ -404,7 +409,12 @@ void WorldScene1::update(float deltaTime)
 			}
 			checkSellTowerLevelThree = true;
 			listTower[i]->GetSprite()->setVisible(false);
-			currentGold += listTower[i]->GetGold() / 2;
+			auto labelgold = Label::createWithTTF(" +"+to_string(listTower[i]->GetGold() / 4), "fonts/Comic_Book.ttf", 20);
+			labelgold->setPosition(listTower[i]->GetSprite()->getPosition());
+			labelgold->setColor(Color3B::YELLOW);
+			addChild(labelgold);
+			labelgold->runAction(Sequence::create(MoveBy::create(0.5, Vec2(0, 20)), FadeOut::create(0), RemoveSelf::create(), nullptr));
+			currentGold += listTower[i]->GetGold() / 4;
 			//delete listTower[i];
 			listTower.erase(listTower.begin() + i);
 			audio->playEffect("sound/Sound_TowerSell.wav", false);
@@ -517,7 +527,7 @@ void WorldScene1::update(float deltaTime)
 				}
 				else if ((listMonster[i]->m_flag < listPoint2.size()) && (listMonster[i]->GetSprite()->getTag() == 0) && (listMonster[i]->GetSprite()->isVisible()))
 				{
-					if (listPoint2[listMonster[i]->m_flag].getDistance(listMonster[i]->GetSprite()->getPosition()) == 0 )
+					if (listPoint2[listMonster[i]->m_flag].getDistance(listMonster[i]->GetSprite()->getPosition()) == 0)
 					{
 						listMonster[i]->m_flag++;
 						delay = 0;
@@ -527,8 +537,8 @@ void WorldScene1::update(float deltaTime)
 						delay = 0.4;
 					}
 				}
-				checkMonsterAttack = MonsterAttack(listMonster[i], deltaTime);
-				MonsterMove(listMonster[i], listMonster[i]->GetSprite()->getTag(), checkMonsterAttack, deltaTime, delay);			
+				checkMonsterAttack = MonsterAttack(listMonster[i], deltaTime);			
+				MonsterMove(listMonster[i], listMonster[i]->GetSprite()->getTag(), checkMonsterAttack, deltaTime, delay);				
 			}
 		}
 
@@ -688,7 +698,7 @@ void WorldScene1::update(float deltaTime)
 					{
 						listMonster[i]->SetMovementSpeed(listMonster[i]->GetMovementSpeed() + 1);
 					}
-					else
+					else if(i < listMonster.size())
 					{
 						listMonster[i]->SetMovementSpeed(listMonster[i]->GetMSpeed());
 						listMonster[i]->GetSprite()->setColor(Color3B(255, 255, 255));
@@ -704,12 +714,11 @@ void WorldScene1::update(float deltaTime)
 					{
 						if (listTower[i]->GetListSoldier()[j]->GetMovementSpeed() < listTower[i]->GetListSoldier()[j]->GetMSpeed())
 						{
-							listTower[i]->GetListSoldier()[j]->SetMovementSpeed(listMonster[i]->GetMovementSpeed() + 100);
+							listTower[i]->GetListSoldier()[j]->SetMovementSpeed(listTower[i]->GetListSoldier()[j]->GetMovementSpeed() + 100);
 						}
 						else
 						{
-							listTower[i]->GetListSoldier()[j]->SetMovementSpeed(listMonster[i]->GetMSpeed());
-							listTower[i]->GetListSoldier()[j]->GetSprite()->setColor(Color3B(255, 255, 255));
+							listTower[i]->GetListSoldier()[j]->SetMovementSpeed(listTower[i]->GetListSoldier()[j]->GetMSpeed());
 						}
 					}
 				}
@@ -947,15 +956,6 @@ Monster* WorldScene1::SoldierFindMonster(Soldier* soldier)
 		}			
 	}
 	soldier->SetCheckGuard(true);
-	/*if (soldier->GetSprite()->getPosition().distance(Flag->getPosition()) >= 50)
-	{
-		soldier->SetComeBack(true);
-	}
-	else if(soldier->GetSprite()->getPosition().distance(Flag->getPosition()) <= 10)
-	{
-		soldier->SetComeBack(false);
-	}*/
-	
 	return nullptr;
 }
 
