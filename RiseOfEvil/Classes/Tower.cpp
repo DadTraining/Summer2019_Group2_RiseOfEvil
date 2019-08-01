@@ -126,19 +126,20 @@ Tower::Tower(Layer * layer, int type, Vec2 Pos)
 		rangeBarrackTower->setVisible(false);
 		rangeBarrackTower->setPosition(m_sprite->getContentSize().width / 2, m_sprite->getContentSize().height / 2);
 		m_sprite->addChild(rangeBarrackTower);
+		
 		for (int i = 0; i < 3; i++)
 		{
 			Soldier * m_soldier = new Soldier(layer);
 			listSoldier.push_back(m_soldier);
+			m_soldier->GetSprite()->setPosition(Vec2(m_sprite->getPosition()));
 			if ((i + 1) % 2 != 0)
 			{
-				listSoldier[i]->GetSprite()->setPosition(Vec2(Pos.x + (i*i) *i, Pos.y + (i *i) * 2 * i));
+				listSoldier[i]->Move(Vec2(Pos.x + (i*i) *i, Pos.y + (i *i) * 2 * i));
 			}
 			else
 			{
-				listSoldier[i]->GetSprite()->setPosition(Vec2(Pos.x - (i*i) * i * 32, Pos.y + (i * i) *  i * 16));
+				listSoldier[i]->Move(Vec2(Pos.x - (i*i) * i * 32, Pos.y + (i * i) *  i * 16));
 			}
-			listSoldier[i]->GetSprite()->setVisible(true);
 		}
 	}
 	else
@@ -435,7 +436,7 @@ void Tower::upgrade()
 			m_gold *= 2;
 		}
 	}
-	if (m_level == 3)
+	if (m_level == 3 && m_type != BARRACKS_TOWER)
 	{
 		towerSkill->getSprite()->setVisible(true);
 		skillIcon->setVisible(true);
@@ -514,23 +515,33 @@ void Tower::setIncreaseAttackDamageSkill(bool check)
 
 void Tower::slowSkill(vector<Monster*> listMonster)
 {
-	for (int i = 0; i < listMonster.size(); i++)
+	try
 	{
-		if (m_sprite->getPosition().distance(listMonster[i]->GetSprite()->getPosition()) < 150 
-			&& listMonster[i]->GetMovementSpeed() > listMonster[i]->GetMSpeed() * 60 / 100 && listMonster[i]->GetSprite()->isVisible())
+		for (int i = 0; i < listMonster.size(); i++)
 		{
-			listMonster[i]->SetMovementSpeed(listMonster[i]->GetMovementSpeed() - listMonster[i]->GetMSpeed() * 10 / 100);
-			//checkSlowSkill = true;
-		} 
+			if (m_sprite->getPosition().distance(listMonster[i]->GetSprite()->getPosition()) < 150
+				&& listMonster[i]->GetMovementSpeed() > listMonster[i]->GetMSpeed() * 60 / 100 && listMonster[i]->GetSprite()->isVisible())
+			{
+				listMonster[i]->SetMovementSpeed(listMonster[i]->GetMovementSpeed() - listMonster[i]->GetMSpeed() * 10 / 100);
+				//checkSlowSkill = true;
+			}
+		}
 	}
+	catch (...)
+	{
+		log("error in slow skill in Tower.cpp");
+	}
+	
 }
 
 void Tower::burnSkill(vector<Monster*> listMonster, float deltaTime)
 {
-	if (countTimeToReduceHPForBurnSkill >= 1)
+	try
 	{
-		for (int i = 0; i < listMonster.size(); i++)
+		if (countTimeToReduceHPForBurnSkill >= 1)
 		{
+			for (int i = 0; i < listMonster.size(); i++)
+			{
 				if (m_sprite->getPosition().distance(listMonster[i]->GetSprite()->getPosition()) < 150 && listMonster[i]->GetSprite()->isVisible())
 				{
 					listMonster[i]->SetHitPoint(listMonster[i]->GetHitPoint() - 5);
@@ -539,10 +550,16 @@ void Tower::burnSkill(vector<Monster*> listMonster, float deltaTime)
 				}
 			}
 		}
-	else
-	{
-		countTimeToReduceHPForBurnSkill += deltaTime;
+		else
+		{
+			countTimeToReduceHPForBurnSkill += deltaTime;
+		}
 	}
+	catch (...)
+	{
+		log("error in burn skill in Tower.cpp");
+	}
+	
 }
 
 void Tower::bossSkill(Monster * boss, vector<Monster*> listMonster, float deltaTime)
@@ -618,6 +635,45 @@ void Tower::resetTower(int level)
 		m_attackSpeed = baseAttackSpeed * 6;
 		break;
 	}
+}
+float timeReborn = 0;
+void Tower::Reborn(float deltaTime)
+{
+	if (timeReborn > 5)
+	{
+		int count = 0;
+		for (int i = 0; i < listSoldier.size(); i++)
+		{
+			if (!listSoldier[i]->IsDead())
+			{
+				count++;
+			}
+		}
+		if (count < 3)
+		{
+			for (int i = 0; i < (3 - count); i++)
+			{
+				Soldier * m_soldier = new Soldier(layer);
+				m_soldier->GetSprite()->setPosition(Vec2(m_sprite->getPosition()));
+				m_soldier->SetCheckGuard(false);
+				m_soldier->SetTouchFlag(true);
+				m_soldier->Move(Vec2(flag.x + random(-5, 5), flag.y+ random(-5, 5)));
+				listSoldier.push_back(m_soldier);
+				
+			}
+
+		}
+		timeReborn = 0;
+	}
+	else
+	{
+		timeReborn += deltaTime;
+	}
+	
+}
+void Tower::SetFlagLocation(Vec2 flag)
+{
+	this->flag = flag;
 }
 Sprite * Tower::getSkillDetails()
 {

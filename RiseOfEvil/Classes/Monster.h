@@ -10,7 +10,7 @@
 #define SIEGE_MONSTER 5
 #define ELITE_MONSTER 6
 #define DARKLORD  7
-#define SLOW_SPEED 50
+#define SLOW_SPEED 30
 #define MEDIUM_SPEED 50
 #define FAST_SPEED 150
 #define E  1
