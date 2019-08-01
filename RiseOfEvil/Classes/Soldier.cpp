@@ -104,7 +104,8 @@ void Soldier::Move(Vec2 point)
 	auto moveTo = MoveTo::create(point.getDistance(m_sprite->getPosition()) / m_speed, Vec2(point.x, point.y));
 	auto callbackHide = CallFunc::create(CC_CALLBACK_0(Soldier::SetTouchFlagTwo, this));
 	auto callbackHide2 = CallFunc::create(CC_CALLBACK_0(Soldier::StopAllAction, this));
-	auto sequen = Sequence::create(moveTo, callbackHide, callbackHide2, NULL);
+	auto callbackHide3 = CallFunc::create(CC_CALLBACK_0(Soldier::SetComeBackTwo, this));
+	auto sequen = Sequence::create(moveTo, callbackHide, callbackHide2, callbackHide3, NULL);
 	m_sprite->runAction(sequen);
 
 }
@@ -165,7 +166,7 @@ void Soldier::MoveToMonster(Vec2 point, float timedelay)
 float timeGuard = 0;
 void Soldier::Guard(float deltaTime)
 {
-	if (!touchFlag)
+	if (!touchFlag && checkGuard)
 	{
 		if (timeGuard > 0.3)
 		{
@@ -579,7 +580,7 @@ void Soldier::SetTouchFlag(bool touchFlag)
 
 void Soldier::SetTouchFlagTwo()
 {
-	touchFlag = false;
+	this->touchFlag = false;
 }
 
 void Soldier::SetCheckAttack(bool checkAttack)
@@ -600,6 +601,21 @@ bool Soldier::GetChecKGuard()
 void Soldier::SetCheckGuard(bool checkGuard)
 {
 	this->checkGuard = checkGuard;
+}
+
+bool Soldier::GetComeBack()
+{
+	return comeBack;
+}
+
+void Soldier::SetComeBack(bool comeBack)
+{
+	this->comeBack = comeBack;
+}
+
+void Soldier::SetComeBackTwo()
+{
+	this->comeBack = false;
 }
 
 int Soldier::GetRange()

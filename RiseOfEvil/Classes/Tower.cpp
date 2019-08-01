@@ -131,13 +131,14 @@ Tower::Tower(Layer * layer, int type, Vec2 Pos)
 		{
 			Soldier * m_soldier = new Soldier(layer);
 			listSoldier.push_back(m_soldier);
+			m_soldier->GetSprite()->setPosition(Vec2(m_sprite->getPosition()));
 			if ((i + 1) % 2 != 0)
 			{
-				listSoldier[i]->GetSprite()->setPosition(Vec2(Pos.x + (i*i) *i, Pos.y + (i *i) * 2 * i));
+				listSoldier[i]->Move(Vec2(Pos.x + (i*i) *i, Pos.y + (i *i) * 2 * i));
 			}
 			else
 			{
-				listSoldier[i]->GetSprite()->setPosition(Vec2(Pos.x - (i*i) * i * 32, Pos.y + (i * i) *  i * 16));
+				listSoldier[i]->Move(Vec2(Pos.x - (i*i) * i * 32, Pos.y + (i * i) *  i * 16));
 			}
 		}
 	}
@@ -613,16 +614,12 @@ void Tower::Reborn(float deltaTime)
 			for (int i = 0; i < (3 - count); i++)
 			{
 				Soldier * m_soldier = new Soldier(layer);
+				m_soldier->GetSprite()->setPosition(Vec2(m_sprite->getPosition()));
+				m_soldier->SetCheckGuard(false);
+				m_soldier->SetTouchFlag(true);
+				m_soldier->Move(Vec2(flag.x + random(-5, 5), flag.y+ random(-5, 5)));
 				listSoldier.push_back(m_soldier);
-				if ((i + 1) % 2 != 0)
-				{
-					listSoldier[i]->GetSprite()->setPosition(Vec2(600,300));
-					//m_sprite->getPosition().x + (i*i) *i, m_sprite->getPosition().y + (i *i) * 2 * i)
-				}
-				else
-				{
-					listSoldier[i]->GetSprite()->setPosition(Vec2(m_sprite->getPosition().x - (i*i) * i * 32, m_sprite->getPosition().y + (i * i) *  i * 16));
-				}
+				
 			}
 
 		}
@@ -633,6 +630,10 @@ void Tower::Reborn(float deltaTime)
 		timeReborn += deltaTime;
 	}
 	
+}
+void Tower::SetFlagLocation(Vec2 flag)
+{
+	this->flag = flag;
 }
 Sprite * Tower::getSkillDetails()
 {
