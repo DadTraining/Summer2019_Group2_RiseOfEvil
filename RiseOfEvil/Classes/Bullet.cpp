@@ -101,9 +101,7 @@ void Bullet::AfterShoot()
 			{
 				if (!listOfCurrentMonster[i]->IsDead())
 				{
-					if (listOfCurrentMonster[i]->GetSprite()->getPosition().distance(monsterBeHit->GetSprite()->getPosition()) <= 90
-						&&
-						!listOfCurrentMonster[i]->GetSprite()->isVisible())
+					if (listOfCurrentMonster[i]->GetSprite()->getPosition().distance(monsterBeHit->GetSprite()->getPosition()) <= 90)
 					{
 						listOfCurrentMonster[i]->ReduceHitPointMonster(damageOfHit);
 					}

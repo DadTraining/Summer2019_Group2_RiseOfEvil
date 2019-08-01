@@ -121,8 +121,8 @@ void Monster::Init()
 			m_png[0] = 1; m_png[1] = 16; m_png[2] = 17; m_png[3] = 32; m_png[4] = 33; m_png[5] = 48; m_png[6] = 49; m_png[7] = 64; m_png[8] = 65; m_png[9] = 80; m_png[10] = 81; m_png[11] = 96; m_png[12] = 97; m_png[13] = 112; m_png[14] = 113; m_png[15] = 128;
 			m_png[16] = 129; m_png[17] = 136; m_png[18] = 137; m_png[19] = 144; m_png[20] = 145; m_png[21] = 152; m_png[22] = 153; m_png[23] = 160; m_png[24] = 161; m_png[25] = 168; m_png[26] = 169; m_png[27] = 176; m_png[28] = 177; m_png[29] = 184; m_png[30] = 185; m_png[31] = 192;
 
-			m_hitPoint = 120;
-			m_maxHitPoint = 120;
+			m_hitPoint = 100;
+			m_maxHitPoint = 100;
 			m_minimumAtk = 5;
 			m_maximumAtk = 7;
 			m_attackSpeed = 1.0;
@@ -156,8 +156,8 @@ void Monster::Init()
 			m_png[0] = 1; m_png[1] = 8; m_png[2] = 9; m_png[3] = 16; m_png[4] = 17; m_png[5] = 24; m_png[6] = 25; m_png[7] = 32; m_png[8] = 33; m_png[9] = 40; m_png[10] = 41; m_png[11] = 48; m_png[12] = 49; m_png[13] = 56; m_png[14] = 57; m_png[15] = 64;
 			m_png[16] = 65; m_png[17] = 74; m_png[18] = 75; m_png[19] = 84; m_png[20] = 85; m_png[21] = 94; m_png[22] = 95; m_png[23] = 104; m_png[24] = 105; m_png[25] = 114; m_png[26] = 115; m_png[27] = 124; m_png[28] = 125; m_png[29] = 134; m_png[30] = 135; m_png[31] = 144;
 
-			m_hitPoint = 120;
-			m_maxHitPoint = 120;
+			m_hitPoint = 100;
+			m_maxHitPoint = 100;
 			m_minimumAtk = 5;
 			m_maximumAtk = 7;
 			m_attackSpeed = 1.0;
@@ -226,8 +226,8 @@ void Monster::Init()
 		m_png[0] = 1; m_png[1] = 12; m_png[2] = 13; m_png[3] = 24; m_png[4] = 25; m_png[5] = 36; m_png[6] = 37; m_png[7] = 48; m_png[8] = 49; m_png[9] = 60; m_png[10] = 61; m_png[11] = 72; m_png[12] = 73; m_png[13] = 84; m_png[14] = 85; m_png[15] = 96;
 		m_png[16] = 97; m_png[17] = 103; m_png[18] = 104; m_png[19] = 110; m_png[20] = 111; m_png[21] = 117; m_png[22] = 118; m_png[23] = 124; m_png[24] = 125; m_png[25] = 131; m_png[26] = 132; m_png[27] = 138; m_png[28] = 139; m_png[29] = 145; m_png[30] = 146; m_png[31] = 152;
 
-		m_hitPoint = 42;
-		m_maxHitPoint = 42;
+		m_hitPoint = 40;
+		m_maxHitPoint = 40;
 		m_minimumAtk = 2;
 		m_maximumAtk = 3;
 		m_attackSpeed = 1.2;
@@ -295,7 +295,7 @@ void Monster::Init()
 		m_png[0] = 1; m_png[1] = 16; m_png[2] = 17; m_png[3] = 32; m_png[4] = 33; m_png[5] = 48; m_png[6] = 49; m_png[7] = 64; m_png[8] = 65; m_png[9] = 80; m_png[10] = 81; m_png[11] = 96; m_png[12] = 97; m_png[13] = 112; m_png[14] = 113; m_png[15] = 128;
 		m_png[16] = 129; m_png[17] = 136; m_png[18] = 137; m_png[19] = 144; m_png[20] = 145; m_png[21] = 152; m_png[22] = 153; m_png[23] = 160; m_png[24] = 161; m_png[25] = 168; m_png[26] = 169; m_png[27] = 176; m_png[28] = 177; m_png[29] = 184; m_png[30] = 185; m_png[31] = 192;
 		
-		m_hitPoint = 12000;
+		m_hitPoint = 8000;
 		m_minimumAtk = 150;
 		m_maximumAtk = 250;
 		m_attackSpeed = 2.5;
@@ -328,7 +328,7 @@ void Monster::Init()
 		m_png[0] = 1; m_png[1] = 8; m_png[2] = 9; m_png[3] = 16; m_png[4] = 17; m_png[5] = 24; m_png[6] = 25; m_png[7] = 32; m_png[8] = 33; m_png[9] = 40; m_png[10] = 41; m_png[11] = 48; m_png[12] = 49; m_png[13] = 56; m_png[14] = 57; m_png[15] = 64;
 		m_png[16] = 65; m_png[17] = 69; m_png[18] = 70; m_png[19] = 74; m_png[20] = 75; m_png[21] = 79; m_png[22] = 80; m_png[23] = 84; m_png[24] = 85; m_png[25] = 89; m_png[26] = 90; m_png[27] = 94; m_png[28] = 95; m_png[29] = 99; m_png[30] = 100; m_png[31] = 104;
 			
-		m_hitPoint = 21600;
+		m_hitPoint = 20000;
 		m_minimumAtk = 200;
 		m_maximumAtk = 400;
 		m_attackSpeed = 2.0;
@@ -346,7 +346,7 @@ float timeMove = 0;
 void Monster::Update(float deltaTime)
 {
 	//if (timeCount >= (2.0 + (random(0, 10) / 10 * 1.0)))
-	if(timeCount >= 2.0)
+	if(timeCount >= 1.0)
 	{
 		m_sprite->setVisible(true);
 		timeCount = 0;
