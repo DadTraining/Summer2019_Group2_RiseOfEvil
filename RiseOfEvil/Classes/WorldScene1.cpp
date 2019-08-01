@@ -646,10 +646,10 @@ void WorldScene1::update(float deltaTime)
 					{					
 						listTower[i]->GetListSoldier()[j]->Guard(deltaTime);				
 					}
-					if (listTower[i]->GetListSoldier()[j]->GetComeBack() && !listTower[i]->GetListSoldier()[j]->GetTouchFlag())
+					/*if (listTower[i]->GetListSoldier()[j]->GetComeBack() && !listTower[i]->GetListSoldier()[j]->GetTouchFlag())
 					{
 						listTower[i]->GetListSoldier()[j]->MoveToMonster(Flag->getPosition(), deltaTime);
-					}
+					}*/
 					if (SoldierFindMonster(listTower[i]->GetListSoldier()[j]) != nullptr)
 					{
 						listTower[i]->GetListSoldier()[j]->SetCheckAttack(SoldierAttack(listTower[i]->GetListSoldier()[j], SoldierFindMonster(listTower[i]->GetListSoldier()[j]), deltaTime));
@@ -934,14 +934,16 @@ Monster* WorldScene1::SoldierFindMonster(Soldier* soldier)
 			}
 		}			
 	}
-	soldier->SetCheckGuard(true);
+	
 	if (soldier->GetSprite()->getPosition().distance(Flag->getPosition()) >= 50)
 	{
 		soldier->SetComeBack(true);
+		soldier->SetCheckGuard(false);
 	}
 	else if(soldier->GetSprite()->getPosition().distance(Flag->getPosition()) <= 10)
 	{
 		soldier->SetComeBack(false);
+		soldier->SetCheckGuard(true);
 	}
 	
 	return nullptr;

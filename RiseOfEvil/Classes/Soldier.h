@@ -71,6 +71,7 @@ public:
 	float GetMovementSpeed();
 	void SetMovementSpeed(float);
 	bool IsDead();
+	void Reborn();
 	float GetAttackSpeed();
 	void DoDead();
 };
