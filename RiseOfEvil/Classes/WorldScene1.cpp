@@ -232,6 +232,11 @@ bool WorldScene1::init()
 	winGame->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
 	winGame->setVisible(false);
 	addChild(winGame, 20);
+	auto worldMapBtn2 = ui::Button::create("res/Buttons/WorldScene1/worldMapBtn.png");
+	worldMapBtn2->setPosition(Vec2(winGame->getContentSize().width / 2, winGame->getContentSize().height / 4.5));
+	worldMapBtn2->addClickEventListener(CC_CALLBACK_0(WorldScene1::returnToMainMenu, this));
+	worldMapBtn2->setScaleX(0.7);
+	winGame->addChild(worldMapBtn2);
 	//Create first list monster from Wave list
 	numOfWave = 0;
 	currentStage = Player::GetInstance()->GetPlayStage();
@@ -275,7 +280,7 @@ bool WorldScene1::init()
 	//================ create audio===================================
 	audio = SimpleAudioEngine::getInstance(); 
 	backgroundMusic = SimpleAudioEngine::getInstance();
-	backgroundMusic->playBackgroundMusic("sound/savage_music_theme.wav", true);
+	backgroundMusic->playBackgroundMusic("sound/background_sound.wav", true);
 
 	//===========================================================================
 	//First Location Tower
@@ -404,7 +409,12 @@ void WorldScene1::update(float deltaTime)
 			}
 			checkSellTowerLevelThree = true;
 			listTower[i]->GetSprite()->setVisible(false);
-			currentGold += listTower[i]->GetGold() / 2;
+			auto labelgold = Label::createWithTTF(" +"+to_string(listTower[i]->GetGold() / 4), "fonts/Comic_Book.ttf", 20);
+			labelgold->setPosition(listTower[i]->GetSprite()->getPosition());
+			labelgold->setColor(Color3B::YELLOW);
+			addChild(labelgold);
+			labelgold->runAction(Sequence::create(MoveBy::create(0.5, Vec2(0, 20)), FadeOut::create(0), RemoveSelf::create(), nullptr));
+			currentGold += listTower[i]->GetGold() / 4;
 			//delete listTower[i];
 			listTower.erase(listTower.begin() + i);
 			audio->playEffect("sound/Sound_TowerSell.wav", false);
