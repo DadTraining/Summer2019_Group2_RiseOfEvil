@@ -654,7 +654,7 @@ void WorldScene1::update(float deltaTime)
 		//Tower barrack reborn
 		for (int i = 0; i < listTower.size(); i++)
 		{
-			if (listTower[i]->GetType() == 5)
+			if (!listTower[i]->IsDead() && listTower[i]->GetType() == 5)
 			{
 				listTower[i]->Reborn(deltaTime);
 			}
