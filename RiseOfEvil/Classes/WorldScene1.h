@@ -135,7 +135,9 @@ public:
 	void createmenu(Vec2 point);
 	bool MonsterAttack(Monster*, float);
 	Monster* SoldierFindMonster(Soldier*);
+	Tower* MonsterFindTower(Monster*);
 	bool SoldierAttack(Soldier*, Monster*, float);
+	bool MonsterAttackTower(Monster*, Tower*, float);
 	void MonsterMove(Monster*, int, bool, float, float);
 	void moveFlag(Vec2 Pos);
 	bool onTouchBegan(Touch *touch, Event *event);
@@ -155,5 +157,7 @@ public:
 	void showDescription(Ref*,int);
 	void MonsterHurtSoldier(Soldier*, Monster*, float);
 	void SoldierHurtMonster(Soldier*, Monster*, float);
+	void MonsterHurtTower(Monster*, Tower*, float);
+	void ReduceGold(Monster* monster);
 	CREATE_FUNC(WorldScene1);
 };

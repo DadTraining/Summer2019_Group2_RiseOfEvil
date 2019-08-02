@@ -7,49 +7,104 @@ void Tower::Init()
 	{
 	case ARROW_TOWER:
 		m_sprite = Sprite::create("res/WorldScene1/arrowtower1.png");
-		m_hitPoint = 100;
+		m_maxHitPoint = m_hitPoint = 100;
 		baseMinnimumAtk = m_minimumAtk = 4;
 		baseMaximumAtk = m_maximumAtk = 6;
 		baseAttackSpeed = m_minimumAttackSpeed = m_attackSpeed = 0.8;
 		m_range = 160;
 		m_gold = 70;
+
+		m_bloodBar = Sprite::create("res/LoadingScene/loadingbar.png");
+		m_blood = Sprite::create("res/LoadingScene/loadingbar_bg.png");
+		m_blood->setColor(Color3B(051, 255, 255));
+		m_blood->setAnchorPoint(Point(0, 0.5));
+		m_blood->setPosition(Point(0, m_bloodBar->getContentSize().height / 2));
+
+		m_bloodBar->setPosition(Point(m_sprite->getContentSize().width / 2, m_sprite->getContentSize().height * 1.05));
+		m_bloodBar->setScale(0.2);
+		m_bloodBar->addChild(m_blood, 8);
+		m_sprite->addChild(m_bloodBar, 6);
 		break;
 	case MAGIC_TOWER:
 		m_sprite = Sprite::create("res/WorldScene1/magictower1.png");
-		m_hitPoint = 100;
+		m_maxHitPoint = m_hitPoint = 100;
 		baseMinnimumAtk = m_minimumAtk = 9;
 		baseMaximumAtk = m_maximumAtk = 17;
 		m_minimumAttackSpeed = m_attackSpeed = 1.5;
 		baseAttackSpeed = 1.5;
 		m_range = 240;
 		m_gold = 100;
+
+		m_bloodBar = Sprite::create("res/LoadingScene/loadingbar.png");
+		m_blood = Sprite::create("res/LoadingScene/loadingbar_bg.png");
+		m_blood->setColor(Color3B(051, 255, 255));
+		m_blood->setAnchorPoint(Point(0, 0.5));
+		m_blood->setPosition(Point(0, m_bloodBar->getContentSize().height / 2));
+
+		m_bloodBar->setPosition(Point(m_sprite->getContentSize().width / 2, m_sprite->getContentSize().height * 1.05));
+		m_bloodBar->setScale(0.2);
+		m_bloodBar->addChild(m_blood, 8);
+		m_sprite->addChild(m_bloodBar, 6);
 		break;
 	case SLOW_TOWER:
 		m_sprite = Sprite::create("res/WorldScene1/slowtower1.png");
-		m_hitPoint = 100;
+		m_maxHitPoint = m_hitPoint = 100;
 		baseMinnimumAtk = m_minimumAtk = 1;
 		baseMaximumAtk = m_maximumAtk = 3;
 		baseAttackSpeed = m_minimumAttackSpeed = m_attackSpeed = 1.3;
 		m_range = 180;
 		m_gold = 80;
+
+		m_bloodBar = Sprite::create("res/LoadingScene/loadingbar.png");
+		m_blood = Sprite::create("res/LoadingScene/loadingbar_bg.png");
+		m_blood->setColor(Color3B(051, 255, 255));
+		m_blood->setAnchorPoint(Point(0, 0.5));
+		m_blood->setPosition(Point(0, m_bloodBar->getContentSize().height / 2));
+
+		m_bloodBar->setPosition(Point(m_sprite->getContentSize().width / 2, m_sprite->getContentSize().height * 1.05));
+		m_bloodBar->setScale(0.2);
+		m_bloodBar->addChild(m_blood, 8);
+		m_sprite->addChild(m_bloodBar, 6);
 		break;
 	case BOMBARD_TOWER:
 		m_sprite = Sprite::create("res/WorldScene1/boomtower1.png");
-		m_hitPoint = 100;
+		m_maxHitPoint = m_hitPoint = 100;
 		baseMinnimumAtk = m_minimumAtk = 10;
 		baseMaximumAtk = m_maximumAtk = 18;
 		baseAttackSpeed = m_minimumAttackSpeed = m_attackSpeed = 3.0;
 		m_range = 180;
 		m_gold = 120;
+
+		m_bloodBar = Sprite::create("res/LoadingScene/loadingbar.png");
+		m_blood = Sprite::create("res/LoadingScene/loadingbar_bg.png");
+		m_blood->setColor(Color3B(051, 255, 255));
+		m_blood->setAnchorPoint(Point(0, 0.5));
+		m_blood->setPosition(Point(0, m_bloodBar->getContentSize().height / 2));
+
+		m_bloodBar->setPosition(Point(m_sprite->getContentSize().width / 2, m_sprite->getContentSize().height * 1.05));
+		m_bloodBar->setScale(0.2);
+		m_bloodBar->addChild(m_blood, 8);
+		m_sprite->addChild(m_bloodBar, 6);
 		break;
 	case BARRACKS_TOWER:
 		m_sprite = Sprite::create("res/WorldScene1/brracktower1.png");
-		m_hitPoint = 100;
+		m_maxHitPoint = m_hitPoint = 100;
 		baseMinnimumAtk = m_minimumAtk = 0;
 		baseMaximumAtk = m_maximumAtk = 0;
 		baseAttackSpeed = m_minimumAttackSpeed = m_attackSpeed = 300000.0;
 		m_range = 250;
 		m_gold = 70;
+
+		m_bloodBar = Sprite::create("res/LoadingScene/loadingbar.png");
+		m_blood = Sprite::create("res/LoadingScene/loadingbar_bg.png");
+		m_blood->setColor(Color3B(051, 255, 255));
+		m_blood->setAnchorPoint(Point(0, 0.5));
+		m_blood->setPosition(Point(0, m_bloodBar->getContentSize().height / 2));
+
+		m_bloodBar->setPosition(Point(m_sprite->getContentSize().width / 2, m_sprite->getContentSize().height * 1.05));
+		m_bloodBar->setScale(0.2);
+		m_bloodBar->addChild(m_blood, 8);
+		m_sprite->addChild(m_bloodBar, 6);
 		break;
 	}
 }
@@ -672,6 +727,44 @@ void Tower::SetFlagLocation(Vec2 flag)
 Sprite * Tower::getSkillDetails()
 {
 	return skillDetail;
+}
+
+void Tower::ReduceHitPointTower(int damage)
+{
+	m_hitPoint -= damage;
+}
+
+void Tower::setProgressBar()
+{
+	m_blood->setScaleX(abs(m_hitPoint / (m_maxHitPoint * 1.0)));
+	log("blood :%f", abs(m_hitPoint / (m_maxHitPoint * 1.0)));
+}
+
+int Tower::GetMaxHitPoint()
+{
+	return m_maxHitPoint;
+}
+
+bool Tower::IsDead()
+{
+	return Dead;
+}
+
+void Tower::DoDead()
+{
+	if (!Dead)
+	{
+		Dead = true;
+		if (m_type == BARRACKS_TOWER)
+		{
+			for (int i = 0; i < listSoldier.size(); i++)
+			{
+				listSoldier[i]->GetSprite()->setVisible(false);
+				delete listSoldier[i];
+			}
+		}
+	}
+
 }
 
 int Tower::GetDamage()

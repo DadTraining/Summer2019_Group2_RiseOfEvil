@@ -59,6 +59,7 @@ private:
 	int checkMove = 0;
 	bool isSlow = false;
 	bool Dead = false;
+	bool checkAttackTower = false;
 	float coutTimeToReduceHP = 0;
 public:
 	int m_flag = 0;
@@ -89,6 +90,8 @@ public:
 	bool GetIsSlow();
 	void SetSlowRunSpeed();
 	void SetIsSlow(bool);
+	bool GetIsAttackTower();
+	void SetIsAttackTower(bool);
 	float GetMSpeed();
 	int GetDamage();
 	int GetMaxHitPoint();
