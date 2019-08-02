@@ -510,7 +510,7 @@ void WorldScene1::update(float deltaTime)
 				if (!(listMonster[i]->GetSprite()->isVisible()))
 				{
 					listMonster[i]->Update(deltaTime);
-					i = 100;
+					i = 10000;
 				}
 			}
 		}
@@ -976,15 +976,19 @@ bool WorldScene1::MonsterAttack(Monster* monster, float deltaTime)
 float timeMonsterHurtSolider = 0;
 void WorldScene1::MonsterHurtSoldier(Soldier* soldier, Monster* monster, float deltaTime)
 {
-	if (timeMonsterHurtSolider >= monster->GetAttackSpeed())
+	if (!monster->IsDead())
 	{
-		soldier->ReduceHitPointSoldier(monster->GetDamage());
-		timeMonsterHurtSolider = 0;
+		if (timeMonsterHurtSolider >= monster->GetAttackSpeed())
+		{
+			soldier->ReduceHitPointSoldier(monster->GetDamage());
+			timeMonsterHurtSolider = 0;
+		}
+		else
+		{
+			timeMonsterHurtSolider += deltaTime;
+		}
 	}
-	else
-	{
-		timeMonsterHurtSolider += deltaTime;
-	}
+	
 	
 }
 float timeSoliderHurtMonster = 0;
