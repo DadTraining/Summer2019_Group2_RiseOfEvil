@@ -760,7 +760,6 @@ void Tower::DoDead()
 			for (int i = 0; i < listSoldier.size(); i++)
 			{
 				listSoldier[i]->GetSprite()->setVisible(false);
-				delete listSoldier[i];
 			}
 		}
 	}
