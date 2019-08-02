@@ -470,6 +470,11 @@ void WorldScene1::update(float deltaTime)
 				}
 			}
 		}
+		//Set health bar of tower
+		for (int i = 0; i < listTower.size(); i++)
+		{
+			listTower[i]->setProgressBar();
+		}
 		for (int i = 0; i < listMonster.size(); i++)
 		{
 			if (!listMonster[i]->IsDead())
@@ -514,130 +519,10 @@ void WorldScene1::update(float deltaTime)
 		{
 			if (!listMonster[i]->IsDead())
 			{
-				if (listMonster[i]->GetSprite()->getTag() == 1)
-				{
-					if (listMonster[i]->m_flag < listPoint.size())
-					{
-						if (listMonster[i]->GetMaxGold() == 6)
-						{
-							if (listMonster[i]->m_flag > 4 && listMonster[i]->m_flag < 10)
-							{
-								listMonster[i]->SetGold(listMonster[i]->GetMaxGold() - 2);
-							}
-							else if (listMonster[i]->m_flag >= 10)
-							{
-								listMonster[i]->SetGold(3);
-							}
-						}
-						if (listMonster[i]->GetMaxGold() == 15)
-						{
-							if (listMonster[i]->m_flag > 4 && listMonster[i]->m_flag < 10)
-							{
-								listMonster[i]->SetGold(listMonster[i]->GetMaxGold() - 3);
-							}
-							else if (listMonster[i]->m_flag >= 10)
-							{
-								listMonster[i]->SetGold(8);
-							}
-						}
-						if (listMonster[i]->GetMaxGold() == 20)
-						{
-							if (listMonster[i]->m_flag > 4 && listMonster[i]->m_flag < 10)
-							{
-								listMonster[i]->SetGold(listMonster[i]->GetMaxGold() - 5);
-							}
-							else if (listMonster[i]->m_flag >= 10)
-							{
-								listMonster[i]->SetGold(10);
-							}
-						}
-						if (listMonster[i]->GetMaxGold() == 100)
-						{
-							if (listMonster[i]->m_flag > 4 && listMonster[i]->m_flag < 10)
-							{
-								listMonster[i]->SetGold(listMonster[i]->GetMaxGold() - 20);
-							}
-							else if (listMonster[i]->m_flag >= 10)
-							{
-								listMonster[i]->SetGold(70);
-							}
-						}
-						if (listMonster[i]->GetMaxGold() == 500)
-						{
-							if (listMonster[i]->m_flag > 4 && listMonster[i]->m_flag < 10)
-							{
-								listMonster[i]->SetGold(listMonster[i]->GetMaxGold() - 50);
-							}
-							else if (listMonster[i]->m_flag >= 10)
-							{
-								listMonster[i]->SetGold(300);
-							}
-						}
-
-					}
-				}
-	
-			if (listMonster[i]->GetSprite()->getTag() == 0)
-			{
-				if (listMonster[i]->m_flag < listPoint2.size())
-				{
-					if (listMonster[i]->GetMaxGold() == 6)
-					{
-						if (listMonster[i]->m_flag > 4 && listMonster[i]->m_flag < 10)
-						{
-							listMonster[i]->SetGold(listMonster[i]->GetMaxGold() - 2);
-						}
-						else if (listMonster[i]->m_flag >= 10)
-						{
-							listMonster[i]->SetGold(3);
-						}
-					}
-					if (listMonster[i]->GetMaxGold() == 15 )
-					{
-						if (listMonster[i]->m_flag > 4 && listMonster[i]->m_flag < 10)
-						{
-							listMonster[i]->SetGold(listMonster[i]->GetMaxGold() - 3);
-						}
-						else if (listMonster[i]->m_flag >= 10)
-						{
-							listMonster[i]->SetGold(8);
-						}
-					}
-					if (listMonster[i]->GetMaxGold() == 20)
-					{
-						if (listMonster[i]->m_flag > 4 && listMonster[i]->m_flag < 10)
-						{
-							listMonster[i]->SetGold(listMonster[i]->GetMaxGold() - 5);
-						}
-						else if (listMonster[i]->m_flag >= 10)
-						{
-							listMonster[i]->SetGold(10);
-						}
-					}
-					if (listMonster[i]->GetMaxGold() == 100)
-					{
-						if (listMonster[i]->m_flag > 4 && listMonster[i]->m_flag < 10)
-						{
-							listMonster[i]->SetGold(listMonster[i]->GetMaxGold() - 20);
-						}
-						else if (listMonster[i]->m_flag >= 10)
-						{
-							listMonster[i]->SetGold(70);
-						}
-					}
-					if (listMonster[i]->GetMaxGold() == 500)
-					{
-						if (listMonster[i]->m_flag > 4 && listMonster[i]->m_flag < 10)
-						{
-							listMonster[i]->SetGold(listMonster[i]->GetMaxGold() - 50);
-						}
-						else if (listMonster[i]->m_flag >= 10)
-						{
-							listMonster[i]->SetGold(300);
-						}
-					}
-				}
+				ReduceGold(listMonster[i]);
 			}
+			if (listMonster[i]->GetType() != SIEGE_MONSTER)
+			{
 				if ((listMonster[i]->m_flag < listPoint.size()) && (listMonster[i]->GetSprite()->getTag() == 1) && (listMonster[i]->GetSprite()->isVisible()))
 				{
 					if (listPoint[listMonster[i]->m_flag].getDistance(listMonster[i]->GetSprite()->getPosition()) == 0)
@@ -662,8 +547,46 @@ void WorldScene1::update(float deltaTime)
 						delay = 0.4;
 					}
 				}
-				checkMonsterAttack = MonsterAttack(listMonster[i], deltaTime);			
-				MonsterMove(listMonster[i], listMonster[i]->GetSprite()->getTag(), checkMonsterAttack, deltaTime, delay);				
+				checkMonsterAttack = MonsterAttack(listMonster[i], deltaTime);
+				MonsterMove(listMonster[i], listMonster[i]->GetSprite()->getTag(), checkMonsterAttack, deltaTime, delay);
+			}
+				
+			else 
+			{
+				if ((listMonster[i]->m_flag < listPoint.size()) && (listMonster[i]->GetSprite()->getTag() == 1) && (listMonster[i]->GetSprite()->isVisible()))
+				{
+					if (listPoint[listMonster[i]->m_flag].getDistance(listMonster[i]->GetSprite()->getPosition()) == 0)
+					{
+						listMonster[i]->m_flag++;
+						delay = 0;
+					}
+					else
+					{
+						delay = 0.4;
+					}
+				}
+				else if ((listMonster[i]->m_flag < listPoint2.size()) && (listMonster[i]->GetSprite()->getTag() == 0) && (listMonster[i]->GetSprite()->isVisible()))
+				{
+					if (listPoint2[listMonster[i]->m_flag].getDistance(listMonster[i]->GetSprite()->getPosition()) == 0)
+					{
+						listMonster[i]->m_flag++;
+						delay = 0;
+					}
+					else
+					{
+						delay = 0.4;
+					}
+				}
+				checkMonsterAttack = MonsterAttack(listMonster[i], deltaTime);
+				MonsterFindTower(listMonster[i]);
+				if (MonsterFindTower(listMonster[i]) == nullptr)
+				{
+					MonsterMove(listMonster[i], listMonster[i]->GetSprite()->getTag(), checkMonsterAttack, deltaTime, delay);
+				}
+				if (MonsterFindTower(listMonster[i]) != nullptr)
+				{
+					listMonster[i]->Move(MonsterFindTower(listMonster[i])->GetSprite()->getPosition(), MonsterAttackTower(listMonster[i], MonsterFindTower(listMonster[i]), deltaTime), deltaTime, delay);
+				}
 			}
 		}
 
@@ -749,6 +672,15 @@ void WorldScene1::update(float deltaTime)
 						listTower[i]->GetListSoldier()[j]->GetSprite()->setVisible(false);
 					}
 				}
+			}
+		}
+		//Tower die
+		for (int i = 0; i < listTower.size(); i++)
+		{
+			if (listTower[i]->GetHitPoint() <= 0 && !listTower[i]->IsDead())
+			{
+				listTower[i]->DoDead();
+				listTower[i]->GetSprite()->setVisible(false);
 			}
 		}
 		//Tower attack
@@ -1067,6 +999,146 @@ void WorldScene1::SoldierHurtMonster(Soldier * soldier, Monster * monster, float
 		timeSoliderHurtMonster += deltaTime;
 	}
 }
+float timeMonsterHurtTower = 0;
+void WorldScene1::MonsterHurtTower(Monster * monster, Tower * tower, float deltaTime)
+{
+	if (timeMonsterHurtTower >= monster->GetAttackSpeed())
+	{
+		tower->ReduceHitPointTower(monster->GetDamage());
+		timeMonsterHurtTower = 0;
+	}
+	else
+	{
+		timeMonsterHurtTower += deltaTime;
+	}
+}
+void WorldScene1::ReduceGold(Monster * monster)
+{
+	if (monster->GetSprite()->getTag() == 1)
+	{
+		if (monster->m_flag < listPoint.size())
+		{
+			if (monster->GetMaxGold() == 6)
+			{
+				if (monster->m_flag > 4 && monster->m_flag < 10)
+				{
+					monster->SetGold(monster->GetMaxGold() - 2);
+				}
+				else if (monster->m_flag >= 10)
+				{
+					monster->SetGold(3);
+				}
+			}
+			if (monster->GetMaxGold() == 15)
+			{
+				if (monster->m_flag > 4 && monster->m_flag < 10)
+				{
+					monster->SetGold(monster->GetMaxGold() - 3);
+				}
+				else if (monster->m_flag >= 10)
+				{
+					monster->SetGold(8);
+				}
+			}
+			if (monster->GetMaxGold() == 20)
+			{
+				if (monster->m_flag > 4 && monster->m_flag < 10)
+				{
+					monster->SetGold(monster->GetMaxGold() - 5);
+				}
+				else if (monster->m_flag >= 10)
+				{
+					monster->SetGold(10);
+				}
+			}
+			if (monster->GetMaxGold() == 100)
+			{
+				if (monster->m_flag > 4 && monster->m_flag < 10)
+				{
+					monster->SetGold(monster->GetMaxGold() - 20);
+				}
+				else if (monster->m_flag >= 10)
+				{
+					monster->SetGold(70);
+				}
+			}
+			if (monster->GetMaxGold() == 500)
+			{
+				if (monster->m_flag > 4 && monster->m_flag < 10)
+				{
+					monster->SetGold(monster->GetMaxGold() - 50);
+				}
+				else if (monster->m_flag >= 10)
+				{
+					monster->SetGold(300);
+				}
+			}
+
+		}
+	}
+	if (monster->GetSprite()->getTag() == 0)
+	{
+		if (monster->m_flag < listPoint2.size())
+		{
+			if (monster->GetMaxGold() == 6)
+			{
+				if (monster->m_flag > 4 && monster->m_flag < 10)
+				{
+					monster->SetGold(monster->GetMaxGold() - 2);
+				}
+				else if (monster->m_flag >= 10)
+				{
+					monster->SetGold(3);
+				}
+			}
+			if (monster->GetMaxGold() == 15)
+			{
+				if (monster->m_flag > 4 && monster->m_flag < 10)
+				{
+					monster->SetGold(monster->GetMaxGold() - 3);
+				}
+				else if (monster->m_flag >= 10)
+				{
+					monster->SetGold(8);
+				}
+			}
+			if (monster->GetMaxGold() == 20)
+			{
+				if (monster->m_flag > 4 && monster->m_flag < 10)
+				{
+					monster->SetGold(monster->GetMaxGold() - 5);
+				}
+				else if (monster->m_flag >= 10)
+				{
+					monster->SetGold(10);
+				}
+			}
+			if (monster->GetMaxGold() == 100)
+			{
+				if (monster->m_flag > 4 && monster->m_flag < 10)
+				{
+					monster->SetGold(monster->GetMaxGold() - 20);
+				}
+				else if (monster->m_flag >= 10)
+				{
+					monster->SetGold(70);
+				}
+			}
+			if (monster->GetMaxGold() == 500)
+			{
+				if (monster->m_flag > 4 && monster->m_flag < 10)
+				{
+					monster->SetGold(monster->GetMaxGold() - 50);
+				}
+				else if (monster->m_flag >= 10)
+				{
+					monster->SetGold(300);
+				}
+			}
+
+		}
+	}
+}
 Monster* WorldScene1::SoldierFindMonster(Soldier* soldier)
 {
 	for (int i = 0; i < listMonster.size(); i++)
@@ -1084,6 +1156,21 @@ Monster* WorldScene1::SoldierFindMonster(Soldier* soldier)
 	return nullptr;
 }
 
+Tower * WorldScene1::MonsterFindTower(Monster * monster)
+{
+	for (int i = 0; i < listTower.size(); i++)
+	{
+		if (!listTower[i]->IsDead())
+		{
+			if (monster->GetSprite()->getPosition().distance(listTower[i]->GetSprite()->getPosition()) <= monster->GetRange())
+			{
+				return listTower[i];
+			}
+		}
+	}
+	return nullptr;
+}
+
 bool WorldScene1::SoldierAttack(Soldier* soldier, Monster* monster , float deltaTime)
 {
 	if (soldier->GetSprite()->getPosition().distance(monster->GetSprite()->getPosition()) <= 20)
@@ -1092,6 +1179,15 @@ bool WorldScene1::SoldierAttack(Soldier* soldier, Monster* monster , float delta
 		return true;
 	}
 	soldier->SetComeBack(true);
+	return false;
+}
+bool WorldScene1::MonsterAttackTower(Monster * monster, Tower * tower, float deltaTime)
+{
+	if (monster->GetSprite()->getPosition().distance(tower->GetSprite()->getPosition()) <= 20)
+	{
+		MonsterHurtTower(monster, tower, deltaTime);
+		return true;
+	}
 	return false;
 }
 void WorldScene1::showDescription(Ref* ref, int type)

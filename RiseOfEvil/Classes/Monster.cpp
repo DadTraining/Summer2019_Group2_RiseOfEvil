@@ -269,6 +269,7 @@ void Monster::Init()
 		m_speed = m_movementSpeed = m_velocity = MEDIUM_SPEED;
 		m_armor = 0;
 		m_MaxGold = m_gold = 15;
+		m_range = 100;
 		break;
 	}
 		
@@ -406,6 +407,7 @@ void Monster::Move(Vec2 point, bool check, float timedelay, float delay)
 		timeMove += timedelay;
 	}	
 }
+
 
 Animation* Monster::AnimationMonster(string prefixName, int pFrameBegin, int pFrameEnd, float delay)
 {
@@ -767,6 +769,16 @@ void Monster::SetSlowRunSpeed()
 void Monster::SetIsSlow(bool isSlow)
 {
 	this->isSlow = isSlow;
+}
+
+bool Monster::GetIsAttackTower()
+{
+	return checkAttackTower;
+}
+
+void Monster::SetIsAttackTower(bool checkAttackTower)
+{
+	this->checkAttackTower = checkAttackTower;
 }
 
 float Monster::GetMSpeed()
