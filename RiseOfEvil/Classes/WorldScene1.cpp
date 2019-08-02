@@ -480,7 +480,7 @@ void WorldScene1::update(float deltaTime)
 				}
 			}
 		}
-		if (time >= 80 && crystal->getcrystalBurst() == false && numOfWave < 8)
+		if (time >= 50 && crystal->getcrystalBurst() == false && numOfWave < 8)
 		{
 			startWave();
 		}
@@ -924,7 +924,6 @@ void WorldScene1::update(float deltaTime)
 				}
 			}
 		}
-		
 	}
 }
 void WorldScene1::restart()
@@ -1562,20 +1561,19 @@ void WorldScene1::startWave()
 			listTemp[i]->GetSprite()->setScale(0.6);
 		}
 	}
-	auto counta = 0;
-	for (int i = 0; i < listMonster.size(); i++)
-	{
-		if (listMonster[i]->IsDead())
-		{
-			delete listMonster[i];
-			listMonster.erase(listMonster.begin() + i);
-		}
-		else
-		{
-			counta++;
-		}
-	}
-	log("%d", counta);
+	//auto counta = 0;
+	//for (int i = 0; i < listMonster.size(); i++)
+	//{
+	//	if (listMonster[i]->IsDead())
+	//	{
+	//		delete listMonster[i];
+	//		listMonster.erase(listMonster.begin() + i);
+	//	}
+	//	else
+	//	{
+	//		counta++;
+	//	}
+	//}
 }
 
 void WorldScene1::muteSound()
