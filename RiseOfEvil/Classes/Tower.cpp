@@ -484,6 +484,7 @@ void Tower::upgrade()
 			break;
 		}
 		m_hitPoint *= m_level;
+		m_maxHitPoint *= m_level;
 		m_minimumAtk *= m_level;
 		m_maximumAtk *= m_level;
 		m_gold *= m_level;
