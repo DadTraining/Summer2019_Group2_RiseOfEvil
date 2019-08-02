@@ -14,8 +14,8 @@ void Tower::Init()
 		m_range = 160;
 		m_gold = 70;
 
-		m_bloodBar = Sprite::create("res/LoadingScene/loadingbar.png");
-		m_blood = Sprite::create("res/LoadingScene/loadingbar_bg.png");
+		m_bloodBar = Sprite::create("res/Sprites/LoadingScene/loadingbar.png");
+		m_blood = Sprite::create("res/Sprites/LoadingScene/loadingbar_bg.png");
 		m_blood->setColor(Color3B(051, 255, 255));
 		m_blood->setAnchorPoint(Point(0, 0.5));
 		m_blood->setPosition(Point(0, m_bloodBar->getContentSize().height / 2));
@@ -35,8 +35,8 @@ void Tower::Init()
 		m_range = 240;
 		m_gold = 100;
 
-		m_bloodBar = Sprite::create("res/LoadingScene/loadingbar.png");
-		m_blood = Sprite::create("res/LoadingScene/loadingbar_bg.png");
+		m_bloodBar = Sprite::create("res/Sprites/LoadingScene/loadingbar.png");
+		m_blood = Sprite::create("res/Sprites/LoadingScene/loadingbar_bg.png");
 		m_blood->setColor(Color3B(051, 255, 255));
 		m_blood->setAnchorPoint(Point(0, 0.5));
 		m_blood->setPosition(Point(0, m_bloodBar->getContentSize().height / 2));
@@ -55,8 +55,8 @@ void Tower::Init()
 		m_range = 180;
 		m_gold = 80;
 
-		m_bloodBar = Sprite::create("res/LoadingScene/loadingbar.png");
-		m_blood = Sprite::create("res/LoadingScene/loadingbar_bg.png");
+		m_bloodBar = Sprite::create("res/Sprites/LoadingScene/loadingbar.png");
+		m_blood = Sprite::create("res/Sprites/LoadingScene/loadingbar_bg.png");
 		m_blood->setColor(Color3B(051, 255, 255));
 		m_blood->setAnchorPoint(Point(0, 0.5));
 		m_blood->setPosition(Point(0, m_bloodBar->getContentSize().height / 2));
@@ -75,8 +75,8 @@ void Tower::Init()
 		m_range = 180;
 		m_gold = 120;
 
-		m_bloodBar = Sprite::create("res/LoadingScene/loadingbar.png");
-		m_blood = Sprite::create("res/LoadingScene/loadingbar_bg.png");
+		m_bloodBar = Sprite::create("res/Sprites/LoadingScene/loadingbar.png");
+		m_blood = Sprite::create("res/Sprites/LoadingScene/loadingbar_bg.png");
 		m_blood->setColor(Color3B(051, 255, 255));
 		m_blood->setAnchorPoint(Point(0, 0.5));
 		m_blood->setPosition(Point(0, m_bloodBar->getContentSize().height / 2));
@@ -95,8 +95,8 @@ void Tower::Init()
 		m_range = 250;
 		m_gold = 70;
 
-		m_bloodBar = Sprite::create("res/LoadingScene/loadingbar.png");
-		m_blood = Sprite::create("res/LoadingScene/loadingbar_bg.png");
+		m_bloodBar = Sprite::create("res/Sprites/LoadingScene/loadingbar.png");
+		m_blood = Sprite::create("res/Sprites/LoadingScene/loadingbar_bg.png");
 		m_blood->setColor(Color3B(051, 255, 255));
 		m_blood->setAnchorPoint(Point(0, 0.5));
 		m_blood->setPosition(Point(0, m_bloodBar->getContentSize().height / 2));

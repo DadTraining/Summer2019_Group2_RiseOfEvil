@@ -520,74 +520,76 @@ void WorldScene1::update(float deltaTime)
 			if (!listMonster[i]->IsDead())
 			{
 				ReduceGold(listMonster[i]);
-			}
-			if (listMonster[i]->GetType() != SIEGE_MONSTER)
-			{
-				if ((listMonster[i]->m_flag < listPoint.size()) && (listMonster[i]->GetSprite()->getTag() == 1) && (listMonster[i]->GetSprite()->isVisible()))
+				if (listMonster[i]->GetType() != SIEGE_MONSTER)
 				{
-					if (listPoint[listMonster[i]->m_flag].getDistance(listMonster[i]->GetSprite()->getPosition()) == 0)
+					if ((listMonster[i]->m_flag < listPoint.size()) && (listMonster[i]->GetSprite()->getTag() == 1) && (listMonster[i]->GetSprite()->isVisible()))
 					{
-						listMonster[i]->m_flag++;
-						delay = 0;
+						if (listPoint[listMonster[i]->m_flag].getDistance(listMonster[i]->GetSprite()->getPosition()) == 0)
+						{
+							listMonster[i]->m_flag++;
+							delay = 0;
+						}
+						else
+						{
+							delay = 0.4;
+						}
 					}
-					else
+					else if ((listMonster[i]->m_flag < listPoint2.size()) && (listMonster[i]->GetSprite()->getTag() == 0) && (listMonster[i]->GetSprite()->isVisible()))
 					{
-						delay = 0.4;
+						if (listPoint2[listMonster[i]->m_flag].getDistance(listMonster[i]->GetSprite()->getPosition()) == 0)
+						{
+							listMonster[i]->m_flag++;
+							delay = 0;
+						}
+						else
+						{
+							delay = 0.4;
+						}
 					}
-				}
-				else if ((listMonster[i]->m_flag < listPoint2.size()) && (listMonster[i]->GetSprite()->getTag() == 0) && (listMonster[i]->GetSprite()->isVisible()))
-				{
-					if (listPoint2[listMonster[i]->m_flag].getDistance(listMonster[i]->GetSprite()->getPosition()) == 0)
-					{
-						listMonster[i]->m_flag++;
-						delay = 0;
-					}
-					else
-					{
-						delay = 0.4;
-					}
-				}
-				checkMonsterAttack = MonsterAttack(listMonster[i], deltaTime);
-				MonsterMove(listMonster[i], listMonster[i]->GetSprite()->getTag(), checkMonsterAttack, deltaTime, delay);
-			}
-				
-			else 
-			{
-				if ((listMonster[i]->m_flag < listPoint.size()) && (listMonster[i]->GetSprite()->getTag() == 1) && (listMonster[i]->GetSprite()->isVisible()))
-				{
-					if (listPoint[listMonster[i]->m_flag].getDistance(listMonster[i]->GetSprite()->getPosition()) == 0)
-					{
-						listMonster[i]->m_flag++;
-						delay = 0;
-					}
-					else
-					{
-						delay = 0.4;
-					}
-				}
-				else if ((listMonster[i]->m_flag < listPoint2.size()) && (listMonster[i]->GetSprite()->getTag() == 0) && (listMonster[i]->GetSprite()->isVisible()))
-				{
-					if (listPoint2[listMonster[i]->m_flag].getDistance(listMonster[i]->GetSprite()->getPosition()) == 0)
-					{
-						listMonster[i]->m_flag++;
-						delay = 0;
-					}
-					else
-					{
-						delay = 0.4;
-					}
-				}
-				checkMonsterAttack = MonsterAttack(listMonster[i], deltaTime);
-				MonsterFindTower(listMonster[i]);
-				if (MonsterFindTower(listMonster[i]) == nullptr)
-				{
+					checkMonsterAttack = MonsterAttack(listMonster[i], deltaTime);
 					MonsterMove(listMonster[i], listMonster[i]->GetSprite()->getTag(), checkMonsterAttack, deltaTime, delay);
 				}
-				if (MonsterFindTower(listMonster[i]) != nullptr)
+
+				else
 				{
-					listMonster[i]->Move(MonsterFindTower(listMonster[i])->GetSprite()->getPosition(), MonsterAttackTower(listMonster[i], MonsterFindTower(listMonster[i]), deltaTime), deltaTime, delay);
+					if ((listMonster[i]->m_flag < listPoint.size()) && (listMonster[i]->GetSprite()->getTag() == 1) && (listMonster[i]->GetSprite()->isVisible()))
+					{
+						if (listPoint[listMonster[i]->m_flag].getDistance(listMonster[i]->GetSprite()->getPosition()) == 0)
+						{
+							listMonster[i]->m_flag++;
+							delay = 0;
+						}
+						else
+						{
+							delay = 0.4;
+						}
+					}
+					else if ((listMonster[i]->m_flag < listPoint2.size()) && (listMonster[i]->GetSprite()->getTag() == 0) && (listMonster[i]->GetSprite()->isVisible()))
+					{
+						if (listPoint2[listMonster[i]->m_flag].getDistance(listMonster[i]->GetSprite()->getPosition()) == 0)
+						{
+							listMonster[i]->m_flag++;
+							delay = 0;
+						}
+						else
+						{
+							delay = 0.4;
+						}
+					}
+					checkMonsterAttack = MonsterAttack(listMonster[i], deltaTime);
+					MonsterFindTower(listMonster[i]);                    
+					if (MonsterFindTower(listMonster[i]) == nullptr)
+					{
+						MonsterMove(listMonster[i], listMonster[i]->GetSprite()->getTag(), checkMonsterAttack, deltaTime, delay);
+					}
+					if (MonsterFindTower(listMonster[i]) != nullptr)
+					{
+						listMonster[i]->Move(MonsterFindTower(listMonster[i])->GetSprite()->getPosition(), MonsterAttackTower(listMonster[i], MonsterFindTower(listMonster[i]), deltaTime), deltaTime, delay);
+					}
 				}
 			}
+			
+			
 		}
 
 		//crystal burst================================================================================================================
